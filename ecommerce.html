@@ -6,74 +6,26 @@
   <title>NextGen E-commerce - Shop Now</title>
   <!-- Bootstrap 5 CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Bootstrap Icons -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
   <style>
     /* Global Styles */
     body {
       font-family: 'Roboto', sans-serif;
-      background-color: #f8f9fa; /* Light grey background */
+      background-color: #f4f4f4;
       color: #333;
       margin: 0;
       padding: 0;
-      visibility: hidden; /* Hide content until fully loaded to prevent flicker */
     }
-    /* Header / Navbar - Modern & Mobile Friendly */
     .navbar {
-      background: #ffffff;
-      border-bottom: 1px solid #e0e0e0; /* Subtle border */
-      padding: 0.5rem 1rem;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Soft shadow */
+      background-color: #d70018;
     }
-    .navbar-brand {
-      color: #1976d2 !important;
+    .navbar-brand, .nav-link {
+      color: #fff !important;
       font-weight: bold;
-      font-size: 1.5rem;
     }
-    .nav-link {
-      color: #555 !important;
-      font-weight: 500;
-      font-size: 1rem;
+    .navbar-brand:hover, .nav-link:hover {
+      color: #ffcccc !important;
     }
-    .nav-link:hover {
-      color: #1976d2 !important;
-    }
-    /* Cart Icon Styling */
-    .cart-icon {
-      font-size: 1.5rem;
-      color: #1976d2;
-      position: relative;
-      margin-left: 1rem;
-      cursor: pointer;
-    }
-    .cart-icon .badge {
-      position: absolute;
-      top: -5px;
-      right: -10px;
-      background-color: #ffc107;
-      color: #000;
-      font-size: 0.7rem;
-      border-radius: 50%;
-      padding: 2px 5px;
-    }
-    /* Footer - Clean & Modern */
-    footer {
-      background: #ffffff;
-      border-top: 1px solid #e0e0e0;
-      color: #555;
-      text-align: center;
-      padding: 1rem 0;
-      box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1); /* Soft shadow */
-    }
-    footer a {
-      color: #1976d2;
-      text-decoration: none;
-      margin: 0 0.5rem;
-    }
-    footer a:hover {
-      text-decoration: underline;
-    }
-    /* Horizontal Scroll Container for Main Page */
+    /* Horizontal Scroll Container */
     .horizontal-scroll {
       display: flex;
       overflow-x: auto;
@@ -84,43 +36,45 @@
     .horizontal-scroll::-webkit-scrollbar {
       display: none;
     }
-    /* Product Card Styles */
+    .horizontal-scroll {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    /* Card Styles */
     .card {
       cursor: pointer;
       border: none;
-      border-radius: 12px;
+      border-radius: 10px;
       overflow: hidden;
       background: #fff;
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
-      min-width: 120px; /* Smaller tile size */
     }
     .card:hover {
-      transform: translateY(-4px);
+      transform: translateY(-5px);
       box-shadow: 0 4px 10px rgba(0,0,0,0.15);
     }
     .card-img-top {
       width: 100%;
-      height: 120px; /* Smaller tile size */
+      height: 180px;
       object-fit: cover;
     }
     .card-body {
-      padding: 0.5rem;
+      padding: 0.75rem;
     }
     .card-title {
-      font-size: 0.9rem;
-      margin-bottom: 0.25rem;
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
       font-weight: bold;
-      color: #1976d2;
     }
     .card-text {
-      font-size: 0.8rem;
-      color: #555;
+      color: #d70018;
+      font-size: 0.9rem;
     }
     /* Banner Styles */
     .banner {
       margin: 1rem 0;
-      border-radius: 12px;
+      border-radius: 10px;
       overflow: hidden;
       background: #fff;
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
@@ -129,25 +83,24 @@
       width: 100%;
       object-fit: cover;
     }
-    /* Banner Variants - All with 120px height */
-    .carousel-banner,
-    .fullwidth-banner,
-    .accordion-banner,
-    .three-part-banner {
-      height: 120px;
+    /* Carousel Banner specific */
+    .carousel-banner {
+      height: 150px; /* rectangular, reduced height */
     }
-    /* Carousel Banner */
-    .carousel-banner .carousel-item,
+    .carousel-banner .carousel-item {
+      height: 150px;
+    }
     .carousel-banner .carousel-item img {
-      height: 120px;
+      height: 150px;
     }
-    /* Fullwidth Banner */
+    /* Full-Width Banner */
     .fullwidth-banner {
+      height: 150px;
       position: relative;
     }
     .fullwidth-banner img {
-      height: 120px;
-      opacity: 0.85;
+      height: 150px;
+      opacity: 0.8;
     }
     .fullwidth-banner .banner-text {
       position: absolute;
@@ -159,28 +112,27 @@
       font-weight: bold;
     }
     /* Accordion Banner */
-    .accordion-banner .accordion-button {
-      font-weight: bold;
-      font-size: 1rem;
+    .accordion-banner {
+      height: 150px;
     }
     /* Three-Part Banner */
     .three-part-banner {
+      height: 150px;
       display: flex;
       align-items: center;
       padding: 0 1rem;
     }
     .three-part-banner .banner-title {
       flex: 1;
-      font-size: 1rem;
+      font-size: 1.1rem;
       font-weight: bold;
     }
     .three-part-banner .banner-desc {
       flex: 2;
-      font-size: 0.9rem;
+      font-size: 0.95rem;
     }
     .three-part-banner .banner-img {
       flex: 1;
-      text-align: right;
     }
     .three-part-banner .banner-img img {
       height: 100%;
@@ -190,31 +142,15 @@
     #categoryPage .col {
       margin-bottom: 1rem;
     }
-    /* Mobile Friendly Adjustments */
-    @media (max-width: 768px) {
-      .navbar-brand {
-        font-size: 1.3rem;
-      }
-      .nav-link {
-        font-size: 0.9rem;
-      }
-      .cart-icon {
-        font-size: 1.3rem;
-      }
-      .card-img-top {
-        height: 100px;
-      }
-      .card-title {
-        font-size: 0.85rem;
-      }
-      .card-text {
-        font-size: 0.75rem;
-      }
-    }
   </style>
+  <!--
+    This frontend code is built using dummy data and is structured to be easily integrated with a Firebase backend in the future.
+    The fetchProducts() function currently simulates data fetching, and will later be replaced by Firebase Firestore API calls.
+    Authentication and data persistence will be handled via Firebase, allowing for dynamic and secure data management.
+  -->
 </head>
 <body>
-  <!-- Header / Navigation Bar -->
+  <!-- Navigation Bar -->
   <nav class="navbar navbar-expand-lg">
     <div class="container">
       <a class="navbar-brand" href="index.html">MyBusiness Premium</a>
@@ -222,40 +158,33 @@
               aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-        <ul class="navbar-nav me-3">
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
           <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
           <li class="nav-item active"><a class="nav-link" href="ecommerce.html">Shop Now</a></li>
         </ul>
-        <!-- Prominent Add to Cart Icon wrapped in a link -->
-        <a href="cart.html" class="text-decoration-none">
-          <div class="cart-icon">
-            <i class="bi bi-cart-fill"></i>
-            <span class="badge">0</span>
-          </div>
-        </a>
       </div>
     </div>
   </nav>
   
   <!-- Main Page: Categories with Banners and Horizontal Scroll -->
   <div class="container my-4" id="mainPage">
-    <h1 class="mb-4 text-center">Product Categories</h1>
+    <h1 class="mb-4">Product Categories</h1>
     <div id="categoriesContainer">
-      <!-- Dynamic category sections (each preceded by a custom banner) will be rendered here -->
+      <!-- Dynamic category sections (each preceded by a banner) will be rendered here -->
     </div>
   </div>
   
   <!-- Category Page: Vertical Grid of Products -->
   <div class="container my-4" id="categoryPage" style="display: none;">
     <button class="btn btn-secondary mb-3" onclick="backToMain()">Back to Categories</button>
-    <h2 id="categoryTitle" class="mb-4"></h2>
+    <h2 id="categoryTitle"></h2>
     <div class="row" id="categoryProducts">
       <!-- Products will be rendered here in a grid (2 columns on mobile, 3 on larger screens) -->
     </div>
   </div>
   
-  <!-- Modal: Product Details with Add to Cart -->
+  <!-- Modal: Product Details -->
   <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
       <div class="modal-content">
@@ -270,23 +199,11 @@
           <p id="modalProductDescription"></p>
         </div>
         <div class="modal-footer">
-          <button class="btn btn-primary"><i class="bi bi-cart-fill me-1"></i> Add to Cart</button>
+          <button class="btn btn-primary">Add to Cart</button>
         </div>
       </div>
     </div>
   </div>
-  
-  <!-- Footer -->
-  <footer>
-    <div class="container">
-      <p>&copy; 2025 MyBusiness Premium. All rights reserved.</p>
-      <p>
-        <a href="#">Privacy Policy</a> | 
-        <a href="#">Terms of Service</a> | 
-        <a href="#">Contact Us</a>
-      </p>
-    </div>
-  </footer>
   
   <!-- JavaScript: Dummy Data & Functions -->
   <script>
@@ -322,11 +239,12 @@
     // Function to create a banner for a category based on its index
     function createBannerForCategory(category, index) {
       let banner = document.createElement("div");
-      banner.className = "banner";
+      banner.className = "banner mb-4";
       
+      // Adjust banner height and content based on category index
       switch (index) {
         case 0:
-          // Carousel Slider Banner for Countdown Sales
+          // Carousel Slider Banner for first category (e.g., Countdown Sales)
           banner.classList.add("carousel-banner");
           banner.innerHTML = `
             <div id="carouselBanner${index}" class="carousel slide" data-bs-ride="carousel">
@@ -337,28 +255,28 @@
               </div>
               <div class="carousel-inner">
                 <div class="carousel-item active">
-                  <img src="https://via.placeholder.com/1200x180?text=Deal+1" class="d-block w-100" alt="Deal 1">
+                  <img src="https://via.placeholder.com/1200x150?text=Deal+1" class="d-block w-100" alt="Deal 1">
                 </div>
                 <div class="carousel-item">
-                  <img src="https://via.placeholder.com/1200x180?text=Deal+2" class="d-block w-100" alt="Deal 2">
+                  <img src="https://via.placeholder.com/1200x150?text=Deal+2" class="d-block w-100" alt="Deal 2">
                 </div>
                 <div class="carousel-item">
-                  <img src="https://via.placeholder.com/1200x180?text=Deal+3" class="d-block w-100" alt="Deal 3">
+                  <img src="https://via.placeholder.com/1200x150?text=Deal+3" class="d-block w-100" alt="Deal 3">
                 </div>
               </div>
             </div>
           `;
           break;
         case 1:
-          // Full-Width Banner for Discount Offers
+          // Full-Width Banner for second category (e.g., Discount Offers)
           banner.classList.add("fullwidth-banner");
           banner.innerHTML = `
-            <img src="https://via.placeholder.com/1200x180?text=Big+Discount+Offer" alt="Big Discount">
+            <img src="https://via.placeholder.com/1200x150?text=Big+Discount+Offer" alt="Big Discount">
             <div class="banner-text">Big Discounts Available!</div>
           `;
           break;
         case 2:
-          // Accordion Banner for Hot Sales
+          // Accordion Offers Banner for third category (e.g., Hot Sales)
           banner.classList.add("accordion-banner");
           banner.innerHTML = `
             <div class="accordion" id="accordionBanner${index}">
@@ -378,18 +296,18 @@
           `;
           break;
         case 3:
-          // Three-Part Banner for Seasonal Offers
+          // Three-Part Banner for fourth category (e.g., Seasonal Offers)
           banner.classList.add("three-part-banner");
           banner.innerHTML = `
             <div class="banner-title">Seasonal Savings</div>
-            <div class="banner-desc">Special offers for the season.</div>
+            <div class="banner-desc">Discover special offers for the season.</div>
             <div class="banner-img">
               <img src="https://via.placeholder.com/150x150?text=Seasonal" alt="Seasonal">
             </div>
           `;
           break;
         case 4:
-          // Three-Part Banner for Clearance Sale
+          // Three-Part Banner for fifth category (e.g., Clearance Sale)
           banner.classList.add("three-part-banner");
           banner.innerHTML = `
             <div class="banner-title">Clearance Sale</div>
@@ -405,7 +323,7 @@
       return banner;
     }
 
-    // Render main page with categories and banners
+    // Render main page with category sections and banners above each horizontal scroll line
     function initMainPage() {
       document.getElementById("mainPage").style.display = "block";
       document.getElementById("categoryPage").style.display = "none";
@@ -413,10 +331,11 @@
       container.innerHTML = "";
       let index = 0;
       for (let category in productData) {
-        // Append banner for this category
+        // Create and append the banner for this category
         let banner = createBannerForCategory(category, index);
         container.appendChild(banner);
-        // Create category section with title and horizontal scroll container
+        
+        // Create a section for the category title and horizontal scroll of products
         let section = document.createElement("div");
         section.innerHTML = `<h2 class="mt-4">${category}</h2>
           <div class="horizontal-scroll" id="scroll-${category.replace(/\s/g, '')}"></div>`;
@@ -425,7 +344,7 @@
         productData[category].forEach(product => {
           let card = document.createElement("div");
           card.className = "card";
-          card.style.minWidth = "120px";
+          card.style.minWidth = "200px";
           card.style.marginRight = "1rem";
           // Clicking a product tile opens the dedicated category page
           card.onclick = function() {
@@ -484,10 +403,9 @@
       modal.show();
     }
 
-    // Initialize main page on load and remove flicker
+    // Initialize main page on load
     window.onload = function() {
       initMainPage();
-      document.body.style.visibility = 'visible';
     };
   </script>
   
