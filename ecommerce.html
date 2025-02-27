@@ -2,230 +2,207 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Shop Now - MyBusiness Premium</title>
-  <!-- Bootstrap CSS for responsive design -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NextGen E-commerce - Shop Now</title>
+  <!-- Bootstrap 5 CSS for modern responsive design -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
+    /* Base Styles */
     body {
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      background-color: #f8f9fa;
+      font-family: 'Roboto', sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
     }
-    /* Navigation Bar Branding */
+    /* Navbar Styling */
     .navbar {
-      background-color: #d70018; /* Daraz-like red */
+      background-color: #d70018; /* Vibrant Daraz-like Red */
     }
     .navbar-brand, .nav-link {
       color: #fff !important;
+      font-weight: bold;
     }
     .navbar-brand:hover, .nav-link:hover {
       color: #ffcccc !important;
     }
-    /* Header Banner */
-    .header-banner {
-      background: url('https://via.placeholder.com/1920x400?text=Big+Sale+Event') no-repeat center;
-      background-size: cover;
+    /* Carousel Banner */
+    .carousel-item {
       height: 400px;
+      background-size: cover;
+      background-position: center;
       position: relative;
     }
-    .header-banner h1 {
-      position: absolute;
-      bottom: 20px;
-      left: 50px;
-      color: #fff;
-      font-size: 48px;
-      font-weight: bold;
+    .carousel-caption {
+      bottom: 20%;
+    }
+    .carousel-caption h1 {
+      font-size: 3rem;
+      text-shadow: 2px 2px 5px rgba(0,0,0,0.7);
     }
     /* Product Card Styling */
     .product-card {
-      border: none;
-      border-radius: 5px;
-      margin-bottom: 20px;
-      transition: box-shadow 0.3s ease;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
       background: #fff;
+      border: none;
+      border-radius: 10px;
+      overflow: hidden;
+      position: relative;
     }
     .product-card:hover {
-      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
     }
-    .product-img {
-      width: 100%;
-      height: 200px;
+    .product-card img {
       object-fit: cover;
-      border-top-left-radius: 5px;
-      border-top-right-radius: 5px;
+      height: 200px;
+      width: 100%;
     }
-    /* Branded Buy Button */
-    .btn-buy {
+    .discount-badge {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background-color: #ff5722;
+      color: #fff;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 0.9rem;
+    }
+    .price {
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+    .old-price {
+      text-decoration: line-through;
+      color: #999;
+      margin-right: 5px;
+    }
+    .btn-add-cart {
       background-color: #d70018;
-      border-color: #d70018;
+      border: none;
     }
-    .btn-buy:hover {
+    .btn-add-cart:hover {
       background-color: #b30014;
-      border-color: #b30014;
     }
     /* Footer Styling */
-    .footer {
-      background-color: #343a40;
-      color: #fff;
-      padding: 20px;
+    footer {
+      background-color: #222;
+      color: #ccc;
+      padding: 20px 0;
       text-align: center;
-    }
-    /* Countdown Timer */
-    .countdown {
-      font-size: 1.5rem;
-      color: #d70018;
-      font-weight: bold;
     }
   </style>
 </head>
 <body>
-  <!-- Navigation Bar -->
+  <!-- Navbar -->
   <nav class="navbar navbar-expand-lg">
-    <a class="navbar-brand" href="index.html">MyBusiness Premium</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="index.html">Home</a>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-link" href="shop.html">Shop Now <span class="sr-only">(current)</span></a>
-        </li>
-      </ul>
+    <div class="container">
+      <a class="navbar-brand" href="#">NextGen E-commerce</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Shop</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Categories</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Offers</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Cart</a></li>
+        </ul>
+      </div>
     </div>
   </nav>
 
-  <!-- Header Banner -->
-  <div class="header-banner">
-    <h1>Big Sale Event!</h1>
+  <!-- Carousel Banner -->
+  <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active" style="background-image: url('https://via.placeholder.com/1920x400?text=Big+Sale+Now');">
+        <div class="carousel-caption text-start">
+          <h1>Big Sale Event!</h1>
+          <p>Unbeatable deals just for you</p>
+          <a href="#" class="btn btn-lg btn-light">Shop Now</a>
+        </div>
+      </div>
+      <div class="carousel-item" style="background-image: url('https://via.placeholder.com/1920x400?text=Latest+Trends');">
+        <div class="carousel-caption">
+          <h1>Latest Trends</h1>
+          <p>Discover the new arrivals in our store</p>
+          <a href="#" class="btn btn-lg btn-light">Explore</a>
+        </div>
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
   </div>
 
-  <!-- Main Content -->
-  <div class="container mt-5">
-    <div class="text-center">
-      <h2>Premium Shop Now</h2>
-      <p>Experience our new generation shop with exclusive deals, secure payments, and more.</p>
-    </div>
-    
-    <!-- Countdown Timer for Offers -->
-    <div class="text-center my-4">
-      <h3>Limited Time Offer</h3>
-      <div id="countdown" class="countdown">Loading countdown...</div>
-    </div>
-    
-    <!-- Product Listing Section -->
-    <div class="row">
-      <!-- Example Product Card 1 -->
+  <!-- Main Content: Product Grid -->
+  <div class="container my-5">
+    <div class="row g-4">
+      <!-- Product Card 1 -->
       <div class="col-md-4">
         <div class="card product-card">
-          <img src="https://via.placeholder.com/300x200?text=Product+1" class="card-img-top product-img" alt="Product 1">
+          <div class="discount-badge">20% OFF</div>
+          <img src="https://via.placeholder.com/400x300?text=Product+1" class="card-img-top" alt="Product 1">
           <div class="card-body">
             <h5 class="card-title">Product Name 1</h5>
-            <p class="card-text">Price: <del>$100</del> <strong>$80</strong></p>
-            <button class="btn btn-buy btn-block" data-toggle="modal" data-target="#cartModal">Add to Cart</button>
+            <p class="card-text">
+              <span class="old-price">$100</span>
+              <span class="price">$80</span>
+            </p>
+            <a href="#" class="btn btn-add-cart w-100">Add to Cart</a>
           </div>
         </div>
       </div>
-      <!-- Example Product Card 2 -->
+      <!-- Product Card 2 -->
       <div class="col-md-4">
         <div class="card product-card">
-          <img src="https://via.placeholder.com/300x200?text=Product+2" class="card-img-top product-img" alt="Product 2">
+          <div class="discount-badge">15% OFF</div>
+          <img src="https://via.placeholder.com/400x300?text=Product+2" class="card-img-top" alt="Product 2">
           <div class="card-body">
             <h5 class="card-title">Product Name 2</h5>
-            <p class="card-text">Price: <del>$150</del> <strong>$120</strong></p>
-            <button class="btn btn-buy btn-block" data-toggle="modal" data-target="#cartModal">Add to Cart</button>
+            <p class="card-text">
+              <span class="old-price">$150</span>
+              <span class="price">$127</span>
+            </p>
+            <a href="#" class="btn btn-add-cart w-100">Add to Cart</a>
           </div>
         </div>
       </div>
-      <!-- Example Product Card 3 -->
+      <!-- Product Card 3 -->
       <div class="col-md-4">
         <div class="card product-card">
-          <img src="https://via.placeholder.com/300x200?text=Product+3" class="card-img-top product-img" alt="Product 3">
+          <div class="discount-badge">30% OFF</div>
+          <img src="https://via.placeholder.com/400x300?text=Product+3" class="card-img-top" alt="Product 3">
           <div class="card-body">
             <h5 class="card-title">Product Name 3</h5>
-            <p class="card-text">Price: <del>$200</del> <strong>$160</strong></p>
-            <button class="btn btn-buy btn-block" data-toggle="modal" data-target="#cartModal">Add to Cart</button>
+            <p class="card-text">
+              <span class="old-price">$200</span>
+              <span class="price">$140</span>
+            </p>
+            <a href="#" class="btn btn-add-cart w-100">Add to Cart</a>
           </div>
         </div>
       </div>
     </div>
-    
-    <!-- Payment Options Section -->
-    <div class="mt-5">
-      <h4 class="text-center">Payment Options</h4>
-      <div class="d-flex justify-content-around">
-        <div>
-          <img src="https://via.placeholder.com/100x50?text=JazzCash" alt="JazzCash">
-          <p class="text-center">JazzCash</p>
-        </div>
-        <div>
-          <img src="https://via.placeholder.com/100x50?text=EasyPaisa" alt="EasyPaisa">
-          <p class="text-center">EasyPaisa</p>
-        </div>
-        <div>
-          <img src="https://via.placeholder.com/100x50?text=Bank+Transfer" alt="Bank Transfer">
-          <p class="text-center">Bank Transfer</p>
-        </div>
-        <div>
-          <img src="https://via.placeholder.com/100x50?text=COD" alt="Cash on Delivery">
-          <p class="text-center">Cash on Delivery</p>
-        </div>
-      </div>
-    </div>
-    
-    <!-- Cart Modal (Simple Implementation) -->
-    <div class="modal fade" id="cartModal" tabindex="-1" role="dialog" aria-labelledby="cartModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="cartModalLabel">Shopping Cart</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <p>Your cart is empty!</p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Proceed to Payment</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    
   </div>
 
   <!-- Footer -->
-  <footer class="footer">
-    © 2025 MyBusiness Premium. All rights reserved.
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 NextGen E-commerce. All rights reserved.</p>
+      <p>
+        <a href="#" class="text-light me-2">Privacy Policy</a>
+        <a href="#" class="text-light">Terms of Service</a>
+      </p>
+    </div>
   </footer>
-  
-  <!-- Bootstrap JS and dependencies -->
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  
-  <!-- Countdown Timer Script -->
-  <script>
-    // Set countdown for a 24-hour limited offer
-    var countDownDate = new Date();
-    countDownDate.setHours(countDownDate.getHours() + 24);
-    var countdownfunction = setInterval(function() {
-      var now = new Date().getTime();
-      var distance = countDownDate - now;
-      var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-      document.getElementById("countdown").innerHTML = hours + "h " + minutes + "m " + seconds + "s ";
-      if (distance < 0) {
-        clearInterval(countdownfunction);
-        document.getElementById("countdown").innerHTML = "EXPIRED";
-      }
-    }, 1000);
-  </script>
+
+  <!-- Bootstrap 5 JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
