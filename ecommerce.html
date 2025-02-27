@@ -4,34 +4,28 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>NextGen E-commerce - Product Showcase</title>
-  <!-- Bootstrap 5 CSS for modern responsive design -->
+  <!-- Bootstrap 5 CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
-    /* Base Styles */
+    /* Global Styles */
     body {
       font-family: 'Roboto', sans-serif;
       background-color: #f4f4f4;
       color: #333;
     }
-    /* Navbar Styling */
-    .navbar {
-      background-color: #d70018;
-    }
-    .navbar-brand, .nav-link {
-      color: #fff !important;
-      font-weight: bold;
-    }
-    .navbar-brand:hover, .nav-link:hover {
-      color: #ffcccc !important;
-    }
-    /* Horizontal Scroll Container */
+    /* Page Section Setup: Only one visible at a time */
+    .page-section { display: none; }
+    /* Show main page by default */
+    #mainPage { display: block; }
+    /* Card cursor pointer */
+    .card { cursor: pointer; }
+    /* Horizontal Scroll for Category Page */
     .horizontal-scroll {
       display: flex;
       overflow-x: auto;
       gap: 1rem;
       padding-bottom: 1rem;
     }
-    /* Hide scrollbar */
     .horizontal-scroll::-webkit-scrollbar {
       display: none;
     }
@@ -39,229 +33,143 @@
       -ms-overflow-style: none;
       scrollbar-width: none;
     }
-    /* Product Card Styling */
-    .product-card {
-      min-width: 200px;
-      background: #fff;
-      border: none;
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      position: relative;
-    }
-    .product-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-    }
-    .product-card img {
-      width: 100%;
-      height: 150px;
-      object-fit: cover;
-    }
-    .discount-badge {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      background-color: #ff5722;
-      color: #fff;
-      padding: 5px 10px;
-      border-radius: 5px;
-      font-size: 0.8rem;
-    }
-    .card-body {
-      padding: 0.5rem;
-    }
-    .card-title {
-      font-size: 1rem;
-      margin-bottom: 0.5rem;
-    }
-    .price {
-      font-size: 0.9rem;
-      font-weight: bold;
-    }
-    .old-price {
-      font-size: 0.8rem;
-      text-decoration: line-through;
-      color: #999;
-      margin-right: 5px;
-    }
-    .btn-add-cart {
-      background-color: #d70018;
-      color: #fff;
-      border: none;
-      width: 100%;
-      font-size: 0.9rem;
-    }
-    /* Section Title */
-    .section-title {
-      margin-top: 2rem;
-      margin-bottom: 1rem;
-      font-size: 1.5rem;
-      font-weight: bold;
-    }
   </style>
 </head>
 <body>
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg">
-    <div class="container">
-      <a class="navbar-brand" href="#">NextGen E-commerce</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
-              aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Shop</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Categories</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Offers</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Cart</a></li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-
-  <!-- Hero Carousel Banner -->
-  <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
-    <div class="carousel-inner">
-      <div class="carousel-item active" style="background-image: url('https://via.placeholder.com/1920x400?text=Mega+Sale'); height: 400px; background-size: cover; background-position: center;">
-        <div class="carousel-caption d-none d-md-block">
-          <h1>Welcome to NextGen E-commerce</h1>
-          <p>Discover amazing deals and the latest products</p>
-          <a href="#" class="btn btn-lg btn-light">Shop Now</a>
+  <div class="container my-4">
+    <!-- Main Page: Grid of Products (No Add to Cart) -->
+    <div id="mainPage" class="page-section">
+      <h2 class="mb-4">Products</h2>
+      <div class="row">
+        <!-- Product Card Example -->
+        <div class="col-md-3 mb-4">
+          <div class="card" onclick="openCategoryPage('Electronics')">
+            <img src="https://via.placeholder.com/300x200?text=Smartphone+X" class="card-img-top" alt="Smartphone X">
+            <div class="card-body">
+              <h6 class="card-title">Smartphone X</h6>
+              <p class="card-text">$299</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 mb-4">
+          <div class="card" onclick="openCategoryPage('Electronics')">
+            <img src="https://via.placeholder.com/300x200?text=Wireless+Headphones" class="card-img-top" alt="Wireless Headphones">
+            <div class="card-body">
+              <h6 class="card-title">Wireless Headphones</h6>
+              <p class="card-text">$99</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 mb-4">
+          <div class="card" onclick="openCategoryPage('Electronics')">
+            <img src="https://via.placeholder.com/300x200?text=Smartwatch+Pro" class="card-img-top" alt="Smartwatch Pro">
+            <div class="card-body">
+              <h6 class="card-title">Smartwatch Pro</h6>
+              <p class="card-text">$199</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 mb-4">
+          <div class="card" onclick="openCategoryPage('Electronics')">
+            <img src="https://via.placeholder.com/300x200?text=Bluetooth+Speaker" class="card-img-top" alt="Bluetooth Speaker">
+            <div class="card-body">
+              <h6 class="card-title">Bluetooth Speaker</h6>
+              <p class="card-text">$49</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- Main Content: Product Sections -->
-  <div class="container my-5">
-
-    <!-- Discount Offers Section -->
-    <div>
-      <h2 class="section-title">Discount Offers</h2>
+    <!-- Category Page: Tile Layout of Products in Selected Category -->
+    <div id="categoryPage" class="page-section">
+      <button class="btn btn-secondary mb-3" onclick="showMainPage()">Back to Main</button>
+      <h2 id="categoryTitle" class="mb-4">Category: Electronics</h2>
       <div class="horizontal-scroll">
-        <!-- Product Card 1 -->
-        <div class="card product-card">
-          <div class="discount-badge">20% OFF</div>
-          <img src="https://via.placeholder.com/200x150?text=Prod+1" alt="Product 1">
+        <!-- Tile Product Card 1 -->
+        <div class="card" style="min-width: 200px;" onclick="openProductDetails('Smartphone X', '$299', 'High quality smartphone with advanced features.', 'https://via.placeholder.com/300x200?text=Smartphone+X')">
+          <img src="https://via.placeholder.com/200x150?text=Smartphone+X" class="card-img-top" alt="Smartphone X">
           <div class="card-body">
-            <h5 class="card-title">Product 1</h5>
-            <p class="price"><span class="old-price">$100</span> $80</p>
-            <button class="btn btn-add-cart">Add to Cart</button>
+            <h6 class="card-title">Smartphone X</h6>
+            <p class="card-text">$299</p>
           </div>
         </div>
-        <!-- Product Card 2 -->
-        <div class="card product-card">
-          <div class="discount-badge">25% OFF</div>
-          <img src="https://via.placeholder.com/200x150?text=Prod+2" alt="Product 2">
+        <!-- Tile Product Card 2 -->
+        <div class="card" style="min-width: 200px;" onclick="openProductDetails('Wireless Headphones', '$99', 'High quality wireless headphones with noise cancellation.', 'https://via.placeholder.com/200x150?text=Wireless+Headphones')">
+          <img src="https://via.placeholder.com/200x150?text=Wireless+Headphones" class="card-img-top" alt="Wireless Headphones">
           <div class="card-body">
-            <h5 class="card-title">Product 2</h5>
-            <p class="price"><span class="old-price">$120</span> $90</p>
-            <button class="btn btn-add-cart">Add to Cart</button>
+            <h6 class="card-title">Wireless Headphones</h6>
+            <p class="card-text">$99</p>
           </div>
         </div>
-        <!-- Product Card 3 -->
-        <div class="card product-card">
-          <div class="discount-badge">30% OFF</div>
-          <img src="https://via.placeholder.com/200x150?text=Prod+3" alt="Product 3">
+        <!-- Tile Product Card 3 -->
+        <div class="card" style="min-width: 200px;" onclick="openProductDetails('Smartwatch Pro', '$199', 'Feature-rich smartwatch with fitness tracking.', 'https://via.placeholder.com/200x150?text=Smartwatch+Pro')">
+          <img src="https://via.placeholder.com/200x150?text=Smartwatch+Pro" class="card-img-top" alt="Smartwatch Pro">
           <div class="card-body">
-            <h5 class="card-title">Product 3</h5>
-            <p class="price"><span class="old-price">$150</span> $105</p>
-            <button class="btn btn-add-cart">Add to Cart</button>
+            <h6 class="card-title">Smartwatch Pro</h6>
+            <p class="card-text">$199</p>
           </div>
         </div>
-        <!-- Additional Product Cards can be added here -->
+        <!-- Tile Product Card 4 -->
+        <div class="card" style="min-width: 200px;" onclick="openProductDetails('Bluetooth Speaker', '$49', 'Compact and powerful Bluetooth speaker.', 'https://via.placeholder.com/200x150?text=Bluetooth+Speaker')">
+          <img src="https://via.placeholder.com/200x150?text=Bluetooth+Speaker" class="card-img-top" alt="Bluetooth Speaker">
+          <div class="card-body">
+            <h6 class="card-title">Bluetooth Speaker</h6>
+            <p class="card-text">$49</p>
+          </div>
+        </div>
+        <!-- مزید پراڈکٹ کارڈز شامل کریں -->
       </div>
     </div>
 
-    <!-- Seasonal Offers Section -->
-    <div>
-      <h2 class="section-title">Seasonal Offers</h2>
-      <div class="horizontal-scroll">
-        <!-- Product Card 1 -->
-        <div class="card product-card">
-          <img src="https://via.placeholder.com/200x150?text=Seasonal+1" alt="Seasonal Product 1">
-          <div class="card-body">
-            <h5 class="card-title">Seasonal Product 1</h5>
-            <p class="price">$50</p>
-            <button class="btn btn-add-cart">Add to Cart</button>
-          </div>
+    <!-- Product Details Page: Detailed View with Add to Cart -->
+    <div id="productDetailsPage" class="page-section">
+      <button class="btn btn-secondary mb-3" onclick="openCategoryPage('Electronics')">Back to Category</button>
+      <div class="row">
+        <div class="col-md-6">
+          <img id="detailsImage" src="" class="img-fluid" alt="Product Details">
         </div>
-        <!-- Product Card 2 -->
-        <div class="card product-card">
-          <img src="https://via.placeholder.com/200x150?text=Seasonal+2" alt="Seasonal Product 2">
-          <div class="card-body">
-            <h5 class="card-title">Seasonal Product 2</h5>
-            <p class="price">$60</p>
-            <button class="btn btn-add-cart">Add to Cart</button>
-          </div>
+        <div class="col-md-6">
+          <h2 id="detailsTitle">Product Title</h2>
+          <p id="detailsPrice" class="h4 text-danger"></p>
+          <p id="detailsDescription">Product description goes here.</p>
+          <button class="btn btn-primary">Add to Cart</button>
         </div>
-        <!-- Product Card 3 -->
-        <div class="card product-card">
-          <img src="https://via.placeholder.com/200x150?text=Seasonal+3" alt="Seasonal Product 3">
-          <div class="card-body">
-            <h5 class="card-title">Seasonal Product 3</h5>
-            <p class="price">$70</p>
-            <button class="btn btn-add-cart">Add to Cart</button>
-          </div>
-        </div>
-        <!-- Additional Seasonal Products can be added here -->
-      </div>
-    </div>
-
-    <!-- Latest Arrivals Section -->
-    <div>
-      <h2 class="section-title">Latest Arrivals</h2>
-      <div class="horizontal-scroll">
-        <!-- Product Card 1 -->
-        <div class="card product-card">
-          <img src="https://via.placeholder.com/200x150?text=New+1" alt="New Arrival 1">
-          <div class="card-body">
-            <h5 class="card-title">New Arrival 1</h5>
-            <p class="price">$110</p>
-            <button class="btn btn-add-cart">Add to Cart</button>
-          </div>
-        </div>
-        <!-- Product Card 2 -->
-        <div class="card product-card">
-          <img src="https://via.placeholder.com/200x150?text=New+2" alt="New Arrival 2">
-          <div class="card-body">
-            <h5 class="card-title">New Arrival 2</h5>
-            <p class="price">$120</p>
-            <button class="btn btn-add-cart">Add to Cart</button>
-          </div>
-        </div>
-        <!-- Product Card 3 -->
-        <div class="card product-card">
-          <img src="https://via.placeholder.com/200x150?text=New+3" alt="New Arrival 3">
-          <div class="card-body">
-            <h5 class="card-title">New Arrival 3</h5>
-            <p class="price">$130</p>
-            <button class="btn btn-add-cart">Add to Cart</button>
-          </div>
-        </div>
-        <!-- Additional Latest Arrivals can be added here -->
       </div>
     </div>
 
   </div>
 
-  <!-- Footer -->
-  <footer class="bg-dark text-light py-3">
-    <div class="container text-center">
-      <p>&copy; 2025 NextGen E-commerce. All rights reserved.</p>
-      <p>
-        <a href="#" class="text-light me-2">Privacy Policy</a>
-        <a href="#" class="text-light">Terms of Service</a>
-      </p>
-    </div>
-  </footer>
+  <!-- JavaScript for Section Navigation -->
+  <script>
+    // Show the main page
+    function showMainPage() {
+      document.getElementById("mainPage").style.display = "block";
+      document.getElementById("categoryPage").style.display = "none";
+      document.getElementById("productDetailsPage").style.display = "none";
+    }
+
+    // Open Category Page; update category title if needed
+    function openCategoryPage(category) {
+      document.getElementById("mainPage").style.display = "none";
+      document.getElementById("categoryPage").style.display = "block";
+      document.getElementById("productDetailsPage").style.display = "none";
+      document.getElementById("categoryTitle").innerText = "Category: " + category;
+    }
+
+    // Open Product Details Page with dynamic data
+    function openProductDetails(productName, productPrice, productDescription, productImage) {
+      document.getElementById("mainPage").style.display = "none";
+      document.getElementById("categoryPage").style.display = "none";
+      document.getElementById("productDetailsPage").style.display = "block";
+      document.getElementById("detailsImage").src = productImage;
+      document.getElementById("detailsTitle").innerText = productName;
+      document.getElementById("detailsPrice").innerText = productPrice;
+      document.getElementById("detailsDescription").innerText = productDescription;
+    }
+  </script>
 
   <!-- Bootstrap 5 JS Bundle -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-``
