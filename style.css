@@ -6,7 +6,8 @@
 }
 
 body {
-  font-family: 'Montserrat', sans-serif;
+  /* Use Archivo for overall text if you like, or just headings */
+  font-family: 'Archivo', sans-serif;
   line-height: 1.6;
   background: #fff;
 }
@@ -75,16 +76,16 @@ body {
   width: 30px;
 }
 
-/* Main Content Padding to prevent footer overlap */
+/* Main Content Padding to avoid footer overlap */
 main {
-  padding-bottom: 80px;
+  padding-bottom: 120px; /* Increased bottom space to prevent overlap */
 }
 
-/* Hero Section - Digital Professional Style */
+/* Hero Section */
 .hero {
   background-color: #007BFF; /* Bright Blue */
   color: #fff;
-  padding: 120px 20px;
+  padding: 100px 20px;
   text-align: center;
   margin-top: 60px; /* to account for fixed header */
   position: relative;
@@ -109,15 +110,16 @@ main {
 
 .hero h1 {
   font-size: 3em;
-  margin-bottom: 10px; /* reduced vertical space */
-  font-weight: 700;
+  margin-bottom: 10px; /* Slightly reduced spacing */
+  font-weight: 900;    /* Bold weight for a more “digital” look */
   text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
   line-height: 1.2;
+  color: #fff;         /* Ensure it's white */
 }
 
 .hero p {
-  font-size: 1.2em;
-  margin-bottom: 15px; /* reduced vertical space */
+  font-size: 1.1em;
+  margin-bottom: 15px;
   line-height: 1.3;
 }
 
@@ -137,7 +139,7 @@ main {
   transition: background 0.3s ease;
 }
 
-/* Green Button Style */
+/* Green Buttons */
 .btn-green {
   background-color: #28a745;
   color: #fff;
