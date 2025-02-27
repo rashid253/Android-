@@ -9,10 +9,10 @@
   <!-- Bootstrap Icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
   <style>
-    /* Global Styles with Light Blue Background */
+    /* Global Styles */
     body {
       font-family: 'Roboto', sans-serif;
-      background-color: #e0f7fa; /* Light blue background */
+      background-color: #ECE5DD; /* Subtle background similar to WhatsApp */
       color: #333;
       margin: 0;
       padding: 0;
@@ -29,17 +29,12 @@
     .navbar-brand:hover, .nav-link:hover {
       color: #ffcccc !important;
     }
-    /* Prominent Cart Icon - Always Visible on All Pages */
     .cart-icon {
-      font-size: 1.8rem;
+      font-size: 1.5rem;
       color: #fff;
       position: relative;
       margin-left: 1rem;
       cursor: pointer;
-      background-color: rgba(255,255,255,0.2);
-      padding: 5px;
-      border-radius: 50%;
-      border: 2px solid #fff;
     }
     .cart-icon .badge {
       position: absolute;
@@ -66,7 +61,7 @@
     footer a:hover {
       text-decoration: underline;
     }
-    /* Horizontal Scroll Container */
+    /* Horizontal Scroll Container for Main Page */
     .horizontal-scroll {
       display: flex;
       overflow-x: auto;
@@ -120,7 +115,7 @@
       width: 100%;
       object-fit: cover;
     }
-    /* Banner Variants - Fixed 150px Height */
+    /* Banner Variants - All with 150px height */
     .carousel-banner,
     .fullwidth-banner,
     .accordion-banner,
@@ -204,7 +199,7 @@
           <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
           <li class="nav-item active"><a class="nav-link" href="ecommerce.html">Shop Now</a></li>
         </ul>
-        <!-- Prominent Cart Icon (visible on all pages) -->
+        <!-- Prominent Add to Cart Icon -->
         <div class="cart-icon">
           <i class="bi bi-cart-fill"></i>
           <span class="badge">0</span>
@@ -217,7 +212,7 @@
   <div class="container my-4" id="mainPage">
     <h1 class="mb-4 text-center">Product Categories</h1>
     <div id="categoriesContainer">
-      <!-- Dynamic category sections (each with a banner above) will be rendered here -->
+      <!-- Dynamic category sections (each preceded by a custom banner) will be rendered here -->
     </div>
   </div>
   
@@ -226,7 +221,7 @@
     <button class="btn btn-secondary mb-3" onclick="backToMain()">Back to Categories</button>
     <h2 id="categoryTitle" class="mb-4"></h2>
     <div class="row" id="categoryProducts">
-      <!-- Products rendered in grid (2 columns on mobile, 3 on larger screens) -->
+      <!-- Products will be rendered here in a grid (2 columns on mobile, 3 on larger screens) -->
     </div>
   </div>
   
@@ -388,10 +383,10 @@
       container.innerHTML = "";
       let index = 0;
       for (let category in productData) {
-        // Append banner for the category
+        // Append banner for this category
         let banner = createBannerForCategory(category, index);
         container.appendChild(banner);
-        // Create a section for the category title and horizontal scroll container
+        // Create category section with title and horizontal scroll container
         let section = document.createElement("div");
         section.innerHTML = `<h2 class="mt-4">${category}</h2>
           <div class="horizontal-scroll" id="scroll-${category.replace(/\s/g, '')}"></div>`;
@@ -417,7 +412,7 @@
       }
     }
 
-    // Open dedicated category page with vertical grid layout
+    // Open dedicated category page with vertical grid layout (2 columns on mobile, 3 on larger screens)
     function openCategoryPage(category) {
       document.getElementById("mainPage").style.display = "none";
       document.getElementById("categoryPage").style.display = "block";
@@ -449,7 +444,7 @@
       document.getElementById("mainPage").style.display = "block";
     }
 
-    // Open modal with product details
+    // Open modal with product details (includes "Add to Cart" button)
     function openProductModal(product) {
       document.getElementById("modalProductImage").src = product.image;
       document.getElementById("modalProductName").innerText = product.name;
