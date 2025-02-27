@@ -1,191 +1,39 @@
-/* ========== RESET & GLOBAL ========== */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: 'Helvetica Neue', Arial, sans-serif;
-  background: #f6f8fa;
-  color: #24292f;
-  line-height: 1.5;
-}
-
-/* ========== FIXED HEADER ========== */
-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background: #24292f; /* GitHub-like dark header */
-  color: #fff;
-  z-index: 9999;
+/* ========== CARDS SECTION ========== */
+.cards-section {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.8rem 1rem;
-}
-
-.header-left h1 {
-  font-size: 1.3rem;
-  font-weight: bold;
-}
-
-.nav-icons {
-  display: flex;
-  gap: 1rem;
-}
-
-.nav-icons a {
-  color: #fff;
-  text-decoration: none;
-  font-size: 1.2rem;
-  padding: 0.3rem;
-  border-radius: 5px;
-  transition: background 0.3s ease;
-}
-
-.nav-icons a:hover {
-  background: rgba(255, 255, 255, 0.1);
-}
-
-.active {
-  background: rgba(255, 255, 255, 0.3);
-}
-
-/* ========== FIXED FOOTER ========== */
-footer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  background: #24292f;
-  color: #fff;
-  text-align: center;
-  padding: 0.8rem 1rem;
-  z-index: 9999;
-  font-size: 0.9rem;
-}
-
-/* ========== MAIN CONTENT AREA ========== */
-main {
-  /* Enough top padding so content doesn't hide behind the header,
-     and enough bottom padding for the footer */
-  padding: 4rem 1rem 3rem;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-/* ========== HERO SECTION (HOME) ========== */
-.hero {
-  background: linear-gradient(120deg, #4f93ff, #6dd5ed);
-  color: #fff;
-  padding: 3rem 1rem;
-  border-radius: 8px;
-  text-align: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
   margin-bottom: 2rem;
 }
 
-.hero h2 {
-  font-size: 2rem;
-  margin-bottom: 1rem;
-}
-
-.hero p {
-  font-size: 1.1rem;
-  margin-bottom: 2rem;
-}
-
-.cta-button {
-  background: #24292f;
-  color: #fff;
-  border: none;
-  padding: 0.8rem 1.2rem;
-  border-radius: 5px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: background 0.3s ease;
-}
-
-.cta-button:hover {
-  background: #1b1f23;
-}
-
-/* ========== CONTENT BLOCKS ========== */
-.section-block {
+.card {
   background: #fff;
-  margin-bottom: 2rem;
-  padding: 2rem;
+  border: 1px solid #ddd;
   border-radius: 8px;
+  padding: 1.5rem;
+  width: 280px;
+  text-align: center;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
 }
 
-.section-block h3 {
-  margin-bottom: 1rem;
-  color: #24292f;
+.card:hover {
+  transform: translateY(-5px);
 }
 
-.section-block p {
-  line-height: 1.6;
-}
-
-/* ========== USER FORM SECTION ========== */
-.user-form-block {
-  background: #fff;
-  margin-bottom: 2rem;
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.user-form-block h3 {
+.card-icon {
+  font-size: 2.5rem;
   color: #4f93ff;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 }
 
-.user-form-block form {
-  display: flex;
-  flex-direction: column;
-  gap: 0.8rem;
+.card h4 {
+  margin-bottom: 0.5rem;
+  color: #24292f;
 }
 
-.user-form-block label {
-  font-weight: 600;
-}
-
-.user-form-block input {
-  padding: 0.6rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-.user-form-block button {
-  background: #4f93ff;
-  color: #fff;
-  border: none;
-  padding: 0.8rem 1.2rem;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: background 0.3s ease;
-}
-
-.user-form-block button:hover {
-  background: #3f7dd0;
-}
-
-#formMessage {
-  margin-top: 1rem;
-  font-weight: bold;
-}
-
-/* ========== MEDIA QUERIES ========== */
-@media (max-width: 768px) {
-  .nav-icons {
-    gap: 0.5rem;
-  }
-  .hero h2 {
-    font-size: 1.6rem;
-  }
+.card p {
+  font-size: 0.9rem;
+  color: #555;
 }
