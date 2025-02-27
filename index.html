@@ -3,66 +3,71 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>My Luxury Website - Home</title>
+  <title>My New Luxury App - Home</title>
   <link rel="stylesheet" href="style.css"/>
+  <!-- Font Awesome (Replace with your kit or free CDN) -->
+  <script src="https://kit.fontawesome.com/your_kit_id.js" crossorigin="anonymous"></script>
 </head>
 <body>
   <!-- Fixed Header -->
-  <header class="fixed-header">
-    <div class="header-logo">
-      <h1>My Luxury Brand</h1>
+  <header>
+    <div class="header-left">
+      <h1>BrandName</h1>
     </div>
-    <nav class="header-nav">
-      <ul>
-        <li><a href="index.html" class="active">Home</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="analytics.html">Analytics</a></li>
-        <li><a href="calendar.html">Calendar</a></li>
-        <li><a href="cart.html">Cart</a></li>
-        <li><a href="ecommerce.html">E-commerce</a></li>
-        <li><a href="inventory.html">Inventory</a></li>
-        <li><a href="invoice.html">Invoice</a></li>
-        <li><a href="menu.html">Menu</a></li>
-        <li><a href="more.html">More</a></li>
-        <li><a href="offers.html">Offers</a></li>
-        <li><a href="payment.html">Payment</a></li>
-        <li><a href="services.html">Services</a></li>
-      </ul>
+    <nav>
+      <div class="nav-icons">
+        <a href="index.html" class="active" title="Home"><i class="fas fa-home"></i></a>
+        <a href="about.html" title="About"><i class="fas fa-info-circle"></i></a>
+        <a href="analytics.html" title="Analytics"><i class="fas fa-chart-bar"></i></a>
+        <a href="calendar.html" title="Calendar"><i class="fas fa-calendar-alt"></i></a>
+        <a href="cart.html" title="Cart"><i class="fas fa-shopping-cart"></i></a>
+        <a href="ecommerce.html" title="E-commerce"><i class="fas fa-store"></i></a>
+        <a href="inventory.html" title="Inventory"><i class="fas fa-boxes"></i></a>
+        <a href="invoice.html" title="Invoice"><i class="fas fa-file-invoice"></i></a>
+        <a href="menu.html" title="Menu"><i class="fas fa-bars"></i></a>
+        <a href="more.html" title="More"><i class="fas fa-ellipsis-h"></i></a>
+        <a href="offers.html" title="Offers"><i class="fas fa-gift"></i></a>
+        <a href="payment.html" title="Payment"><i class="fas fa-credit-card"></i></a>
+        <a href="services.html" title="Services"><i class="fas fa-concierge-bell"></i></a>
+      </div>
     </nav>
   </header>
 
-  <!-- Main Content Container -->
+  <!-- Main Content -->
   <main>
     <!-- Hero Section -->
     <section class="hero">
-      <div class="hero-content">
-        <h2>Accelerate Your Success</h2>
-        <p>Experience a next-generation platform with modern design, refined style, and fully mobile support.</p>
-        <button class="cta-button">Get Started</button>
-      </div>
+      <h2>Welcome to BrandName</h2>
+      <p>Your one-stop solution for business services and products.</p>
+      <button class="cta-button">Explore Our Services</button>
     </section>
 
-    <!-- Info Section -->
-    <section class="info-section">
-      <h3>Welcome to Our Luxury Website</h3>
-      <p>
-        This site is designed to showcase high-end services, products, or business solutions. 
-        It’s fully responsive, user-friendly, and equipped with forms for collecting important user data.
-      </p>
+    <!-- Some Content Blocks -->
+    <section class="section-block">
+      <h3>Why Choose Us?</h3>
+      <p>We offer cutting-edge solutions, unparalleled customer support, and a commitment to excellence.</p>
+    </section>
+
+    <section class="section-block">
+      <h3>Latest Highlights</h3>
+      <p>Check out our newest features, premium products, and ongoing promotions to elevate your business.</p>
     </section>
 
     <!-- Form Section -->
-    <section class="user-form-section">
-      <h3>Enter Your Details</h3>
-      <form id="userInfoForm">
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" placeholder="Your Full Name" required />
+    <section class="user-form-block">
+      <h3>Enter Your Information</h3>
+      <form id="pageForm">
+        <!-- Hidden input to store page title -->
+        <input type="hidden" id="pageTitle" name="pageTitle" value="Home Page" />
 
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" placeholder="Your Email Address" required />
+        <label for="name">Full Name:</label>
+        <input type="text" id="name" name="name" required />
 
-        <label for="phone">Phone:</label>
-        <input type="tel" id="phone" name="phone" placeholder="Your Phone Number" />
+        <label for="email">Email Address:</label>
+        <input type="email" id="email" name="email" required />
+
+        <label for="phone">Phone Number:</label>
+        <input type="tel" id="phone" name="phone" />
 
         <button type="submit">Submit</button>
       </form>
@@ -71,8 +76,8 @@
   </main>
 
   <!-- Fixed Footer -->
-  <footer class="fixed-footer">
-    <p>&copy; 2025 My Luxury Brand. All rights reserved.</p>
+  <footer>
+    <p>&copy; 2025 BrandName - All Rights Reserved</p>
   </footer>
 
   <!-- Firebase + Script -->
