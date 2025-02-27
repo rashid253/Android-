@@ -12,28 +12,35 @@
     /* Global Styles */
     body {
       font-family: 'Roboto', sans-serif;
-      background-color: #e0f7fa; /* Light blue background */
+      background-color: #fff; /* Plain white background */
       color: #333;
       margin: 0;
       padding: 0;
-      visibility: hidden; /* Hide content until fully loaded to reduce flicker */
+      visibility: hidden; /* Hide content until fully loaded to prevent flicker */
     }
-    /* Header / Navbar */
+    /* Header / Navbar - Modern & Mobile Friendly */
     .navbar {
-      background: #4CAF50; /* Green header */
-      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      background: #fff;
+      border-bottom: 2px solid #1976d2; /* Blue accent for a fresh look */
+      padding: 0.5rem 1rem;
     }
-    .navbar-brand, .nav-link {
-      color: #fff !important;
+    .navbar-brand {
+      color: #1976d2 !important;
       font-weight: bold;
+      font-size: 1.5rem;
     }
-    .navbar-brand:hover, .nav-link:hover {
-      color: #dcedc8 !important;
+    .nav-link {
+      color: #555 !important;
+      font-weight: 500;
+      font-size: 1rem;
+    }
+    .nav-link:hover {
+      color: #1976d2 !important;
     }
     /* Cart Icon Styling */
     .cart-icon {
-      font-size: 1.7rem; /* Prominent size */
-      color: #fff;
+      font-size: 1.7rem;
+      color: #1976d2;
       position: relative;
       margin-left: 1rem;
       cursor: pointer;
@@ -48,15 +55,16 @@
       border-radius: 50%;
       padding: 2px 5px;
     }
-    /* Footer */
+    /* Footer - Clean & Modern */
     footer {
-      background-color: #2E7D32; /* Darker green footer */
-      color: #fff;
+      background: #fff;
+      border-top: 2px solid #1976d2;
+      color: #555;
       text-align: center;
       padding: 1rem 0;
     }
     footer a {
-      color: #c5e1a5;
+      color: #1976d2;
       text-decoration: none;
       margin: 0 0.5rem;
     }
@@ -81,29 +89,30 @@
       border-radius: 12px;
       overflow: hidden;
       background: #fff;
-      box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
     .card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+      transform: translateY(-4px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
     }
     .card-img-top {
       width: 100%;
-      height: 200px;
+      height: 180px; /* Smaller tile size */
       object-fit: cover;
     }
     .card-body {
-      padding: 0.75rem;
+      padding: 0.5rem;
     }
     .card-title {
-      font-size: 1.1rem;
-      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+      margin-bottom: 0.25rem;
       font-weight: bold;
+      color: #1976d2;
     }
     .card-text {
-      color: #4CAF50; /* Green color to match header/footer */
-      font-size: 0.9rem;
+      font-size: 0.8rem;
+      color: #555;
     }
     /* Banner Styles */
     .banner {
@@ -111,7 +120,7 @@
       border-radius: 12px;
       overflow: hidden;
       background: #fff;
-      box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
     .banner img {
       width: 100%;
@@ -177,6 +186,27 @@
     /* Category Page Grid */
     #categoryPage .col {
       margin-bottom: 1rem;
+    }
+    /* Mobile Friendly Adjustments */
+    @media (max-width: 768px) {
+      .navbar-brand {
+        font-size: 1.3rem;
+      }
+      .nav-link {
+        font-size: 0.9rem;
+      }
+      .cart-icon {
+        font-size: 1.5rem;
+      }
+      .card-img-top {
+        height: 160px;
+      }
+      .card-title {
+        font-size: 0.85rem;
+      }
+      .card-text {
+        font-size: 0.75rem;
+      }
     }
   </style>
   <!--
@@ -397,7 +427,7 @@
         productData[category].forEach(product => {
           let card = document.createElement("div");
           card.className = "card";
-          card.style.minWidth = "150px";  /* Reduced card size */
+          card.style.minWidth = "150px";
           card.style.marginRight = "1rem";
           // Clicking a product tile opens the dedicated category page
           card.onclick = function() {
