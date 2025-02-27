@@ -1,127 +1,246 @@
-/* Reset styles */
+/* بیس ری سیٹ */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-body {
-  font-family: Arial, sans-serif;
-  line-height: 1.6;
+/* بنیادی رنگ وغیرہ آپ اپنی پسند کے مطابق رکھ سکتے ہیں */
+:root {
+  --primary-color: #5c5ce0;
+  --secondary-color: #f53f5e;
+  --bg-gradient-start: #5c5ce0;
+  --bg-gradient-end: #a0a0f0;
+  --text-color: #333;
+  --white: #fff;
 }
 
-/* Fixed Header */
-header {
+/* ===== HEADER ===== */
+.main-header {
   position: fixed;
   top: 0;
-  left: 0;
-  right: 0;
-  background-color: #333;
-  color: #fff;
-  padding: 10px 20px;
+  width: 100%;
+  background-color: var(--white);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  height: 60px;
   display: flex;
   align-items: center;
-  z-index: 100;
+  justify-content: space-between;
+  padding: 0 2rem;
+  z-index: 999;
 }
 
-header .logo {
-  font-size: 1.5em;
-  margin-right: auto;
+.logo a {
+  text-decoration: none;
+  color: var(--primary-color);
+  font-size: 1.5rem;
+  font-weight: bold;
 }
 
-nav ul {
+.navbar ul {
   list-style: none;
   display: flex;
+  gap: 1.5rem;
 }
 
-nav ul li {
-  margin-left: 20px;
-  position: relative;
-}
-
-nav ul li a {
-  color: #fff;
+.navbar a {
   text-decoration: none;
-  padding: 5px 10px;
+  color: var(--text-color);
+  font-weight: 500;
+  transition: color 0.3s;
 }
 
-nav ul li a:hover {
-  background-color: #444;
+.navbar a:hover {
+  color: var(--primary-color);
 }
 
-/* Dropdown Menu */
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #444;
-  top: 35px;
-  left: 0;
-  min-width: 150px;
-  z-index: 100;
+/* اس سے بعد والے سیکشنز ہیڈر کے نیچے نظر آئیں */
+body {
+  padding-top: 60px; /* ہیڈر کی اونچائی کے برابر */
 }
 
-.dropdown-content a {
-  display: block;
-  padding: 10px;
-  color: #fff;
-  text-decoration: none;
-}
-
-.dropdown-content a:hover {
-  background-color: #555;
-}
-
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-
-/* Main content area */
-main {
-  padding-top: 70px;  /* Height of header */
-  padding-bottom: 50px; /* Height of footer */
-}
-
-/* Hero Section */
+/* ===== HERO SECTION ===== */
 .hero {
+  min-height: 70vh;
+  background: linear-gradient(
+    135deg,
+    var(--bg-gradient-start),
+    var(--bg-gradient-end)
+  );
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
-  padding: 50px 20px;
-  background-color: #f4f4f4;
+  padding: 2rem;
 }
 
+.hero-content {
+  max-width: 600px;
+}
+
+.hero-content h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.hero-content p {
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+}
+
+.hero-buttons .btn {
+  margin: 0 0.5rem;
+}
+
+/* ===== BUTTONS ===== */
 .btn {
   display: inline-block;
-  background-color: #333;
-  color: #fff;
-  padding: 10px 20px;
-  text-decoration: none;
-  margin-top: 20px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s;
 }
 
-/* Features Section */
-.features {
-  display: flex;
-  justify-content: space-around;
-  padding: 50px 20px;
-  background-color: #eaeaea;
+.btn.primary {
+  background-color: var(--secondary-color);
+  color: var(--white);
 }
 
-.feature {
-  flex: 1;
-  margin: 0 10px;
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 5px;
+.btn.primary:hover {
+  opacity: 0.9;
+}
+
+.btn.secondary {
+  background-color: transparent;
+  color: var(--white);
+  border: 2px solid var(--white);
+}
+
+.btn.secondary:hover {
+  background-color: var(--white);
+  color: var(--bg-gradient-start);
+}
+
+/* ===== SERVICES SECTION ===== */
+.services {
+  padding: 4rem 2rem;
+  background-color: #f8f8f8;
   text-align: center;
 }
 
-/* Fixed Footer */
-footer {
+.services h2 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
+.services-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.card {
+  background-color: var(--white);
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.card .icon {
+  font-size: 2rem;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+}
+
+.card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.card p {
+  color: #666;
+}
+
+/* ===== FORM SECTION ===== */
+.info-form {
+  padding: 3rem 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.info-form h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+}
+
+.info-form form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.form-group input,
+.form-group textarea {
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+/* ===== FOOTER (Fixed) ===== */
+.main-footer {
   position: fixed;
   bottom: 0;
-  left: 0;
-  right: 0;
-  background-color: #333;
-  color: #fff;
-  text-align: center;
-  padding: 10px 20px;
+  width: 100%;
+  height: 50px;
+  background-color: var(--white);
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+  color: var(--text-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.main-footer p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+/* چونکہ فوٹر فکسڈ ہے، باڈی کے آخر میں جگہ بنانا ضروری ہے */
+body {
+  padding-bottom: 50px; /* فوٹر کی اونچائی کے برابر */
+}
+
+/* ریسپانسیو کے لیے (چھوٹی اسکرینز پر) */
+@media (max-width: 768px) {
+  .navbar ul {
+    gap: 1rem;
+    font-size: 0.9rem;
+  }
+
+  .hero-content h1 {
+    font-size: 2rem;
+  }
+
+  .services-cards {
+    grid-template-columns: 1fr;
+  }
 }
