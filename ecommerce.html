@@ -15,10 +15,16 @@
       background-color: #f8f9fa;
       color: #333;
       margin: 0;
-      padding-bottom: 80px; /* Ensure content is not hidden behind fixed footer */
+      padding-top: 80px; /* Ensure content doesn't overlap the fixed header */
+      padding-bottom: 80px; /* Ensure content doesn't overlap the fixed footer */
     }
-    /* Header Styles */
+    /* Fixed Header Styles */
     .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1100;
       background: linear-gradient(45deg, #003366, #004080);
       box-shadow: 0 2px 5px rgba(0,0,0,0.2);
       padding: 0.5rem 0;
@@ -221,7 +227,7 @@
   </style>
 </head>
 <body>
-  <!-- Navigation Header -->
+  <!-- Fixed Navigation Header -->
   <nav class="navbar">
     <div class="container header-top">
       <a class="navbar-brand" href="index.html">MyBusiness Premium</a>
