@@ -1,14 +1,12 @@
-document.addEventListener("DOMContentLoaded", function() {
-  // Global function to open pages in a new tab/window
-  window.openPage = function(url) {
-    window.open(url, '_blank');
-  };
+function toggleSideMenu() {
+  const sideMenu = document.getElementById('side-menu');
+  if (sideMenu.style.left === '0px') {
+    sideMenu.style.left = '-250px';
+  } else {
+    sideMenu.style.left = '0px';
+  }
+}
 
-  // Toggle mobile side menu
-  window.toggleSideMenu = function() {
-    const sideMenu = document.getElementById("side-menu");
-    if (sideMenu) {
-      sideMenu.classList.toggle("visible");
-    }
-  };
-});
+function openPage(url) {
+  window.location.href = url;
+}
