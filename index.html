@@ -1,104 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>My New Luxury App - Home</title>
-  <link rel="stylesheet" href="style.css"/>
-  <!-- Font Awesome: Replace your_kit_id with your actual kit or use the free CDN -->
-  <script src="https://kit.fontawesome.com/your_kit_id.js" crossorigin="anonymous"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MyBusiness Premium - Home</title>
+  <link rel="stylesheet" href="Styles.css">
 </head>
 <body>
   <!-- Fixed Header -->
   <header>
-    <div class="header-left">
-      <h1>BrandName</h1>
-    </div>
+    <div class="logo">MyBusiness Premium</div>
     <nav>
-      <div class="nav-icons">
-        <a href="index.html" class="active" title="Home"><i class="fas fa-home"></i></a>
-        <a href="about.html" title="About"><i class="fas fa-info-circle"></i></a>
-        <a href="analytics.html" title="Analytics"><i class="fas fa-chart-bar"></i></a>
-        <a href="calendar.html" title="Calendar"><i class="fas fa-calendar-alt"></i></a>
-        <a href="cart.html" title="Cart"><i class="fas fa-shopping-cart"></i></a>
-        <a href="ecommerce.html" title="E-commerce"><i class="fas fa-store"></i></a>
-        <a href="inventory.html" title="Inventory"><i class="fas fa-boxes"></i></a>
-        <a href="invoice.html" title="Invoice"><i class="fas fa-file-invoice"></i></a>
-        <a href="menu.html" title="Menu"><i class="fas fa-bars"></i></a>
-        <a href="more.html" title="More"><i class="fas fa-ellipsis-h"></i></a>
-        <a href="offers.html" title="Offers"><i class="fas fa-gift"></i></a>
-        <a href="payment.html" title="Payment"><i class="fas fa-credit-card"></i></a>
-        <a href="services.html" title="Services"><i class="fas fa-concierge-bell"></i></a>
-      </div>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="analytics.html">Analytics</a></li>
+        <li><a href="calendar.html">Calendar</a></li>
+        <li><a href="cart.html">Cart</a></li>
+        <li><a href="ecommerce.html">E-commerce</a></li>
+        <li><a href="inventory.html">Inventory</a></li>
+        <li><a href="invoice.html">Invoice</a></li>
+        <li><a href="menu.html">Menu</a></li>
+        <li><a href="more.html">More</a></li>
+        <!-- Dropdown for offers -->
+        <li class="dropdown">
+          <a href="offers.html">Offers</a>
+          <div class="dropdown-content">
+            <a href="offer1.html">Offer 1</a>
+            <a href="offer2.html">Offer 2</a>
+            <a href="offer3.html">Offer 3</a>
+          </div>
+        </li>
+        <li><a href="payment.html">Payment</a></li>
+        <li><a href="services.html">Services</a></li>
+      </ul>
     </nav>
   </header>
 
-  <!-- Main Content -->
+  <!-- Scrolling Content Area -->
   <main>
-    <!-- Hero Section -->
     <section class="hero">
-      <h2>Welcome to BrandName</h2>
-      <p>Your one-stop solution for premium business services and products.</p>
-      <button class="cta-button">Explore Our Services</button>
+      <h1>Welcome to MyBusiness Premium</h1>
+      <p>Your one-stop solution for premium business solutions.</p>
+      <a href="ecommerce.html" class="btn">Shop Now</a>
     </section>
-
-    <!-- Special Icons in Cards Section -->
-    <section class="cards-section">
-      <div class="card">
-        <i class="fas fa-rocket card-icon"></i>
-        <h4>Fast Performance</h4>
-        <p>Experience lightning-fast speeds and seamless operations.</p>
+    <section class="features">
+      <div class="feature">
+        <h2>Secure Payments</h2>
+        <p>Experience state‑of‑the‑art security in every transaction.</p>
       </div>
-      <div class="card">
-        <i class="fas fa-shield-alt card-icon"></i>
-        <h4>Secure</h4>
-        <p>Your data and transactions are fully protected.</p>
+      <div class="feature">
+        <h2>Fast Delivery</h2>
+        <p>Reliable door‑to‑door delivery right to your doorstep.</p>
       </div>
-      <div class="card">
-        <i class="fas fa-users card-icon"></i>
-        <h4>User Friendly</h4>
-        <p>Intuitive design for effortless navigation and engagement.</p>
+      <div class="feature">
+        <h2>Exclusive Deals</h2>
+        <p>Avail premium discounts and seasonal offers.</p>
       </div>
-      <!-- Add more cards if needed -->
     </section>
-
-    <!-- Content Blocks -->
-    <section class="section-block">
-      <h3>Why Choose Us?</h3>
-      <p>We offer cutting-edge solutions, unparalleled support, and a commitment to excellence.</p>
-    </section>
-
-    <section class="section-block">
-      <h3>Latest Highlights</h3>
-      <p>Discover our newest features, premium products, and exclusive promotions.</p>
-    </section>
-
-    <!-- User Form Section -->
-    <section class="user-form-block">
-      <h3>Enter Your Information</h3>
-      <form id="pageForm">
-        <!-- Hidden input to capture page title -->
-        <input type="hidden" id="pageTitle" name="pageTitle" value="Home Page" />
-        <label for="name">Full Name:</label>
-        <input type="text" id="name" name="name" required />
-        <label for="email">Email Address:</label>
-        <input type="email" id="email" name="email" required />
-        <label for="phone">Phone Number:</label>
-        <input type="tel" id="phone" name="phone" />
-        <button type="submit">Submit</button>
-      </form>
-      <div id="formMessage"></div>
-    </section>
+    <!-- Additional sections can be added here -->
   </main>
 
   <!-- Fixed Footer -->
   <footer>
-    <p>&copy; 2025 BrandName - All Rights Reserved</p>
+    <p>&copy; 2025 MyBusiness Premium. All rights reserved.</p>
   </footer>
 
-  <!-- Firebase & Custom Script -->
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
