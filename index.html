@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Luxury Website - Home</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <!-- Fixed Header -->
+  <header class="fixed-header">
+    <div class="header-logo">
+      <h1>My Luxury Brand</h1>
+    </div>
+    <nav class="header-nav">
+      <ul>
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="analytics.html">Analytics</a></li>
+        <li><a href="calendar.html">Calendar</a></li>
+        <li><a href="cart.html">Cart</a></li>
+        <li><a href="ecommerce.html">E-commerce</a></li>
+        <li><a href="inventory.html">Inventory</a></li>
+        <li><a href="invoice.html">Invoice</a></li>
+        <li><a href="menu.html">Menu</a></li>
+        <li><a href="more.html">More</a></li>
+        <li><a href="offers.html">Offers</a></li>
+        <li><a href="payment.html">Payment</a></li>
+        <li><a href="services.html">Services</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Main Content Container -->
+  <main>
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-content">
+        <h2>Accelerate Your Success</h2>
+        <p>Experience a next-generation platform with modern design, refined style, and fully mobile support.</p>
+        <button class="cta-button">Get Started</button>
+      </div>
+    </section>
+
+    <!-- Info Section -->
+    <section class="info-section">
+      <h3>Welcome to Our Luxury Website</h3>
+      <p>
+        This site is designed to showcase high-end services, products, or business solutions. 
+        It’s fully responsive, user-friendly, and equipped with forms for collecting important user data.
+      </p>
+    </section>
+
+    <!-- Form Section -->
+    <section class="user-form-section">
+      <h3>Enter Your Details</h3>
+      <form id="userInfoForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" placeholder="Your Full Name" required />
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" placeholder="Your Email Address" required />
+
+        <label for="phone">Phone:</label>
+        <input type="tel" id="phone" name="phone" placeholder="Your Phone Number" />
+
+        <button type="submit">Submit</button>
+      </form>
+      <div id="formMessage"></div>
+    </section>
+  </main>
+
+  <!-- Fixed Footer -->
+  <footer class="fixed-footer">
+    <p>&copy; 2025 My Luxury Brand. All rights reserved.</p>
+  </footer>
+
+  <!-- Firebase + Script -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
