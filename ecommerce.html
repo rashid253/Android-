@@ -72,15 +72,15 @@
       color: #d70018;
       font-size: 0.9rem;
     }
-    /* Category Page: Use grid layout with 2 columns per row (mobile-friendly) */
+    /* Category Page: Grid layout with 2 columns on mobile and 3 on larger screens */
     #categoryPage .col {
       margin-bottom: 1rem;
     }
   </style>
   <!--
-  This frontend code is built using dummy data and is structured to be easily integrated with a Firebase backend in the future.
-  The fetchProducts() function currently simulates data fetching, and will later be replaced by Firebase Firestore API calls.
-  Authentication and data persistence will be handled via Firebase, allowing for dynamic and secure data management.
+    This frontend code is built using dummy data and is structured to be easily integrated with a Firebase backend in the future.
+    The fetchProducts() function currently simulates data fetching, and will later be replaced by Firebase Firestore API calls.
+    Authentication and data persistence will be handled via Firebase, allowing for dynamic and secure data management.
   -->
 </head>
 <body>
@@ -101,7 +101,7 @@
     </div>
   </nav>
   
-  <!-- Main Page: Product Categories (Horizontal Scroll Sections) -->
+  <!-- Main Page: Product Categories with Horizontal Scroll and Ad Banners -->
   <div class="container my-4" id="mainPage">
     <h1 class="mb-4">Product Categories</h1>
     <div id="categoriesContainer">
@@ -114,7 +114,7 @@
     <button class="btn btn-secondary mb-3" onclick="backToMain()">Back to Categories</button>
     <h2 id="categoryTitle"></h2>
     <div class="row" id="categoryProducts">
-      <!-- Dynamic grid: Each product will appear as a tile in 2 columns per row -->
+      <!-- Dynamic grid: Products appear as tiles in 2 or 3 columns -->
     </div>
   </div>
   
@@ -170,13 +170,36 @@
       ]
     };
 
-    // Render main page with category sections (horizontal scroll)
+    // Function to create an advertisement/banner element
+    function createAdBanner() {
+      const ad = document.createElement("div");
+      ad.className = "my-4";
+      ad.innerHTML = `
+        <div class="card">
+          <img src="https://via.placeholder.com/1200x200?text=Special+Offer+Banner" class="card-img-top" alt="Offer Banner">
+          <div class="card-body text-center">
+            <h5 class="card-title">Special Offer!</h5>
+            <p class="card-text">Check out our latest deals and discounts.</p>
+          </div>
+        </div>
+      `;
+      return ad;
+    }
+
+    // Render main page with category sections (horizontal scroll) and ad banners between them
     function initMainPage() {
       document.getElementById("mainPage").style.display = "block";
       document.getElementById("categoryPage").style.display = "none";
       const container = document.getElementById("categoriesContainer");
       container.innerHTML = "";
+      let first = true;
       for (let category in productData) {
+        // If not the first section, insert an ad banner before the next category
+        if (!first) {
+          container.appendChild(createAdBanner());
+        }
+        first = false;
+        
         // Create a section with a title for each category
         let section = document.createElement("div");
         section.innerHTML = `<h2 class="mt-4">${category}</h2>
@@ -203,14 +226,14 @@
       }
     }
 
-    // Open dedicated category page with vertical grid layout (2 columns per row)
+    // Open dedicated category page with vertical grid layout (2 columns on mobile, 3 on larger screens)
     function openCategoryPage(category) {
       document.getElementById("mainPage").style.display = "none";
       document.getElementById("categoryPage").style.display = "block";
       document.getElementById("categoryTitle").innerText = category;
       const grid = document.getElementById("categoryProducts");
       grid.innerHTML = "";
-      // Render products in grid format; using col-6 for two columns on mobile and col-md-4 on larger screens.
+      // Render products in grid format using Bootstrap columns
       productData[category].forEach(product => {
         let col = document.createElement("div");
         col.className = "col-6 col-md-4 mb-4";
