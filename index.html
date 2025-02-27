@@ -2,267 +2,101 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Repository Files</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- Bootstrap CSS CDN -->
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MyBusiness Premium</title>
   <!-- Font Awesome for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    .card {
-      margin-bottom: 20px;
-    }
-    .card-icon {
-      font-size: 2rem;
-    }
-  </style>
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="style.css">
+  <!-- Custom JavaScript -->
+  <script src="script.js" defer></script>
 </head>
 <body>
-  <!-- Navigation with a filter dropdown -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">Repository Files</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarFilter" aria-controls="navbarFilter" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+  <!-- Fixed Header -->
+  <header class="header">
+    <div class="header-content">
+      <div class="brand">
+         <i class="fas fa-briefcase"></i> <span>MyBusiness</span>
+      </div>
+      <!-- Desktop Navigation (visible on larger screens) -->
+      <nav class="nav-desktop">
+         <a href="index.html" onclick="openPage('index.html')"><i class="fas fa-home"></i></a>
+         <a href="offers.html" onclick="openPage('offers.html')"><i class="fas fa-tags"></i></a>
+         <a href="analytics.html" onclick="openPage('analytics.html')"><i class="fas fa-chart-line"></i></a>
+         <a href="ecommerce.html" onclick="openPage('ecommerce.html')"><i class="fas fa-shopping-cart"></i></a>
+         <a href="more.html" onclick="openPage('more.html')"><i class="fas fa-ellipsis-h"></i></a>
+      </nav>
+      <!-- Hamburger for Mobile -->
+      <button class="menu-toggle" onclick="toggleSideMenu()">
+        <i class="fas fa-bars"></i>
       </button>
-      <div class="collapse navbar-collapse" id="navbarFilter">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="filterDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Filter Files
-            </a>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="filterDropdown">
-              <li><a class="dropdown-item" href="#" data-filter="all">All</a></li>
-              <li><a class="dropdown-item" href="#" data-filter="html">HTML</a></li>
-              <li><a class="dropdown-item" href="#" data-filter="js">JavaScript</a></li>
-              <li><a class="dropdown-item" href="#" data-filter="css">CSS</a></li>
-              <li><a class="dropdown-item" href="#" data-filter="dir">Directories</a></li>
-            </ul>
-          </li>
-        </ul>
-      </div>
     </div>
+  </header>
+
+  <!-- Mobile Side Menu -->
+  <aside id="side-menu" class="side-menu">
+    <a href="index.html" onclick="openPage('index.html'); toggleSideMenu()">Home</a>
+    <a href="offers.html" onclick="openPage('offers.html'); toggleSideMenu()">Offers</a>
+    <a href="analytics.html" onclick="openPage('analytics.html'); toggleSideMenu()">Analytics</a>
+    <a href="ecommerce.html" onclick="openPage('ecommerce.html'); toggleSideMenu()">Shop</a>
+    <a href="more.html" onclick="openPage('more.html'); toggleSideMenu()">More</a>
+  </aside>
+
+  <!-- Main Content -->
+  <main>
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-content">
+        <h1>Premium Business Solutions</h1>
+        <p>
+          Experience secure transactions, exclusive offers, and a seamless interface with our next‑generation mobile app.
+        </p>
+        <div class="cta-buttons">
+          <button onclick="openPage('ecommerce.html')">Shop Now</button>
+          <button onclick="openPage('about.html')">Learn More</button>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Features Section (Example Content) -->
+    <section class="features">
+      <div class="container">
+        <h2>Our Exclusive Features</h2>
+        <div class="features-grid">
+          <div class="feature-item">
+            <i class="fas fa-lock"></i>
+            <h3>Secure Payments</h3>
+            <p>State‑of‑the‑art security for your transactions.</p>
+          </div>
+          <div class="feature-item">
+            <i class="fas fa-truck"></i>
+            <h3>Fast Delivery</h3>
+            <p>Reliable, door‑to‑door delivery service.</p>
+          </div>
+          <div class="feature-item">
+            <i class="fas fa-tags"></i>
+            <h3>Exclusive Deals</h3>
+            <p>Premium discounts and seasonal offers.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Fixed Bottom Navigation (Mobile) -->
+  <nav class="mobile-nav">
+    <a href="index.html" onclick="openPage('index.html')"><i class="fas fa-home"></i><span>Home</span></a>
+    <a href="offers.html" onclick="openPage('offers.html')"><i class="fas fa-tags"></i><span>Offers</span></a>
+    <a href="analytics.html" onclick="openPage('analytics.html')"><i class="fas fa-chart-line"></i><span>Analytics</span></a>
+    <a href="ecommerce.html" onclick="openPage('ecommerce.html')"><i class="fas fa-shopping-cart"></i><span>Shop</span></a>
+    <a href="more.html" onclick="openPage('more.html')"><i class="fas fa-ellipsis-h"></i><span>More</span></a>
   </nav>
-
-  <!-- File Cards Grid -->
-  <div class="container my-4">
-    <div class="row" id="fileCards">
-      <!-- Directory: week -->
-      <div class="col-md-3 mb-4 file-card" data-type="dir">
-        <div class="card">
-          <div class="card-body text-center">
-            <i class="fas fa-folder card-icon"></i>
-            <h5 class="card-title mt-2">Weekly Overview</h5>
-            <a href="week/" class="stretched-link"></a>
-          </div>
-        </div>
-      </div>
-
-      <!-- HTML Files -->
-      <div class="col-md-3 mb-4 file-card" data-type="html">
-        <div class="card">
-          <div class="card-body text-center">
-            <i class="fas fa-file-code card-icon"></i>
-            <h5 class="card-title mt-2">About Us</h5>
-            <a href="about.html" class="stretched-link"></a>
-          </div>
-        </div>
-      </div>
-      
-      <div class="col-md-3 mb-4 file-card" data-type="html">
-        <div class="card">
-          <div class="card-body text-center">
-            <i class="fas fa-chart-line card-icon"></i>
-            <h5 class="card-title mt-2">Analytics Dashboard</h5>
-            <a href="analytics.html" class="stretched-link"></a>
-          </div>
-        </div>
-      </div>
-      
-      <div class="col-md-3 mb-4 file-card" data-type="html">
-        <div class="card">
-          <div class="card-body text-center">
-            <i class="fas fa-calendar-alt card-icon"></i>
-            <h5 class="card-title mt-2">Calendar</h5>
-            <a href="calendar.html" class="stretched-link"></a>
-          </div>
-        </div>
-      </div>
-      
-      <div class="col-md-3 mb-4 file-card" data-type="html">
-        <div class="card">
-          <div class="card-body text-center">
-            <i class="fas fa-shopping-cart card-icon"></i>
-            <h5 class="card-title mt-2">Shopping Cart</h5>
-            <a href="cart.html" class="stretched-link"></a>
-          </div>
-        </div>
-      </div>
-      
-      <div class="col-md-3 mb-4 file-card" data-type="html">
-        <div class="card">
-          <div class="card-body text-center">
-            <i class="fas fa-store card-icon"></i>
-            <h5 class="card-title mt-2">E-Commerce</h5>
-            <a href="ecommerce.html" class="stretched-link"></a>
-          </div>
-        </div>
-      </div>
-      
-      <div class="col-md-3 mb-4 file-card" data-type="html">
-        <div class="card">
-          <div class="card-body text-center">
-            <i class="fas fa-home card-icon"></i>
-            <h5 class="card-title mt-2">Home</h5>
-            <a href="index.html" class="stretched-link"></a>
-          </div>
-        </div>
-      </div>
-      
-      <div class="col-md-3 mb-4 file-card" data-type="html">
-        <div class="card">
-          <div class="card-body text-center">
-            <i class="fas fa-warehouse card-icon"></i>
-            <h5 class="card-title mt-2">Inventory Management</h5>
-            <a href="inventory.html" class="stretched-link"></a>
-          </div>
-        </div>
-      </div>
-      
-      <div class="col-md-3 mb-4 file-card" data-type="html">
-        <div class="card">
-          <div class="card-body text-center">
-            <i class="fas fa-file-invoice card-icon"></i>
-            <h5 class="card-title mt-2">Invoice</h5>
-            <a href="invoice.html" class="stretched-link"></a>
-          </div>
-        </div>
-      </div>
-      
-      <div class="col-md-3 mb-4 file-card" data-type="html">
-        <div class="card">
-          <div class="card-body text-center">
-            <i class="fas fa-utensils card-icon"></i>
-            <h5 class="card-title mt-2">Menu</h5>
-            <a href="menu.html" class="stretched-link"></a>
-          </div>
-        </div>
-      </div>
-      
-      <div class="col-md-3 mb-4 file-card" data-type="html">
-        <div class="card">
-          <div class="card-body text-center">
-            <i class="fas fa-ellipsis-h card-icon"></i>
-            <h5 class="card-title mt-2">More Info</h5>
-            <a href="more.html" class="stretched-link"></a>
-          </div>
-        </div>
-      </div>
-      
-      <!-- Offers -->
-      <div class="col-md-3 mb-4 file-card" data-type="html">
-        <div class="card">
-          <div class="card-body text-center">
-            <i class="fas fa-tag card-icon"></i>
-            <h5 class="card-title mt-2">Special Offer 1</h5>
-            <a href="offer1.html" class="stretched-link"></a>
-          </div>
-        </div>
-      </div>
-      
-      <div class="col-md-3 mb-4 file-card" data-type="html">
-        <div class="card">
-          <div class="card-body text-center">
-            <i class="fas fa-tag card-icon"></i>
-            <h5 class="card-title mt-2">Special Offer 2</h5>
-            <a href="offer2.html" class="stretched-link"></a>
-          </div>
-        </div>
-      </div>
-      
-      <div class="col-md-3 mb-4 file-card" data-type="html">
-        <div class="card">
-          <div class="card-body text-center">
-            <i class="fas fa-tag card-icon"></i>
-            <h5 class="card-title mt-2">Special Offer 3</h5>
-            <a href="offer3.html" class="stretched-link"></a>
-          </div>
-        </div>
-      </div>
-      
-      <div class="col-md-3 mb-4 file-card" data-type="html">
-        <div class="card">
-          <div class="card-body text-center">
-            <i class="fas fa-tags card-icon"></i>
-            <h5 class="card-title mt-2">Offers</h5>
-            <a href="offers.html" class="stretched-link"></a>
-          </div>
-        </div>
-      </div>
-      
-      <!-- Payment -->
-      <div class="col-md-3 mb-4 file-card" data-type="html">
-        <div class="card">
-          <div class="card-body text-center">
-            <i class="fas fa-credit-card card-icon"></i>
-            <h5 class="card-title mt-2">Payment</h5>
-            <a href="payment.html" class="stretched-link"></a>
-          </div>
-        </div>
-      </div>
-      
-      <!-- JavaScript File -->
-      <div class="col-md-3 mb-4 file-card" data-type="js">
-        <div class="card">
-          <div class="card-body text-center">
-            <i class="fab fa-js card-icon"></i>
-            <h5 class="card-title mt-2">Script</h5>
-            <a href="script.js" class="stretched-link"></a>
-          </div>
-        </div>
-      </div>
-      
-      <!-- Services -->
-      <div class="col-md-3 mb-4 file-card" data-type="html">
-        <div class="card">
-          <div class="card-body text-center">
-            <i class="fas fa-concierge-bell card-icon"></i>
-            <h5 class="card-title mt-2">Services</h5>
-            <a href="services.html" class="stretched-link"></a>
-          </div>
-        </div>
-      </div>
-      
-      <!-- CSS File -->
-      <div class="col-md-3 mb-4 file-card" data-type="css">
-        <div class="card">
-          <div class="card-body text-center">
-            <i class="fab fa-css3-alt card-icon"></i>
-            <h5 class="card-title mt-2">Stylesheet</h5>
-            <a href="Style.css" class="stretched-link"></a>
-          </div>
-        </div>
-      </div>
+  
+  <!-- Fixed Footer (Optional for additional info) -->
+  <footer class="footer">
+    <div class="footer-container">
+      <p>&copy; 2025 MyBusiness Premium. All rights reserved.</p>
     </div>
-  </div>
-
-  <!-- Bootstrap JS Bundle -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script>
-    // Basic filtering functionality for file cards
-    document.querySelectorAll('.dropdown-item').forEach(item => {
-      item.addEventListener('click', function(e) {
-        e.preventDefault();
-        const filter = this.getAttribute('data-filter');
-        document.querySelectorAll('.file-card').forEach(card => {
-          if(filter === 'all' || card.getAttribute('data-type') === filter) {
-            card.style.display = 'block';
-          } else {
-            card.style.display = 'none';
-          }
-        });
-      });
-    });
-  </script>
+  </footer>
 </body>
 </html>
