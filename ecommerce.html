@@ -9,13 +9,10 @@
   <!-- Bootstrap Icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
   <style>
-    /* Global Styles with WhatsApp-inspired background */
+    /* Global Styles with Light Blue Background */
     body {
       font-family: 'Roboto', sans-serif;
-      background-color: #ECE5DD;
-      /* Use a subtle pattern similar to WhatsApp background */
-      background-image: url('https://www.transparenttextures.com/patterns/diagmonds.png');
-      background-repeat: repeat;
+      background-color: #e0f7fa; /* Light blue background */
       color: #333;
       margin: 0;
       padding: 0;
@@ -32,13 +29,17 @@
     .navbar-brand:hover, .nav-link:hover {
       color: #ffcccc !important;
     }
-    /* Prominent Cart Icon (always visible as call-to-action) */
+    /* Prominent Cart Icon - Always Visible on All Pages */
     .cart-icon {
-      font-size: 1.5rem;
+      font-size: 1.8rem;
       color: #fff;
       position: relative;
       margin-left: 1rem;
       cursor: pointer;
+      background-color: rgba(255,255,255,0.2);
+      padding: 5px;
+      border-radius: 50%;
+      border: 2px solid #fff;
     }
     .cart-icon .badge {
       position: absolute;
@@ -65,7 +66,7 @@
     footer a:hover {
       text-decoration: underline;
     }
-    /* Horizontal Scroll Container for Categories */
+    /* Horizontal Scroll Container */
     .horizontal-scroll {
       display: flex;
       overflow-x: auto;
@@ -119,7 +120,7 @@
       width: 100%;
       object-fit: cover;
     }
-    /* Banner Variants - Height set to 150px */
+    /* Banner Variants - Fixed 150px Height */
     .carousel-banner,
     .fullwidth-banner,
     .accordion-banner,
@@ -203,7 +204,7 @@
           <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
           <li class="nav-item active"><a class="nav-link" href="ecommerce.html">Shop Now</a></li>
         </ul>
-        <!-- Prominent Cart Icon (always visible) -->
+        <!-- Prominent Cart Icon (visible on all pages) -->
         <div class="cart-icon">
           <i class="bi bi-cart-fill"></i>
           <span class="badge">0</span>
@@ -225,7 +226,7 @@
     <button class="btn btn-secondary mb-3" onclick="backToMain()">Back to Categories</button>
     <h2 id="categoryTitle" class="mb-4"></h2>
     <div class="row" id="categoryProducts">
-      <!-- Products will be rendered here in a grid (2 columns on mobile, 3 on larger screens) -->
+      <!-- Products rendered in grid (2 columns on mobile, 3 on larger screens) -->
     </div>
   </div>
   
@@ -416,7 +417,7 @@
       }
     }
 
-    // Open dedicated category page with vertical grid layout (2 columns on mobile, 3 on larger screens)
+    // Open dedicated category page with vertical grid layout
     function openCategoryPage(category) {
       document.getElementById("mainPage").style.display = "none";
       document.getElementById("categoryPage").style.display = "block";
@@ -448,7 +449,7 @@
       document.getElementById("mainPage").style.display = "block";
     }
 
-    // Open modal with product details (includes "Add to Cart" button)
+    // Open modal with product details
     function openProductModal(product) {
       document.getElementById("modalProductImage").src = product.image;
       document.getElementById("modalProductName").innerText = product.name;
