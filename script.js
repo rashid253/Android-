@@ -1,3 +1,3 @@
-document.addEventListener("DOMContentLoaded", function(){
-  // Custom JS functionality can be added here
+document.addEventListener("DOMContentLoaded", function() {
+  // Future JavaScript functionality can be added here.
 });
