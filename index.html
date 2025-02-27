@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>My New Luxury App - Home</title>
   <link rel="stylesheet" href="style.css"/>
-  <!-- Font Awesome (Replace with your kit or free CDN) -->
+  <!-- Font Awesome: Replace your_kit_id with your actual kit or use the free CDN -->
   <script src="https://kit.fontawesome.com/your_kit_id.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -38,37 +38,53 @@
     <!-- Hero Section -->
     <section class="hero">
       <h2>Welcome to BrandName</h2>
-      <p>Your one-stop solution for business services and products.</p>
+      <p>Your one-stop solution for premium business services and products.</p>
       <button class="cta-button">Explore Our Services</button>
     </section>
 
-    <!-- Some Content Blocks -->
+    <!-- Special Icons in Cards Section -->
+    <section class="cards-section">
+      <div class="card">
+        <i class="fas fa-rocket card-icon"></i>
+        <h4>Fast Performance</h4>
+        <p>Experience lightning-fast speeds and seamless operations.</p>
+      </div>
+      <div class="card">
+        <i class="fas fa-shield-alt card-icon"></i>
+        <h4>Secure</h4>
+        <p>Your data and transactions are fully protected.</p>
+      </div>
+      <div class="card">
+        <i class="fas fa-users card-icon"></i>
+        <h4>User Friendly</h4>
+        <p>Intuitive design for effortless navigation and engagement.</p>
+      </div>
+      <!-- Add more cards if needed -->
+    </section>
+
+    <!-- Content Blocks -->
     <section class="section-block">
       <h3>Why Choose Us?</h3>
-      <p>We offer cutting-edge solutions, unparalleled customer support, and a commitment to excellence.</p>
+      <p>We offer cutting-edge solutions, unparalleled support, and a commitment to excellence.</p>
     </section>
 
     <section class="section-block">
       <h3>Latest Highlights</h3>
-      <p>Check out our newest features, premium products, and ongoing promotions to elevate your business.</p>
+      <p>Discover our newest features, premium products, and exclusive promotions.</p>
     </section>
 
-    <!-- Form Section -->
+    <!-- User Form Section -->
     <section class="user-form-block">
       <h3>Enter Your Information</h3>
       <form id="pageForm">
-        <!-- Hidden input to store page title -->
+        <!-- Hidden input to capture page title -->
         <input type="hidden" id="pageTitle" name="pageTitle" value="Home Page" />
-
         <label for="name">Full Name:</label>
         <input type="text" id="name" name="name" required />
-
         <label for="email">Email Address:</label>
         <input type="email" id="email" name="email" required />
-
         <label for="phone">Phone Number:</label>
         <input type="tel" id="phone" name="phone" />
-
         <button type="submit">Submit</button>
       </form>
       <div id="formMessage"></div>
@@ -80,7 +96,7 @@
     <p>&copy; 2025 BrandName - All Rights Reserved</p>
   </footer>
 
-  <!-- Firebase + Script -->
+  <!-- Firebase & Custom Script -->
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
   <script src="script.js"></script>
