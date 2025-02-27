@@ -1,4 +1,7 @@
-// Replace these with your actual Firebase project details
+/********************************
+ * REPLACE THIS WITH YOUR OWN 
+ * FIREBASE CONFIGURATION
+ ********************************/
 const firebaseConfig = {
   apiKey: "YOUR_API_KEY",
   authDomain: "your-app.firebaseapp.com",
@@ -13,37 +16,38 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
 
-// Attach listener to any page with a form #userInfoForm
+// Listen for form submissions on each page
 document.addEventListener("DOMContentLoaded", () => {
-  const form = document.getElementById("userInfoForm");
+  const form = document.getElementById("pageForm");
   const formMessage = document.getElementById("formMessage");
 
   if (form) {
     form.addEventListener("submit", (e) => {
       e.preventDefault();
+
+      // Collect input values
+      const pageTitle = document.getElementById("pageTitle").value.trim();
       const name = document.getElementById("name").value.trim();
       const email = document.getElementById("email").value.trim();
       const phone = document.getElementById("phone").value.trim();
       const timestamp = Date.now();
 
-      database.ref("users/" + timestamp).set({
+      // Save data to Realtime Database
+      database.ref("submissions/" + timestamp).set({
+        pageTitle,
         name,
         email,
         phone,
         submittedAt: new Date(timestamp).toISOString()
       })
       .then(() => {
-        if (formMessage) {
-          formMessage.textContent = "Thank you for your submission!";
-          formMessage.style.color = "#2ecc71"; // success color
-        }
+        formMessage.style.color = "green";
+        formMessage.textContent = "Thank you for your submission!";
         form.reset();
       })
       .catch((error) => {
-        if (formMessage) {
-          formMessage.textContent = "Error: " + error.message;
-          formMessage.style.color = "red";
-        }
+        formMessage.style.color = "red";
+        formMessage.textContent = "Error: " + error.message;
       });
     });
   }
