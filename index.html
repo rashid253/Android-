@@ -1,72 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>MyBusiness Premium - Home</title>
-  <link rel="stylesheet" href="Styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Next Gen Website</title>
+  <!-- گوگل فونٹ یا کسی بھی فونٹ کا لنک شامل کریں -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="style.css" />
+  <!-- آئیکنز کے لیے Font Awesome یا کوئی بھی لائبریری -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    integrity="sha512-Fo3rlrZj/k7ujTnH/PR3pIH+6VOvrEtzwzwzXpGPQIzqKte3lQ1p9b6lPN5dpBz3oH7qF3V3yDwUMZkA2Oa8mw=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
 </head>
 <body>
-  <!-- Fixed Header -->
-  <header>
-    <div class="logo">MyBusiness Premium</div>
-    <nav>
+  <!-- ===== HEADER (Fixed) ===== -->
+  <header class="main-header">
+    <div class="logo">
+      <a href="index.html">BrandName</a>
+    </div>
+    <nav class="navbar">
       <ul>
         <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="analytics.html">Analytics</a></li>
-        <li><a href="calendar.html">Calendar</a></li>
-        <li><a href="cart.html">Cart</a></li>
-        <li><a href="ecommerce.html">E‑commerce</a></li>
-        <li><a href="inventory.html">Inventory</a></li>
-        <li><a href="invoice.html">Invoice</a></li>
-        <li><a href="menu.html">Menu</a></li>
-        <li><a href="more.html">More</a></li>
-        <!-- Dropdown for Offers -->
-        <li class="dropdown">
-          <a href="offers.html">Offers</a>
-          <div class="dropdown-content">
-            <a href="offer1.html">Offer 1</a>
-            <a href="offer2.html">Offer 2</a>
-            <a href="offer3.html">Offer 3</a>
-          </div>
-        </li>
-        <li><a href="payment.html">Payment</a></li>
         <li><a href="services.html">Services</a></li>
+        <li><a href="about.html">About</a></li>
+        <!-- مزید لنکس جن صفحات کا ذکر کیا گیا ہے -->
       </ul>
     </nav>
   </header>
 
-  <!-- Scrolling Content Area -->
-  <main>
-    <section class="hero">
-      <h1>Welcome to MyBusiness Premium</h1>
-      <p>Experience secure transactions, exclusive offers, and seamless business solutions.</p>
-      <a href="ecommerce.html" class="btn">Shop Now</a>
-    </section>
-    <section class="features">
-      <div class="feature">
-        <h2>Secure Payments</h2>
-        <p>Modern security for your transactions.</p>
+  <!-- ===== HERO SECTION ===== -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Build and Ship Software</h1>
+      <p>Join the world’s most widely adopted AI-powered developer platform.</p>
+      <div class="hero-buttons">
+        <button class="btn primary">Sign Up</button>
+        <button class="btn secondary">Try Now</button>
       </div>
-      <div class="feature">
-        <h2>Fast Delivery</h2>
-        <p>Door‑to‑door delivery service.</p>
-      </div>
-      <div class="feature">
-        <h2>Exclusive Deals</h2>
-        <p>Premium discounts and seasonal offers.</p>
-      </div>
-    </section>
-    <!-- Additional content sections can be added here -->
-  </main>
+    </div>
+  </section>
 
-  <!-- Fixed Footer -->
-  <footer>
-    <p>&copy; 2025 MyBusiness Premium. All rights reserved.</p>
+  <!-- ===== SERVICES SECTION ===== -->
+  <section class="services">
+    <h2>Our Services</h2>
+    <div class="services-cards">
+      <!-- Card 1 -->
+      <div class="card">
+        <div class="icon">
+          <i class="fas fa-lightbulb"></i>
+        </div>
+        <h3>Innovative Solutions</h3>
+        <p>Cutting-edge solutions for your business challenges.</p>
+      </div>
+      <!-- Card 2 -->
+      <div class="card">
+        <div class="icon">
+          <i class="fas fa-cubes"></i>
+        </div>
+        <h3>Quality Products</h3>
+        <p>Premium products tailored for excellence.</p>
+      </div>
+      <!-- مزید کارڈز اپنی مرضی سے شامل کریں -->
+    </div>
+  </section>
+
+  <!-- ===== FORM SECTION ===== -->
+  <section class="info-form">
+    <h2>Submit Your Information</h2>
+    <form action="#" method="POST">
+      <div class="form-group">
+        <label for="title">Title / Heading</label>
+        <input type="text" id="title" name="title" placeholder="Enter Title" required>
+      </div>
+      <div class="form-group">
+        <label for="description">Description / Content</label>
+        <textarea id="description" name="description" rows="5" placeholder="Enter Description"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="imageURL">Image URL (optional)</label>
+        <input type="url" id="imageURL" name="imageURL" placeholder="https://example.com/image.jpg">
+      </div>
+      <button type="submit" class="btn primary">Submit</button>
+    </form>
+  </section>
+
+  <!-- ===== FOOTER (Fixed) ===== -->
+  <footer class="main-footer">
+    <p>&copy; 2025 BrandName. All rights reserved.</p>
   </footer>
 
-  <!-- Optional JavaScript file -->
-  <script src="script.js"></script>
 </body>
 </html>
