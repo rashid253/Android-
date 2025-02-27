@@ -23,17 +23,16 @@
       box-shadow: 0 2px 5px rgba(0,0,0,0.2);
       padding: 0.5rem 0;
     }
-    .header-top, .header-bottom {
-      display: flex;
-      align-items: center;
-    }
     .header-top {
+      display: flex;
       justify-content: space-between;
+      align-items: center;
     }
     .navbar-brand {
       color: #fff;
       font-weight: bold;
       font-size: 1.5rem;
+      text-decoration: none;
     }
     .navbar-brand:hover {
       color: #ffcc00;
@@ -57,17 +56,20 @@
       padding: 2px 5px;
       font-size: 0.75rem;
     }
-    .header-bottom {
-      justify-content: flex-start;
-      margin-top: 0.5rem;
+    /* Sub-header Styles */
+    .sub-header {
+      background-color: #004080;
+      padding: 0.5rem 0;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
     }
-    .header-bottom .nav-link {
+    .sub-header a {
       color: #fff;
-      font-weight: bold;
-      margin-right: 1rem;
       text-decoration: none;
+      font-size: 1.5rem;
     }
-    .header-bottom .nav-link:hover {
+    .sub-header a:hover {
       color: #ffcc00;
     }
     /* Horizontal Scroll Container */
@@ -201,8 +203,8 @@
       .cart-icon {
         font-size: 1.25rem;
       }
-      .header-bottom .nav-link {
-        font-size: 0.9rem;
+      .sub-header a {
+        font-size: 1.25rem;
       }
     }
     /* Slim, Modern Footer */
@@ -219,6 +221,7 @@
   <!-- Navigation Bar -->
   <nav class="navbar">
     <div class="container">
+      <!-- Top Header: Title and Cart Icon -->
       <div class="header-top">
         <a class="navbar-brand" href="index.html">MyBusiness Premium</a>
         <a class="cart-icon" href="cart.html">
@@ -226,11 +229,11 @@
           <span class="badge">3</span>
         </a>
       </div>
-      <div class="header-bottom">
-        <ul class="nav">
-          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="ecommerce.html">Shop Now</a></li>
-        </ul>
+      <!-- Sub-header: Icons for Home, Chat, Orders -->
+      <div class="sub-header">
+        <a href="index.html"><i class="bi bi-house-fill"></i></a>
+        <a href="chat.html"><i class="bi bi-chat-dots-fill"></i></a>
+        <a href="orders.html"><i class="bi bi-bag-check-fill"></i></a>
       </div>
     </div>
   </nav>
