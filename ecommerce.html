@@ -3,19 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>E-commerce Frontend (Firebase Ready)</title>
-  <!-- Bootstrap 5 CSS for responsive, professional styling -->
+  <title>NextGen E-commerce - Shop Now</title>
+  <!-- Bootstrap 5 CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
     /* Global Styles */
     body {
-      font-family: 'Arial', sans-serif;
-      background-color: #f8f9fa;
+      font-family: 'Roboto', sans-serif;
+      background-color: #f4f4f4;
       color: #333;
       margin: 0;
       padding: 0;
     }
-    /* Navigation Bar */
     .navbar {
       background-color: #d70018;
     }
@@ -26,47 +25,62 @@
     .navbar-brand:hover, .nav-link:hover {
       color: #ffcccc !important;
     }
-    /* Main container */
-    .container {
-      padding-top: 2rem;
+    /* Horizontal Scroll Container for Categories on Main Page */
+    .horizontal-scroll {
+      display: flex;
+      overflow-x: auto;
+      gap: 1rem;
+      padding-bottom: 1rem;
+      margin-bottom: 1rem;
+    }
+    /* Hide scrollbar */
+    .horizontal-scroll::-webkit-scrollbar {
+      display: none;
+    }
+    .horizontal-scroll {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
     }
     /* Product Card Styles */
-    .product-card {
-      background: #fff;
-      border-radius: 5px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      margin-bottom: 2rem;
+    .card {
       cursor: pointer;
-      transition: transform 0.3s, box-shadow 0.3s;
+      border: none;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #fff;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-    .product-card:hover {
+    .card:hover {
       transform: translateY(-5px);
       box-shadow: 0 4px 10px rgba(0,0,0,0.15);
     }
-    .product-img {
+    .card-img-top {
       width: 100%;
-      height: 200px;
+      height: 180px;
       object-fit: cover;
-      border-top-left-radius: 5px;
-      border-top-right-radius: 5px;
     }
-    .product-info {
-      padding: 1rem;
+    .card-body {
+      padding: 0.75rem;
     }
-    .product-name {
-      font-size: 1.1rem;
-      font-weight: bold;
-      margin-bottom: 0.5rem;
-    }
-    .product-price {
-      color: #d70018;
+    .card-title {
       font-size: 1rem;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+    }
+    .card-text {
+      color: #d70018;
+      font-size: 0.9rem;
+    }
+    /* Category Page: Use grid layout with 2 columns per row (mobile-friendly) */
+    #categoryPage .col {
+      margin-bottom: 1rem;
     }
   </style>
   <!--
-    This frontend code is built using dummy data and is structured to be easily integrated with a Firebase backend in the future.
-    The fetchProducts() function currently simulates data fetching, and will later be replaced by Firebase Firestore API calls.
-    Authentication and data persistence will be handled via Firebase, allowing for dynamic and secure data management.
+  This frontend code is built using dummy data and is structured to be easily integrated with a Firebase backend in the future.
+  The fetchProducts() function currently simulates data fetching, and will later be replaced by Firebase Firestore API calls.
+  Authentication and data persistence will be handled via Firebase, allowing for dynamic and secure data management.
   -->
 </head>
 <body>
@@ -86,66 +100,158 @@
       </div>
     </div>
   </nav>
-
-  <!-- Main Content: Products Grid -->
-  <div class="container">
-    <h1 class="mb-4">Products</h1>
-    <div id="products" class="row">
-      <!-- Product cards will be rendered here -->
+  
+  <!-- Main Page: Product Categories (Horizontal Scroll Sections) -->
+  <div class="container my-4" id="mainPage">
+    <h1 class="mb-4">Product Categories</h1>
+    <div id="categoriesContainer">
+      <!-- Dynamic category sections will be rendered here -->
     </div>
   </div>
-
-  <!-- JavaScript Section -->
+  
+  <!-- Category Page: Vertical Grid of Products -->
+  <div class="container my-4" id="categoryPage" style="display: none;">
+    <button class="btn btn-secondary mb-3" onclick="backToMain()">Back to Categories</button>
+    <h2 id="categoryTitle"></h2>
+    <div class="row" id="categoryProducts">
+      <!-- Dynamic grid: Each product will appear as a tile in 2 columns per row -->
+    </div>
+  </div>
+  
+  <!-- Modal: Product Details with Add to Cart Option -->
+  <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="productModalLabel">Product Details</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <img id="modalProductImage" src="" class="img-fluid mb-3" alt="Product Image">
+          <h4 id="modalProductName"></h4>
+          <p id="modalProductPrice" class="text-danger h5"></p>
+          <p id="modalProductDescription"></p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- JavaScript: Dummy Data & Functions -->
   <script>
-    // Dummy data simulating products. Add as many products as needed.
-    function fetchProducts() {
-      return [
-        { id: 1, name: "Smartphone X", price: "$299", image: "https://via.placeholder.com/300x200?text=Smartphone+X" },
-        { id: 2, name: "Wireless Headphones", price: "$99", image: "https://via.placeholder.com/300x200?text=Headphones" },
-        { id: 3, name: "Smartwatch Pro", price: "$199", image: "https://via.placeholder.com/300x200?text=Smartwatch+Pro" },
-        { id: 4, name: "Bluetooth Speaker", price: "$49", image: "https://via.placeholder.com/300x200?text=Speaker" },
-        { id: 5, name: "Laptop Y", price: "$899", image: "https://via.placeholder.com/300x200?text=Laptop+Y" },
-        { id: 6, name: "Gaming Console", price: "$399", image: "https://via.placeholder.com/300x200?text=Console" },
-        { id: 7, name: "Action Camera", price: "$150", image: "https://via.placeholder.com/300x200?text=Camera" },
-        { id: 8, name: "Smart Home Hub", price: "$129", image: "https://via.placeholder.com/300x200?text=Home+Hub" },
-        { id: 9, name: "Drone Z", price: "$349", image: "https://via.placeholder.com/300x200?text=Drone+Z" },
-        { id: 10, name: "Fitness Tracker", price: "$59", image: "https://via.placeholder.com/300x200?text=Fitness+Tracker" },
-        { id: 11, name: "Wireless Charger", price: "$29", image: "https://via.placeholder.com/300x200?text=Charger" },
-        { id: 12, name: "VR Headset", price: "$499", image: "https://via.placeholder.com/300x200?text=VR+Headset" }
-      ];
+    // Dummy product data per category
+    const productData = {
+      "Countdown Sales": [
+        { name: "Smartphone A", price: "$300", description: "High-performance smartphone.", image: "https://via.placeholder.com/300x200?text=Smartphone+A" },
+        { name: "Smart TV B", price: "$500", description: "4K Ultra HD Smart TV.", image: "https://via.placeholder.com/300x200?text=Smart+TV+B" },
+        { name: "Laptop C", price: "$800", description: "Gaming laptop with high performance.", image: "https://via.placeholder.com/300x200?text=Laptop+C" }
+      ],
+      "Discount Offers": [
+        { name: "Headphones D", price: "$50", description: "Noise cancelling headphones.", image: "https://via.placeholder.com/300x200?text=Headphones+D" },
+        { name: "Speaker E", price: "$70", description: "Wireless speaker with deep bass.", image: "https://via.placeholder.com/300x200?text=Speaker+E" },
+        { name: "Camera F", price: "$250", description: "High resolution digital camera.", image: "https://via.placeholder.com/300x200?text=Camera+F" }
+      ],
+      "Hot Sales": [
+        { name: "Smartwatch G", price: "$120", description: "Feature-rich smartwatch.", image: "https://via.placeholder.com/300x200?text=Smartwatch+G" },
+        { name: "Tablet H", price: "$200", description: "Latest generation tablet.", image: "https://via.placeholder.com/300x200?text=Tablet+H" },
+        { name: "Drone I", price: "$350", description: "High-performance drone.", image: "https://via.placeholder.com/300x200?text=Drone+I" }
+      ],
+      "Seasonal Offers": [
+        { name: "Jacket J", price: "$80", description: "Warm and stylish jacket.", image: "https://via.placeholder.com/300x200?text=Jacket+J" },
+        { name: "Boots K", price: "$90", description: "Comfortable boots.", image: "https://via.placeholder.com/300x200?text=Boots+K" },
+        { name: "Scarf L", price: "$20", description: "Cozy scarf for winter.", image: "https://via.placeholder.com/300x200?text=Scarf+L" }
+      ],
+      "Clearance Sale": [
+        { name: "Old Model Phone M", price: "$150", description: "Last year's smartphone model.", image: "https://via.placeholder.com/300x200?text=Phone+M" },
+        { name: "Outdated TV N", price: "$100", description: "Old model television.", image: "https://via.placeholder.com/300x200?text=TV+N" },
+        { name: "Vintage Laptop O", price: "$250", description: "Vintage laptop with classic design.", image: "https://via.placeholder.com/300x200?text=Laptop+O" }
+      ]
+    };
+
+    // Render main page with category sections (horizontal scroll)
+    function initMainPage() {
+      document.getElementById("mainPage").style.display = "block";
+      document.getElementById("categoryPage").style.display = "none";
+      const container = document.getElementById("categoriesContainer");
+      container.innerHTML = "";
+      for (let category in productData) {
+        // Create a section with a title for each category
+        let section = document.createElement("div");
+        section.innerHTML = `<h2 class="mt-4">${category}</h2>
+          <div class="horizontal-scroll" id="scroll-${category.replace(/\s/g, '')}"></div>`;
+        container.appendChild(section);
+        let scrollContainer = document.getElementById(`scroll-${category.replace(/\s/g, '')}`);
+        // Add product tiles for this category
+        productData[category].forEach(product => {
+          let card = document.createElement("div");
+          card.className = "card";
+          card.style.minWidth = "200px";
+          card.style.marginRight = "1rem";
+          // On click, open dedicated category page
+          card.onclick = function() {
+            openCategoryPage(category);
+          };
+          card.innerHTML = `<img src="${product.image}" class="card-img-top" alt="${product.name}">
+            <div class="card-body">
+              <h6 class="card-title">${product.name}</h6>
+              <p class="card-text">${product.price}</p>
+            </div>`;
+          scrollContainer.appendChild(card);
+        });
+      }
     }
 
-    // Render products on the page
-    function renderProducts() {
-      const products = fetchProducts();
-      const productsContainer = document.getElementById("products");
-      productsContainer.innerHTML = ""; // Clear container
-
-      products.forEach(product => {
-        const col = document.createElement("div");
-        col.className = "col-md-3";
-
-        const card = document.createElement("div");
-        card.className = "product-card";
-        // On click, later replace this with a function to open a product details modal
-        card.onclick = () => { alert("This will open product details in a modal."); };
-
-        card.innerHTML = `
-          <img src="${product.image}" alt="${product.name}" class="product-img">
-          <div class="product-info">
-            <div class="product-name">${product.name}</div>
-            <div class="product-price">${product.price}</div>
-          </div>
-        `;
+    // Open dedicated category page with vertical grid layout (2 columns per row)
+    function openCategoryPage(category) {
+      document.getElementById("mainPage").style.display = "none";
+      document.getElementById("categoryPage").style.display = "block";
+      document.getElementById("categoryTitle").innerText = category;
+      const grid = document.getElementById("categoryProducts");
+      grid.innerHTML = "";
+      // Render products in grid format; using col-6 for two columns on mobile and col-md-4 on larger screens.
+      productData[category].forEach(product => {
+        let col = document.createElement("div");
+        col.className = "col-6 col-md-4 mb-4";
+        let card = document.createElement("div");
+        card.className = "card";
+        // On click, open modal with product details and "Add to Cart"
+        card.onclick = function() {
+          openProductModal(product);
+        };
+        card.innerHTML = `<img src="${product.image}" class="card-img-top" alt="${product.name}">
+          <div class="card-body">
+            <h6 class="card-title">${product.name}</h6>
+            <p class="card-text">${product.price}</p>
+          </div>`;
         col.appendChild(card);
-        productsContainer.appendChild(col);
+        grid.appendChild(col);
       });
     }
 
-    // Initialize page after DOM is loaded
-    document.addEventListener("DOMContentLoaded", renderProducts);
-  </script>
+    // Go back to main categories view
+    function backToMain() {
+      document.getElementById("categoryPage").style.display = "none";
+      document.getElementById("mainPage").style.display = "block";
+    }
 
+    // Open modal with product details (includes "Add to Cart" button)
+    function openProductModal(product) {
+      document.getElementById("modalProductImage").src = product.image;
+      document.getElementById("modalProductName").innerText = product.name;
+      document.getElementById("modalProductPrice").innerText = product.price;
+      document.getElementById("modalProductDescription").innerText = product.description;
+      var modal = new bootstrap.Modal(document.getElementById("productModal"));
+      modal.show();
+    }
+
+    // Initialize main page on load
+    window.onload = function() {
+      initMainPage();
+    };
+  </script>
+  
   <!-- Bootstrap 5 JS Bundle -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
