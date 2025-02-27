@@ -6,6 +6,8 @@
   <title>NextGen E-commerce - Shop Now</title>
   <!-- Bootstrap 5 CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons (for cart icon) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
   <style>
     /* Global Styles */
     body {
@@ -15,17 +17,52 @@
       margin: 0;
       padding: 0;
     }
+    /* Header Styles */
     .navbar {
-      background-color: #d70018;
+      background: linear-gradient(90deg, #d70018, #ff5e57);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     }
     .navbar-brand, .nav-link {
       color: #fff !important;
       font-weight: bold;
     }
-    .navbar-brand:hover, .nav-link:hover {
+    .nav-link:hover, .navbar-brand:hover {
       color: #ffcccc !important;
     }
-    /* Horizontal Scroll Container */
+    /* Prominent Cart Icon */
+    .cart-icon {
+      position: relative;
+      font-size: 1.5rem;
+      color: #fff;
+      margin-left: 1rem;
+      cursor: pointer;
+    }
+    .cart-icon .badge {
+      position: absolute;
+      top: -5px;
+      right: -10px;
+      background-color: #ffc107;
+      color: #000;
+      font-size: 0.7rem;
+      border-radius: 50%;
+      padding: 2px 5px;
+    }
+    /* Footer Styles */
+    footer {
+      background-color: #222;
+      color: #ccc;
+      padding: 1rem 0;
+      text-align: center;
+    }
+    footer a {
+      color: #ffc107;
+      text-decoration: none;
+      margin: 0 0.5rem;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
+    /* Horizontal Scroll Container for Main Page */
     .horizontal-scroll {
       display: flex;
       overflow-x: auto;
@@ -83,10 +120,13 @@
       width: 100%;
       object-fit: cover;
     }
-    /* Carousel Banner specific */
-    .carousel-banner {
-      height: 150px; /* rectangular, reduced height */
+    .carousel-banner,
+    .fullwidth-banner,
+    .accordion-banner,
+    .three-part-banner {
+      height: 150px;
     }
+    /* Carousel Banner */
     .carousel-banner .carousel-item {
       height: 150px;
     }
@@ -95,12 +135,11 @@
     }
     /* Full-Width Banner */
     .fullwidth-banner {
-      height: 150px;
       position: relative;
     }
     .fullwidth-banner img {
       height: 150px;
-      opacity: 0.8;
+      opacity: 0.85;
     }
     .fullwidth-banner .banner-text {
       position: absolute;
@@ -112,12 +151,12 @@
       font-weight: bold;
     }
     /* Accordion Banner */
-    .accordion-banner {
-      height: 150px;
+    .accordion-banner .accordion-button {
+      font-weight: bold;
+      font-size: 1rem;
     }
     /* Three-Part Banner */
     .three-part-banner {
-      height: 150px;
       display: flex;
       align-items: center;
       padding: 0 1rem;
@@ -133,6 +172,7 @@
     }
     .three-part-banner .banner-img {
       flex: 1;
+      text-align: right;
     }
     .three-part-banner .banner-img img {
       height: 100%;
@@ -150,7 +190,7 @@
   -->
 </head>
 <body>
-  <!-- Navigation Bar -->
+  <!-- Header / Navigation Bar -->
   <nav class="navbar navbar-expand-lg">
     <div class="container">
       <a class="navbar-brand" href="index.html">MyBusiness Premium</a>
@@ -158,11 +198,16 @@
               aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav me-3">
           <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
           <li class="nav-item active"><a class="nav-link" href="ecommerce.html">Shop Now</a></li>
         </ul>
+        <!-- Prominent Add to Cart Icon -->
+        <div class="cart-icon">
+          <i class="bi bi-cart-fill"></i>
+          <span class="badge">0</span>
+        </div>
       </div>
     </div>
   </nav>
@@ -171,7 +216,7 @@
   <div class="container my-4" id="mainPage">
     <h1 class="mb-4">Product Categories</h1>
     <div id="categoriesContainer">
-      <!-- Dynamic category sections (each preceded by a banner) will be rendered here -->
+      <!-- Dynamic category sections (each with a banner above) will be rendered here -->
     </div>
   </div>
   
@@ -184,7 +229,7 @@
     </div>
   </div>
   
-  <!-- Modal: Product Details -->
+  <!-- Modal: Product Details with Add to Cart -->
   <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
       <div class="modal-content">
@@ -199,11 +244,23 @@
           <p id="modalProductDescription"></p>
         </div>
         <div class="modal-footer">
-          <button class="btn btn-primary">Add to Cart</button>
+          <button class="btn btn-primary"><i class="bi bi-cart-fill me-1"></i> Add to Cart</button>
         </div>
       </div>
     </div>
   </div>
+  
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 MyBusiness Premium. All rights reserved.</p>
+      <p>
+        <a href="#">Privacy Policy</a> | 
+        <a href="#">Terms of Service</a> | 
+        <a href="#">Contact Us</a>
+      </p>
+    </div>
+  </footer>
   
   <!-- JavaScript: Dummy Data & Functions -->
   <script>
@@ -239,12 +296,12 @@
     // Function to create a banner for a category based on its index
     function createBannerForCategory(category, index) {
       let banner = document.createElement("div");
-      banner.className = "banner mb-4";
+      banner.className = "banner";
       
-      // Adjust banner height and content based on category index
+      // Adjust banner style based on category index
       switch (index) {
         case 0:
-          // Carousel Slider Banner for first category (e.g., Countdown Sales)
+          // Carousel Slider Banner (Countdown Sales)
           banner.classList.add("carousel-banner");
           banner.innerHTML = `
             <div id="carouselBanner${index}" class="carousel slide" data-bs-ride="carousel">
@@ -268,7 +325,7 @@
           `;
           break;
         case 1:
-          // Full-Width Banner for second category (e.g., Discount Offers)
+          // Full-Width Banner (Discount Offers)
           banner.classList.add("fullwidth-banner");
           banner.innerHTML = `
             <img src="https://via.placeholder.com/1200x150?text=Big+Discount+Offer" alt="Big Discount">
@@ -276,7 +333,7 @@
           `;
           break;
         case 2:
-          // Accordion Offers Banner for third category (e.g., Hot Sales)
+          // Accordion Banner (Hot Sales)
           banner.classList.add("accordion-banner");
           banner.innerHTML = `
             <div class="accordion" id="accordionBanner${index}">
@@ -296,7 +353,7 @@
           `;
           break;
         case 3:
-          // Three-Part Banner for fourth category (e.g., Seasonal Offers)
+          // Three-Part Banner (Seasonal Offers)
           banner.classList.add("three-part-banner");
           banner.innerHTML = `
             <div class="banner-title">Seasonal Savings</div>
@@ -307,7 +364,7 @@
           `;
           break;
         case 4:
-          // Three-Part Banner for fifth category (e.g., Clearance Sale)
+          // Three-Part Banner (Clearance Sale)
           banner.classList.add("three-part-banner");
           banner.innerHTML = `
             <div class="banner-title">Clearance Sale</div>
@@ -323,7 +380,7 @@
       return banner;
     }
 
-    // Render main page with category sections and banners above each horizontal scroll line
+    // Render main page with category sections and banners above each horizontal scroll section
     function initMainPage() {
       document.getElementById("mainPage").style.display = "block";
       document.getElementById("categoryPage").style.display = "none";
@@ -331,11 +388,10 @@
       container.innerHTML = "";
       let index = 0;
       for (let category in productData) {
-        // Create and append the banner for this category
+        // Append banner for the category
         let banner = createBannerForCategory(category, index);
         container.appendChild(banner);
-        
-        // Create a section for the category title and horizontal scroll of products
+        // Create category section with title and horizontal scroll container
         let section = document.createElement("div");
         section.innerHTML = `<h2 class="mt-4">${category}</h2>
           <div class="horizontal-scroll" id="scroll-${category.replace(/\s/g, '')}"></div>`;
