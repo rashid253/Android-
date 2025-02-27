@@ -57,6 +57,23 @@ body {
   text-decoration: none;
 }
 
+/* Hamburger Menu (Menu Toggle) */
+.menu-toggle {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.5em;
+  width: 50px; /* Increased width */
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.menu-toggle i {
+  width: 30px; /* Increased width of the 3-line icon */
+}
+
 /* Hero Section */
 .hero {
   background-color: #007BFF; /* Bright Blue */
@@ -76,6 +93,10 @@ body {
   margin-bottom: 30px;
 }
 
+.cta-buttons {
+  display: inline-block;
+}
+
 .cta-buttons button {
   padding: 10px 20px;
   border: none;
@@ -84,15 +105,15 @@ body {
   margin: 0 5px;
 }
 
-/* Shop Now button */
-.cta-buttons button:first-child {
-  background-color: #0056b3;
+/* Shop Now button changed to green */
+.btn-shop-now {
+  background-color: #28a745; /* Green */
   color: #fff;
 }
 
-/* Learn More button changed to green */
+/* Learn More button (also green as needed) */
 .btn-learn-more {
-  background-color: #28a745;
+  background-color: #28a745; /* Green */
   color: #fff;
 }
 
