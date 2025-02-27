@@ -6,8 +6,9 @@
 }
 
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Montserrat', sans-serif;
   line-height: 1.6;
+  background: #fff;
 }
 
 /* Header */
@@ -63,7 +64,7 @@ body {
   border: none;
   color: #fff;
   font-size: 1.5em;
-  width: 50px; /* Increased width */
+  width: 50px;
   height: 50px;
   display: flex;
   align-items: center;
@@ -71,21 +72,40 @@ body {
 }
 
 .menu-toggle i {
-  width: 30px; /* Increased width of the 3-line icon */
+  width: 30px;
 }
 
-/* Hero Section */
+/* Hero Section with digital professional style */
 .hero {
   background-color: #007BFF; /* Bright Blue */
   color: #fff;
-  padding: 100px 20px;
+  padding: 120px 20px;
   text-align: center;
   margin-top: 60px; /* to account for fixed header */
+  position: relative;
+  overflow: hidden;
+}
+
+.hero:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 200%;
+  height: 100%;
+  background: rgba(255,255,255,0.05);
+  transform: skewX(-20deg);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
 }
 
 .hero h1 {
-  font-size: 2.5em;
+  font-size: 3em;
   margin-bottom: 20px;
+  font-weight: 700;
 }
 
 .hero p {
@@ -98,23 +118,24 @@ body {
 }
 
 .cta-buttons button {
-  padding: 10px 20px;
+  padding: 12px 30px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   margin: 0 5px;
+  font-size: 1em;
+  font-weight: 600;
+  transition: background 0.3s ease;
 }
 
-/* Shop Now button changed to green */
-.btn-shop-now {
-  background-color: #28a745; /* Green */
+/* Green buttons for both Shop Now and Learn More */
+.btn-green {
+  background-color: #28a745;
   color: #fff;
 }
 
-/* Learn More button (also green as needed) */
-.btn-learn-more {
-  background-color: #28a745; /* Green */
-  color: #fff;
+.btn-green:hover {
+  background-color: #218838;
 }
 
 /* Features Section */
@@ -126,6 +147,8 @@ body {
 
 .features h2 {
   margin-bottom: 40px;
+  font-size: 2em;
+  font-weight: 700;
 }
 
 .features-grid {
@@ -141,6 +164,11 @@ body {
   width: 300px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+}
+
+.feature-item:hover {
+  transform: translateY(-5px);
 }
 
 .feature-item i {
