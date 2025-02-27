@@ -11,7 +11,7 @@ body {
   background: #fff;
 }
 
-/* Header */
+/* Fixed Header */
 .header {
   background: #333;
   color: #fff;
@@ -58,7 +58,7 @@ body {
   text-decoration: none;
 }
 
-/* Hamburger Menu (Menu Toggle) */
+/* Hamburger Menu */
 .menu-toggle {
   background: none;
   border: none;
@@ -75,7 +75,12 @@ body {
   width: 30px;
 }
 
-/* Hero Section with digital professional style */
+/* Main Content Padding to prevent footer overlap */
+main {
+  padding-bottom: 80px;
+}
+
+/* Hero Section - Digital Professional Style */
 .hero {
   background-color: #007BFF; /* Bright Blue */
   color: #fff;
@@ -104,15 +109,19 @@ body {
 
 .hero h1 {
   font-size: 3em;
-  margin-bottom: 20px;
+  margin-bottom: 10px; /* reduced vertical space */
   font-weight: 700;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+  line-height: 1.2;
 }
 
 .hero p {
   font-size: 1.2em;
-  margin-bottom: 30px;
+  margin-bottom: 15px; /* reduced vertical space */
+  line-height: 1.3;
 }
 
+/* Call-to-Action Buttons */
 .cta-buttons {
   display: inline-block;
 }
@@ -128,7 +137,7 @@ body {
   transition: background 0.3s ease;
 }
 
-/* Green buttons for both Shop Now and Learn More */
+/* Green Button Style */
 .btn-green {
   background-color: #28a745;
   color: #fff;
@@ -215,4 +224,6 @@ body {
   color: #fff;
   text-align: center;
   padding: 20px 0;
+  position: relative;
+  z-index: 10;
 }
