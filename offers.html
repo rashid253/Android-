@@ -2,18 +2,18 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Offers - MyBusiness Premium</title>
   <style>
-    /* Basic Reset */
+    /* Reset and Base Styles */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
     body {
-      font-family: Arial, sans-serif;
-      background: #fff;
+      font-family: 'Helvetica Neue', sans-serif;
+      background-color: #fafafa;
       color: #333;
       line-height: 1.6;
       text-align: center;
@@ -21,173 +21,173 @@
     a {
       text-decoration: none;
       color: inherit;
-      transition: color 0.3s ease;
+      transition: all 0.3s ease;
     }
     a:hover {
       color: #ff6600;
     }
-    /* Hero Section */
+    /* Header Section */
     header {
-      height: 30vh; /* Reduced height */
-      background: url('https://via.placeholder.com/1920x400?text=Exclusive+Offers') no-repeat center center/cover;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      position: relative;
+      background: linear-gradient(135deg, #ff6600, #ff9900);
+      padding: 2rem;
+      color: #fff;
+      text-align: center;
     }
-    header::before {
-      content: "";
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0, 0, 0, 0.5);
-    }
-    .hero-content {
-      position: relative;
-      z-index: 1;
-    }
-    .hero-content h1 {
+    header h1 {
       font-size: 2.5rem;
       margin-bottom: 0.5rem;
     }
-    /* Offers Banners Section */
-    .offers-container {
+    header p {
+      font-size: 1.1rem;
+    }
+    /* Offers Section */
+    .offers-section {
       max-width: 1200px;
-      margin: 2rem auto;
+      margin: 3rem auto;
       padding: 0 1rem;
     }
-    .offer-banner {
-      position: relative;
-      margin-bottom: 2rem;
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    .offers-title {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      color: #222;
+      text-align: center;
     }
-    .offer-banner img {
-      width: 100%;
-      display: block;
+    .offers-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
     }
-    .offer-overlay {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: rgba(0,0,0,0.6);
-      color: #fff;
-      padding: 1rem;
-      text-align: left;
+    .offer-card {
+      background: #fff;
+      border-radius: 8px;
+      padding: 1.5rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-    .offer-overlay h2 {
-      font-size: 1.8rem;
-      margin-bottom: 0.5rem;
+    .offer-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     }
-    .offer-overlay p {
+    .offer-card h2 {
+      font-size: 1.5rem;
+      margin-bottom: 0.75rem;
+      color: #ff6600;
+    }
+    .offer-card p {
       font-size: 1rem;
+      color: #555;
     }
-    /* Call-to-Action Button */
+    /* Call-to-Action Section */
+    .cta-section {
+      margin: 3rem 0;
+    }
     .cta-button {
-      display: block;
-      width: 200px;
-      margin: 2rem auto;
-      padding: 1rem;
+      padding: 1rem 2rem;
       background: #ff6600;
       color: #fff;
-      text-align: center;
       font-size: 1.2rem;
       font-weight: bold;
-      border-radius: 5px;
-      transition: background 0.3s ease;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.3s ease;
     }
     .cta-button:hover {
       background: #e65c00;
+      transform: scale(1.05);
     }
     /* Footer */
     footer {
-      background: #222;
-      color: #fff;
+      background: #333;
+      color: #ccc;
       padding: 1rem;
       font-size: 0.9rem;
       text-align: center;
     }
+    /* Responsive Adjustments */
     @media (max-width:768px) {
-      .hero-content h1 { font-size: 2rem; }
-      .offer-overlay h2 { font-size: 1.5rem; }
-      .offer-overlay p { font-size: 0.9rem; }
+      header h1 { font-size: 2rem; }
+      .offers-title { font-size: 1.8rem; }
+      .cta-button { font-size: 1rem; padding: 0.8rem 1.5rem; }
     }
   </style>
 </head>
 <body>
-
-  <!-- Hero Section -->
+  <!-- Header Section -->
   <header>
-    <div class="hero-content">
-      <h1>Exclusive Offers</h1>
-    </div>
+    <h1>Exclusive Offers</h1>
+    <p>Discover our latest exclusive deals and promotions.</p>
   </header>
   
-  <!-- Offers Banners Section -->
-  <div class="offers-container" id="offersContainer">
-    <!-- Offer banners will be injected here via JavaScript -->
-  </div>
+  <!-- Offers Section -->
+  <section class="offers-section">
+    <div class="offers-title">Our Offers</div>
+    <div class="offers-list" id="offersList">
+      <!-- Offer cards will be dynamically injected here -->
+    </div>
+  </section>
   
-  <!-- Call-to-Action Button leading to ecommerce.html -->
-  <a href="ecommerce.html" class="cta-button">Shop Now</a>
+  <!-- Call-to-Action Section -->
+  <div class="cta-section">
+    <a href="ecommerce.html" class="cta-button">Shop Now</a>
+  </div>
   
   <!-- Footer -->
   <footer>
     <p>© 2025 MyBusiness Premium. All rights reserved.</p>
   </footer>
   
-  <!-- Dummy JavaScript for Simulated Data Fetching -->
+  <!-- Dummy JavaScript for Data Fetching (Firebase integration in future) -->
   <script>
-    // This function simulates data fetching for offer banners.
+    // The fetchOffers() function simulates fetching offer data.
     // In the future, replace this with Firebase Firestore API calls.
     // Firebase will handle authentication and data persistence.
-    function fetchProducts() {
+    function fetchOffers() {
       console.log("Fetching offers using dummy data...");
-      const offers = [
+      return [
         {
           id: 1,
-          title: "Summer Sale",
-          description: "Enjoy up to 40% off on our summer collection.",
-          image: "https://via.placeholder.com/1200x500?text=Summer+Sale"
+          title: "Flash Deal",
+          description: "Limited time flash deal: Save 40% on select items."
         },
         {
           id: 2,
-          title: "New Arrivals",
-          description: "Check out the latest arrivals with exclusive deals.",
-          image: "https://via.placeholder.com/1200x500?text=New+Arrivals"
+          title: "Member Exclusive",
+          description: "Special discounts available exclusively for members."
         },
         {
           id: 3,
-          title: "Limited Time Offer",
-          description: "Grab the deal before it's gone!",
-          image: "https://via.placeholder.com/1200x500?text=Limited+Time+Offer"
+          title: "Buy One Get One",
+          description: "Buy one, get one free on select products."
+        },
+        {
+          id: 4,
+          title: "Seasonal Sale",
+          description: "Enjoy seasonal discounts up to 50% off on new arrivals."
+        },
+        {
+          id: 5,
+          title: "Clearance Offer",
+          description: "Huge savings on clearance items while stocks last!"
         }
       ];
-      return offers;
     }
-
-    // Render offer banners on the page
+    
     function renderOffers() {
-      const offers = fetchProducts();
-      const container = document.getElementById("offersContainer");
+      const offers = fetchOffers();
+      const container = document.getElementById("offersList");
       offers.forEach(offer => {
-        const banner = document.createElement("div");
-        banner.className = "offer-banner";
-        banner.innerHTML = `
-          <img src="${offer.image}" alt="${offer.title}">
-          <div class="offer-overlay">
-            <h2>${offer.title}</h2>
-            <p>${offer.description}</p>
-          </div>
+        const card = document.createElement("div");
+        card.className = "offer-card";
+        card.innerHTML = `
+          <h2>${offer.title}</h2>
+          <p>${offer.description}</p>
         `;
-        container.appendChild(banner);
+        container.appendChild(card);
       });
     }
-
+    
     document.addEventListener("DOMContentLoaded", renderOffers);
   </script>
-  
 </body>
 </html>
