@@ -20,10 +20,11 @@
       text-decoration: none;
       color: inherit;
     }
-    /* Header */
+    /* Header (Hero Section) - Reduced Height */
     header {
+      position: relative;
+      height: 40vh; /* Reduced from 60vh */
       background: url('https://via.placeholder.com/1920x600?text=Contact+Us+Header') no-repeat center center/cover;
-      height: 60vh;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -42,11 +43,11 @@
       z-index: 1;
     }
     .header-content h1 {
-      font-size: 3rem;
-      margin-bottom: 1rem;
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
     }
     .header-content p {
-      font-size: 1.2rem;
+      font-size: 1rem;
     }
     /* Contact Section */
     .contact-container {
@@ -129,12 +130,36 @@
       height: 300px;
       background: url('https://via.placeholder.com/1200x300?text=Google+Maps+Location') no-repeat center center/cover;
       border-radius: 10px;
-      margin-top: 2rem;
+      margin: 2rem auto;
+    }
+    /* Social Media Links Section */
+    .social-links {
+      text-align: center;
+      padding: 1rem 0;
+      background: #222;
+      color: #fff;
+    }
+    .social-links a {
+      margin: 0 10px;
+      font-size: 1.5rem;
+      display: inline-block;
+      transition: transform 0.3s ease;
+    }
+    .social-links a:hover {
+      transform: scale(1.1);
+    }
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background: #111;
+      color: #ccc;
+      font-size: 0.9rem;
     }
     /* Responsive */
     @media (max-width: 768px) {
       header .header-content h1 {
-        font-size: 2.5rem;
+        font-size: 2rem;
       }
       .contact-container {
         flex-direction: column;
@@ -148,7 +173,7 @@
 </head>
 <body>
 
-  <!-- Header -->
+  <!-- Header (Hero Section) -->
   <header>
     <div class="header-content">
       <h1>Contact Us</h1>
@@ -166,7 +191,7 @@
         <p><i>📍</i> 123 Business Street, New York, USA</p>
         <p><i>📞</i> +1 234 567 890</p>
         <p><i>✉️</i> support@mybusiness.com</p>
-        <p><i>⏰</i> Monday - Friday: 9:00 AM - 6:00 PM</p>
+        <p><i>⏰</i> Mon - Fri: 9:00 AM - 6:00 PM</p>
       </div>
     </div>
 
@@ -188,11 +213,19 @@
     </div>
   </section>
 
-  <!-- Google Maps -->
+  <!-- Google Maps Placeholder -->
   <div class="map"></div>
 
+  <!-- Social Media Links Section -->
+  <div class="social-links">
+    <a href="https://facebook.com" target="_blank" title="Facebook">📘</a>
+    <a href="https://twitter.com" target="_blank" title="Twitter">🐦</a>
+    <a href="https://linkedin.com" target="_blank" title="LinkedIn">🔗</a>
+    <a href="https://instagram.com" target="_blank" title="Instagram">📸</a>
+  </div>
+
   <!-- Footer -->
-  <footer style="text-align: center; padding: 2rem; background: #222; color: white;">
+  <footer>
     <p>© 2025 MyBusiness Premium. All rights reserved.</p>
   </footer>
 
@@ -200,7 +233,7 @@
   <script>
     document.getElementById('contactForm').addEventListener('submit', function(event) {
       event.preventDefault();
-      alert('Your message has been sent! (This function will later be linked to Firebase)');
+      alert('Your message has been sent! (This will later be linked to Firebase)');
     });
   </script>
 
