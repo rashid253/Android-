@@ -1,10 +1,9 @@
-<!-- header.html -->
 <header class="header">
   <div class="header-content">
     <div class="brand">
-      <i class="fas fa-briefcase"></i> MyBusiness Premium
+      <i class="fas fa-briefcase"></i> <span>MyBusiness</span>
     </div>
-    <!-- Desktop Navigation -->
+    <!-- Desktop Navigation (visible on larger screens) -->
     <nav class="nav-desktop">
       <a href="index.html" onclick="openPage('index.html')"><i class="fas fa-home"></i></a>
       <a href="offers.html" onclick="openPage('offers.html')"><i class="fas fa-tags"></i></a>
@@ -12,14 +11,9 @@
       <a href="ecommerce.html" onclick="openPage('ecommerce.html')"><i class="fas fa-shopping-cart"></i></a>
       <a href="more.html" onclick="openPage('more.html')"><i class="fas fa-ellipsis-h"></i></a>
     </nav>
-    <!-- Navbar Icons for Mobile (optional) -->
-    <div class="navbar-icons">
-      <i class="fas fa-chat-dots" title="Chat" onclick="alert('Chat functionality not implemented yet!')"></i>
-      <i class="fas fa-bag-shopping" title="Orders" onclick="alert('Orders functionality not implemented yet!')"></i>
-      <div class="cart-icon" onclick="openPage('cart.html')">
-        <i class="fas fa-shopping-cart"></i>
-        <span class="badge">0</span>
-      </div>
-    </div>
+    <!-- Hamburger for Mobile -->
+    <button class="menu-toggle" onclick="toggleSideMenu()">
+      <i class="fas fa-bars"></i>
+    </button>
   </div>
 </header>
