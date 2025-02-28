@@ -1,208 +1,446 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Shop - MyBusiness Premium</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NextGen E-commerce - Shop Now</title>
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
   <style>
-    /* Reset and Base Styles */
-    * {
+    /* Global Styles */
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #e0f7fa; /* Light blue background */
+      color: #333;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
     }
-    body {
-      font-family: 'Helvetica Neue', sans-serif;
-      background-color: #f7f8fc;
-      color: #444;
-      line-height: 1.6;
-      text-align: center;
+    /* Header / Navbar */
+    .navbar {
+      background-color: #0B6623; /* Green header */
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     }
-    a {
-      text-decoration: none;
-      color: inherit;
-      transition: all 0.3s ease;
-    }
-    a:hover {
-      color: #ff7a00;
-    }
-    /* NEW HERO SECTION */
-    .hero {
-      background: linear-gradient(135deg, #6a11cb, #2575fc);
-      padding: 3rem 1rem;
-      color: #fff;
-      text-align: center;
-    }
-    .hero h1 {
-      font-size: 2.8rem;
-      margin-bottom: 0.5rem;
-    }
-    .hero p {
-      font-size: 1.2rem;
-    }
-    /* Header Section (if any existing header is kept, now hidden) */
-    header {
-      display: none;
-    }
-    /* Main Container */
-    .container {
-      max-width: 1200px;
-      margin: 2rem auto;
-      padding: 0 1rem;
-    }
-    /* Product Grid */
-    .product-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1.5rem;
-    }
-    .product-card {
-      background: #fff;
-      border-radius: 8px;
-      overflow: hidden;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      text-align: left;
-    }
-    .product-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.12);
-    }
-    .product-card img {
-      width: 100%;
-      height: 220px;
-      object-fit: cover;
-    }
-    .product-info {
-      padding: 1rem;
-    }
-    .product-info h2 {
-      font-size: 1.4rem;
-      margin-bottom: 0.5rem;
-      color: #2575fc;
-    }
-    .product-info p {
-      font-size: 1rem;
-      color: #666;
-      margin-bottom: 1rem;
-    }
-    .product-info .price {
-      font-size: 1.2rem;
+    .navbar-brand, .nav-link {
+      color: #fff !important;
       font-weight: bold;
-      color: #ff7a00;
-      margin-bottom: 1rem;
     }
-    .product-info .btn {
-      display: inline-block;
-      padding: 0.7rem 1.2rem;
-      background: #ff7a00;
+    .navbar-brand:hover, .nav-link:hover {
+      color: #c8e6c9 !important;
+    }
+    /* Prominent Cart Icon */
+    .cart-icon {
+      font-size: 1.8rem;
       color: #fff;
-      border-radius: 4px;
-      font-size: 1rem;
-      transition: background 0.3s ease;
+      position: relative;
+      margin-left: 1rem;
+      cursor: pointer;
+      border: 2px solid #fff;
+      padding: 5px;
+      border-radius: 50%;
     }
-    .product-info .btn:hover {
-      background: #e06d00;
+    .cart-icon .badge {
+      position: absolute;
+      top: -5px;
+      right: -10px;
+      background-color: #ffc107;
+      color: #000;
+      font-size: 0.7rem;
+      border-radius: 50%;
+      padding: 2px 5px;
     }
     /* Footer */
     footer {
-      background: #333;
-      color: #ccc;
+      background-color: #0B6623; /* Green footer */
+      color: #fff;
       text-align: center;
-      padding: 1.5rem;
-      font-size: 0.9rem;
-      margin-top: 2rem;
+      padding: 1rem 0;
     }
-    @media (max-width:768px) {
-      .hero h1 { font-size: 2.2rem; }
-      .hero p { font-size: 1rem; }
+    footer a {
+      color: #ffc107;
+      text-decoration: none;
+      margin: 0 0.5rem;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
+    /* Horizontal Scroll Container */
+    .horizontal-scroll {
+      display: flex;
+      overflow-x: auto;
+      gap: 0.75rem;
+      padding-bottom: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .horizontal-scroll::-webkit-scrollbar {
+      display: none;
+    }
+    /* Product Card Styles */
+    .card {
+      cursor: pointer;
+      border: none;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #fff;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+      min-width: 150px; /* Smaller product tile */
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    }
+    .card-img-top {
+      width: 100%;
+      height: 140px; /* Slightly smaller image */
+      object-fit: cover;
+    }
+    .card-body {
+      padding: 0.5rem;
+    }
+    .card-title {
+      font-size: 0.9rem;
+      margin-bottom: 0.3rem;
+      font-weight: bold;
+    }
+    .card-text {
+      color: #0B6623;
+      font-size: 0.8rem;
+    }
+    /* Banner Styles (Fixed Height 150px) */
+    .banner {
+      margin: 1rem 0;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #fff;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      height: 150px;
+    }
+    .banner img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+    }
+    .fullwidth-banner .banner-text {
+      position: absolute;
+      top: 50%;
+      left: 10%;
+      transform: translateY(-50%);
+      color: #fff;
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+    .three-part-banner {
+      display: flex;
+      align-items: center;
+      padding: 0 1rem;
+      height: 150px;
+    }
+    .three-part-banner .banner-title {
+      flex: 1;
+      font-size: 1.1rem;
+      font-weight: bold;
+    }
+    .three-part-banner .banner-desc {
+      flex: 2;
+      font-size: 0.95rem;
+    }
+    .three-part-banner .banner-img {
+      flex: 1;
+      text-align: right;
+    }
+    .three-part-banner .banner-img img {
+      height: 100%;
+      object-fit: contain;
+    }
+    /* Category Page Grid */
+    #categoryPage .col {
+      margin-bottom: 1rem;
     }
   </style>
+  <!--
+    This frontend code is built using dummy data and is structured to be easily integrated with a Firebase backend in the future.
+    The fetchProducts() function currently simulates data fetching, and will later be replaced by Firebase Firestore API calls.
+    Authentication and data persistence will be handled via Firebase, allowing for dynamic and secure data management.
+  -->
 </head>
 <body>
-  <!-- NEW Hero Section -->
-  <section class="hero">
-    <h1>Shop Our Premium Collection</h1>
-    <p>Experience modern design and exclusive quality in every product.</p>
-  </section>
+  <!-- Header / Navigation Bar -->
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">MyBusiness Premium</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+              aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav me-3">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item active"><a class="nav-link" href="ecommerce.html">Shop Now</a></li>
+        </ul>
+        <!-- Prominent Cart Icon (clickable) -->
+        <div class="cart-icon" onclick="alert('Cart functionality not implemented yet!')">
+          <i class="bi bi-cart-fill"></i>
+          <span class="badge">0</span>
+        </div>
+      </div>
+    </div>
+  </nav>
   
-  <!-- Product Grid Section -->
-  <div class="container">
-    <div class="product-grid" id="productGrid">
-      <!-- Product cards will be dynamically injected here -->
+  <!-- Main Page: Categories with Banners and Horizontal Scroll -->
+  <div class="container my-4" id="mainPage">
+    <h1 class="mb-4 text-center">Product Categories</h1>
+    <div id="categoriesContainer">
+      <!-- Dynamic category sections (each with a banner above) will be rendered here -->
+    </div>
+  </div>
+  
+  <!-- Category Page: Vertical Grid of Products -->
+  <div class="container my-4" id="categoryPage" style="display: none;">
+    <button class="btn btn-secondary mb-3" onclick="backToMain()">Back to Categories</button>
+    <h2 id="categoryTitle" class="mb-4"></h2>
+    <div class="row" id="categoryProducts">
+      <!-- Products will be rendered here in a grid (2 columns on mobile, 3 on larger screens) -->
+    </div>
+  </div>
+  
+  <!-- Modal: Product Details with Add to Cart -->
+  <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="productModalLabel">Product Details</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <img id="modalProductImage" src="" class="img-fluid mb-3" alt="Product Image">
+          <h4 id="modalProductName"></h4>
+          <p id="modalProductPrice" class="text-danger h5"></p>
+          <p id="modalProductDescription"></p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary"><i class="bi bi-cart-fill me-1"></i> Add to Cart</button>
+        </div>
+      </div>
     </div>
   </div>
   
   <!-- Footer -->
   <footer>
-    <p>© 2025 MyBusiness Premium. All rights reserved.</p>
+    <div class="container">
+      <p>&copy; 2025 MyBusiness Premium. All rights reserved.</p>
+      <p>
+        <a href="#">Privacy Policy</a> | 
+        <a href="#">Terms of Service</a> | 
+        <a href="#">Contact Us</a>
+      </p>
+    </div>
   </footer>
   
-  <!-- Dummy JavaScript for Data Fetching -->
+  <!-- JavaScript: Dummy Data & Functions -->
   <script>
-    // The fetchProducts() function simulates fetching product data.
-    // In the future, replace this with Firebase Firestore API calls for dynamic data.
-    function fetchProducts() {
-      console.log("Fetching products using dummy data...");
-      return [
-        {
-          id: 1,
-          name: "Premium Product 1",
-          description: "High-quality product designed for discerning customers.",
-          price: "$49.99",
-          image: "https://via.placeholder.com/400x300?text=Product+1"
-        },
-        {
-          id: 2,
-          name: "Premium Product 2",
-          description: "Experience the best in quality and design.",
-          price: "$69.99",
-          image: "https://via.placeholder.com/400x300?text=Product+2"
-        },
-        {
-          id: 3,
-          name: "Premium Product 3",
-          description: "Elevate your lifestyle with this exclusive product.",
-          price: "$89.99",
-          image: "https://via.placeholder.com/400x300?text=Product+3"
-        },
-        {
-          id: 4,
-          name: "Premium Product 4",
-          description: "A blend of style and performance for modern living.",
-          price: "$99.99",
-          image: "https://via.placeholder.com/400x300?text=Product+4"
-        },
-        {
-          id: 5,
-          name: "Premium Product 5",
-          description: "The ultimate product that defines luxury.",
-          price: "$129.99",
-          image: "https://via.placeholder.com/400x300?text=Product+5"
-        }
-      ];
+    // Dummy product data per category
+    const productData = {
+      "Countdown Sales": [
+        { name: "Smartphone A", price: "$300", description: "High-performance smartphone.", image: "https://via.placeholder.com/300x200?text=Smartphone+A" },
+        { name: "Smart TV B", price: "$500", description: "4K Ultra HD Smart TV.", image: "https://via.placeholder.com/300x200?text=Smart+TV+B" },
+        { name: "Laptop C", price: "$800", description: "Gaming laptop with high performance.", image: "https://via.placeholder.com/300x200?text=Laptop+C" }
+      ],
+      "Discount Offers": [
+        { name: "Headphones D", price: "$50", description: "Noise cancelling headphones.", image: "https://via.placeholder.com/300x200?text=Headphones+D" },
+        { name: "Speaker E", price: "$70", description: "Wireless speaker with deep bass.", image: "https://via.placeholder.com/300x200?text=Speaker+E" },
+        { name: "Camera F", price: "$250", description: "High resolution digital camera.", image: "https://via.placeholder.com/300x200?text=Camera+F" }
+      ],
+      "Hot Sales": [
+        { name: "Smartwatch G", price: "$120", description: "Feature-rich smartwatch.", image: "https://via.placeholder.com/300x200?text=Smartwatch+G" },
+        { name: "Tablet H", price: "$200", description: "Latest generation tablet.", image: "https://via.placeholder.com/300x200?text=Tablet+H" },
+        { name: "Drone I", price: "$350", description: "High-performance drone.", image: "https://via.placeholder.com/300x200?text=Drone+I" }
+      ],
+      "Seasonal Offers": [
+        { name: "Jacket J", price: "$80", description: "Warm and stylish jacket.", image: "https://via.placeholder.com/300x200?text=Jacket+J" },
+        { name: "Boots K", price: "$90", description: "Comfortable boots.", image: "https://via.placeholder.com/300x200?text=Boots+K" },
+        { name: "Scarf L", price: "$20", description: "Cozy scarf for winter.", image: "https://via.placeholder.com/300x200?text=Scarf+L" }
+      ],
+      "Clearance Sale": [
+        { name: "Old Model Phone M", price: "$150", description: "Last year's smartphone model.", image: "https://via.placeholder.com/300x200?text=Phone+M" },
+        { name: "Outdated TV N", price: "$100", description: "Old model television.", image: "https://via.placeholder.com/300x200?text=TV+N" },
+        { name: "Vintage Laptop O", price: "$250", description: "Vintage laptop with classic design.", image: "https://via.placeholder.com/300x200?text=Laptop+O" }
+      ]
+    };
+
+    // Function to create a banner for a category based on its index
+    function createBannerForCategory(category, index) {
+      let banner = document.createElement("div");
+      banner.className = "banner";
+      
+      switch (index) {
+        case 0:
+          // Carousel Slider Banner for Countdown Sales
+          banner.classList.add("carousel-banner");
+          banner.innerHTML = `
+            <div id="carouselBanner${index}" class="carousel slide" data-bs-ride="carousel">
+              <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselBanner${index}" data-bs-slide-to="0" class="active"></button>
+                <button type="button" data-bs-target="#carouselBanner${index}" data-bs-slide-to="1"></button>
+                <button type="button" data-bs-target="#carouselBanner${index}" data-bs-slide-to="2"></button>
+              </div>
+              <div class="carousel-inner">
+                <div class="carousel-item active">
+                  <img src="https://via.placeholder.com/1200x150?text=Deal+1" class="d-block w-100" alt="Deal 1">
+                </div>
+                <div class="carousel-item">
+                  <img src="https://via.placeholder.com/1200x150?text=Deal+2" class="d-block w-100" alt="Deal 2">
+                </div>
+                <div class="carousel-item">
+                  <img src="https://via.placeholder.com/1200x150?text=Deal+3" class="d-block w-100" alt="Deal 3">
+                </div>
+              </div>
+            </div>
+          `;
+          break;
+        case 1:
+          // Full-Width Banner for Discount Offers
+          banner.classList.add("fullwidth-banner");
+          banner.innerHTML = `
+            <img src="https://via.placeholder.com/1200x150?text=Big+Discount+Offer" alt="Big Discount">
+            <div class="banner-text">Big Discounts Available!</div>
+          `;
+          break;
+        case 2:
+          // Accordion Banner for Hot Sales
+          banner.classList.add("accordion-banner");
+          banner.innerHTML = `
+            <div class="accordion" id="accordionBanner${index}">
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOne${index}">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne${index}" aria-expanded="false">
+                    Hot Sales Offer
+                  </button>
+                </h2>
+                <div id="collapseOne${index}" class="accordion-collapse collapse">
+                  <div class="accordion-body">
+                    Exclusive hot sale deals for a limited time!
+                  </div>
+                </div>
+              </div>
+            </div>
+          `;
+          break;
+        case 3:
+          // Three-Part Banner for Seasonal Offers
+          banner.classList.add("three-part-banner");
+          banner.innerHTML = `
+            <div class="banner-title">Seasonal Savings</div>
+            <div class="banner-desc">Special offers for the season.</div>
+            <div class="banner-img">
+              <img src="https://via.placeholder.com/150x150?text=Seasonal" alt="Seasonal">
+            </div>
+          `;
+          break;
+        case 4:
+          // Three-Part Banner for Clearance Sale
+          banner.classList.add("three-part-banner");
+          banner.innerHTML = `
+            <div class="banner-title">Clearance Sale</div>
+            <div class="banner-desc">Last chance deals on clearance items!</div>
+            <div class="banner-img">
+              <img src="https://via.placeholder.com/150x150?text=Clearance" alt="Clearance">
+            </div>
+          `;
+          break;
+        default:
+          banner.innerHTML = `<p>Special Offer</p>`;
+      }
+      return banner;
     }
-    
-    function renderProducts() {
-      const products = fetchProducts();
-      const grid = document.getElementById("productGrid");
-      products.forEach(product => {
-        const card = document.createElement("div");
-        card.className = "product-card";
-        card.innerHTML = `
-          <img src="${product.image}" alt="${product.name}">
-          <div class="product-info">
-            <h2>${product.name}</h2>
-            <p>${product.description}</p>
-            <div class="price">${product.price}</div>
-            <a href="#" class="btn">Add to Cart</a>
-          </div>
-        `;
-        grid.appendChild(card);
+
+    // Render main page with categories and banners
+    function initMainPage() {
+      document.getElementById("mainPage").style.display = "block";
+      document.getElementById("categoryPage").style.display = "none";
+      const container = document.getElementById("categoriesContainer");
+      container.innerHTML = "";
+      let index = 0;
+      for (let category in productData) {
+        // Append banner for the category
+        let banner = createBannerForCategory(category, index);
+        container.appendChild(banner);
+        // Create a section for the category title and horizontal scroll container
+        let section = document.createElement("div");
+        section.innerHTML = `<h2 class="mt-4">${category}</h2>
+          <div class="horizontal-scroll" id="scroll-${category.replace(/\s/g, '')}"></div>`;
+        container.appendChild(section);
+        let scrollContainer = document.getElementById(`scroll-${category.replace(/\s/g, '')}`);
+        productData[category].forEach(product => {
+          let card = document.createElement("div");
+          card.className = "card";
+          card.style.minWidth = "150px";
+          card.style.marginRight = "0.75rem";
+          // Clicking a product tile opens the dedicated category page
+          card.onclick = function() {
+            openCategoryPage(category);
+          };
+          card.innerHTML = `<img src="${product.image}" class="card-img-top" alt="${product.name}">
+            <div class="card-body">
+              <h6 class="card-title">${product.name}</h6>
+              <p class="card-text">${product.price}</p>
+            </div>`;
+          scrollContainer.appendChild(card);
+        });
+        index++;
+      }
+    }
+
+    // Open dedicated category page with vertical grid layout (2 columns on mobile, 3 on larger screens)
+    function openCategoryPage(category) {
+      document.getElementById("mainPage").style.display = "none";
+      document.getElementById("categoryPage").style.display = "block";
+      document.getElementById("categoryTitle").innerText = category;
+      const grid = document.getElementById("categoryProducts");
+      grid.innerHTML = "";
+      productData[category].forEach(product => {
+        let col = document.createElement("div");
+        col.className = "col-6 col-md-4 mb-4";
+        let card = document.createElement("div");
+        card.className = "card";
+        // Clicking a product opens the product details modal
+        card.onclick = function() {
+          openProductModal(product);
+        };
+        card.innerHTML = `<img src="${product.image}" class="card-img-top" alt="${product.name}">
+          <div class="card-body">
+            <h6 class="card-title">${product.name}</h6>
+            <p class="card-text">${product.price}</p>
+          </div>`;
+        col.appendChild(card);
+        grid.appendChild(col);
       });
     }
-    
-    document.addEventListener("DOMContentLoaded", renderProducts);
+
+    // Go back to main categories view
+    function backToMain() {
+      document.getElementById("categoryPage").style.display = "none";
+      document.getElementById("mainPage").style.display = "block";
+    }
+
+    // Open modal with product details (includes "Add to Cart" button)
+    function openProductModal(product) {
+      document.getElementById("modalProductImage").src = product.image;
+      document.getElementById("modalProductName").innerText = product.name;
+      document.getElementById("modalProductPrice").innerText = product.price;
+      document.getElementById("modalProductDescription").innerText = product.description;
+      var modal = new bootstrap.Modal(document.getElementById("productModal"));
+      modal.show();
+    }
+
+    // Initialize main page on load
+    window.onload = function() {
+      initMainPage();
+    };
   </script>
+  
+  <!-- Bootstrap 5 JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
