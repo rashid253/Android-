@@ -34,13 +34,15 @@
       a:hover {
         color: #ff6f61;
       }
+      /* Main container padding-bottom to avoid footer overlapping content */
+      main {
+        padding-bottom: 100px;
+      }
       /* Hero Section */
       .hero {
         position: relative;
-        height: calc(500px + 1.5cm); /* Increased height by 1.5cm */
-        background: linear-gradient(135deg, #FFA500, #FF4500),
-          url('https://via.placeholder.com/1920x500?text=Hero+Section')
-            center/cover no-repeat;
+        height: calc(500px + 3cm); /* Increased height */
+        background: linear-gradient(135deg, #FFB6C1, #FFC0CB); /* Beautiful gradient light pink */
         display: flex;
         align-items: center;
         justify-content: center;
@@ -48,20 +50,13 @@
         color: #fff;
         overflow: hidden;
       }
-      .hero-overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.35);
-        z-index: 1;
-      }
+      /* اگر overlay کی ضرورت نہ ہو تو اسے ہٹا دیا گیا ہے */
+      /* Hero Content کو تھوڑا اوپر لانے کے لیے */
       .hero-content {
         position: relative;
         z-index: 2;
         padding: 0 20px;
-        transform: translateY(-20px); /* Bring text a little above */
+        transform: translateY(-20px);
       }
       .hero-content h1 {
         font-size: 3rem;
@@ -72,17 +67,18 @@
         font-size: 1.2rem;
         margin-bottom: 1.5rem;
       }
+      /* Red call-to-action button */
       .hero-content .btn {
         font-size: 1.2rem;
         padding: 0.75rem 1.5rem;
-        background-color: #28a745; /* Green call-to-action button */
+        background-color: red; /* Red button */
         color: #fff;
         border: none;
         border-radius: 4px;
         transition: background 0.3s ease, transform 0.3s ease;
       }
       .hero-content .btn:hover {
-        background-color: #218838;
+        background-color: #c82333;
         transform: scale(1.05);
       }
       /* Horizontal Scroll for Categories */
@@ -163,7 +159,6 @@
     <main>
       <!-- Hero Section -->
       <section class="hero">
-        <div class="hero-overlay"></div>
         <div class="hero-content">
           <h1>Welcome to NextGen E-commerce</h1>
           <p>Your one-stop shop for the latest trends &amp; exclusive deals.</p>
