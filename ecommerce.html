@@ -12,7 +12,7 @@
     /* Global Styles */
     body {
       font-family: 'Roboto', sans-serif;
-      background-color: #e0f7fa; /* Light blue background */
+      background-color: #e0f7fa;
       color: #333;
       margin: 0;
       padding: 0;
@@ -20,7 +20,7 @@
       padding-top: 70px;
       padding-bottom: 70px;
     }
-    /* Header / Navbar - Sticky White */
+    /* Navbar (Removed from file – now loaded from header.html) */
     .navbar {
       position: fixed;
       top: 0;
@@ -48,7 +48,6 @@
       cursor: pointer;
       color: #333;
     }
-    /* Prominent Cart Icon (Simple, without circle border) */
     .cart-icon {
       font-size: 1.8rem;
       color: #333;
@@ -65,7 +64,7 @@
       border-radius: 50%;
       padding: 2px 5px;
     }
-    /* Hero Section - Full Screen */
+    /* Hero Section */
     .hero {
       position: relative;
       background: url('https://via.placeholder.com/1920x500?text=Hero+Section') center/cover no-repeat;
@@ -101,7 +100,7 @@
       margin-bottom: 1.5rem;
     }
     .hero-content .btn {
-      background-color: #FF4081; /* Rosy pink */
+      background-color: #FF4081;
       border: none;
       font-size: 1.2rem;
       padding: 0.75rem 1.5rem;
@@ -110,7 +109,7 @@
     .hero-content .btn:hover {
       background-color: #e73370;
     }
-    /* Main Content */
+    /* Main Content & Cards */
     .container {
       padding-top: 1rem;
       padding-bottom: 1rem;
@@ -118,7 +117,6 @@
     h1, h2 {
       font-weight: 700;
     }
-    /* Horizontal Scroll Container for Categories */
     .horizontal-scroll {
       display: flex;
       overflow-x: auto;
@@ -129,7 +127,6 @@
     .horizontal-scroll::-webkit-scrollbar {
       display: none;
     }
-    /* Product Card Styles */
     .card {
       cursor: pointer;
       border: none;
@@ -161,7 +158,6 @@
       color: #0B6623;
       font-size: 0.8rem;
     }
-    /* Banner Styles (Fixed Height 150px) */
     .banner {
       margin: 1rem 0;
       border-radius: 8px;
@@ -175,7 +171,6 @@
       height: 150px;
       object-fit: cover;
     }
-    /* Fullwidth Banner */
     .fullwidth-banner {
       position: relative;
     }
@@ -192,12 +187,10 @@
       font-size: 1.2rem;
       font-weight: bold;
     }
-    /* Accordion Banner */
     .accordion-banner .accordion-button {
       font-weight: bold;
       font-size: 1rem;
     }
-    /* Three-Part Banner */
     .three-part-banner {
       display: flex;
       align-items: center;
@@ -221,59 +214,15 @@
       height: 100%;
       object-fit: contain;
     }
-    /* Category Page Grid */
     #categoryPage .col {
       margin-bottom: 1rem;
     }
-    /* Footer - Sticky, Simple, White */
-    footer {
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-      background-color: #fff;
-      border-top: 2px solid #ddd;
-      box-shadow: 0 -2px 6px rgba(0,0,0,0.2);
-      padding: 0.5rem 1rem;
-      z-index: 1000;
-      text-align: center;
-    }
-    footer p {
-      margin: 0.5rem 0 0;
-      font-size: 0.8rem;
-      color: #333;
-    }
-    footer a {
-      color: #0B6623 !important;
-      text-decoration: none !important;
-    }
+    /* Footer styles removed – footer will be loaded from footer.html */
   </style>
-  <!--
-    This frontend code is built using dummy data and is structured to be easily integrated with a Firebase backend in the future.
-    The fetchProducts() function currently simulates data fetching, and will later be replaced by Firebase Firestore API calls.
-    Authentication and data persistence will be handled via Firebase, allowing for dynamic and secure data management.
-  -->
 </head>
 <body>
-  <!-- Header / Navigation Bar (Fixed) -->
-  <nav class="navbar navbar-expand-lg">
-    <div class="container">
-      <a class="navbar-brand" href="index.html"><i class="bi bi-house-door-fill me-2"></i>MyBusiness Premium</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
-              aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-        <div class="navbar-icons d-flex align-items-center">
-          <i class="bi bi-chat-dots-fill" title="Chat" onclick="alert('Chat functionality not implemented yet!')"></i>
-          <i class="bi bi-bag-check-fill" title="Orders" onclick="alert('Orders functionality not implemented yet!')"></i>
-          <div class="cart-icon" onclick="alert('Cart functionality not implemented yet!')">
-            <i class="bi bi-cart-fill"></i>
-            <span class="badge">0</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </nav>
+  <!-- Header Include -->
+  <div id="header-placeholder"></div>
   
   <!-- Hero Section (Full Screen) -->
   <section class="hero">
@@ -289,7 +238,7 @@
   <div class="container my-4" id="mainPage">
     <h1 class="mb-4 text-center">Product Categories</h1>
     <div id="categoriesContainer">
-      <!-- Dynamic category sections (each with a banner above) will be rendered here -->
+      <!-- Dynamic category sections will be rendered here -->
     </div>
   </div>
   
@@ -298,7 +247,7 @@
     <button class="btn btn-secondary mb-3" onclick="backToMain()">Back to Categories</button>
     <h2 id="categoryTitle" class="mb-4"></h2>
     <div class="row" id="categoryProducts">
-      <!-- Products will be rendered here in a grid (2 columns on mobile, 3 on larger screens) -->
+      <!-- Products will be rendered here -->
     </div>
   </div>
   
@@ -323,21 +272,30 @@
     </div>
   </div>
   
-  <!-- Footer (Fixed, Simple) -->
-  <footer>
-    <div class="container">
-      <p>
-        <a href="#">Privacy Policy</a> | 
-        <a href="#">Terms of Service</a> | 
-        <a href="#">Contact Us</a>
-      </p>
-      <p>&copy; 2025 MyBusiness Premium. All rights reserved.</p>
-    </div>
-  </footer>
+  <!-- Footer Include -->
+  <div id="footer-placeholder"></div>
+  
+  <!-- JavaScript to Load Header and Footer Dynamically -->
+  <script>
+    // Load header.html into header-placeholder
+    fetch('header.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('header-placeholder').innerHTML = data;
+      })
+      .catch(error => console.error('Error loading header:', error));
+    
+    // Load footer.html into footer-placeholder
+    fetch('footer.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('footer-placeholder').innerHTML = data;
+      })
+      .catch(error => console.error('Error loading footer:', error));
+  </script>
   
   <!-- JavaScript: Dummy Data & Functions -->
   <script>
-    // Dummy product data per category
     const productData = {
       "Countdown Sales": [
         { name: "Smartphone A", price: "$300", description: "High-performance smartphone.", image: "https://via.placeholder.com/300x200?text=Smartphone+A" },
@@ -366,14 +324,11 @@
       ]
     };
 
-    // Function to create a banner for a category based on its index
     function createBannerForCategory(category, index) {
       let banner = document.createElement("div");
       banner.className = "banner";
-      
       switch (index) {
         case 0:
-          // Carousel Banner for Countdown Sales
           banner.classList.add("carousel-banner");
           banner.innerHTML = `
             <div id="carouselBanner${index}" class="carousel slide" data-bs-ride="carousel">
@@ -397,7 +352,6 @@
           `;
           break;
         case 1:
-          // Full-Width Banner for Discount Offers
           banner.classList.add("fullwidth-banner");
           banner.innerHTML = `
             <img src="https://via.placeholder.com/1200x150?text=Big+Discount+Offer" alt="Big Discount">
@@ -405,7 +359,6 @@
           `;
           break;
         case 2:
-          // Accordion Banner for Hot Sales
           banner.classList.add("accordion-banner");
           banner.innerHTML = `
             <div class="accordion" id="accordionBanner${index}">
@@ -425,7 +378,6 @@
           `;
           break;
         case 3:
-          // Three-Part Banner for Seasonal Offers
           banner.classList.add("three-part-banner");
           banner.innerHTML = `
             <div class="banner-title">Seasonal Savings</div>
@@ -436,7 +388,6 @@
           `;
           break;
         case 4:
-          // Three-Part Banner for Clearance Sale
           banner.classList.add("three-part-banner");
           banner.innerHTML = `
             <div class="banner-title">Clearance Sale</div>
@@ -452,7 +403,6 @@
       return banner;
     }
 
-    // Render main page with categories and banners
     function initMainPage() {
       document.getElementById("mainPage").style.display = "block";
       document.getElementById("categoryPage").style.display = "none";
@@ -486,7 +436,6 @@
       }
     }
 
-    // Open dedicated category page with vertical grid layout
     function openCategoryPage(category) {
       document.getElementById("mainPage").style.display = "none";
       document.getElementById("categoryPage").style.display = "block";
@@ -511,13 +460,11 @@
       });
     }
 
-    // Go back to main categories view
     function backToMain() {
       document.getElementById("categoryPage").style.display = "none";
       document.getElementById("mainPage").style.display = "block";
     }
 
-    // Open modal with product details
     function openProductModal(product) {
       document.getElementById("modalProductImage").src = product.image;
       document.getElementById("modalProductName").innerText = product.name;
@@ -527,7 +474,6 @@
       modal.show();
     }
 
-    // Initialize main page on load
     window.onload = function() {
       initMainPage();
     };
