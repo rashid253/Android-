@@ -4,9 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>About Us - MyBusiness Premium</title>
-  <!-- You can link to an external stylesheet if preferred -->
   <style>
-    /* Reset & base styles */
+    /* Base & reset styles */
     * {
       margin: 0;
       padding: 0;
@@ -26,7 +25,7 @@
     a:hover {
       color: #ff6600;
     }
-    /* Hero section */
+    /* Hero Section */
     header {
       position: relative;
       height: 100vh;
@@ -108,9 +107,13 @@
       border-radius: 10px;
       box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     }
-    /* Team Section */
+    /* Meet Our Team Section with Images */
     .team {
       background: #f9f9f9;
+      padding: 4rem 2rem;
+    }
+    .team .section-title {
+      margin-bottom: 2rem;
     }
     .team-members {
       display: flex;
@@ -120,7 +123,7 @@
     }
     .team-member {
       text-align: center;
-      flex: 1 1 200px;
+      flex: 1 1 250px;
     }
     .team-member img {
       width: 150px;
@@ -133,10 +136,26 @@
     .team-member h3 {
       font-size: 1.5rem;
       margin-bottom: 0.5rem;
+      color: #333;
     }
     .team-member p {
       font-size: 1rem;
       color: #777;
+    }
+    /* Our Values Section (Text Only) */
+    .values {
+      text-align: center;
+    }
+    .values h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    .values p {
+      font-size: 1.1rem;
+      max-width: 800px;
+      margin: 0 auto;
+      color: #555;
+      line-height: 1.8;
     }
     /* Footer */
     footer {
@@ -153,6 +172,10 @@
       .about-content {
         flex-direction: column;
       }
+      .team-members {
+        flex-direction: column;
+        align-items: center;
+      }
     }
   </style>
 </head>
@@ -164,6 +187,7 @@
       <p>
         We are a next-generation business solutions provider, dedicated to secure transactions, exclusive offers, and an exceptional user experience.
       </p>
+      <!-- Get In Touch Button: This clear call-to-action leads visitors to the contact page -->
       <a href="contact.html" class="btn">Get In Touch</a>
     </div>
   </header>
@@ -189,23 +213,23 @@
     </div>
   </section>
   
-  <!-- Meet Our Team Section -->
+  <!-- Meet Our Team Section with Images -->
   <section class="team">
     <div class="container">
       <div class="section-title">Meet Our Team</div>
       <div class="team-members">
         <div class="team-member">
-          <img src="https://via.placeholder.com/150?text=Team+Member+1" alt="John Doe - CEO" />
+          <img src="https://via.placeholder.com/150?text=John+Doe" alt="John Doe - CEO" />
           <h3>John Doe</h3>
           <p>CEO &amp; Founder</p>
         </div>
         <div class="team-member">
-          <img src="https://via.placeholder.com/150?text=Team+Member+2" alt="Jane Smith - CTO" />
+          <img src="https://via.placeholder.com/150?text=Jane+Smith" alt="Jane Smith - CTO" />
           <h3>Jane Smith</h3>
           <p>CTO</p>
         </div>
         <div class="team-member">
-          <img src="https://via.placeholder.com/150?text=Team+Member+3" alt="Robert Brown - CFO" />
+          <img src="https://via.placeholder.com/150?text=Robert+Brown" alt="Robert Brown - CFO" />
           <h3>Robert Brown</h3>
           <p>CFO</p>
         </div>
@@ -214,20 +238,13 @@
   </section>
   
   <!-- Our Values Section -->
-  <section>
+  <section class="values">
     <div class="container">
       <div class="section-title">Our Values</div>
-      <div class="about-content">
-        <div class="text">
-          <h2>Excellence, Integrity &amp; Innovation</h2>
-          <p>
-            At MyBusiness Premium, we believe in delivering nothing but excellence. Integrity and innovation guide every decision we make, ensuring that our solutions not only meet but exceed industry standards.
-          </p>
-        </div>
-        <div class="image">
-          <img src="https://via.placeholder.com/600x400?text=Our+Values" alt="Our Values" />
-        </div>
-      </div>
+      <h2>Excellence, Integrity &amp; Innovation</h2>
+      <p>
+        At MyBusiness Premium, we are committed to excellence. Integrity and innovation guide every decision we make, ensuring our solutions not only meet but exceed industry standards.
+      </p>
     </div>
   </section>
   
@@ -236,27 +253,23 @@
     <p>© 2025 MyBusiness Premium. All rights reserved.</p>
   </footer>
   
-  <!-- Dummy JavaScript for simulating data fetching -->
+  <!-- Dummy JavaScript for simulating data fetching (to be integrated with Firebase in the future) -->
   <script>
-    // This function simulates data fetching.
-    // In the future, replace this with Firebase Firestore API calls.
+    // This function simulates fetching product data.
+    // Later, replace this with Firebase Firestore API calls for dynamic data management.
     function fetchProducts() {
       console.log("Fetching products using dummy data...");
-      // Dummy data example:
       const products = [
         { id: 1, name: "Product One", price: "$19.99", image: "https://via.placeholder.com/300?text=Product+1" },
         { id: 2, name: "Product Two", price: "$29.99", image: "https://via.placeholder.com/300?text=Product+2" },
         { id: 3, name: "Product Three", price: "$39.99", image: "https://via.placeholder.com/300?text=Product+3" }
       ];
       console.log(products);
-      // Later, you can integrate Firebase authentication and Firestore for dynamic data management.
     }
-
-    // Simulate calling fetchProducts() on page load.
+    
     document.addEventListener('DOMContentLoaded', () => {
       fetchProducts();
     });
   </script>
-  <!-- End of dummy data integration code -->
 </body>
 </html>
