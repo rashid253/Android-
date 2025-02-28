@@ -16,9 +16,10 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
+
     <!-- Ecommerce Page Custom Inline Styles -->
     <style>
-      /* Global Ecommerce Overrides */
+      /* Global Overrides */
       body {
         font-family: 'Roboto', sans-serif;
         background-color: #f3f4f6;
@@ -34,29 +35,33 @@
       a:hover {
         color: #ff6f61;
       }
-      /* Main container padding-bottom to avoid footer overlapping content */
+
+      /* ہیڈر کے نیچے مواد کے اوپر فوٹر نہ آئے، اس کے لیے تھوڑا نیچے اسپیس */
       main {
         padding-bottom: 100px;
       }
+
       /* Hero Section */
       .hero {
         position: relative;
-        height: calc(500px + 3cm); /* Increased height */
-        background: linear-gradient(135deg, #FFB6C1, #FFC0CB); /* Beautiful gradient light pink */
+        height: calc(500px + 3cm); /* مزید 1.5cm اضافہ */
+        background: linear-gradient(135deg, #FFB6C1, #FFC0CB); /* Gradient Light Pink */
         display: flex;
         align-items: center;
         justify-content: center;
         text-align: center;
-        color: #fff;
         overflow: hidden;
       }
-      /* اگر overlay کی ضرورت نہ ہو تو اسے ہٹا دیا گیا ہے */
-      /* Hero Content کو تھوڑا اوپر لانے کے لیے */
       .hero-content {
         position: relative;
         z-index: 2;
         padding: 0 20px;
-        transform: translateY(-20px);
+        transform: translateY(-20px); /* ٹیکسٹ کو تھوڑا اوپر لانے کے لیے */
+      }
+      /* ہیرو سیکشن کا ٹیکسٹ سرخ رنگ میں */
+      .hero-content h1,
+      .hero-content p {
+        color: red; /* آپ چاہیں تو کوئی اور شیڈ استعمال کر سکتے ہیں */
       }
       .hero-content h1 {
         font-size: 3rem;
@@ -67,11 +72,11 @@
         font-size: 1.2rem;
         margin-bottom: 1.5rem;
       }
-      /* Red call-to-action button */
+      /* سرخ بٹن (Call-to-Action) */
       .hero-content .btn {
         font-size: 1.2rem;
         padding: 0.75rem 1.5rem;
-        background-color: red; /* Red button */
+        background-color: red;
         color: #fff;
         border: none;
         border-radius: 4px;
@@ -81,6 +86,7 @@
         background-color: #c82333;
         transform: scale(1.05);
       }
+
       /* Horizontal Scroll for Categories */
       .horizontal-scroll {
         display: flex;
@@ -92,6 +98,7 @@
       .horizontal-scroll::-webkit-scrollbar {
         display: none;
       }
+
       /* Banner Styles */
       .banner {
         margin: 1rem 0;
@@ -148,6 +155,30 @@
       .three-part-banner .banner-img img {
         height: 100%;
         object-fit: contain;
+      }
+
+      /* Product Tile Styles (جیسا کہ آپ نے تصویر میں دیکھا) */
+      .card-img-top {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+      }
+      .product-price {
+        font-weight: bold;
+        color: #E4393C; /* سرخی مائل رنگ */
+        font-size: 1.1rem;
+      }
+      .product-old-price {
+        text-decoration: line-through;
+        color: #999;
+        margin-left: 5px;
+      }
+      .product-orders {
+        color: #666;
+        font-size: 0.9rem;
+      }
+      .text-success {
+        color: #28a745 !important;
       }
     </style>
   </head>
@@ -215,6 +246,15 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Script to load header and footer dynamically -->
     <script>
+      // اگر آپ کے header.html میں تین لائنوں والا بٹن موجود ہے (onclick="toggleSideMenu()"),
+      // تو یہ فنکشن اسے فعال کر دے گا۔
+      function toggleSideMenu() {
+        const sideMenu = document.getElementById("side-menu");
+        if (sideMenu) {
+          sideMenu.classList.toggle("visible");
+        }
+      }
+
       function loadHTML(elementId, filePath) {
         fetch(filePath)
           .then(response => {
@@ -236,11 +276,13 @@
           })
           .catch(error => console.error(error));
       }
+
       document.addEventListener("DOMContentLoaded", function () {
         loadHTML('header-placeholder', 'header.html');
         loadHTML('footer-placeholder', 'footer.html');
       });
     </script>
+
     <!-- Ecommerce-specific JavaScript -->
     <script>
       // Dummy product data per category
@@ -248,19 +290,19 @@
         "Countdown Sales": [
           {
             name: "Smartphone A",
-            price: "$300",
+            price: "PKR 894",
             description: "High-performance smartphone.",
             image: "https://via.placeholder.com/300x200?text=Smartphone+A"
           },
           {
             name: "Smart TV B",
-            price: "$500",
+            price: "PKR 557",
             description: "4K Ultra HD Smart TV.",
             image: "https://via.placeholder.com/300x200?text=Smart+TV+B"
           },
           {
             name: "Laptop C",
-            price: "$800",
+            price: "PKR 1,004",
             description: "Gaming laptop with high performance.",
             image: "https://via.placeholder.com/300x200?text=Laptop+C"
           }
@@ -268,19 +310,19 @@
         "Discount Offers": [
           {
             name: "Headphones D",
-            price: "$50",
+            price: "PKR 600",
             description: "Noise cancelling headphones.",
             image: "https://via.placeholder.com/300x200?text=Headphones+D"
           },
           {
             name: "Speaker E",
-            price: "$70",
+            price: "PKR 999",
             description: "Wireless speaker with deep bass.",
             image: "https://via.placeholder.com/300x200?text=Speaker+E"
           },
           {
             name: "Camera F",
-            price: "$250",
+            price: "PKR 1,299",
             description: "High resolution digital camera.",
             image: "https://via.placeholder.com/300x200?text=Camera+F"
           }
@@ -288,19 +330,19 @@
         "Hot Sales": [
           {
             name: "Smartwatch G",
-            price: "$120",
+            price: "PKR 999",
             description: "Feature-rich smartwatch.",
             image: "https://via.placeholder.com/300x200?text=Smartwatch+G"
           },
           {
             name: "Tablet H",
-            price: "$200",
+            price: "PKR 1,700",
             description: "Latest generation tablet.",
             image: "https://via.placeholder.com/300x200?text=Tablet+H"
           },
           {
             name: "Drone I",
-            price: "$350",
+            price: "PKR 2,999",
             description: "High-performance drone.",
             image: "https://via.placeholder.com/300x200?text=Drone+I"
           }
@@ -308,19 +350,19 @@
         "Seasonal Offers": [
           {
             name: "Jacket J",
-            price: "$80",
+            price: "PKR 499",
             description: "Warm and stylish jacket.",
             image: "https://via.placeholder.com/300x200?text=Jacket+J"
           },
           {
             name: "Boots K",
-            price: "$90",
+            price: "PKR 1,199",
             description: "Comfortable boots.",
             image: "https://via.placeholder.com/300x200?text=Boots+K"
           },
           {
             name: "Scarf L",
-            price: "$20",
+            price: "PKR 299",
             description: "Cozy scarf for winter.",
             image: "https://via.placeholder.com/300x200?text=Scarf+L"
           }
@@ -328,19 +370,19 @@
         "Clearance Sale": [
           {
             name: "Old Model Phone M",
-            price: "$150",
+            price: "PKR 199",
             description: "Last year's smartphone model.",
             image: "https://via.placeholder.com/300x200?text=Phone+M"
           },
           {
             name: "Outdated TV N",
-            price: "$100",
+            price: "PKR 299",
             description: "Old model television.",
             image: "https://via.placeholder.com/300x200?text=TV+N"
           },
           {
             name: "Vintage Laptop O",
-            price: "$250",
+            price: "PKR 499",
             description: "Vintage laptop with classic design.",
             image: "https://via.placeholder.com/300x200?text=Laptop+O"
           }
@@ -442,26 +484,36 @@
         for (let category in productData) {
           let banner = createBannerForCategory(category, index);
           container.appendChild(banner);
+
+          // Section for each category
           let section = document.createElement("div");
-          section.innerHTML = `<h2 class="mt-4">${category}</h2>
-            <div class="horizontal-scroll" id="scroll-${category.replace(/\s/g, '')}"></div>`;
+          section.innerHTML = `
+            <h2 class="mt-4">${category}</h2>
+            <div class="horizontal-scroll" id="scroll-${category.replace(/\s/g, '')}"></div>
+          `;
           container.appendChild(section);
-          let scrollContainer = document.getElementById(
-            `scroll-${category.replace(/\s/g, '')}`
-          );
+
+          // Horizontal scroll container
+          let scrollContainer = document.getElementById(`scroll-${category.replace(/\s/g, '')}`);
           productData[category].forEach(product => {
             let card = document.createElement("div");
             card.className = "card";
             card.style.minWidth = "150px";
             card.style.marginRight = "0.75rem";
+            // Clicking on the card opens that category page
             card.onclick = function () {
               openCategoryPage(category);
             };
-            card.innerHTML = `<img src="${product.image}" class="card-img-top" alt="${product.name}">
-              <div class="card-body">
-                <h6 class="card-title">${product.name}</h6>
-                <p class="card-text">${product.price}</p>
-              </div>`;
+
+            // Product tile layout (جیسا کہ تصویر میں دکھایا گیا)
+            card.innerHTML = `
+              <img src="${product.image}" class="card-img-top" alt="${product.name}">
+              <div class="card-body text-center">
+                <p class="product-price">${product.price} <span class="product-old-price">PKR1,487</span></p>
+                <p class="product-orders">100K+ orders <i class="fa fa-star" style="color:#FFC107;"></i> 4.7</p>
+                <p class="text-success mb-0">Free shipping</p>
+              </div>
+            `;
             scrollContainer.appendChild(card);
           });
           index++;
@@ -473,21 +525,29 @@
         document.getElementById("mainPage").style.display = "none";
         document.getElementById("categoryPage").style.display = "block";
         document.getElementById("categoryTitle").innerText = category;
+
         const grid = document.getElementById("categoryProducts");
         grid.innerHTML = "";
+
         productData[category].forEach(product => {
           let col = document.createElement("div");
           col.className = "col-6 col-md-4 mb-4";
+
           let card = document.createElement("div");
           card.className = "card";
           card.onclick = function () {
             openProductModal(product);
           };
-          card.innerHTML = `<img src="${product.image}" class="card-img-top" alt="${product.name}">
-            <div class="card-body">
-              <h6 class="card-title">${product.name}</h6>
-              <p class="card-text">${product.price}</p>
-            </div>`;
+
+          // اسی طرز کا ڈیزائن کیٹیگری پیج پر بھی
+          card.innerHTML = `
+            <img src="${product.image}" class="card-img-top" alt="${product.name}">
+            <div class="card-body text-center">
+              <p class="product-price">${product.price} <span class="product-old-price">PKR1,487</span></p>
+              <p class="product-orders">100K+ orders <i class="fa fa-star" style="color:#FFC107;"></i> 4.7</p>
+              <p class="text-success mb-0">Free shipping</p>
+            </div>
+          `;
           col.appendChild(card);
           grid.appendChild(col);
         });
@@ -505,6 +565,7 @@
         document.getElementById("modalProductName").innerText = product.name;
         document.getElementById("modalProductPrice").innerText = product.price;
         document.getElementById("modalProductDescription").innerText = product.description;
+
         var modal = new bootstrap.Modal(document.getElementById("productModal"));
         modal.show();
       }
