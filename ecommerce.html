@@ -4,77 +4,127 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>NextGen E-commerce - Shop Now</title>
-  <!-- Font Awesome for icons (used in header/footer) -->
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-  />
-  <!-- Custom CSS for overall site (header, footer, etc.) -->
+  <!-- Font Awesome for icons (header/footer وغیرہ کے لیے) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <!-- Bootstrap 5 CSS for layout -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Custom CSS -->
   <link rel="stylesheet" href="style.css" />
-  <!-- Bootstrap 5 CSS for ecommerce-specific layout -->
-  <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-  />
-  <!-- Inline CSS for hero section modifications -->
+  <!-- Inline CSS for hero section اور دیگر تبدیلیاں -->
   <style>
-    /* Hero سیکشن کو پورے موبائل سکرین (100vh) پر دکھانے کے لیے */
+    /* Hero سیکشن: پورے موبائل اسکرین کے لیے، dark orange گریڈینٹ اور ماڈلنگ تصویر کے ساتھ */
     .hero {
       height: 100vh;
-      background-color: #32CD32; /* Grossy Green */
+      position: relative;
+      background: linear-gradient(45deg, rgba(255,140,0,0.8), rgba(255,69,0,0.8)), url('https://via.placeholder.com/1920x1080?text=Model+Image') no-repeat center center;
+      background-size: cover;
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
-      position: relative;
       color: #fff;
-    }
-    .hero .hero-content {
-      z-index: 2;
       padding: 20px;
     }
-    /* "Shop Now" بٹن کو Rosey Pink بنانے کے لیے */
+    /* hero سیکشن کے اندر موجود مواد تھوڑا اوپر لانے کے لیے */
+    .hero .hero-content {
+      position: relative;
+      z-index: 2;
+      transform: translateY(-20px);
+    }
+    /* Green call-to-action بٹن */
     .hero .btn {
-      background-color: #FF69B4; /* Rosey Pink */
+      background-color: #28a745; /* Green */
       border: none;
       padding: 12px 25px;
       color: #fff;
       font-size: 1.2rem;
       border-radius: 4px;
+      margin-top: 20px;
       transition: background 0.3s ease, transform 0.3s ease;
     }
     .hero .btn:hover {
-      background-color: #e355a0;
+      background-color: #218838;
       transform: scale(1.05);
+    }
+    /* نیچے والا content سیکشن (posters, products وغیرہ) */
+    .content-section {
+      padding: 40px 20px;
+      background-color: #f9f9f9;
+    }
+    .product-card {
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      border: none;
+      margin-bottom: 30px;
+    }
+    .product-card img {
+      height: 200px;
+      object-fit: cover;
     }
   </style>
 </head>
 <body>
-  <!-- Header Placeholder: header.html یہاں لوڈ ہوگا -->
+  <!-- Header Placeholder: header.html یہاں ڈائنامکلی لوڈ ہوگا -->
   <div id="header-placeholder"></div>
 
-  <!-- Main Ecommerce Content -->
+  <!-- Main Content -->
   <main>
-    <!-- Hero Section: پورے موبائل سکرین، Grossy Green پس منظر اور Rosey Pink بٹن -->
+    <!-- Hero Section -->
     <section class="hero">
       <div class="hero-content">
-        <h1>Welcome to NextGen E-commerce</h1>
+        <h1>NextGen E-commerce</h1>
         <p>Your one-stop shop for the latest trends &amp; exclusive deals.</p>
-        <a href="#categoriesContainer" class="btn">Shop Now</a>
+        <a href="#content" class="btn">Shop Now</a>
       </div>
     </section>
 
-    <!-- اضافی مواد: Categories وغیرہ -->
-    <div class="container my-4" id="categoriesContainer">
-      <h2 class="text-center">Product Categories</h2>
-      <!-- یہاں پر آپ اپنی پروڈکٹ کیٹیگریز یا مزید مواد شامل کر سکتے ہیں -->
-    </div>
+    <!-- Content Section: Posters, Products وغیرہ -->
+    <section class="content-section" id="content">
+      <div class="container">
+        <h2 class="text-center mb-4">Featured Products</h2>
+        <div class="row">
+          <!-- مثال کے طور پر پروڈکٹ کارڈ 1 -->
+          <div class="col-sm-6 col-md-4">
+            <div class="card product-card">
+              <img src="https://via.placeholder.com/400x200?text=Product+1" class="card-img-top" alt="Product 1">
+              <div class="card-body">
+                <h5 class="card-title">Product 1</h5>
+                <p class="card-text">Brief description of Product 1.</p>
+                <a href="#" class="btn btn-primary">Buy Now</a>
+              </div>
+            </div>
+          </div>
+          <!-- پروڈکٹ کارڈ 2 -->
+          <div class="col-sm-6 col-md-4">
+            <div class="card product-card">
+              <img src="https://via.placeholder.com/400x200?text=Product+2" class="card-img-top" alt="Product 2">
+              <div class="card-body">
+                <h5 class="card-title">Product 2</h5>
+                <p class="card-text">Brief description of Product 2.</p>
+                <a href="#" class="btn btn-primary">Buy Now</a>
+              </div>
+            </div>
+          </div>
+          <!-- پروڈکٹ کارڈ 3 -->
+          <div class="col-sm-6 col-md-4">
+            <div class="card product-card">
+              <img src="https://via.placeholder.com/400x200?text=Product+3" class="card-img-top" alt="Product 3">
+              <div class="card-body">
+                <h5 class="card-title">Product 3</h5>
+                <p class="card-text">Brief description of Product 3.</p>
+                <a href="#" class="btn btn-primary">Buy Now</a>
+              </div>
+            </div>
+          </div>
+          <!-- مزید پروڈکٹ کارڈز یہاں شامل کیے جا سکتے ہیں -->
+        </div>
+      </div>
+    </section>
   </main>
 
-  <!-- Footer Placeholder: footer.html یہاں لوڈ ہوگا -->
+  <!-- Footer Placeholder: footer.html یہاں ڈائنامکلی لوڈ ہوگا -->
   <div id="footer-placeholder"></div>
 
-  <!-- JavaScript: ہیڈر اور فوٹر کو لوڈ کرنے کا فنکشن -->
+  <!-- JavaScript: header اور footer کو لوڈ کرنے کا فنکشن -->
   <script>
     function loadHTML(elementId, filePath) {
       fetch(filePath)
