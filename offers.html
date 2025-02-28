@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Offers - MyBusiness Premium</title>
+  <style>
+    /* Basic Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background: #fff;
+      color: #333;
+      line-height: 1.6;
+      text-align: center;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+      transition: color 0.3s ease;
+    }
+    a:hover {
+      color: #ff6600;
+    }
+    /* Hero Section */
+    header {
+      height: 30vh; /* Reduced height */
+      background: url('https://via.placeholder.com/1920x400?text=Exclusive+Offers') no-repeat center center/cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      position: relative;
+    }
+    header::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+    .hero-content h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+    /* Offers Banners Section */
+    .offers-container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+    .offer-banner {
+      position: relative;
+      margin-bottom: 2rem;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .offer-banner img {
+      width: 100%;
+      display: block;
+    }
+    .offer-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0,0,0,0.6);
+      color: #fff;
+      padding: 1rem;
+      text-align: left;
+    }
+    .offer-overlay h2 {
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+    }
+    .offer-overlay p {
+      font-size: 1rem;
+    }
+    /* Call-to-Action Button */
+    .cta-button {
+      display: block;
+      width: 200px;
+      margin: 2rem auto;
+      padding: 1rem;
+      background: #ff6600;
+      color: #fff;
+      text-align: center;
+      font-size: 1.2rem;
+      font-weight: bold;
+      border-radius: 5px;
+      transition: background 0.3s ease;
+    }
+    .cta-button:hover {
+      background: #e65c00;
+    }
+    /* Footer */
+    footer {
+      background: #222;
+      color: #fff;
+      padding: 1rem;
+      font-size: 0.9rem;
+      text-align: center;
+    }
+    @media (max-width:768px) {
+      .hero-content h1 { font-size: 2rem; }
+      .offer-overlay h2 { font-size: 1.5rem; }
+      .offer-overlay p { font-size: 0.9rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hero Section -->
+  <header>
+    <div class="hero-content">
+      <h1>Exclusive Offers</h1>
+    </div>
+  </header>
+  
+  <!-- Offers Banners Section -->
+  <div class="offers-container" id="offersContainer">
+    <!-- Offer banners will be injected here via JavaScript -->
+  </div>
+  
+  <!-- Call-to-Action Button leading to ecommerce.html -->
+  <a href="ecommerce.html" class="cta-button">Shop Now</a>
+  
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 MyBusiness Premium. All rights reserved.</p>
+  </footer>
+  
+  <!-- Dummy JavaScript for Simulated Data Fetching -->
+  <script>
+    // This function simulates data fetching for offer banners.
+    // In the future, replace this with Firebase Firestore API calls.
+    // Firebase will handle authentication and data persistence.
+    function fetchProducts() {
+      console.log("Fetching offers using dummy data...");
+      const offers = [
+        {
+          id: 1,
+          title: "Summer Sale",
+          description: "Enjoy up to 40% off on our summer collection.",
+          image: "https://via.placeholder.com/1200x500?text=Summer+Sale"
+        },
+        {
+          id: 2,
+          title: "New Arrivals",
+          description: "Check out the latest arrivals with exclusive deals.",
+          image: "https://via.placeholder.com/1200x500?text=New+Arrivals"
+        },
+        {
+          id: 3,
+          title: "Limited Time Offer",
+          description: "Grab the deal before it's gone!",
+          image: "https://via.placeholder.com/1200x500?text=Limited+Time+Offer"
+        }
+      ];
+      return offers;
+    }
+
+    // Render offer banners on the page
+    function renderOffers() {
+      const offers = fetchProducts();
+      const container = document.getElementById("offersContainer");
+      offers.forEach(offer => {
+        const banner = document.createElement("div");
+        banner.className = "offer-banner";
+        banner.innerHTML = `
+          <img src="${offer.image}" alt="${offer.title}">
+          <div class="offer-overlay">
+            <h2>${offer.title}</h2>
+            <p>${offer.description}</p>
+          </div>
+        `;
+        container.appendChild(banner);
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", renderOffers);
+  </script>
+  
+</body>
+</html>
