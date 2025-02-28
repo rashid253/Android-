@@ -12,66 +12,81 @@
     /* Global Styles */
     body {
       font-family: 'Roboto', sans-serif;
-      background-color: #e0f7fa; /* Light blue background */
+      background-color: #f6f8fa;
       color: #333;
       margin: 0;
       padding: 0;
     }
     /* Header / Navbar */
     .navbar {
-      background-color: #0B6623; /* Green header */
-      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      background: linear-gradient(90deg, #24292e, #3b4045);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
     }
     .navbar-brand, .nav-link {
       color: #fff !important;
-      font-weight: bold;
+      font-weight: 600;
     }
     .navbar-brand:hover, .nav-link:hover {
-      color: #c8e6c9 !important;
+      color: #a6a6a6 !important;
     }
-    /* Prominent Cart Icon */
-    .cart-icon {
-      font-size: 1.8rem;
-      color: #fff;
-      position: relative;
-      margin-left: 1rem;
+    /* Navbar Icons */
+    .navbar-icons {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .navbar-icons i {
+      font-size: 1.5rem;
       cursor: pointer;
-      border: 2px solid #fff;
-      padding: 5px;
-      border-radius: 50%;
+      color: #fff;
     }
-    .cart-icon .badge {
-      position: absolute;
-      top: -5px;
-      right: -10px;
-      background-color: #ffc107;
-      color: #000;
-      font-size: 0.7rem;
-      border-radius: 50%;
-      padding: 2px 5px;
-    }
-    /* Footer */
-    footer {
-      background-color: #0B6623; /* Green footer */
+    /* Hero Section */
+    .hero {
+      position: relative;
+      background: url('https://via.placeholder.com/1920x500?text=Hero+Section') center center/cover no-repeat;
+      height: 500px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       color: #fff;
       text-align: center;
-      padding: 1rem 0;
     }
-    footer a {
-      color: #ffc107;
-      text-decoration: none;
-      margin: 0 0.5rem;
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
     }
-    footer a:hover {
-      text-decoration: underline;
+    .hero-content {
+      position: relative;
+      z-index: 2;
     }
-    /* Horizontal Scroll Container */
+    .hero-content h1 {
+      font-size: 3rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+    }
+    .hero-content .btn {
+      font-size: 1.2rem;
+      padding: 0.75rem 1.5rem;
+    }
+    /* Main Page */
+    .container {
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+    }
+    h1, h2 {
+      font-weight: 700;
+    }
+    /* Horizontal Scroll Container for Categories */
     .horizontal-scroll {
       display: flex;
       overflow-x: auto;
-      gap: 0.75rem;
+      gap: 1rem;
       padding-bottom: 1rem;
-      margin-bottom: 1.5rem;
+      margin-bottom: 2rem;
     }
     .horizontal-scroll::-webkit-scrollbar {
       display: none;
@@ -85,7 +100,7 @@
       background: #fff;
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
       transition: transform 0.3s, box-shadow 0.3s;
-      min-width: 150px; /* Smaller product tile */
+      min-width: 150px;
     }
     .card:hover {
       transform: translateY(-4px);
@@ -93,7 +108,7 @@
     }
     .card-img-top {
       width: 100%;
-      height: 140px; /* Slightly smaller image */
+      height: 140px;
       object-fit: cover;
     }
     .card-body {
@@ -105,10 +120,10 @@
       font-weight: bold;
     }
     .card-text {
-      color: #0B6623;
+      color: #24292e;
       font-size: 0.8rem;
     }
-    /* Banner Styles (Fixed Height 150px) */
+    /* Banner Styles */
     .banner {
       margin: 1rem 0;
       border-radius: 8px;
@@ -169,24 +184,33 @@
   <!-- Header / Navigation Bar -->
   <nav class="navbar navbar-expand-lg">
     <div class="container">
-      <a class="navbar-brand" href="index.html">MyBusiness Premium</a>
+      <a class="navbar-brand" href="index.html"><i class="bi bi-house-door-fill me-2"></i>MyBusiness Premium</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
               aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-        <ul class="navbar-nav me-3">
-          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-          <li class="nav-item active"><a class="nav-link" href="ecommerce.html">Shop Now</a></li>
-        </ul>
-        <!-- Prominent Cart Icon (clickable) -->
-        <div class="cart-icon" onclick="alert('Cart functionality not implemented yet!')">
-          <i class="bi bi-cart-fill"></i>
-          <span class="badge">0</span>
+        <div class="navbar-icons d-flex align-items-center">
+          <i class="bi bi-chat-dots-fill" title="Chat" onclick="alert('Chat functionality not implemented yet!')"></i>
+          <i class="bi bi-bag-check-fill" title="Orders" onclick="alert('Orders functionality not implemented yet!')"></i>
+          <div class="cart-icon" onclick="alert('Cart functionality not implemented yet!')">
+            <i class="bi bi-cart-fill"></i>
+            <span class="badge">0</span>
+          </div>
         </div>
       </div>
     </div>
   </nav>
+  
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1>Welcome to NextGen E-commerce</h1>
+      <p>Your one-stop shop for the latest trends and exclusive deals.</p>
+      <a href="#categoriesContainer" class="btn btn-primary">Shop Now</a>
+    </div>
+  </section>
   
   <!-- Main Page: Categories with Banners and Horizontal Scroll -->
   <div class="container my-4" id="mainPage">
@@ -276,7 +300,7 @@
       
       switch (index) {
         case 0:
-          // Carousel Slider Banner for Countdown Sales
+          // Carousel Banner for Countdown Sales
           banner.classList.add("carousel-banner");
           banner.innerHTML = `
             <div id="carouselBanner${index}" class="carousel slide" data-bs-ride="carousel">
@@ -392,7 +416,7 @@
       }
     }
 
-    // Open dedicated category page with vertical grid layout (2 columns on mobile, 3 on larger screens)
+    // Open dedicated category page with vertical grid layout
     function openCategoryPage(category) {
       document.getElementById("mainPage").style.display = "none";
       document.getElementById("categoryPage").style.display = "block";
@@ -424,7 +448,7 @@
       document.getElementById("mainPage").style.display = "block";
     }
 
-    // Open modal with product details (includes "Add to Cart" button)
+    // Open modal with product details
     function openProductModal(product) {
       document.getElementById("modalProductImage").src = product.image;
       document.getElementById("modalProductName").innerText = product.name;
