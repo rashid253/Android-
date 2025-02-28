@@ -16,7 +16,7 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
-    <!-- Inline Styles for Hero Section, Product Tiles & More -->
+    <!-- Inline Styles for Hero Section & Product Tiles -->
     <style>
       /* Global Overrides */
       body {
@@ -35,7 +35,7 @@
         color: #ff6f61;
       }
 
-      /* Ensure main content doesn't get hidden by footer */
+      /* ہیڈر کے نیچے مواد کے اوپر فوٹر نہ آئے، اس کے لیے تھوڑا نیچے اسپیس */
       main {
         padding-bottom: 100px;
       }
@@ -43,8 +43,8 @@
       /* Hero Section */
       .hero {
         position: relative;
-        height: calc(500px + 3cm); /* Increased height */
-        background: red; /* Background red */
+        height: calc(500px + 3cm); /* اضافی اونچائی */
+        background: red;           /* سرخ پس منظر */
         display: flex;
         align-items: center;
         justify-content: center;
@@ -55,12 +55,12 @@
         position: relative;
         z-index: 2;
         padding: 0 20px;
-        transform: translateY(-20px);
+        transform: translateY(-20px); /* ٹیکسٹ کو تھوڑا اوپر لانے کے لیے */
       }
-      /* Hero Section Text White */
+      /* ہیرو سیکشن کا ٹیکسٹ سفید */
       .hero-content h1,
       .hero-content p {
-        color: #fff;
+        color: #fff; /* سفید رنگ */
       }
       .hero-content h1 {
         font-size: 3rem;
@@ -71,11 +71,11 @@
         font-size: 1.2rem;
         margin-bottom: 1.5rem;
       }
-      /* Button – آپ اپنی مرضی سے بٹن کا رنگ منتخب کر سکتے ہیں */
+      /* بٹن کا رنگ آپ کی خواہش کے مطابق (یہاں نیلا) */
       .hero-content .btn {
         font-size: 1.2rem;
         padding: 0.75rem 1.5rem;
-        background-color: #007bff; /* نیلا بٹن */
+        background-color: #007bff;
         color: #fff;
         border: none;
         border-radius: 4px;
@@ -156,24 +156,15 @@
         object-fit: contain;
       }
 
-      /* Product Tile Styles (for horizontal scroll) */
-      .product-tile {
-        margin-right: 0.75rem;
-        width: 150px;
-      }
-      .product-tile img {
+      /* Product Tile Styles */
+      .card-img-top {
         width: 100%;
         height: 180px;
         object-fit: cover;
       }
-      .product-details {
-        text-align: center;
-        font-size: 0.9rem;
-        margin-top: 5px;
-      }
       .product-price {
         font-weight: bold;
-        color: #e4393c;
+        color: #e4393c; /* سرخی مائل رنگ */
         font-size: 1.1rem;
       }
       .product-old-price {
@@ -183,6 +174,7 @@
       }
       .product-orders {
         color: #666;
+        font-size: 0.9rem;
       }
       .text-success {
         color: #28a745 !important;
@@ -251,6 +243,7 @@
     <!-- Scripts -->
     <!-- Bootstrap 5 JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
     <!-- Script to load header and footer dynamically -->
     <script>
       // اگر آپ کے header.html میں تین لائنوں والا بٹن موجود ہے (onclick="toggleSideMenu()"),
@@ -500,26 +493,28 @@
           `;
           container.appendChild(section);
 
-          // Horizontal scroll container with product tiles
+          // Horizontal scroll container
           let scrollContainer = document.getElementById(`scroll-${category.replace(/\s/g, '')}`);
           productData[category].forEach(product => {
-            let tile = document.createElement("div");
-            tile.className = "product-tile";
-            // Clicking on the tile opens that category page
-            tile.onclick = function () {
+            let card = document.createElement("div");
+            card.className = "card";
+            card.style.minWidth = "150px";
+            card.style.marginRight = "0.75rem";
+            // Clicking on the card opens that category page
+            card.onclick = function () {
               openCategoryPage(category);
             };
 
-            // Product tile structure: Image on top, details below (without card container)
-            tile.innerHTML = `
-              <img src="${product.image}" alt="${product.name}">
-              <div class="product-details">
+            // Product tile layout
+            card.innerHTML = `
+              <img src="${product.image}" class="card-img-top" alt="${product.name}">
+              <div class="card-body text-center">
                 <p class="product-price">${product.price} <span class="product-old-price">PKR1,487</span></p>
                 <p class="product-orders">100K+ orders <i class="fa fa-star" style="color:#FFC107;"></i> 4.7</p>
                 <p class="text-success mb-0">Free shipping</p>
               </div>
             `;
-            scrollContainer.appendChild(tile);
+            scrollContainer.appendChild(card);
           });
           index++;
         }
@@ -538,21 +533,22 @@
           let col = document.createElement("div");
           col.className = "col-6 col-md-4 mb-4";
 
-          // Using similar product-tile layout for vertical grid
-          let tile = document.createElement("div");
-          tile.className = "product-tile";
-          tile.onclick = function () {
+          let card = document.createElement("div");
+          card.className = "card";
+          card.onclick = function () {
             openProductModal(product);
           };
-          tile.innerHTML = `
-            <img src="${product.image}" alt="${product.name}">
-            <div class="product-details">
+
+          // اسی طرز کا ڈیزائن کیٹیگری پیج پر بھی
+          card.innerHTML = `
+            <img src="${product.image}" class="card-img-top" alt="${product.name}">
+            <div class="card-body text-center">
               <p class="product-price">${product.price} <span class="product-old-price">PKR1,487</span></p>
               <p class="product-orders">100K+ orders <i class="fa fa-star" style="color:#FFC107;"></i> 4.7</p>
               <p class="text-success mb-0">Free shipping</p>
             </div>
           `;
-          col.appendChild(tile);
+          col.appendChild(card);
           grid.appendChild(col);
         });
       }
