@@ -12,34 +12,9 @@
     <script src="script.js" defer></script>
   </head>
   <body>
-    <!-- Fixed Header -->
-    <header class="header">
-      <div class="header-content">
-        <div class="brand">
-          <i class="fas fa-briefcase"></i> <span>MyBusiness</span>
-        </div>
-        <!-- Desktop Navigation (visible on larger screens) -->
-        <nav class="nav-desktop">
-          <a href="index.html" onclick="openPage('index.html')"><i class="fas fa-home"></i></a>
-          <a href="offers.html" onclick="openPage('offers.html')"><i class="fas fa-tags"></i></a>
-          <a href="analytics.html" onclick="openPage('analytics.html')"><i class="fas fa-chart-line"></i></a>
-          <a href="ecommerce.html" onclick="openPage('ecommerce.html')"><i class="fas fa-shopping-cart"></i></a>
-          <a href="more.html" onclick="openPage('more.html')"><i class="fas fa-ellipsis-h"></i></a>
-        </nav>
-        <!-- Hamburger for Mobile -->
-        <button class="menu-toggle" onclick="toggleSideMenu()">
-          <i class="fas fa-bars"></i>
-        </button>
-      </div>
-    </header>
-    <!-- Mobile Side Menu -->
-    <aside id="side-menu" class="side-menu">
-      <a href="index.html" onclick="openPage('index.html'); toggleSideMenu()">Home</a>
-      <a href="offers.html" onclick="openPage('offers.html'); toggleSideMenu()">Offers</a>
-      <a href="analytics.html" onclick="openPage('analytics.html'); toggleSideMenu()">Analytics</a>
-      <a href="ecommerce.html" onclick="openPage('ecommerce.html'); toggleSideMenu()">Shop</a>
-      <a href="more.html" onclick="openPage('more.html'); toggleSideMenu()">More</a>
-    </aside>
+    <!-- Header Placeholder -->
+    <div id="header-placeholder"></div>
+    
     <!-- Main Content -->
     <main>
       <!-- Hero Section -->
@@ -55,7 +30,7 @@
           </div>
         </div>
       </section>
-      <!-- Features Section (Example Content) -->
+      <!-- Features Section -->
       <section class="features">
         <div class="container">
           <h2>Our Exclusive Features</h2>
@@ -79,19 +54,35 @@
         </div>
       </section>    
     </main>
-    <!-- Fixed Bottom Navigation (Mobile) -->
-    <nav class="mobile-nav">
-      <a href="index.html" onclick="openPage('index.html')"><i class="fas fa-home"></i><span>Home</span></a>
-      <a href="offers.html" onclick="openPage('offers.html')"><i class="fas fa-tags"></i><span>Offers</span></a>
-      <a href="analytics.html" onclick="openPage('analytics.html')"><i class="fas fa-chart-line"></i><span>Analytics</span></a>
-      <a href="ecommerce.html" onclick="openPage('ecommerce.html')"><i class="fas fa-shopping-cart"></i><span>Shop</span></a>
-      <a href="more.html" onclick="openPage('more.html')"><i class="fas fa-ellipsis-h"></i><span>More</span></a>
-    </nav>
-    <!-- Fixed Footer (Optional for additional info) -->
-    <footer class="footer">
-      <div class="footer-container">
-        <p>&copy; 2025 MyBusiness Premium. All rights reserved.</p>
-      </div>
-    </footer>
+    
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+    
+    <!-- Script to load header and footer dynamically -->
+    <script>
+      /**
+       * Loads external HTML into a given element.
+       * @param {string} elementId - The ID of the element to load content into.
+       * @param {string} filePath - The path of the HTML file to load.
+       */
+      function loadHTML(elementId, filePath) {
+        fetch(filePath)
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Error fetching ' + filePath);
+            }
+            return response.text();
+          })
+          .then(html => {
+            document.getElementById(elementId).innerHTML = html;
+          })
+          .catch(error => console.error(error));
+      }
+      
+      document.addEventListener("DOMContentLoaded", function() {
+        loadHTML('header-placeholder', 'header.html');
+        loadHTML('footer-placeholder', 'footer.html');
+      });
+    </script>
   </body>
 </html>
