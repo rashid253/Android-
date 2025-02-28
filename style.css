@@ -99,7 +99,6 @@ body {
 /* Hero Section */
 .hero {
   height: calc(100vh - 140px); /* Full viewport minus header & bottom nav */
-  /* CHANGED HERE -> bright blue background instead of placeholder/gradient */
   background: #007bff; /* bright blue */
   display: flex;
   align-items: center;
@@ -124,7 +123,6 @@ body {
 }
 
 /* CTA Buttons */
-/* CHANGED HERE -> green buttons */
 .cta-buttons button {
   background: #28a745; /* green */
   border: none;
