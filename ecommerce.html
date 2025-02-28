@@ -16,19 +16,26 @@
       color: #333;
       margin: 0;
       padding: 0;
+      /* Add top and bottom padding to avoid overlap with fixed header/footer */
+      padding-top: 70px;
+      padding-bottom: 70px;
     }
-    /* Header / Navbar - Mobile App Style */
+    /* Header / Navbar - Fixed */
     .navbar {
-      background-color: #fff;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: linear-gradient(90deg, #0B6623, #128C7E);
+      box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+      z-index: 1000;
       padding: 0.5rem 1rem;
     }
     .navbar-brand, .nav-link {
-      color: #333 !important;
+      color: #fff !important;
       font-weight: 600;
     }
     .navbar-brand:hover, .nav-link:hover {
-      color: #555 !important;
+      color: #c8e6c9 !important;
     }
     .navbar-icons {
       display: flex;
@@ -38,16 +45,16 @@
     .navbar-icons i {
       font-size: 1.6rem;
       cursor: pointer;
-      color: #333;
+      color: #fff;
     }
     /* Prominent Cart Icon */
     .cart-icon {
       font-size: 1.8rem;
-      color: #333;
+      color: #fff;
       position: relative;
       margin-left: 1rem;
       cursor: pointer;
-      border: 2px solid #333;
+      border: 2px solid #fff;
       padding: 5px;
       border-radius: 50%;
     }
@@ -64,7 +71,7 @@
     /* Hero Section - Full Mobile Screen */
     .hero {
       position: relative;
-      background: #00E676; /* Bright glossy green */
+      background-color: #00E676; /* Bright glossy green */
       height: 100vh;
       display: flex;
       align-items: center;
@@ -223,18 +230,38 @@
     }
     /* Footer Styles */
     footer {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
       background-color: #fff;
       border-top: 2px solid #ddd;
-      box-shadow: 0 -2px 6px rgba(0,0,0,0.2);
-      padding: 1rem;
+      box-shadow: 0 -4px 6px rgba(0,0,0,0.3);
+      padding: 0.5rem 1rem;
+      z-index: 1000;
+    }
+    footer .footer-btns {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+    }
+    footer .footer-btns button {
+      background-color: #0B6623;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      color: #fff;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+    footer .footer-btns button:hover {
+      background-color: #128C7E;
     }
     footer p {
-      margin: 0;
+      margin: 0.5rem 0 0;
+      text-align: center;
+      font-size: 0.8rem;
       color: #333;
-    }
-    footer a {
-      color: #0B6623 !important;
-      text-decoration: none !important;
     }
   </style>
   <!--
@@ -244,7 +271,7 @@
   -->
 </head>
 <body>
-  <!-- Header / Navigation Bar -->
+  <!-- Header / Navigation Bar (Fixed) -->
   <nav class="navbar navbar-expand-lg">
     <div class="container">
       <a class="navbar-brand" href="index.html"><i class="bi bi-house-door-fill me-2"></i>MyBusiness Premium</a>
@@ -265,12 +292,12 @@
     </div>
   </nav>
   
-  <!-- Hero Section -->
+  <!-- Hero Section (Full Screen) -->
   <section class="hero">
     <div class="hero-overlay"></div>
     <div class="hero-content">
       <h1>Experience Next-Gen Shopping</h1>
-      <p>Discover exclusive deals, innovative products, and a seamless shopping experience.</p>
+      <p>Discover exclusive deals and trendsetting products at your fingertips.</p>
       <a href="#categoriesContainer" class="btn btn-primary">Start Shopping</a>
     </div>
   </section>
@@ -313,15 +340,15 @@
     </div>
   </div>
   
-  <!-- Footer -->
+  <!-- Footer (Fixed) -->
   <footer>
     <div class="container">
+      <div class="footer-btns">
+        <button onclick="alert('Privacy Policy')">Privacy Policy</button>
+        <button onclick="alert('Terms of Service')">Terms of Service</button>
+        <button onclick="alert('Contact Us')">Contact Us</button>
+      </div>
       <p>&copy; 2025 MyBusiness Premium. All rights reserved.</p>
-      <p>
-        <a href="#">Privacy Policy</a> | 
-        <a href="#">Terms of Service</a> | 
-        <a href="#">Contact Us</a>
-      </p>
     </div>
   </footer>
   
