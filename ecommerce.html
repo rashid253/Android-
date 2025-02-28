@@ -1,15 +1,15 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>eCommerce - MyBusiness Premium</title>
-  <!-- Link to your shared stylesheet -->
+  <!-- Use the same stylesheet as index.html -->
   <link rel="stylesheet" href="styles.css">
+  <!-- (Include any additional meta tags or favicon links as in index.html) -->
 </head>
 <body>
-  <!-- Header (same as index.html) -->
+  <!-- Header (same as in index.html) -->
   <header>
     <div class="container">
       <div class="logo">
@@ -27,34 +27,42 @@
     </div>
   </header>
 
-  <!-- Main Content for the eCommerce page -->
+  <!-- Main Content: eCommerce Page -->
   <main>
     <div class="container">
+      <!-- Hero Section (adjust text to fit the eCommerce theme) -->
       <section class="hero">
-        <h2>Welcome to Our Online Store</h2>
-        <p>Discover our exclusive range of products with secure transactions and premium deals.</p>
-        <!-- You can include a button for further actions or product browsing -->
-        <a href="shop.html" class="btn">Browse Products</a>
+        <h2>Our Online Store</h2>
+        <p>Discover a wide range of premium products with secure payments and exclusive deals.</p>
+        <!-- You can link this button to a product listing page or use it to scroll down -->
+        <a href="#products" class="btn">Shop Now</a>
       </section>
-      
-      <!-- Additional ecommerce content can be added below -->
-      <section class="products">
+
+      <!-- Products Section -->
+      <section id="products" class="products">
         <h3>Featured Products</h3>
         <div class="product-grid">
-          <!-- Example product item -->
+          <!-- Example Product Item -->
           <div class="product-item">
             <img src="images/product1.jpg" alt="Product 1">
             <h4>Product Name 1</h4>
-            <p>$99.99</p>
-            <a href="#" class="btn">Buy Now</a>
+            <p class="price">$49.99</p>
+            <a href="product-details.html?id=1" class="btn">Buy Now</a>
           </div>
-          <!-- Repeat product items as needed -->
+          <!-- You can replicate the above block for each product -->
+          <div class="product-item">
+            <img src="images/product2.jpg" alt="Product 2">
+            <h4>Product Name 2</h4>
+            <p class="price">$79.99</p>
+            <a href="product-details.html?id=2" class="btn">Buy Now</a>
+          </div>
+          <!-- Add more product items as required -->
         </div>
       </section>
     </div>
   </main>
 
-  <!-- Footer (same as index.html) -->
+  <!-- Footer (same as in index.html) -->
   <footer>
     <div class="container">
       <p>© 2025 MyBusiness Premium. All rights reserved.</p>
