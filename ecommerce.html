@@ -12,30 +12,22 @@
     /* Global Styles */
     body {
       font-family: 'Roboto', sans-serif;
-      background-color: #f3f4f6; /* Updated light gray background */
-      color: #2d3748; /* Darker text */
+      background-color: #f9f9f9;
+      color: #333;
       margin: 0;
       padding: 0;
     }
-    a {
-      text-decoration: none;
-      color: inherit;
-      transition: color 0.3s ease;
-    }
-    a:hover {
-      color: #ff6f61;
-    }
-    /* Navbar */
+    /* Header / Navbar */
     .navbar {
-      background: linear-gradient(90deg, #1a202c, #2d3748); /* Dark gradient */
-      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+      background: linear-gradient(90deg, #1E3C72, #2A5298);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
     }
     .navbar-brand, .nav-link {
       color: #fff !important;
       font-weight: 600;
     }
     .navbar-brand:hover, .nav-link:hover {
-      color: #a0aec0 !important;
+      color: #c8e6c9 !important;
     }
     .navbar-icons {
       display: flex;
@@ -50,7 +42,7 @@
     /* Hero Section */
     .hero {
       position: relative;
-      background: linear-gradient(135deg, #ff6f61, #ff9a8d), url('https://via.placeholder.com/1920x500?text=Hero+Section') center/cover no-repeat;
+      background: url('https://via.placeholder.com/1920x500?text=Hero+Section') center/cover no-repeat;
       height: 500px;
       display: flex;
       align-items: center;
@@ -65,7 +57,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0,0,0,0.35);
+      background: rgba(0,0,0,0.4);
       z-index: 1;
     }
     .hero-content {
@@ -85,13 +77,6 @@
     .hero-content .btn {
       font-size: 1.2rem;
       padding: 0.75rem 1.5rem;
-      background-color: #ff6f61;
-      border: none;
-      border-radius: 4px;
-      transition: background 0.3s ease;
-    }
-    .hero-content .btn:hover {
-      background-color: #ff5447;
     }
     /* Main Content */
     .container {
@@ -120,7 +105,7 @@
       overflow: hidden;
       background: #fff;
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      transition: transform 0.3s, box-shadow 0.3s;
       min-width: 150px;
     }
     .card:hover {
@@ -141,7 +126,7 @@
       font-weight: bold;
     }
     .card-text {
-      color: #1a202c;
+      color: #1E3C72;
       font-size: 0.8rem;
     }
     /* Banner Styles (Fixed Height 150px) */
@@ -208,20 +193,9 @@
     #categoryPage .col {
       margin-bottom: 1rem;
     }
-    /* Footer */
-    footer {
-      background: #2d3748;
-      color: #cbd5e0;
-      text-align: center;
-      padding: 1.5rem;
-      font-size: 0.9rem;
-    }
+    /* Footer Links */
     footer a {
-      color: #63b3ed;
-      text-decoration: underline;
-    }
-    footer a:hover {
-      color: #4299e1;
+      text-decoration: none !important;
     }
   </style>
   <!--
@@ -256,9 +230,9 @@
   <section class="hero">
     <div class="hero-overlay"></div>
     <div class="hero-content">
-      <h1>Welcome to NextGen E-commerce</h1>
-      <p>Your one-stop shop for the latest trends &amp; exclusive deals.</p>
-      <a href="#categoriesContainer" class="btn btn-primary">Shop Now</a>
+      <h1>Discover the Future of Shopping</h1>
+      <p>Experience exclusive deals and unparalleled variety at your fingertips.</p>
+      <a href="#categoriesContainer" class="btn btn-primary">Start Shopping</a>
     </div>
   </section>
   
@@ -437,8 +411,10 @@
       container.innerHTML = "";
       let index = 0;
       for (let category in productData) {
+        // Append banner for the category
         let banner = createBannerForCategory(category, index);
         container.appendChild(banner);
+        // Create a section for the category title and horizontal scroll container
         let section = document.createElement("div");
         section.innerHTML = `<h2 class="mt-4">${category}</h2>
           <div class="horizontal-scroll" id="scroll-${category.replace(/\s/g, '')}"></div>`;
@@ -449,6 +425,7 @@
           card.className = "card";
           card.style.minWidth = "150px";
           card.style.marginRight = "0.75rem";
+          // Clicking a product tile opens the dedicated category page
           card.onclick = function() {
             openCategoryPage(category);
           };
@@ -463,7 +440,7 @@
       }
     }
 
-    // Open dedicated category page with vertical grid layout (2 columns on mobile, 3 on larger screens)
+    // Open dedicated category page with vertical grid layout
     function openCategoryPage(category) {
       document.getElementById("mainPage").style.display = "none";
       document.getElementById("categoryPage").style.display = "block";
@@ -475,6 +452,7 @@
         col.className = "col-6 col-md-4 mb-4";
         let card = document.createElement("div");
         card.className = "card";
+        // Clicking a product opens the product details modal
         card.onclick = function() {
           openProductModal(product);
         };
