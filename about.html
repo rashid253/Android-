@@ -2,274 +2,52 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>About Us - MyBusiness Premium</title>
+  <title>Footer</title>
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <style>
-    /* Base & reset styles */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    body {
-      font-family: 'Helvetica Neue', Arial, sans-serif;
-      line-height: 1.6;
-      color: #333;
-      background: #fff;
-    }
-    a {
-      text-decoration: none;
-      color: inherit;
-      transition: color 0.3s ease;
-    }
-    a:hover {
-      color: #ff6600;
-    }
-    /* Hero Section */
-    header {
-      position: relative;
-      height: 100vh;
-      background: url('https://via.placeholder.com/1920x1080?text=Hero+Image') no-repeat center center/cover;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    header::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0, 0, 0, 0.5);
-    }
-    .hero-content {
-      position: relative;
-      text-align: center;
-      color: #fff;
-      z-index: 1;
-      max-width: 800px;
-      padding: 0 20px;
-    }
-    .hero-content h1 {
-      font-size: 3rem;
-      margin-bottom: 1rem;
-    }
-    .hero-content p {
-      font-size: 1.2rem;
-      margin-bottom: 2rem;
-    }
-    .hero-content .btn {
-      display: inline-block;
-      padding: 0.8rem 1.5rem;
-      background: #ff6600;
-      color: #fff;
-      border-radius: 5px;
-      font-weight: bold;
-      transition: background 0.3s ease;
-    }
-    .hero-content .btn:hover {
-      background: #e65c00;
-    }
-    /* Section styles */
-    section {
-      padding: 4rem 2rem;
-    }
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    .section-title {
-      text-align: center;
-      font-size: 2rem;
-      margin-bottom: 2rem;
-      color: #222;
-    }
-    .about-content {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 2rem;
-    }
-    .about-content .text, 
-    .about-content .image {
-      flex: 1 1 500px;
-    }
-    .about-content .text h2 {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-      color: #333;
-    }
-    .about-content .text p {
-      font-size: 1.1rem;
-      margin-bottom: 1rem;
-      line-height: 1.8;
-    }
-    .about-content .image img {
-      width: 100%;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    }
-    /* Meet Our Team Section with Images */
-    .team {
-      background: #f9f9f9;
-      padding: 4rem 2rem;
-    }
-    .team .section-title {
-      margin-bottom: 2rem;
-    }
-    .team-members {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 2rem;
-    }
-    .team-member {
-      text-align: center;
-      flex: 1 1 250px;
-    }
-    .team-member img {
-      width: 150px;
-      height: 150px;
-      border-radius: 50%;
-      object-fit: cover;
-      margin-bottom: 1rem;
-      border: 4px solid #ff6600;
-    }
-    .team-member h3 {
-      font-size: 1.5rem;
-      margin-bottom: 0.5rem;
-      color: #333;
-    }
-    .team-member p {
-      font-size: 1rem;
-      color: #777;
-    }
-    /* Our Values Section (Text Only) */
-    .values {
-      text-align: center;
-    }
-    .values h2 {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-    }
-    .values p {
-      font-size: 1.1rem;
-      max-width: 800px;
-      margin: 0 auto;
-      color: #555;
-      line-height: 1.8;
-    }
-    /* Footer */
     footer {
-      background: #222;
+      background: #333;
       color: #fff;
+      padding: 10px;
       text-align: center;
-      padding: 2rem;
     }
-    /* Responsive adjustments */
-    @media (max-width: 768px) {
-      header .hero-content h1 {
-        font-size: 2.5rem;
-      }
-      .about-content {
-        flex-direction: column;
-      }
-      .team-members {
-        flex-direction: column;
-        align-items: center;
-      }
+    .footer-icons {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+    }
+    .footer-icons a {
+      color: #fff;
+      font-size: 1.5rem;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .footer-icons a:hover {
+      color: #007bff;
     }
   </style>
 </head>
 <body>
-  <!-- Hero Section -->
-  <header>
-    <div class="hero-content">
-      <h1>About MyBusiness Premium</h1>
-      <p>
-        We are a next-generation business solutions provider, dedicated to secure transactions, exclusive offers, and an exceptional user experience.
-      </p>
-      <!-- Get In Touch Button: This clear call-to-action leads visitors to the contact page -->
-      <a href="contact.html" class="btn">Get In Touch</a>
-    </div>
-  </header>
-  
-  <!-- Our Story Section -->
-  <section>
-    <div class="container">
-      <div class="section-title">Our Story</div>
-      <div class="about-content">
-        <div class="text">
-          <h2>Driven by Innovation</h2>
-          <p>
-            Founded in 2025, MyBusiness Premium was born from a passion for innovation and excellence. We set out to revolutionize the digital business landscape with cutting-edge technology and a commitment to outstanding service.
-          </p>
-          <p>
-            Our journey is fueled by a relentless pursuit of perfection, ensuring that our clients always receive the very best in secure transactions and premium solutions.
-          </p>
-        </div>
-        <div class="image">
-          <img src="https://via.placeholder.com/600x400?text=Our+Story" alt="Our Story" />
-        </div>
-      </div>
-    </div>
-  </section>
-  
-  <!-- Meet Our Team Section with Images -->
-  <section class="team">
-    <div class="container">
-      <div class="section-title">Meet Our Team</div>
-      <div class="team-members">
-        <div class="team-member">
-          <img src="https://via.placeholder.com/150?text=John+Doe" alt="John Doe - CEO" />
-          <h3>John Doe</h3>
-          <p>CEO &amp; Founder</p>
-        </div>
-        <div class="team-member">
-          <img src="https://via.placeholder.com/150?text=Jane+Smith" alt="Jane Smith - CTO" />
-          <h3>Jane Smith</h3>
-          <p>CTO</p>
-        </div>
-        <div class="team-member">
-          <img src="https://via.placeholder.com/150?text=Robert+Brown" alt="Robert Brown - CFO" />
-          <h3>Robert Brown</h3>
-          <p>CFO</p>
-        </div>
-      </div>
-    </div>
-  </section>
-  
-  <!-- Our Values Section -->
-  <section class="values">
-    <div class="container">
-      <div class="section-title">Our Values</div>
-      <h2>Excellence, Integrity &amp; Innovation</h2>
-      <p>
-        At MyBusiness Premium, we are committed to excellence. Integrity and innovation guide every decision we make, ensuring our solutions not only meet but exceed industry standards.
-      </p>
-    </div>
-  </section>
-  
-  <!-- Footer -->
   <footer>
-    <p>© 2025 MyBusiness Premium. All rights reserved.</p>
+    <div class="footer-icons">
+      <a href="#" title="Chat with Seller">
+        <i class="fas fa-comments"></i>
+      </a>
+      <a href="#" title="Track Order">
+        <i class="fas fa-truck"></i>
+      </a>
+      <a href="#" title="Help & Support">
+        <i class="fas fa-headset"></i>
+      </a>
+      <a href="analytics.html" title="Analytics">
+        <i class="fas fa-chart-line"></i>
+      </a>
+      <a href="callcenter.html" title="Call Center">
+        <i class="fas fa-phone"></i>
+      </a>
+    </div>
   </footer>
-  
-  <!-- Dummy JavaScript for simulating data fetching (to be integrated with Firebase in the future) -->
-  <script>
-    // This function simulates fetching product data.
-    // Later, replace this with Firebase Firestore API calls for dynamic data management.
-    function fetchProducts() {
-      console.log("Fetching products using dummy data...");
-      const products = [
-        { id: 1, name: "Product One", price: "$19.99", image: "https://via.placeholder.com/300?text=Product+1" },
-        { id: 2, name: "Product Two", price: "$29.99", image: "https://via.placeholder.com/300?text=Product+2" },
-        { id: 3, name: "Product Three", price: "$39.99", image: "https://via.placeholder.com/300?text=Product+3" }
-      ];
-      console.log(products);
-    }
-    
-    document.addEventListener('DOMContentLoaded', () => {
-      fetchProducts();
-    });
-  </script>
 </body>
 </html>
