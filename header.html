@@ -75,15 +75,15 @@
       }
       /* Side menu styling for mobile (if used) */
       .side-menu {
-        display: none;
-        flex-direction: column;
         position: fixed;
         top: 70px;
         right: 0;
-        background: #fff;
         width: 220px;
+        background: #fff;
         box-shadow: -2px 0 4px rgba(0, 0, 0, 0.1);
         padding: 20px;
+        display: none;
+        flex-direction: column;
         z-index: 1001;
       }
       .side-menu.visible {
@@ -139,18 +139,21 @@
       </div>
       <!-- Mobile Side Menu -->
       <aside id="side-menu" class="side-menu">
-        <a href="index.html" onclick="openPage('index.html'); toggleSideMenu()">
-          Home
-        </a>
-        <a href="offers.html" onclick="openPage('offers.html'); toggleSideMenu()">
-          Offers
-        </a>
+        <a
+          href="index.html"
+          onclick="openPage('index.html'); toggleSideMenu()"
+          >Home</a
+        >
+        <a
+          href="offers.html"
+          onclick="openPage('offers.html'); toggleSideMenu()"
+          >Offers</a
+        >
         <a
           href="analytics.html"
           onclick="openPage('analytics.html'); toggleSideMenu()"
+          >Analytics</a
         >
-          Analytics
-        </a>
         <a
           href="cart.html"
           onclick="openPage('cart.html'); toggleSideMenu()"
@@ -164,9 +167,11 @@
             >0</span
           >
         </a>
-        <a href="more.html" onclick="openPage('more.html'); toggleSideMenu()">
-          More
-        </a>
+        <a
+          href="more.html"
+          onclick="openPage('more.html'); toggleSideMenu()"
+          >More</a
+        >
       </aside>
       <!-- Mobile Bottom Navigation -->
       <nav class="mobile-nav">
@@ -198,7 +203,5 @@
         </a>
       </nav>
     </header>
-
-    <!-- (Optional) Include additional scripts here or in your main script.js -->
   </body>
 </html>
