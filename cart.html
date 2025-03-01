@@ -2,8 +2,15 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>MyBusiness Cart - No Gap Hero</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MyBusiness Cart - Professional Edition</title>
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
     <!-- Font Awesome for icons -->
     <link
       rel="stylesheet"
@@ -18,29 +25,34 @@
     <link rel="stylesheet" href="style.css" />
     <!-- Inline CSS for Cart Page -->
     <style>
-      /* Remove top margin so hero touches the header when scrolled up */
-      main {
-        margin-top: 0 !important; /* No gap at the top */
-        margin-bottom: 80px;      /* If you have a fixed footer, keep some space */
+      body {
+        font-family: 'Roboto', sans-serif;
+        background-color: #f8f9fa;
       }
-      /* Small Hero Section immediately below header */
+      main {
+        margin-top: 0 !important;
+        margin-bottom: 80px;
+      }
+      /* Hero Section */
       .cart-hero {
-        background: #007bff; /* bright blue */
+        background: #007bff;
         color: #fff;
         padding: 20px 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
         text-align: center;
-        margin: 0 !important; /* ensure no extra margin above hero */
       }
       .cart-hero h1 {
-        font-size: 1.8rem;
+        font-size: 1.5rem;
         margin-bottom: 5px;
       }
       .cart-hero p {
+        font-size: 0.9rem;
         margin: 0;
-        font-size: 1rem;
       }
-
-      /* Subheader with extra functions */
+      /* Subheader */
       .cart-subheader {
         background: #ffffff;
         border-bottom: 1px solid #dee2e6;
@@ -52,100 +64,112 @@
         align-items: center;
       }
       .cart-subheader h2 {
-        font-size: 1.5rem;
+        font-size: 1.25rem;
         margin: 0;
         color: #007bff;
       }
+      .cart-subheader .extras {
+        display: flex;
+        gap: 30px;
+      }
       .cart-subheader .extras a {
-        margin-left: 15px;
         color: #333;
-        font-size: 1.25rem;
+        font-size: 1.2rem;
       }
       .cart-subheader .extras a:hover {
         color: #007bff;
       }
-
       /* Cart Container */
       .cart-container {
-        padding: 40px 0;
-      }
-      .cart-title {
-        font-size: 2.5rem;
-        font-weight: bold;
-        margin-bottom: 30px;
-        color: #007bff;
-        text-align: center;
+        padding: 10px 0;
       }
       .cart-table {
-        font-size: 0.9rem;
+        font-size: 0.85rem;
       }
       .cart-table th,
       .cart-table td {
         vertical-align: middle;
         text-align: center;
+        padding: 0.5rem;
       }
       .cart-table img {
-        max-width: 70px;
+        max-width: 50px;
         border-radius: 5px;
       }
-      /* Quantity controls */
+      /* Quantity Controls */
       .quantity-controls {
         display: inline-flex;
         align-items: center;
       }
       .quantity-controls button {
-        padding: 2px 6px;
-        font-size: 0.8rem;
+        padding: 2px 4px;
+        font-size: 0.75rem;
       }
       .quantity-input {
-        width: 40px;
+        width: 30px;
         text-align: center;
         border: 1px solid #ced4da;
         border-radius: 3px;
-        margin: 0 4px;
+        margin: 0 3px;
         padding: 2px;
       }
-
       /* Order Summary */
       .order-summary {
         background: #fff;
-        padding: 25px;
+        padding: 15px;
         border-radius: 8px;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
       }
       .order-summary h4 {
-        font-size: 1.75rem;
+        font-size: 1.25rem;
         font-weight: bold;
-        margin-bottom: 20px;
+        margin-bottom: 15px;
         color: #007bff;
       }
       .summary-item {
         display: flex;
         justify-content: space-between;
-        margin-bottom: 15px;
-        font-size: 1rem;
+        margin-bottom: 10px;
+        font-size: 0.9rem;
       }
       .summary-total {
-        font-size: 1.25rem;
+        font-size: 1.1rem;
         font-weight: bold;
       }
       .coupon-code {
-        margin-top: 20px;
+        margin-top: 15px;
       }
       .coupon-code input {
         border-radius: 5px;
-        padding: 8px;
+        padding: 6px;
         border: 1px solid #ced4da;
         width: 100%;
+        font-size: 0.85rem;
       }
       .apply-coupon {
-        margin-top: 10px;
+        margin-top: 8px;
+        font-size: 0.85rem;
       }
       .checkout-btn {
         width: 100%;
-        padding: 15px;
-        font-size: 1.2rem;
-        margin-top: 20px;
+        padding: 10px;
+        font-size: 1rem;
+        margin-top: 15px;
+      }
+      /* Confirmation Box */
+      .confirm-box {
+        position: absolute;
+        background: #fff;
+        border: 1px solid #ccc;
+        padding: 6px 10px;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+        width: 200px;
+        font-size: 0.85rem;
+      }
+      .confirm-box p {
+        margin: 0 0 8px;
       }
     </style>
   </head>
@@ -154,15 +178,15 @@
     <div id="header-placeholder"></div>
     
     <main>
-      <!-- Hero Section: No gap at top -->
+      <!-- Hero Section -->
       <section class="cart-hero">
         <div class="container">
           <h1>Manage Your Cart</h1>
           <p>Review and adjust items before checkout</p>
         </div>
       </section>
-
-      <!-- Subheader below hero -->
+  
+      <!-- Subheader -->
       <section class="cart-subheader">
         <div class="container">
           <h2>Shopping Cart</h2>
@@ -177,7 +201,6 @@
       <!-- Cart Items Section -->
       <section class="cart-items">
         <div class="container cart-container">
-          <h1 class="cart-title">Your Shopping Cart</h1>
           <div class="table-responsive">
             <table class="table table-sm table-bordered cart-table">
               <thead class="table-light">
@@ -191,7 +214,7 @@
                 </tr>
               </thead>
               <tbody id="cartItemsContainer">
-                <!-- Cart items will be rendered dynamically -->
+                <!-- Dynamic cart items will be rendered here -->
               </tbody>
             </table>
           </div>
@@ -222,7 +245,7 @@
                   <span id="totalDisplay">0.00</span>
                 </div>
                 <div class="coupon-code">
-                  <input type="text" id="couponInput" placeholder="Enter Coupon Code">
+                  <input type="text" id="couponInput" placeholder="Enter Coupon Code" />
                   <button class="btn btn-outline-primary apply-coupon mt-2" onclick="applyCoupon()">Apply Coupon</button>
                 </div>
                 <button class="btn btn-success checkout-btn mt-3" onclick="proceedToCheckout()">Proceed to Checkout</button>
@@ -241,35 +264,71 @@
     
     <!-- Script to load header and footer dynamically -->
     <script>
-      function loadHTML(elementId, filePath) {
+      function loadHTML(elementId, filePath, defaultContent) {
         fetch(filePath)
           .then(response => {
             if (!response.ok) {
-              if (elementId === "header-placeholder") {
-                document.getElementById(elementId).innerHTML =
-                  '<header style="background:#333;color:#fff;padding:10px;text-align:center;">Header</header>';
-              } else if (elementId === "footer-placeholder") {
-                document.getElementById(elementId).innerHTML =
-                  '<footer style="background:#333;color:#fff;padding:10px;text-align:center;">Footer</footer>';
-              }
-              throw new Error("Error fetching " + filePath);
+              console.warn(filePath + " not found. Using default content for " + elementId);
+              document.getElementById(elementId).innerHTML = defaultContent;
+              return;
             }
             return response.text();
           })
           .then(html => {
-            document.getElementById(elementId).innerHTML = html;
+            if (html) {
+              document.getElementById(elementId).innerHTML = html;
+              console.log(filePath + " loaded successfully for " + elementId);
+              // Reinitialize Bootstrap collapse if needed
+              if (elementId === "header-placeholder") {
+                var navbarNav = document.getElementById("navbarNav");
+                if (navbarNav) {
+                  new bootstrap.Collapse(navbarNav, { toggle: false });
+                }
+              }
+            }
           })
-          .catch(error => console.error(error));
+          .catch(error => {
+            console.error("Error loading " + filePath, error);
+            document.getElementById(elementId).innerHTML = defaultContent;
+          });
       }
+      
       document.addEventListener("DOMContentLoaded", function() {
-        loadHTML("header-placeholder", "header.html");
-        loadHTML("footer-placeholder", "footer.html");
+        loadHTML(
+          "header-placeholder",
+          "header.html",
+          `<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+              <a class="navbar-brand" href="#">MyBusiness Cart</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                  <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                  <li class="nav-item"><a class="nav-link" href="products.html">Products</a></li>
+                  <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                  <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                </ul>
+              </div>
+            </div>
+          </nav>`
+        );
+  
+        loadHTML(
+          "footer-placeholder",
+          "footer.html",
+          `<footer style="background:#333;color:#fff;padding:10px;text-align:center;">
+            Default Footer
+          </footer>`
+        );
       });
     </script>
     
     <!-- Cart Functionality Script -->
     <script>
-      // Dummy cart data – later replace with real integration
+      // Dummy cart data
       let cartItems = [
         {
           id: 1,
@@ -297,6 +356,15 @@
       let couponDiscount = 0; // no discount initially
       let shippingCost = 150; // fixed shipping cost
       
+      // Dynamic AI confirmation messages
+      const confirmationMessages = [
+        "Our AI has detected that this is your FAVORITE item. Are you still sure?",
+        "I ran a simulation. 99.9% chance you’ll regret this.",
+        "Are you deleting this item… or is it deleting you?",
+        "System analysis complete: Removal might be a mistake.",
+        "Caution: This deletion may trigger unforeseen consequences."
+      ];
+      
       function renderCartItems() {
         const container = document.getElementById("cartItemsContainer");
         container.innerHTML = "";
@@ -304,18 +372,22 @@
           const itemSubtotal = item.price * item.quantity;
           const row = document.createElement("tr");
           row.innerHTML = `
-            <td><img src="${item.image}" alt="${item.name}"></td>
+            <td><img src="${item.image}" alt="${item.name}" /></td>
             <td>${item.name}</td>
             <td>${item.price}</td>
             <td>
               <div class="quantity-controls">
                 <button class="btn btn-sm btn-outline-secondary" onclick="changeQuantity(${index}, -1)">-</button>
-                <input type="text" class="quantity-input" value="${item.quantity}" readonly>
+                <input type="text" class="quantity-input" value="${item.quantity}" readonly />
                 <button class="btn btn-sm btn-outline-secondary" onclick="changeQuantity(${index}, 1)">+</button>
               </div>
             </td>
             <td id="itemSubtotal-${index}">${itemSubtotal.toFixed(2)}</td>
-            <td><button class="btn btn-sm btn-danger" onclick="removeItem(${index})">Remove</button></td>
+            <td>
+              <button class="btn btn-sm" onclick="confirmRemove(${index}, event)" style="position: relative; border: none; background: transparent;">
+                <i class="fas fa-trash-alt trash-icon" style="color: black;"></i>
+              </button>
+            </td>
           `;
           container.appendChild(row);
         });
@@ -328,14 +400,9 @@
         renderCartItems();
       }
       
-      function removeItem(index) {
-        cartItems.splice(index, 1);
-        renderCartItems();
-      }
-      
       function updateSummary() {
         let subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
-        let tax = subtotal * 0.10; // 10% tax
+        let tax = subtotal * 0.10;
         let discount = subtotal * couponDiscount;
         let total = subtotal + tax + shippingCost - discount;
         
@@ -364,16 +431,78 @@
         alert("Proceeding to checkout...");
       }
       
+      function confirmRemove(index, event) {
+        const button = event.currentTarget;
+        const icon = button.querySelector('.trash-icon');
+        icon.style.color = 'red';
+  
+        const message = confirmationMessages[Math.floor(Math.random() * confirmationMessages.length)];
+  
+        const confirmBox = document.createElement('div');
+        confirmBox.className = 'confirm-box';
+        confirmBox.innerHTML = `
+          <p>${message}</p>
+          <div style="text-align: right;">
+            <button class="btn btn-sm btn-danger" onclick="confirmDeletion(${index}, this)">Yes</button>
+            <button class="btn btn-sm btn-secondary" onclick="cancelDeletion(this, ${index})">No</button>
+          </div>
+        `;
+  
+        confirmBox.relatedIcon = icon;
+        document.body.appendChild(confirmBox);
+  
+        const rect = button.getBoundingClientRect();
+        setTimeout(() => {
+          confirmBox.style.top = (rect.top + rect.height / 2 - confirmBox.offsetHeight / 2) + 'px';
+          confirmBox.style.left = (rect.left - confirmBox.offsetWidth - 5) + 'px';
+        }, 0);
+      }
+      
+      function confirmDeletion(index, btn) {
+        const confirmBox = btn.closest('.confirm-box');
+        if (confirmBox) {
+          confirmBox.remove();
+        }
+        cartItems.splice(index, 1);
+        renderCartItems();
+      }
+      
+      function cancelDeletion(btn, index) {
+        const confirmBox = btn.closest('.confirm-box');
+        if (confirmBox && confirmBox.relatedIcon) {
+          confirmBox.relatedIcon.style.color = 'black';
+        }
+        if (confirmBox) {
+          confirmBox.remove();
+        }
+      }
+      
       document.addEventListener("DOMContentLoaded", function() {
         renderCartItems();
       });
     </script>
     
-    <!--
-      Explanation:
-      - We removed the margin-top from main so the hero section “touches” the header at the top.
-      - The hero is placed first, subheader second, then the cart table, then the order summary.
-      - Everything else remains the same as your original code (dummy data, coupon logic, etc.).
-    -->
+    <!-- Mobile Side Menu Toggle Script -->
+    <script>
+      function toggleSideMenu() {
+        const sideMenu = document.getElementById("side-menu");
+        if (sideMenu) {
+          sideMenu.classList.toggle("visible");
+        }
+      }
+      
+      document.addEventListener("click", function(event) {
+        const sideMenu = document.getElementById("side-menu");
+        const menuToggle = document.querySelector(".menu-toggle");
+        if (
+          sideMenu &&
+          sideMenu.classList.contains("visible") &&
+          !sideMenu.contains(event.target) &&
+          !menuToggle.contains(event.target)
+        ) {
+          sideMenu.classList.remove("visible");
+        }
+      });
+    </script>
   </body>
 </html>
