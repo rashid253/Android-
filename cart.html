@@ -27,7 +27,7 @@
     <style>
       body {
         font-family: 'Roboto', sans-serif;
-        background-color: #f8f9fa; /* Restored background color */
+        background-color: #f8f9fa;
       }
       main {
         margin-top: 0 !important;
@@ -70,7 +70,7 @@
       }
       .cart-subheader .extras {
         display: flex;
-        gap: 30px; /* Increased gap between icons */
+        gap: 30px;
       }
       .cart-subheader .extras a {
         color: #333;
@@ -284,9 +284,10 @@
           });
       }
       document.addEventListener("DOMContentLoaded", function() {
+        // Using an absolute path for header.html to ensure it loads correctly.
         loadHTML(
           "header-placeholder",
-          "header.html",
+          "/header.html",
           '<header style="background:#333;color:#fff;padding:10px;text-align:center;">Header</header>'
         );
         loadHTML(
