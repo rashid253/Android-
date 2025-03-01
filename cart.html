@@ -1,426 +1,423 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MyBusiness Cart - No Gap Hero</title>
-  <!-- Font Awesome for icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <!-- Bootstrap 5 CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <!-- Custom CSS -->
-  <link rel="stylesheet" href="style.css" />
-  <!-- Inline CSS for Cart Page with Modern 3D Effects -->
-  <style>
-    /* Main container stays flush to the top */
-    main {
-      margin-top: 0 !important;
-      margin-bottom: 80px;
-    }
-    /* Shrunk Hero Section */
-    .cart-hero {
-      background: #007bff;
-      color: #fff;
-      padding: 10px 0;
-      text-align: center;
-      margin: 0 !important;
-    }
-    .cart-hero h1 {
-      font-size: 1.6rem;
-      margin-bottom: 3px;
-    }
-    .cart-hero p {
-      margin: 0;
-      font-size: 0.9rem;
-    }
-    /* Subheader */
-    .cart-subheader {
-      background: #ffffff;
-      border-bottom: 1px solid #dee2e6;
-      padding: 8px 0;
-    }
-    .cart-subheader .container {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .cart-subheader h2 {
-      font-size: 1.4rem;
-      margin: 0;
-      color: #007bff;
-    }
-    .cart-subheader .extras a {
-      margin-left: 15px;
-      color: #333;
-      font-size: 1.1rem;
-    }
-    .cart-subheader .extras a:hover {
-      color: #007bff;
-    }
-    /* Cart Container: Reduced padding */
-    .cart-container {
-      padding: 8px 0;
-    }
-    /* Table styling with smaller sizes and 3D effects */
-    .cart-table {
-      font-size: 0.8rem;
-    }
-    .cart-table th,
-    .cart-table td {
-      vertical-align: middle;
-      text-align: center;
-      padding: 0.3rem;
-    }
-    .cart-table img {
-      max-width: 60px;
-      border-radius: 5px;
-    }
-    .cart-table tr {
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-    .cart-table tr:hover {
-      transform: translateY(-2px) scale(1.02);
-      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-    }
-    /* Quantity controls */
-    .quantity-controls {
-      display: inline-flex;
-      align-items: center;
-    }
-    .quantity-controls button {
-      padding: 2px 6px;
-      font-size: 0.8rem;
-    }
-    .quantity-input {
-      width: 30px;
-      text-align: center;
-      border: 1px solid #ced4da;
-      border-radius: 3px;
-      margin: 0 4px;
-      padding: 2px;
-      font-size: 0.8rem;
-    }
-    /* Order Summary */
-    .order-summary {
-      background: #fff;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-      transition: transform 0.3s;
-    }
-    .order-summary:hover {
-      transform: translateY(-3px) scale(1.01);
-    }
-    .order-summary h4 {
-      font-size: 1.5rem;
-      font-weight: bold;
-      margin-bottom: 15px;
-      color: #007bff;
-    }
-    .summary-item {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 10px;
-      font-size: 0.9rem;
-    }
-    .summary-total {
-      font-size: 1.1rem;
-      font-weight: bold;
-    }
-    .coupon-code {
-      margin-top: 15px;
-    }
-    .coupon-code input {
-      border-radius: 5px;
-      padding: 6px;
-      border: 1px solid #ced4da;
-      width: 100%;
-      font-size: 0.8rem;
-    }
-    .apply-coupon {
-      margin-top: 8px;
-    }
-    .checkout-btn {
-      width: 100%;
-      padding: 10px;
-      font-size: 1rem;
-      margin-top: 15px;
-    }
-    /* 3D effect for header and footer placeholders */
-    #header-placeholder, #footer-placeholder {
-      transform: perspective(500px);
-      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-    }
-    /* Modern delete button styling */
-    .delete-btn {
-      background: transparent;
-      border: none;
-      color: #dc3545;
-      font-size: 1.2rem;
-      cursor: pointer;
-      transition: transform 0.2s;
-    }
-    .delete-btn:hover {
-      transform: scale(1.1);
-    }
-  </style>
-</head>
-<body>
-  <!-- Header Placeholder -->
-  <div id="header-placeholder"></div>
-  
-  <main>
-    <!-- Hero Section -->
-    <section class="cart-hero">
-      <div class="container">
-        <h1>Manage Your Cart</h1>
-        <p>Review and adjust items before checkout</p>
-      </div>
-    </section>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MyBusiness Cart - No Gap Hero</title>
+    <!-- Font Awesome for icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <!-- Bootstrap 5 CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css" />
+    <!-- Inline CSS for Cart Page -->
+    <style>
+      /* Main container stays flush to the top */
+      main {
+        margin-top: 0 !important;
+        margin-bottom: 80px;
+      }
+      /* Shrunk Hero Section */
+      .cart-hero {
+        background: #007bff; /* bright blue */
+        color: #fff;
+        padding: 10px 0; /* reduced padding for a smaller hero */
+        text-align: center;
+        margin: 0 !important;
+      }
+      .cart-hero h1 {
+        font-size: 1.8rem;
+        margin-bottom: 5px;
+      }
+      .cart-hero p {
+        margin: 0;
+        font-size: 1rem;
+      }
+      /* Subheader with extra functions */
+      .cart-subheader {
+        background: #ffffff;
+        border-bottom: 1px solid #dee2e6;
+        padding: 10px 0;
+      }
+      .cart-subheader .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .cart-subheader h2 {
+        font-size: 1.5rem;
+        margin: 0;
+        color: #007bff;
+      }
+      .cart-subheader .extras a {
+        margin-left: 15px;
+        color: #333;
+        font-size: 1.25rem;
+      }
+      .cart-subheader .extras a:hover {
+        color: #007bff;
+      }
+      /* Cart Container: Reduced padding to bring table close to subheader */
+      .cart-container {
+        padding: 10px 0;
+      }
+      .cart-table {
+        font-size: 0.9rem;
+      }
+      .cart-table th,
+      .cart-table td {
+        vertical-align: middle;
+        text-align: center;
+      }
+      .cart-table img {
+        max-width: 70px;
+        border-radius: 5px;
+      }
+      /* Quantity controls */
+      .quantity-controls {
+        display: inline-flex;
+        align-items: center;
+      }
+      .quantity-controls button {
+        padding: 2px 6px;
+        font-size: 0.8rem;
+      }
+      .quantity-input {
+        width: 40px;
+        text-align: center;
+        border: 1px solid #ced4da;
+        border-radius: 3px;
+        margin: 0 4px;
+        padding: 2px;
+      }
+      /* Order Summary */
+      .order-summary {
+        background: #fff;
+        padding: 25px;
+        border-radius: 8px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      }
+      .order-summary h4 {
+        font-size: 1.75rem;
+        font-weight: bold;
+        margin-bottom: 20px;
+        color: #007bff;
+      }
+      .summary-item {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 15px;
+        font-size: 1rem;
+      }
+      .summary-total {
+        font-size: 1.25rem;
+        font-weight: bold;
+      }
+      .coupon-code {
+        margin-top: 20px;
+      }
+      .coupon-code input {
+        border-radius: 5px;
+        padding: 8px;
+        border: 1px solid #ced4da;
+        width: 100%;
+      }
+      .apply-coupon {
+        margin-top: 10px;
+      }
+      .checkout-btn {
+        width: 100%;
+        padding: 15px;
+        font-size: 1.2rem;
+        margin-top: 20px;
+      }
+      /* Confirmation Box Styling */
+      .confirm-box p {
+        margin: 0 0 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header Placeholder -->
+    <div id="header-placeholder"></div>
     
-    <!-- Subheader -->
-    <section class="cart-subheader">
-      <div class="container">
-        <h2>Shopping Cart</h2>
-        <div class="extras">
-          <a href="#" title="Chat with Seller"><i class="fas fa-comments"></i></a>
-          <a href="#" title="Track Order"><i class="fas fa-truck"></i></a>
-          <a href="#" title="Help & Support"><i class="fas fa-headset"></i></a>
+    <main>
+      <!-- Hero Section: No gap at top -->
+      <section class="cart-hero">
+        <div class="container">
+          <h1>Manage Your Cart</h1>
+          <p>Review and adjust items before checkout</p>
         </div>
-      </div>
-    </section>
-    
-    <!-- Cart Items Section -->
-    <section class="cart-items">
-      <div class="container cart-container">
-        <div class="table-responsive">
-          <table class="table table-sm table-bordered cart-table">
-            <thead class="table-light">
-              <tr>
-                <th style="width: 10%;">Image</th>
-                <th style="width: 30%;">Product</th>
-                <th style="width: 15%;">Price (PKR)</th>
-                <th style="width: 20%;">Quantity</th>
-                <th style="width: 15%;">Subtotal (PKR)</th>
-                <th style="width: 10%;">Action</th>
-              </tr>
-            </thead>
-            <tbody id="cartItemsContainer">
-              <!-- Cart items will be rendered dynamically -->
-            </tbody>
-          </table>
+      </section>
+
+      <!-- Subheader below hero -->
+      <section class="cart-subheader">
+        <div class="container">
+          <h2>Shopping Cart</h2>
+          <div class="extras">
+            <a href="#" title="Chat with Seller"><i class="fas fa-comments"></i></a>
+            <a href="#" title="Track Order"><i class="fas fa-truck"></i></a>
+            <a href="#" title="Help & Support"><i class="fas fa-headset"></i></a>
+          </div>
         </div>
-      </div>
-    </section>
-    
-    <!-- Order Summary Section -->
-    <section class="order-summary-section">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-4 offset-lg-8">
-            <div class="order-summary">
-              <h4>Order Summary</h4>
-              <div class="summary-item">
-                <span>Subtotal:</span>
-                <span id="subtotalDisplay">0.00</span>
+      </section>
+      
+      <!-- Cart Items Section -->
+      <section class="cart-items">
+        <div class="container cart-container">
+          <div class="table-responsive">
+            <table class="table table-sm table-bordered cart-table">
+              <thead class="table-light">
+                <tr>
+                  <th style="width: 10%;">Image</th>
+                  <th style="width: 30%;">Product</th>
+                  <th style="width: 15%;">Price (PKR)</th>
+                  <th style="width: 20%;">Quantity</th>
+                  <th style="width: 15%;">Subtotal (PKR)</th>
+                  <th style="width: 10%;">Action</th>
+                </tr>
+              </thead>
+              <tbody id="cartItemsContainer">
+                <!-- Cart items will be rendered dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+      
+      <!-- Order Summary Section -->
+      <section class="order-summary-section">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-4 offset-lg-8">
+              <div class="order-summary">
+                <h4>Order Summary</h4>
+                <div class="summary-item">
+                  <span>Subtotal:</span>
+                  <span id="subtotalDisplay">0.00</span>
+                </div>
+                <div class="summary-item">
+                  <span>Tax (10%):</span>
+                  <span id="taxDisplay">0.00</span>
+                </div>
+                <div class="summary-item">
+                  <span>Shipping:</span>
+                  <span id="shippingDisplay">0.00</span>
+                </div>
+                <div class="summary-item summary-total">
+                  <span>Total:</span>
+                  <span id="totalDisplay">0.00</span>
+                </div>
+                <div class="coupon-code">
+                  <input type="text" id="couponInput" placeholder="Enter Coupon Code">
+                  <button class="btn btn-outline-primary apply-coupon mt-2" onclick="applyCoupon()">Apply Coupon</button>
+                </div>
+                <button class="btn btn-success checkout-btn mt-3" onclick="proceedToCheckout()">Proceed to Checkout</button>
               </div>
-              <div class="summary-item">
-                <span>Tax (10%):</span>
-                <span id="taxDisplay">0.00</span>
-              </div>
-              <div class="summary-item">
-                <span>Shipping:</span>
-                <span id="shippingDisplay">0.00</span>
-              </div>
-              <div class="summary-item summary-total">
-                <span>Total:</span>
-                <span id="totalDisplay">0.00</span>
-              </div>
-              <div class="coupon-code">
-                <input type="text" id="couponInput" placeholder="Enter Coupon Code">
-                <button class="btn btn-outline-primary apply-coupon mt-2" onclick="applyCoupon()">Apply Coupon</button>
-              </div>
-              <button class="btn btn-success checkout-btn mt-3" onclick="proceedToCheckout()">Proceed to Checkout</button>
             </div>
           </div>
         </div>
-      </div>
-    </section>
-  </main>
-  
-  <!-- Footer Placeholder -->
-  <div id="footer-placeholder"></div>
-  
-  <!-- Delete Confirmation Modal -->
-  <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content" style="transform: perspective(500px);">
-        <div class="modal-header">
-          <h5 class="modal-title" id="deleteModalLabel">Confirm Deletion</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          Are you sure you want to delete this item?
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Delete</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Bootstrap 5 JS Bundle -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  
-  <!-- Script to load header and footer dynamically -->
-  <script>
-    function loadHTML(elementId, filePath) {
-      fetch(filePath)
-        .then(response => {
-          if (!response.ok) {
-            if (elementId === "header-placeholder") {
-              document.getElementById(elementId).innerHTML =
-                '<header style="background:#333;color:#fff;padding:10px;text-align:center;">Header</header>';
-            } else if (elementId === "footer-placeholder") {
-              document.getElementById(elementId).innerHTML =
-                '<footer style="background:#333;color:#fff;padding:10px;text-align:center;">Footer</footer>';
+      </section>
+    </main>
+    
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+    
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Script to load header and footer dynamically -->
+    <script>
+      function loadHTML(elementId, filePath) {
+        fetch(filePath)
+          .then(response => {
+            if (!response.ok) {
+              if (elementId === "header-placeholder") {
+                document.getElementById(elementId).innerHTML =
+                  '<header style="background:#333;color:#fff;padding:10px;text-align:center;">Header</header>';
+              } else if (elementId === "footer-placeholder") {
+                document.getElementById(elementId).innerHTML =
+                  '<footer style="background:#333;color:#fff;padding:10px;text-align:center;">Footer</footer>';
+              }
+              throw new Error("Error fetching " + filePath);
             }
-            throw new Error("Error fetching " + filePath);
-          }
-          return response.text();
-        })
-        .then(html => {
-          document.getElementById(elementId).innerHTML = html;
-        })
-        .catch(error => console.error(error));
-    }
-    document.addEventListener("DOMContentLoaded", function() {
-      loadHTML("header-placeholder", "header.html");
-      loadHTML("footer-placeholder", "footer.html");
-    });
-  </script>
-  
-  <!-- Cart Functionality Script -->
-  <script>
-    let cartItems = [
-      {
-        id: 1,
-        name: "Smartphone A",
-        price: 894,
-        quantity: 1,
-        image: "https://via.placeholder.com/100?text=Smartphone+A"
-      },
-      {
-        id: 2,
-        name: "Smart TV B",
-        price: 557,
-        quantity: 2,
-        image: "https://via.placeholder.com/100?text=Smart+TV+B"
-      },
-      {
-        id: 3,
-        name: "Laptop C",
-        price: 1004,
-        quantity: 1,
-        image: "https://via.placeholder.com/100?text=Laptop+C"
+            return response.text();
+          })
+          .then(html => {
+            document.getElementById(elementId).innerHTML = html;
+          })
+          .catch(error => console.error(error));
       }
-    ];
-    
-    let couponDiscount = 0;
-    let shippingCost = 150;
-    let itemToDelete = null;
-    
-    function renderCartItems() {
-      const container = document.getElementById("cartItemsContainer");
-      container.innerHTML = "";
-      cartItems.forEach((item, index) => {
-        const itemSubtotal = item.price * item.quantity;
-        const row = document.createElement("tr");
-        row.innerHTML = `
-          <td><img src="${item.image}" alt="${item.name}"></td>
-          <td>${item.name}</td>
-          <td>${item.price}</td>
-          <td>
-            <div class="quantity-controls">
-              <button class="btn btn-sm btn-outline-secondary" onclick="changeQuantity(${index}, -1)">-</button>
-              <input type="text" class="quantity-input" value="${item.quantity}" readonly>
-              <button class="btn btn-sm btn-outline-secondary" onclick="changeQuantity(${index}, 1)">+</button>
-            </div>
-          </td>
-          <td id="itemSubtotal-${index}">${itemSubtotal.toFixed(2)}</td>
-          <td>
-            <button class="delete-btn" onclick="confirmDelete(${index})">
-              <i class="fas fa-trash"></i>
-            </button>
-          </td>
-        `;
-        container.appendChild(row);
+      document.addEventListener("DOMContentLoaded", function() {
+        loadHTML("header-placeholder", "header.html");
+        loadHTML("footer-placeholder", "footer.html");
       });
-      updateSummary();
-    }
+    </script>
     
-    function changeQuantity(index, delta) {
-      const item = cartItems[index];
-      item.quantity = Math.max(1, item.quantity + delta);
-      renderCartItems();
-    }
-    
-    function removeItem(index) {
-      cartItems.splice(index, 1);
-      renderCartItems();
-    }
-    
-    function updateSummary() {
-      let subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
-      let tax = subtotal * 0.10;
-      let discount = subtotal * couponDiscount;
-      let total = subtotal + tax + shippingCost - discount;
+    <!-- Cart Functionality Script -->
+    <script>
+      // Dummy cart data – later replace with real integration
+      let cartItems = [
+        {
+          id: 1,
+          name: "Smartphone A",
+          price: 894,
+          quantity: 1,
+          image: "https://via.placeholder.com/100?text=Smartphone+A"
+        },
+        {
+          id: 2,
+          name: "Smart TV B",
+          price: 557,
+          quantity: 2,
+          image: "https://via.placeholder.com/100?text=Smart+TV+B"
+        },
+        {
+          id: 3,
+          name: "Laptop C",
+          price: 1004,
+          quantity: 1,
+          image: "https://via.placeholder.com/100?text=Laptop+C"
+        }
+      ];
       
-      document.getElementById("subtotalDisplay").innerText = subtotal.toFixed(2);
-      document.getElementById("taxDisplay").innerText = tax.toFixed(2);
-      document.getElementById("shippingDisplay").innerText = shippingCost.toFixed(2);
-      document.getElementById("totalDisplay").innerText = total.toFixed(2);
-    }
-    
-    function applyCoupon() {
-      const couponCode = document.getElementById("couponInput").value.trim().toUpperCase();
-      if (couponCode === "SAVE10") {
-        couponDiscount = 0.10;
-        alert("Coupon applied: 10% discount!");
-      } else if (couponCode === "SAVE20") {
-        couponDiscount = 0.20;
-        alert("Coupon applied: 20% discount!");
-      } else {
-        couponDiscount = 0;
-        alert("Invalid coupon code.");
+      let couponDiscount = 0; // no discount initially
+      let shippingCost = 150; // fixed shipping cost
+      
+      function renderCartItems() {
+        const container = document.getElementById("cartItemsContainer");
+        container.innerHTML = "";
+        cartItems.forEach((item, index) => {
+          const itemSubtotal = item.price * item.quantity;
+          const row = document.createElement("tr");
+          row.innerHTML = `
+            <td><img src="${item.image}" alt="${item.name}"></td>
+            <td>${item.name}</td>
+            <td>${item.price}</td>
+            <td>
+              <div class="quantity-controls">
+                <button class="btn btn-sm btn-outline-secondary" onclick="changeQuantity(${index}, -1)">-</button>
+                <input type="text" class="quantity-input" value="${item.quantity}" readonly>
+                <button class="btn btn-sm btn-outline-secondary" onclick="changeQuantity(${index}, 1)">+</button>
+              </div>
+            </td>
+            <td id="itemSubtotal-${index}">${itemSubtotal.toFixed(2)}</td>
+            <td>
+              <button class="btn btn-sm" onclick="confirmRemove(${index}, event)" style="position: relative; border: none; background: transparent;">
+                <i class="fas fa-trash-alt trash-icon" style="color: black;"></i>
+              </button>
+            </td>
+          `;
+          container.appendChild(row);
+        });
+        updateSummary();
       }
-      updateSummary();
-    }
-    
-    function proceedToCheckout() {
-      alert("Proceeding to checkout...");
-    }
-    
-    function confirmDelete(index) {
-      itemToDelete = index;
-      const deleteModal = new bootstrap.Modal(document.getElementById('deleteConfirmationModal'));
-      deleteModal.show();
-    }
-    
-    document.getElementById('confirmDeleteBtn')?.addEventListener('click', function() {
-      if (itemToDelete !== null) {
-        removeItem(itemToDelete);
-        itemToDelete = null;
-        const deleteModalEl = document.getElementById('deleteConfirmationModal');
-        const modal = bootstrap.Modal.getInstance(deleteModalEl);
-        modal.hide();
+      
+      function changeQuantity(index, delta) {
+        const item = cartItems[index];
+        item.quantity = Math.max(1, item.quantity + delta);
+        renderCartItems();
       }
-    });
-    
-    document.addEventListener("DOMContentLoaded", function() {
-      renderCartItems();
-    });
-  </script>
-</body>
+      
+      function updateSummary() {
+        let subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+        let tax = subtotal * 0.10; // 10% tax
+        let discount = subtotal * couponDiscount;
+        let total = subtotal + tax + shippingCost - discount;
+        
+        document.getElementById("subtotalDisplay").innerText = subtotal.toFixed(2);
+        document.getElementById("taxDisplay").innerText = tax.toFixed(2);
+        document.getElementById("shippingDisplay").innerText = shippingCost.toFixed(2);
+        document.getElementById("totalDisplay").innerText = total.toFixed(2);
+      }
+      
+      function applyCoupon() {
+        const couponCode = document.getElementById("couponInput").value.trim().toUpperCase();
+        if (couponCode === "SAVE10") {
+          couponDiscount = 0.10;
+          alert("Coupon applied: 10% discount!");
+        } else if (couponCode === "SAVE20") {
+          couponDiscount = 0.20;
+          alert("Coupon applied: 20% discount!");
+        } else {
+          couponDiscount = 0;
+          alert("Invalid coupon code.");
+        }
+        updateSummary();
+      }
+      
+      function proceedToCheckout() {
+        alert("Proceeding to checkout...");
+      }
+      
+      // New delete confirmation functions
+      function confirmRemove(index, event) {
+        const button = event.currentTarget;
+        const icon = button.querySelector('.trash-icon');
+        // Change icon color to red
+        icon.style.color = 'red';
+        
+        // Create confirmation box element
+        const confirmBox = document.createElement('div');
+        confirmBox.className = 'confirm-box';
+        confirmBox.style.position = 'absolute';
+        confirmBox.style.background = '#fff';
+        confirmBox.style.border = '1px solid #ccc';
+        confirmBox.style.padding = '10px';
+        confirmBox.style.borderRadius = '5px';
+        confirmBox.style.boxShadow = '0 2px 6px rgba(0,0,0,0.2)';
+        confirmBox.style.zIndex = 1000;
+        
+        // Tricky confirmation message with Confirm and Cancel buttons
+        confirmBox.innerHTML = `
+          <p>Hold on! Are you really ready to toss this gem into oblivion?</p>
+          <button class="btn btn-sm btn-danger" onclick="confirmDeletion(${index}, this)">Yes, delete it!</button>
+          <button class="btn btn-sm btn-secondary" onclick="cancelDeletion(this, ${index})">No, keep it</button>
+        `;
+        
+        // Save a reference to the related icon for later use
+        confirmBox.relatedIcon = icon;
+        
+        // Append the box to body to position it absolutely
+        document.body.appendChild(confirmBox);
+        
+        // Position the confirmation box above the button
+        const rect = button.getBoundingClientRect();
+        setTimeout(() => {
+          confirmBox.style.top = (rect.top - confirmBox.offsetHeight - 5) + 'px';
+          confirmBox.style.left = rect.left + 'px';
+        }, 0);
+      }
+      
+      function confirmDeletion(index, btn) {
+        const confirmBox = btn.parentElement;
+        if (confirmBox) {
+          confirmBox.remove();
+        }
+        // Proceed with deletion and re-render the cart
+        cartItems.splice(index, 1);
+        renderCartItems();
+      }
+      
+      function cancelDeletion(btn, index) {
+        const confirmBox = btn.parentElement;
+        if (confirmBox && confirmBox.relatedIcon) {
+          confirmBox.relatedIcon.style.color = 'black';
+        }
+        if (confirmBox) {
+          confirmBox.remove();
+        }
+      }
+      
+      document.addEventListener("DOMContentLoaded", function() {
+        renderCartItems();
+      });
+    </script>
+  </body>
 </html>
