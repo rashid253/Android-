@@ -3,46 +3,41 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>NextGen Cart - Your Shopping Cart</title>
-    <!-- Font Awesome for icons (used in header/footer) -->
+    <title>MyBusiness Cart - Your Shopping Cart</title>
+    <!-- Font Awesome for icons -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
-    <!-- Custom CSS for overall site (header, footer, etc.) -->
-    <link rel="stylesheet" href="style.css" />
-    <!-- Bootstrap 5 CSS for layout -->
+    <!-- Bootstrap 5 CSS -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
-    <!-- Inline CSS for Cart Page -->
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css" />
+    <!-- Inline CSS for Cart Page (customized for an international, Daraz/TEMU-inspired look) -->
     <style>
       body {
         font-family: 'Roboto', sans-serif;
-        background-color: #f3f4f6;
-        color: #2d3748;
-        margin: 0;
-        padding: 0;
-      }
-      a {
-        text-decoration: none;
-        color: inherit;
-        transition: color 0.3s ease;
-      }
-      a:hover {
-        color: #ff6f61;
+        background-color: #f8f9fa;
+        color: #333;
       }
       main {
-        padding-bottom: 100px;
+        margin-top: 70px;  /* ensure content is not overlapped by the fixed header */
+        margin-bottom: 70px; /* for footer spacing */
       }
       .cart-container {
-        margin: 40px auto;
-        max-width: 1200px;
+        padding: 30px 0;
       }
       .cart-title {
         margin-bottom: 30px;
+        font-size: 2rem;
+        font-weight: bold;
+        color: #007bff;
+        text-align: center;
       }
+      /* Responsive table styling for cart items */
       .cart-table th,
       .cart-table td {
         vertical-align: middle;
@@ -50,74 +45,87 @@
       }
       .cart-table img {
         max-width: 80px;
+        border-radius: 5px;
       }
       .quantity-input {
-        width: 60px;
+        width: 50px;
         text-align: center;
+        border: none;
+        background: transparent;
       }
-      .summary-box {
-        border: 1px solid #ddd;
+      /* Order Summary Card */
+      .order-summary {
+        background: #fff;
         padding: 20px;
         border-radius: 8px;
-        background: #fff;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
       }
-      .summary-box h4 {
+      .order-summary h4 {
         margin-bottom: 20px;
+        font-weight: bold;
+        color: #007bff;
       }
-      .summary-box .summary-line {
+      .summary-item {
         display: flex;
         justify-content: space-between;
         margin-bottom: 10px;
+        font-size: 1rem;
       }
       .checkout-btn {
         width: 100%;
         padding: 15px;
         font-size: 1.2rem;
       }
+      /* Custom hover effects for buttons */
+      .btn-outline-secondary:hover {
+        background-color: #f0f0f0;
+      }
     </style>
   </head>
   <body>
-    <!-- Header Placeholder (loaded dynamically from header.html) -->
+    <!-- Header Placeholder (dynamically loaded via your loadHTML function) -->
     <div id="header-placeholder"></div>
 
     <!-- Main Cart Content -->
     <main>
       <div class="container cart-container">
-        <h1 class="cart-title text-center">Your Shopping Cart</h1>
-        <!-- Cart Table -->
-        <div class="table-responsive">
-          <table class="table table-bordered cart-table">
-            <thead class="table-light">
-              <tr>
-                <th>Product</th>
-                <th>Name</th>
-                <th>Price (PKR)</th>
-                <th>Quantity</th>
-                <th>Subtotal (PKR)</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody id="cartItemsContainer">
-              <!-- Cart items will be dynamically rendered here -->
-            </tbody>
-          </table>
-        </div>
-        <!-- Summary Section -->
+        <h1 class="cart-title">Your Shopping Cart</h1>
         <div class="row">
-          <div class="col-md-4 offset-md-8">
-            <div class="summary-box">
+          <!-- Cart Items Section (Left Column) -->
+          <div class="col-lg-8 mb-4">
+            <div class="table-responsive">
+              <table class="table table-bordered cart-table">
+                <thead class="table-light">
+                  <tr>
+                    <th>Product</th>
+                    <th>Name</th>
+                    <th>Price (PKR)</th>
+                    <th>Quantity</th>
+                    <th>Subtotal (PKR)</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="cartItemsContainer">
+                  <!-- Cart items will be dynamically rendered here -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <!-- Order Summary Section (Right Column) -->
+          <div class="col-lg-4">
+            <div class="order-summary">
               <h4>Order Summary</h4>
-              <div class="summary-line">
+              <div class="summary-item">
                 <span>Subtotal:</span>
-                <span id="subtotalDisplay">0</span>
+                <span id="subtotalDisplay">0.00</span>
               </div>
-              <div class="summary-line">
+              <div class="summary-item">
                 <span>Tax (10%):</span>
-                <span id="taxDisplay">0</span>
+                <span id="taxDisplay">0.00</span>
               </div>
-              <div class="summary-line">
+              <div class="summary-item">
                 <span>Total:</span>
-                <span id="totalDisplay">0</span>
+                <span id="totalDisplay">0.00</span>
               </div>
               <button class="btn btn-success checkout-btn mt-3">Proceed to Checkout</button>
             </div>
@@ -126,12 +134,12 @@
       </div>
     </main>
 
-    <!-- Footer Placeholder (loaded dynamically from footer.html) -->
+    <!-- Footer Placeholder (dynamically loaded) -->
     <div id="footer-placeholder"></div>
 
-    <!-- Scripts -->
     <!-- Bootstrap 5 JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
     <!-- Script to load header and footer dynamically -->
     <script>
       function loadHTML(elementId, filePath) {
@@ -146,7 +154,7 @@
                 document.getElementById(elementId).innerHTML =
                   '<footer style="background:#333;color:#fff;padding:10px;text-align:center;">Footer</footer>';
               }
-              throw new Error('Error fetching ' + filePath);
+              throw new Error("Error fetching " + filePath);
             }
             return response.text();
           })
@@ -155,54 +163,56 @@
           })
           .catch(error => console.error(error));
       }
-      document.addEventListener("DOMContentLoaded", function () {
+      document.addEventListener("DOMContentLoaded", function() {
         loadHTML("header-placeholder", "header.html");
         loadHTML("footer-placeholder", "footer.html");
       });
     </script>
-    <!-- Cart Calculation and Rendering Script -->
+
+    <!-- Cart Functionality Script -->
     <script>
-      // Dummy cart data
+      // Dummy cart data – replace with real integration later
       let cartItems = [
         {
           id: 1,
           name: "Smartphone A",
           price: 894,
           quantity: 1,
-          image: "https://via.placeholder.com/100x100?text=Smartphone+A"
+          image: "https://via.placeholder.com/100?text=Smartphone+A"
         },
         {
           id: 2,
           name: "Smart TV B",
           price: 557,
           quantity: 2,
-          image: "https://via.placeholder.com/100x100?text=Smart+TV+B"
+          image: "https://via.placeholder.com/100?text=Smart+TV+B"
         },
         {
           id: 3,
           name: "Laptop C",
           price: 1004,
           quantity: 1,
-          image: "https://via.placeholder.com/100x100?text=Laptop+C"
+          image: "https://via.placeholder.com/100?text=Laptop+C"
         }
       ];
 
-      // Function to render cart items in the table
+      // Render cart items in the table
       function renderCartItems() {
         const container = document.getElementById("cartItemsContainer");
         container.innerHTML = "";
         cartItems.forEach((item, index) => {
+          const itemSubtotal = item.price * item.quantity;
           const row = document.createElement("tr");
           row.innerHTML = `
-            <td><img src="${item.image}" alt="${item.name}" /></td>
+            <td><img src="${item.image}" alt="${item.name}"></td>
             <td>${item.name}</td>
             <td>${item.price}</td>
             <td>
               <button class="btn btn-sm btn-outline-secondary" onclick="changeQuantity(${index}, -1)">-</button>
-              <input type="text" class="quantity-input" value="${item.quantity}" readonly />
+              <input type="text" class="quantity-input" value="${item.quantity}" readonly>
               <button class="btn btn-sm btn-outline-secondary" onclick="changeQuantity(${index}, 1)">+</button>
             </td>
-            <td id="itemSubtotal-${index}">${item.price * item.quantity}</td>
+            <td id="itemSubtotal-${index}">${itemSubtotal}</td>
             <td><button class="btn btn-sm btn-danger" onclick="removeItem(${index})">Remove</button></td>
           `;
           container.appendChild(row);
@@ -210,34 +220,34 @@
         updateSummary();
       }
 
-      // Function to update quantity and recalculate subtotal for an item
+      // Adjust quantity
       function changeQuantity(index, delta) {
         const item = cartItems[index];
         item.quantity = Math.max(1, item.quantity + delta);
         renderCartItems();
       }
 
-      // Function to remove an item from the cart
+      // Remove an item
       function removeItem(index) {
         cartItems.splice(index, 1);
         renderCartItems();
       }
 
-      // Function to update the order summary calculations
+      // Update order summary
       function updateSummary() {
-        let subtotal = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
-        let tax = subtotal * 0.10; // Assume 10% tax
+        let subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+        let tax = subtotal * 0.10; // 10% tax
         let total = subtotal + tax;
         document.getElementById("subtotalDisplay").innerText = subtotal.toFixed(2);
         document.getElementById("taxDisplay").innerText = tax.toFixed(2);
         document.getElementById("totalDisplay").innerText = total.toFixed(2);
       }
 
-      // Initialize the cart rendering on page load
-      window.onload = function () {
+      document.addEventListener("DOMContentLoaded", function() {
         renderCartItems();
-      };
+      });
     </script>
+
     <!--
       This frontend code is built using dummy data and is structured to be easily integrated with a Firebase backend in the future.
       The fetchProducts() function currently simulates data fetching, and will later be replaced by Firebase Firestore API calls.
