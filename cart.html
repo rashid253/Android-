@@ -262,31 +262,38 @@
     <!-- Bootstrap 5 JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
-    <!-- Script to load header and footer dynamically -->
+    <!-- Script to load header and footer dynamically with default fallback -->
     <script>
-      function loadHTML(elementId, filePath) {
+      function loadHTML(elementId, filePath, defaultContent) {
         fetch(filePath)
           .then(response => {
             if (!response.ok) {
-              if (elementId === "header-placeholder") {
-                document.getElementById(elementId).innerHTML =
-                  '<header style="background:#333;color:#fff;padding:10px;text-align:center;">Header</header>';
-              } else if (elementId === "footer-placeholder") {
-                document.getElementById(elementId).innerHTML =
-                  '<footer style="background:#333;color:#fff;padding:10px;text-align:center;">Footer</footer>';
-              }
-              throw new Error("Error fetching " + filePath);
+              document.getElementById(elementId).innerHTML = defaultContent;
+              return;
             }
             return response.text();
           })
           .then(html => {
-            document.getElementById(elementId).innerHTML = html;
+            if (html) {
+              document.getElementById(elementId).innerHTML = html;
+            }
           })
-          .catch(error => console.error(error));
+          .catch(error => {
+            document.getElementById(elementId).innerHTML = defaultContent;
+            console.error(error);
+          });
       }
       document.addEventListener("DOMContentLoaded", function() {
-        loadHTML("header-placeholder", "header.html");
-        loadHTML("footer-placeholder", "footer.html");
+        loadHTML(
+          "header-placeholder",
+          "header.html",
+          '<header style="background:#333;color:#fff;padding:10px;text-align:center;">Header</header>'
+        );
+        loadHTML(
+          "footer-placeholder",
+          "footer.html",
+          '<footer style="background:#333;color:#fff;padding:10px;text-align:center;">Footer</footer>'
+        );
       });
     </script>
     
