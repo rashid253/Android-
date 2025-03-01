@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function() {
   // Global function to open pages in a new tab/window
   window.openPage = function(url) {
-    window.open(url, "_blank");
+    window.open(url, '_blank');
   };
 
   // Toggle mobile side menu
@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   };
 
-  // Close side menu when clicking outside of it and the toggle button
+  // Close side menu when clicking outside the menu and toggle button
   document.addEventListener("click", function(event) {
     const sideMenu = document.getElementById("side-menu");
     const menuToggle = document.querySelector(".menu-toggle");
@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   // Dummy function to update the cart count badge
   function updateCartCount() {
-    // For demonstration, using a dummy value.
+    // Dummy value; replace with actual cart system integration later
     var count = localStorage.getItem("cartCount") || 3;
     if (document.getElementById("cartCount")) {
       document.getElementById("cartCount").innerText = count;
