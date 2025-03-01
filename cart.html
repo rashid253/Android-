@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MyBusiness Cart - No Gap Hero</title>
     <!-- Font Awesome for icons -->
     <link
@@ -18,18 +18,18 @@
     <link rel="stylesheet" href="style.css" />
     <!-- Inline CSS for Cart Page -->
     <style>
-      /* Remove top margin so hero touches the header when scrolled up */
+      /* Main container stays flush to the top */
       main {
-        margin-top: 0 !important; /* No gap at the top */
-        margin-bottom: 80px;      /* If you have a fixed footer, keep some space */
+        margin-top: 0 !important;
+        margin-bottom: 80px;
       }
-      /* Small Hero Section immediately below header */
+      /* Shrunk Hero Section */
       .cart-hero {
         background: #007bff; /* bright blue */
         color: #fff;
-        padding: 20px 0;
+        padding: 10px 0; /* reduced padding for a smaller hero */
         text-align: center;
-        margin: 0 !important; /* ensure no extra margin above hero */
+        margin: 0 !important;
       }
       .cart-hero h1 {
         font-size: 1.8rem;
@@ -65,16 +65,9 @@
         color: #007bff;
       }
 
-      /* Cart Container */
+      /* Cart Container: Reduced padding to bring table close to subheader */
       .cart-container {
-        padding: 40px 0;
-      }
-      .cart-title {
-        font-size: 2.5rem;
-        font-weight: bold;
-        margin-bottom: 30px;
-        color: #007bff;
-        text-align: center;
+        padding: 10px 0;
       }
       .cart-table {
         font-size: 0.9rem;
@@ -174,10 +167,9 @@
         </div>
       </section>
       
-      <!-- Cart Items Section -->
+      <!-- Cart Items Section (Title removed so table sits right below subheader) -->
       <section class="cart-items">
         <div class="container cart-container">
-          <h1 class="cart-title">Your Shopping Cart</h1>
           <div class="table-responsive">
             <table class="table table-sm table-bordered cart-table">
               <thead class="table-light">
@@ -368,12 +360,5 @@
         renderCartItems();
       });
     </script>
-    
-    <!--
-      Explanation:
-      - We removed the margin-top from main so the hero section “touches” the header at the top.
-      - The hero is placed first, subheader second, then the cart table, then the order summary.
-      - Everything else remains the same as your original code (dummy data, coupon logic, etc.).
-    -->
   </body>
 </html>
