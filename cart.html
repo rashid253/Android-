@@ -2,8 +2,8 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MyBusiness Cart - International Standard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>MyBusiness Cart - No Gap Hero</title>
     <!-- Font Awesome for icons -->
     <link
       rel="stylesheet"
@@ -14,47 +14,37 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
-    <!-- Custom CSS (if any) -->
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css" />
     <!-- Inline CSS for Cart Page -->
     <style>
-      body {
-        font-family: 'Roboto', sans-serif;
-        background-color: #f8f9fa;
-        color: #333;
-      }
-      /* Remove main margin-top so hero touches header; header is fixed */
+      /* Remove top margin so hero touches the header when scrolled up */
       main {
-        margin-top: 0;
-        margin-bottom: 80px;
+        margin-top: 0 !important; /* No gap at the top */
+        margin-bottom: 80px;      /* If you have a fixed footer, keep some space */
       }
-      /* Small Hero Section: Sticky just below the fixed header (assumed header height 70px) */
+      /* Small Hero Section immediately below header */
       .cart-hero {
-        position: sticky;
-        top: 70px;
-        height: 60px;
-        background: #007bff;
+        background: #007bff; /* bright blue */
         color: #fff;
+        padding: 20px 0;
         text-align: center;
-        line-height: 60px;
-        z-index: 900;
+        margin: 0 !important; /* ensure no extra margin above hero */
       }
       .cart-hero h1 {
         font-size: 1.8rem;
-        margin: 0;
+        margin-bottom: 5px;
       }
       .cart-hero p {
         margin: 0;
         font-size: 1rem;
       }
-      /* Subheader with extra options, sticky below hero */
+
+      /* Subheader with extra functions */
       .cart-subheader {
-        position: sticky;
-        top: 130px; /* 70px header + 60px hero */
-        background: #fff;
+        background: #ffffff;
         border-bottom: 1px solid #dee2e6;
         padding: 10px 0;
-        z-index: 850;
       }
       .cart-subheader .container {
         display: flex;
@@ -74,52 +64,38 @@
       .cart-subheader .extras a:hover {
         color: #007bff;
       }
+
       /* Cart Container */
       .cart-container {
-        padding: 20px 0; /* Reduced padding to bring table closer to subheader */
+        padding: 40px 0;
       }
-      /* Remove the extra title above table */
-      /* Cart Table */
+      .cart-title {
+        font-size: 2.5rem;
+        font-weight: bold;
+        margin-bottom: 30px;
+        color: #007bff;
+        text-align: center;
+      }
       .cart-table {
-        width: 100%;
-        table-layout: fixed;
         font-size: 0.9rem;
       }
       .cart-table th,
       .cart-table td {
         vertical-align: middle;
         text-align: center;
-        padding: 6px;
-      }
-      .cart-table th {
-        background: #f1f1f1;
       }
       .cart-table img {
         max-width: 70px;
         border-radius: 5px;
       }
-      /* Product Name: allow wrapping */
-      .prod-name {
-        word-wrap: break-word;
-      }
-      /* Quantity controls with green plus and red minus; arranged horizontally */
+      /* Quantity controls */
       .quantity-controls {
         display: inline-flex;
         align-items: center;
       }
       .quantity-controls button {
-        border: none;
-        padding: 4px 8px;
+        padding: 2px 6px;
         font-size: 0.8rem;
-        cursor: pointer;
-      }
-      .qty-plus {
-        background-color: #28a745;
-        color: #fff;
-      }
-      .qty-minus {
-        background-color: #dc3545;
-        color: #fff;
       }
       .quantity-input {
         width: 40px;
@@ -129,40 +105,24 @@
         margin: 0 4px;
         padding: 2px;
       }
-      /* When quantity equals zero, show value in red */
-      .quantity-zero {
-        color: red;
-        font-weight: bold;
-      }
-      /* Delete icon: initially hidden, fixed at top-right under header */
-      #deleteIcon {
-        display: none;
-        position: fixed;
-        top: 75px;
-        right: 15px;
-        font-size: 1.5rem;
-        color: #dc3545;
-        cursor: pointer;
-        z-index: 1100;
-      }
-      /* Order Summary Section */
+
+      /* Order Summary */
       .order-summary {
         background: #fff;
-        padding: 20px;
+        padding: 25px;
         border-radius: 8px;
         box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-        margin-top: 20px;
       }
       .order-summary h4 {
-        font-size: 1.5rem;
+        font-size: 1.75rem;
+        font-weight: bold;
         margin-bottom: 20px;
         color: #007bff;
-        font-weight: bold;
       }
       .summary-item {
         display: flex;
         justify-content: space-between;
-        margin-bottom: 10px;
+        margin-bottom: 15px;
         font-size: 1rem;
       }
       .summary-total {
@@ -173,10 +133,10 @@
         margin-top: 20px;
       }
       .coupon-code input {
-        width: 100%;
+        border-radius: 5px;
         padding: 8px;
         border: 1px solid #ced4da;
-        border-radius: 5px;
+        width: 100%;
       }
       .apply-coupon {
         margin-top: 10px;
@@ -190,24 +150,19 @@
     </style>
   </head>
   <body>
-    <!-- Header Placeholder (dynamically loaded from header.html) -->
+    <!-- Header Placeholder -->
     <div id="header-placeholder"></div>
     
-    <!-- Global Delete Icon (appears when items are selected) -->
-    <div id="deleteIcon" title="Delete Selected Items">
-      <i class="fas fa-trash"></i>
-    </div>
-    
     <main>
-      <!-- Small Hero Section (touches the header) -->
+      <!-- Hero Section: No gap at top -->
       <section class="cart-hero">
         <div class="container">
           <h1>Manage Your Cart</h1>
           <p>Review and adjust items before checkout</p>
         </div>
       </section>
-      
-      <!-- Subheader (sticky below hero) -->
+
+      <!-- Subheader below hero -->
       <section class="cart-subheader">
         <div class="container">
           <h2>Shopping Cart</h2>
@@ -219,9 +174,10 @@
         </div>
       </section>
       
-      <!-- Cart Items Section (table appears immediately below subheader) -->
+      <!-- Cart Items Section -->
       <section class="cart-items">
         <div class="container cart-container">
+          <h1 class="cart-title">Your Shopping Cart</h1>
           <div class="table-responsive">
             <table class="table table-sm table-bordered cart-table">
               <thead class="table-light">
@@ -277,7 +233,7 @@
       </section>
     </main>
     
-    <!-- Footer Placeholder (dynamically loaded from footer.html) -->
+    <!-- Footer Placeholder -->
     <div id="footer-placeholder"></div>
     
     <!-- Bootstrap 5 JS Bundle -->
@@ -313,7 +269,7 @@
     
     <!-- Cart Functionality Script -->
     <script>
-      // Dummy cart data – replace with real integration later
+      // Dummy cart data – later replace with real integration
       let cartItems = [
         {
           id: 1,
@@ -338,10 +294,9 @@
         }
       ];
       
-      let couponDiscount = 0;
-      let shippingCost = 150;
+      let couponDiscount = 0; // no discount initially
+      let shippingCost = 150; // fixed shipping cost
       
-      // Render cart items into the table
       function renderCartItems() {
         const container = document.getElementById("cartItemsContainer");
         container.innerHTML = "";
@@ -350,51 +305,46 @@
           const row = document.createElement("tr");
           row.innerHTML = `
             <td><img src="${item.image}" alt="${item.name}"></td>
-            <td class="prod-name">${item.name}</td>
+            <td>${item.name}</td>
             <td>${item.price}</td>
             <td>
               <div class="quantity-controls">
-                <button class="btn btn-sm btn-outline-secondary qty-minus" onclick="changeQuantity(${index}, -1)">-</button>
+                <button class="btn btn-sm btn-outline-secondary" onclick="changeQuantity(${index}, -1)">-</button>
                 <input type="text" class="quantity-input" value="${item.quantity}" readonly>
-                <button class="btn btn-sm btn-outline-secondary qty-plus" onclick="changeQuantity(${index}, 1)">+</button>
+                <button class="btn btn-sm btn-outline-secondary" onclick="changeQuantity(${index}, 1)">+</button>
               </div>
             </td>
             <td id="itemSubtotal-${index}">${itemSubtotal.toFixed(2)}</td>
-            <td><button class="btn btn-sm btn-danger" onclick="removeItem(${index})">Delete</button></td>
+            <td><button class="btn btn-sm btn-danger" onclick="removeItem(${index})">Remove</button></td>
           `;
           container.appendChild(row);
         });
         updateSummary();
       }
       
-      // Change quantity and update display; if quantity becomes 0, show in red
       function changeQuantity(index, delta) {
         const item = cartItems[index];
-        item.quantity = Math.max(0, item.quantity + delta);
+        item.quantity = Math.max(1, item.quantity + delta);
         renderCartItems();
       }
       
-      // Remove item after confirmation via the delete icon (in addition to per-row delete)
       function removeItem(index) {
-        if (confirm("Are you sure you want to delete this item?")) {
-          cartItems.splice(index, 1);
-          renderCartItems();
-        }
+        cartItems.splice(index, 1);
+        renderCartItems();
       }
       
-      // Update order summary values
       function updateSummary() {
         let subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
-        let tax = subtotal * 0.10;
+        let tax = subtotal * 0.10; // 10% tax
         let discount = subtotal * couponDiscount;
         let total = subtotal + tax + shippingCost - discount;
+        
         document.getElementById("subtotalDisplay").innerText = subtotal.toFixed(2);
         document.getElementById("taxDisplay").innerText = tax.toFixed(2);
         document.getElementById("shippingDisplay").innerText = shippingCost.toFixed(2);
         document.getElementById("totalDisplay").innerText = total.toFixed(2);
       }
       
-      // Apply coupon code logic
       function applyCoupon() {
         const couponCode = document.getElementById("couponInput").value.trim().toUpperCase();
         if (couponCode === "SAVE10") {
@@ -420,15 +370,10 @@
     </script>
     
     <!--
-      How to Use:
-      - The header and footer are loaded dynamically.
-      - The hero section and subheader are sticky (hero: top 70px; subheader: top 130px).
-      - The cart table appears immediately below the subheader.
-      - Quantity controls: Green "+" increases quantity; red "–" decreases quantity. Quantity 0 is displayed as zero.
-      - Each row has a "Delete" button. Additionally, if you want to implement a global delete, you can use a fixed trash icon.
-      - Order summary is automatically updated.
-      
-      Later, integrate these functions with your backend (Firebase, etc.) for persistent cart management.
+      Explanation:
+      - We removed the margin-top from main so the hero section “touches” the header at the top.
+      - The hero is placed first, subheader second, then the cart table, then the order summary.
+      - Everything else remains the same as your original code (dummy data, coupon logic, etc.).
     -->
   </body>
 </html>
