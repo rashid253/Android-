@@ -101,7 +101,7 @@
         background: #fff;
         padding: 25px;
         border-radius: 8px;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
       }
       .order-summary h4 {
         font-size: 1.75rem;
@@ -137,24 +137,24 @@
         font-size: 1.2rem;
         margin-top: 20px;
       }
-      /* Confirmation Box Styling */
+      /* Confirmation Box Styling (Bubble Thinking Shape) */
       .confirm-box {
         position: absolute;
         background: #fff;
         border: 1px solid #ccc;
-        padding: 10px;
-        border-radius: 5px;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        padding: 8px 10px;
+        border-radius: 15px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.2);
         z-index: 1000;
+        max-width: 250px;
       }
-      /* Speech bubble arrow on right */
       .confirm-box:after {
         content: "";
         position: absolute;
         top: 50%;
-        right: -10px;
+        right: -8px;
         transform: translateY(-50%);
-        border-width: 10px;
+        border-width: 8px;
         border-style: solid;
         border-color: transparent transparent transparent #fff;
       }
@@ -347,7 +347,7 @@
         let tax = subtotal * 0.10; // 10% tax
         let discount = subtotal * couponDiscount;
         let total = subtotal + tax + shippingCost - discount;
-
+        
         document.getElementById("subtotalDisplay").innerText = subtotal.toFixed(2);
         document.getElementById("taxDisplay").innerText = tax.toFixed(2);
         document.getElementById("shippingDisplay").innerText = shippingCost.toFixed(2);
@@ -373,21 +373,19 @@
         alert("Proceeding to checkout...");
       }
 
-      // New delete confirmation functions
+      // New delete confirmation functions with bubble thinking style
       function confirmRemove(index, event) {
         const button = event.currentTarget;
         const icon = button.querySelector('.trash-icon');
-        // Change icon color to red
         icon.style.color = 'red';
-
-        // Create confirmation box element with horizontal layout and a chat bubble icon
+        
         const confirmBox = document.createElement('div');
         confirmBox.className = 'confirm-box';
         confirmBox.innerHTML = `
-          <div style="display: flex; align-items: center; gap: 10px;">
-            <span style="font-size: 1.5rem;">💬</span>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="font-size: 1.2rem;">💬</span>
             <div>
-              <p style="margin:0;">Hold on! Are you really ready to toss this gem into oblivion?</p>
+              <p style="margin:0; font-size: 0.9rem;">Hold on! Ready to toss this gem?</p>
               <div style="margin-top: 5px;">
                 <button class="btn btn-sm btn-danger" onclick="confirmDeletion(${index}, this)">Yes, delete it!</button>
                 <button class="btn btn-sm btn-secondary" onclick="cancelDeletion(this, ${index})">No, keep it</button>
@@ -395,14 +393,9 @@
             </div>
           </div>
         `;
-
-        // Save a reference to the related icon for later use
         confirmBox.relatedIcon = icon;
-
-        // Append the box to the body
         document.body.appendChild(confirmBox);
-
-        // Position the confirmation box to the left of the trash button, centered vertically
+        
         const rect = button.getBoundingClientRect();
         setTimeout(() => {
           confirmBox.style.top = (rect.top + (button.offsetHeight - confirmBox.offsetHeight) / 2) + 'px';
@@ -415,7 +408,6 @@
         if (confirmBox) {
           confirmBox.remove();
         }
-        // Proceed with deletion and re-render the cart
         cartItems.splice(index, 1);
         renderCartItems();
       }
