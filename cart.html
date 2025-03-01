@@ -3,7 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MyBusiness Cart - No Gap Hero</title>
+    <title>MyBusiness Cart - Professional Edition</title>
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
     <!-- Font Awesome for icons -->
     <link
       rel="stylesheet"
@@ -18,32 +25,35 @@
     <link rel="stylesheet" href="style.css" />
     <!-- Inline CSS for Cart Page -->
     <style>
-      /* Main container stays flush to the top */
+      body {
+        font-family: 'Roboto', sans-serif;
+        background-color: #f8f9fa;
+      }
       main {
         margin-top: 0 !important;
         margin-bottom: 80px;
       }
-      /* Shrunk Hero Section */
+      /* Hero Section */
       .cart-hero {
-        background: #007bff; /* bright blue */
+        background: #007bff;
         color: #fff;
-        padding: 10px 0; /* reduced padding for a smaller hero */
+        padding: 15px 0;
         text-align: center;
         margin: 0 !important;
       }
       .cart-hero h1 {
-        font-size: 1.8rem;
+        font-size: 2rem;
         margin-bottom: 5px;
       }
       .cart-hero p {
         margin: 0;
-        font-size: 1rem;
+        font-size: 1.1rem;
       }
-      /* Subheader with extra functions */
+      /* Subheader */
       .cart-subheader {
         background: #ffffff;
         border-bottom: 1px solid #dee2e6;
-        padding: 10px 0;
+        padding: 12px 0;
       }
       .cart-subheader .container {
         display: flex;
@@ -51,7 +61,7 @@
         align-items: center;
       }
       .cart-subheader h2 {
-        font-size: 1.5rem;
+        font-size: 1.75rem;
         margin: 0;
         color: #007bff;
       }
@@ -63,12 +73,12 @@
       .cart-subheader .extras a:hover {
         color: #007bff;
       }
-      /* Cart Container: Reduced padding to bring table close to subheader */
+      /* Cart Container */
       .cart-container {
-        padding: 10px 0;
+        padding: 15px 0;
       }
       .cart-table {
-        font-size: 0.9rem;
+        font-size: 0.95rem;
       }
       .cart-table th,
       .cart-table td {
@@ -79,7 +89,7 @@
         max-width: 70px;
         border-radius: 5px;
       }
-      /* Quantity controls */
+      /* Quantity Controls */
       .quantity-controls {
         display: inline-flex;
         align-items: center;
@@ -101,7 +111,7 @@
         background: #fff;
         padding: 25px;
         border-radius: 8px;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
       }
       .order-summary h4 {
         font-size: 1.75rem;
@@ -138,8 +148,19 @@
         margin-top: 20px;
       }
       /* Confirmation Box Styling */
+      .confirm-box {
+        position: absolute;
+        background: #fff;
+        border: 1px solid #ccc;
+        padding: 8px 12px;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+        width: 240px;
+      }
       .confirm-box p {
         margin: 0 0 10px;
+        font-size: 0.9rem;
       }
     </style>
   </head>
@@ -148,7 +169,7 @@
     <div id="header-placeholder"></div>
     
     <main>
-      <!-- Hero Section: No gap at top -->
+      <!-- Hero Section -->
       <section class="cart-hero">
         <div class="container">
           <h1>Manage Your Cart</h1>
@@ -156,7 +177,7 @@
         </div>
       </section>
 
-      <!-- Subheader below hero -->
+      <!-- Subheader -->
       <section class="cart-subheader">
         <div class="container">
           <h2>Shopping Cart</h2>
@@ -290,13 +311,13 @@
       let couponDiscount = 0; // no discount initially
       let shippingCost = 150; // fixed shipping cost
       
-      // Array of confirmation messages to display dynamically
+      // Updated dynamic AI confirmation messages
       const confirmationMessages = [
         "Our AI has detected that this is your FAVORITE item. Are you still sure?",
-        "It seems you really love this item. Confirm deletion?",
-        "Warning: This item might be a prized possession. Delete anyway?",
-        "Our system notes your attachment to this product. Proceed with deletion?",
-        "Are you sure you want to remove this item, which you seem to love?"
+        "I ran a simulation. 99.9% chance you’ll regret this.",
+        "Are you deleting this item… or is it deleting you?",
+        "System analysis complete: Removal might be a mistake.",
+        "Caution: This deletion may trigger unforeseen consequences."
       ];
       
       function renderCartItems() {
@@ -365,44 +386,34 @@
         alert("Proceeding to checkout...");
       }
       
-      // Updated delete confirmation function with dynamic message
+      // Delete confirmation with dynamic AI message
       function confirmRemove(index, event) {
         const button = event.currentTarget;
         const icon = button.querySelector('.trash-icon');
         // Change icon color to red
         icon.style.color = 'red';
         
-        // Choose a random confirmation message from the array
+        // Choose a random confirmation message
         const message = confirmationMessages[Math.floor(Math.random() * confirmationMessages.length)];
         
-        // Create confirmation box element with updated style for a smaller, horizontal rectangle
+        // Create confirmation box element
         const confirmBox = document.createElement('div');
         confirmBox.className = 'confirm-box';
-        confirmBox.style.position = 'absolute';
-        confirmBox.style.background = '#fff';
-        confirmBox.style.border = '1px solid #ccc';
-        confirmBox.style.padding = '5px 10px';
-        confirmBox.style.borderRadius = '5px';
-        confirmBox.style.boxShadow = '0 2px 6px rgba(0,0,0,0.2)';
-        confirmBox.style.zIndex = 1000;
-        confirmBox.style.width = '220px'; // Fixed width for horizontal layout
-        
-        // Use the random confirmation message in the prompt
         confirmBox.innerHTML = `
-          <p style="margin: 0; font-size: 0.9rem;">${message}</p>
-          <div style="margin-top: 5px; text-align: right;">
+          <p>${message}</p>
+          <div style="text-align: right;">
             <button class="btn btn-sm btn-danger" onclick="confirmDeletion(${index}, this)">Yes</button>
             <button class="btn btn-sm btn-secondary" onclick="cancelDeletion(this, ${index})">No</button>
           </div>
         `;
         
-        // Save a reference to the related icon for later use
+        // Save reference to the icon to revert color if needed
         confirmBox.relatedIcon = icon;
         
-        // Append the confirmation box to the body so it can be absolutely positioned
+        // Append confirmation box to body for absolute positioning
         document.body.appendChild(confirmBox);
         
-        // Position the confirmation box to the left of the trash button and vertically center it
+        // Position the confirmation box
         const rect = button.getBoundingClientRect();
         setTimeout(() => {
           confirmBox.style.top = (rect.top + rect.height / 2 - confirmBox.offsetHeight / 2) + 'px';
@@ -415,7 +426,7 @@
         if (confirmBox) {
           confirmBox.remove();
         }
-        // Proceed with deletion and re-render the cart
+        // Delete the item and re-render the cart
         cartItems.splice(index, 1);
         renderCartItems();
       }
