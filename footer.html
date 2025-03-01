@@ -3,27 +3,47 @@
 <head>
   <meta charset="UTF-8" />
   <title>Footer</title>
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <style>
     footer {
       background: #333;
       color: #fff;
+      padding: 10px;
       text-align: center;
-      padding: 10px 0;
-      position: relative;
-      font-family: Arial, sans-serif;
     }
-    /* Thin line above the copyright text */
-    .copyright {
-      border-top: 1px solid #fff;
-      padding-top: 5px;
-      font-size: 0.9rem;
+    .footer-icons {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+    }
+    .footer-icons a {
+      color: #fff;
+      font-size: 1.5rem;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .footer-icons a:hover {
+      color: #007bff;
     }
   </style>
 </head>
 <body>
   <footer>
-    <div class="copyright">
-      &copy; 2025 Your Company Name. All Rights Reserved.
+    <div class="footer-icons">
+      <a href="#" title="Chat with Seller">
+        <i class="fas fa-comments"></i>
+      </a>
+      <a href="#" title="Track Order">
+        <i class="fas fa-truck"></i>
+      </a>
+      <a href="#" title="Help &amp; Support">
+        <i class="fas fa-headset"></i>
+      </a>
+      <a href="analytics.html" title="Analytics">
+        <i class="fas fa-chart-line"></i>
+      </a>
     </div>
   </footer>
 </body>
