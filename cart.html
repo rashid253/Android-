@@ -356,47 +356,50 @@
         alert("Proceeding to checkout...");
       }
       
-      // New delete confirmation functions
+      // Updated delete confirmation functions
       function confirmRemove(index, event) {
         const button = event.currentTarget;
         const icon = button.querySelector('.trash-icon');
         // Change icon color to red
         icon.style.color = 'red';
         
-        // Create confirmation box element
+        // Create confirmation box element with updated style for a smaller, horizontal rectangle
         const confirmBox = document.createElement('div');
         confirmBox.className = 'confirm-box';
         confirmBox.style.position = 'absolute';
         confirmBox.style.background = '#fff';
         confirmBox.style.border = '1px solid #ccc';
-        confirmBox.style.padding = '10px';
+        confirmBox.style.padding = '5px 10px';
         confirmBox.style.borderRadius = '5px';
         confirmBox.style.boxShadow = '0 2px 6px rgba(0,0,0,0.2)';
         confirmBox.style.zIndex = 1000;
+        confirmBox.style.width = '200px'; // Fixed width for horizontal layout
         
-        // Tricky confirmation message with Confirm and Cancel buttons
+        // Use a short dialog message that implies the bin is "thinking"
         confirmBox.innerHTML = `
-          <p>Hold on! Are you really ready to toss this gem into oblivion?</p>
-          <button class="btn btn-sm btn-danger" onclick="confirmDeletion(${index}, this)">Yes, delete it!</button>
-          <button class="btn btn-sm btn-secondary" onclick="cancelDeletion(this, ${index})">No, keep it</button>
+          <p style="margin: 0; font-size: 0.9rem;">Bin is thinking...</p>
+          <div style="margin-top: 5px; text-align: right;">
+            <button class="btn btn-sm btn-danger" onclick="confirmDeletion(${index}, this)">Yes</button>
+            <button class="btn btn-sm btn-secondary" onclick="cancelDeletion(this, ${index})">No</button>
+          </div>
         `;
         
         // Save a reference to the related icon for later use
         confirmBox.relatedIcon = icon;
         
-        // Append the box to body to position it absolutely
+        // Append the confirmation box to the body so it can be absolutely positioned
         document.body.appendChild(confirmBox);
         
-        // Position the confirmation box above the button
+        // Position the confirmation box to the left of the trash button and vertically center it
         const rect = button.getBoundingClientRect();
         setTimeout(() => {
-          confirmBox.style.top = (rect.top - confirmBox.offsetHeight - 5) + 'px';
-          confirmBox.style.left = rect.left + 'px';
+          confirmBox.style.top = (rect.top + rect.height / 2 - confirmBox.offsetHeight / 2) + 'px';
+          confirmBox.style.left = (rect.left - confirmBox.offsetWidth - 5) + 'px';
         }, 0);
       }
       
       function confirmDeletion(index, btn) {
-        const confirmBox = btn.parentElement;
+        const confirmBox = btn.closest('.confirm-box');
         if (confirmBox) {
           confirmBox.remove();
         }
@@ -406,7 +409,7 @@
       }
       
       function cancelDeletion(btn, index) {
-        const confirmBox = btn.parentElement;
+        const confirmBox = btn.closest('.confirm-box');
         if (confirmBox && confirmBox.relatedIcon) {
           confirmBox.relatedIcon.style.color = 'black';
         }
