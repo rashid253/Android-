@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function() {
   // Global function to open pages in a new tab/window
   window.openPage = function(url) {
-    window.open(url, '_blank');
+    window.open(url, "_blank");
   };
 
   // Toggle mobile side menu
@@ -12,12 +12,10 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   };
 
-  // Close side menu on outside click
+  // Close side menu when clicking outside it and the toggle button
   document.addEventListener("click", function(event) {
     const sideMenu = document.getElementById("side-menu");
     const menuToggle = document.querySelector(".menu-toggle");
-
-    // If side menu is open and the click is outside both the menu and the toggle button, close it
     if (
       sideMenu &&
       sideMenu.classList.contains("visible") &&
@@ -29,20 +27,18 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 
   // Dummy function to update the cart count badge
-  window.updateCartCount = function() {
+  function updateCartCount() {
     // For demonstration, using a dummy value. Later, integrate with your cart system.
-    var count = localStorage.getItem("cartCount") || 3; // example dummy count
-    // Desktop
-    var cartCountElem = document.getElementById("cartCount");
-    if (cartCountElem) cartCountElem.innerText = count;
-    // Side menu
-    var cartCountMobileElem = document.getElementById("cartCountMobile");
-    if (cartCountMobileElem) cartCountMobileElem.innerText = count;
-    // Bottom nav
-    var cartCountMobileBottomElem = document.getElementById("cartCountMobileBottom");
-    if (cartCountMobileBottomElem) cartCountMobileBottomElem.innerText = count;
-  };
-
-  // Initialize cart count
+    var count = localStorage.getItem("cartCount") || 3;
+    if (document.getElementById("cartCount")) {
+      document.getElementById("cartCount").innerText = count;
+    }
+    if (document.getElementById("cartCountMobile")) {
+      document.getElementById("cartCountMobile").innerText = count;
+    }
+    if (document.getElementById("cartCountMobileBottom")) {
+      document.getElementById("cartCountMobileBottom").innerText = count;
+    }
+  }
   updateCartCount();
 });
