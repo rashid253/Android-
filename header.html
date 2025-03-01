@@ -9,84 +9,6 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
-    <style>
-      /* Basic header styling */
-      .header {
-        background: #fff;
-        padding: 10px 20px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        position: relative;
-        z-index: 1000;
-      }
-      .header-content {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
-      .brand {
-        font-size: 1.5rem;
-        font-weight: bold;
-        color: #007bff;
-        display: flex;
-        align-items: center;
-      }
-      .brand i {
-        margin-right: 8px;
-        font-size: 1.8rem;
-      }
-      .nav-desktop a {
-        margin: 0 10px;
-        color: #333;
-        font-size: 1.2rem;
-      }
-      .nav-desktop a:hover {
-        color: #007bff;
-      }
-      /* Style for the red round badge */
-      .badge {
-        font-size: 0.75rem;
-        padding: 3px 6px;
-        border-radius: 50%;
-      }
-      /* Mobile navigation (visible on small screens) */
-      .mobile-nav {
-        display: none;
-      }
-      @media (max-width: 600px) {
-        .nav-desktop {
-          display: none;
-        }
-        .mobile-nav {
-          display: flex;
-          justify-content: space-around;
-          background: #fff;
-          padding: 10px 0;
-          box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
-          position: fixed;
-          bottom: 0;
-          width: 100%;
-        }
-      }
-      /* Side menu styling for mobile (if used) */
-      .side-menu {
-        display: none;
-        flex-direction: column;
-        position: fixed;
-        top: 60px;
-        right: 0;
-        background: #fff;
-        width: 200px;
-        box-shadow: -2px 0 4px rgba(0,0,0,0.1);
-        padding: 20px;
-      }
-      .side-menu.visible {
-        display: flex;
-      }
-      .side-menu a {
-        margin-bottom: 10px;
-        color: #333;
-      }
-    </style>
   </head>
   <body>
     <header class="header">
@@ -121,6 +43,7 @@
           <i class="fas fa-bars"></i>
         </button>
       </div>
+
       <!-- Mobile Side Menu -->
       <aside id="side-menu" class="side-menu">
         <a href="index.html" onclick="openPage('index.html'); toggleSideMenu()">Home</a>
@@ -141,6 +64,7 @@
         </a>
         <a href="more.html" onclick="openPage('more.html'); toggleSideMenu()">More</a>
       </aside>
+
       <!-- Mobile Bottom Navigation -->
       <nav class="mobile-nav">
         <a href="index.html" onclick="openPage('index.html')"
@@ -171,29 +95,5 @@
         >
       </nav>
     </header>
-    <script>
-      // Function to toggle the mobile side menu
-      function toggleSideMenu() {
-        const sideMenu = document.getElementById("side-menu");
-        if (sideMenu) {
-          sideMenu.classList.toggle("visible");
-        }
-      }
-      // Function to open a page in a new tab/window
-      function openPage(url) {
-        window.open(url, "_blank");
-      }
-      // Dummy function to update the cart count badge
-      function updateCartCount() {
-        // For demonstration, using a dummy value. Later, integrate with your cart system.
-        var count = localStorage.getItem("cartCount") || 3; // example dummy count
-        document.getElementById("cartCount").innerText = count;
-        if (document.getElementById("cartCountMobile"))
-          document.getElementById("cartCountMobile").innerText = count;
-        if (document.getElementById("cartCountMobileBottom"))
-          document.getElementById("cartCountMobileBottom").innerText = count;
-      }
-      updateCartCount();
-    </script>
   </body>
 </html>
