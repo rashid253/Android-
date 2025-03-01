@@ -19,9 +19,15 @@
         </div>
         <!-- Desktop Navigation -->
         <nav class="nav-desktop">
-          <a href="index.html" onclick="openPage('index.html')"><i class="fas fa-home"></i></a>
-          <a href="offers.html" onclick="openPage('offers.html')"><i class="fas fa-tags"></i></a>
-          <a href="analytics.html" onclick="openPage('analytics.html')"><i class="fas fa-chart-line"></i></a>
+          <a href="index.html" onclick="openPage('index.html')"
+            ><i class="fas fa-home"></i
+          ></a>
+          <a href="offers.html" onclick="openPage('offers.html')"
+            ><i class="fas fa-tags"></i
+          ></a>
+          <a href="analytics.html" onclick="openPage('analytics.html')"
+            ><i class="fas fa-chart-line"></i
+          ></a>
           <a
             href="cart.html"
             onclick="openPage('cart.html')"
@@ -29,6 +35,7 @@
           >
             <i class="fas fa-shopping-cart"></i>
             <span>Cart</span>
+            <!-- Desktop Cart Count -->
             <span
               id="cartCount"
               class="badge"
@@ -36,7 +43,9 @@
               >0</span
             >
           </a>
-          <a href="more.html" onclick="openPage('more.html')"><i class="fas fa-ellipsis-h"></i></a>
+          <a href="more.html" onclick="openPage('more.html')"
+            ><i class="fas fa-ellipsis-h"></i
+          ></a>
         </nav>
         <!-- Hamburger for Mobile -->
         <button class="menu-toggle" onclick="toggleSideMenu()">
@@ -46,23 +55,34 @@
 
       <!-- Mobile Side Menu -->
       <aside id="side-menu" class="side-menu">
-        <a href="index.html" onclick="openPage('index.html'); toggleSideMenu()">Home</a>
-        <a href="offers.html" onclick="openPage('offers.html'); toggleSideMenu()">Offers</a>
-        <a href="analytics.html" onclick="openPage('analytics.html'); toggleSideMenu()">Analytics</a>
+        <a href="index.html" onclick="openPage('index.html'); toggleSideMenu()"
+          >Home</a
+        >
+        <a href="offers.html" onclick="openPage('offers.html'); toggleSideMenu()"
+          >Offers</a
+        >
+        <a
+          href="analytics.html"
+          onclick="openPage('analytics.html'); toggleSideMenu()"
+          >Analytics</a
+        >
         <a
           href="cart.html"
           onclick="openPage('cart.html'); toggleSideMenu()"
           style="position: relative;"
         >
           Cart
+          <!-- Side Menu Cart Count -->
           <span
             id="cartCountMobile"
             class="badge"
-            style="background: red; position: absolute; top: -5px; right: -10px;"
+            style="background: red; position: absolute; top: 3px; right: -10px;"
             >0</span
           >
         </a>
-        <a href="more.html" onclick="openPage('more.html'); toggleSideMenu()">More</a>
+        <a href="more.html" onclick="openPage('more.html'); toggleSideMenu()"
+          >More</a
+        >
       </aside>
 
       <!-- Mobile Bottom Navigation -->
@@ -83,6 +103,7 @@
         >
           <i class="fas fa-shopping-cart"></i>
           <span>Cart</span>
+          <!-- Bottom Nav Cart Count -->
           <span
             id="cartCountMobileBottom"
             class="badge"
