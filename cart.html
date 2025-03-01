@@ -137,33 +137,16 @@
         font-size: 1.2rem;
         margin-top: 20px;
       }
-      /* Confirmation Box Styling (Bubble Thinking Shape) */
-      .confirm-box {
-        position: absolute;
-        background: #fff;
-        border: 1px solid #ccc;
-        padding: 8px 10px;
-        border-radius: 15px;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-        z-index: 1000;
-        max-width: 250px;
-      }
-      .confirm-box:after {
-        content: "";
-        position: absolute;
-        top: 50%;
-        right: -8px;
-        transform: translateY(-50%);
-        border-width: 8px;
-        border-style: solid;
-        border-color: transparent transparent transparent #fff;
+      /* Confirmation Box Styling */
+      .confirm-box p {
+        margin: 0 0 10px;
       }
     </style>
   </head>
   <body>
     <!-- Header Placeholder -->
     <div id="header-placeholder"></div>
-
+    
     <main>
       <!-- Hero Section: No gap at top -->
       <section class="cart-hero">
@@ -184,7 +167,7 @@
           </div>
         </div>
       </section>
-
+      
       <!-- Cart Items Section -->
       <section class="cart-items">
         <div class="container cart-container">
@@ -207,7 +190,7 @@
           </div>
         </div>
       </section>
-
+      
       <!-- Order Summary Section -->
       <section class="order-summary-section">
         <div class="container">
@@ -232,7 +215,7 @@
                   <span id="totalDisplay">0.00</span>
                 </div>
                 <div class="coupon-code">
-                  <input type="text" id="couponInput" placeholder="Enter Coupon Code" />
+                  <input type="text" id="couponInput" placeholder="Enter Coupon Code">
                   <button class="btn btn-outline-primary apply-coupon mt-2" onclick="applyCoupon()">Apply Coupon</button>
                 </div>
                 <button class="btn btn-success checkout-btn mt-3" onclick="proceedToCheckout()">Proceed to Checkout</button>
@@ -242,13 +225,13 @@
         </div>
       </section>
     </main>
-
+    
     <!-- Footer Placeholder -->
     <div id="footer-placeholder"></div>
-
+    
     <!-- Bootstrap 5 JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
+    
     <!-- Script to load header and footer dynamically -->
     <script>
       function loadHTML(elementId, filePath) {
@@ -271,12 +254,12 @@
           })
           .catch(error => console.error(error));
       }
-      document.addEventListener("DOMContentLoaded", function () {
+      document.addEventListener("DOMContentLoaded", function() {
         loadHTML("header-placeholder", "header.html");
         loadHTML("footer-placeholder", "footer.html");
       });
     </script>
-
+    
     <!-- Cart Functionality Script -->
     <script>
       // Dummy cart data – later replace with real integration
@@ -303,10 +286,10 @@
           image: "https://via.placeholder.com/100?text=Laptop+C"
         }
       ];
-
+      
       let couponDiscount = 0; // no discount initially
       let shippingCost = 150; // fixed shipping cost
-
+      
       function renderCartItems() {
         const container = document.getElementById("cartItemsContainer");
         container.innerHTML = "";
@@ -314,13 +297,13 @@
           const itemSubtotal = item.price * item.quantity;
           const row = document.createElement("tr");
           row.innerHTML = `
-            <td><img src="${item.image}" alt="${item.name}" /></td>
+            <td><img src="${item.image}" alt="${item.name}"></td>
             <td>${item.name}</td>
             <td>${item.price}</td>
             <td>
               <div class="quantity-controls">
                 <button class="btn btn-sm btn-outline-secondary" onclick="changeQuantity(${index}, -1)">-</button>
-                <input type="text" class="quantity-input" value="${item.quantity}" readonly />
+                <input type="text" class="quantity-input" value="${item.quantity}" readonly>
                 <button class="btn btn-sm btn-outline-secondary" onclick="changeQuantity(${index}, 1)">+</button>
               </div>
             </td>
@@ -335,13 +318,13 @@
         });
         updateSummary();
       }
-
+      
       function changeQuantity(index, delta) {
         const item = cartItems[index];
         item.quantity = Math.max(1, item.quantity + delta);
         renderCartItems();
       }
-
+      
       function updateSummary() {
         let subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
         let tax = subtotal * 0.10; // 10% tax
@@ -353,7 +336,7 @@
         document.getElementById("shippingDisplay").innerText = shippingCost.toFixed(2);
         document.getElementById("totalDisplay").innerText = total.toFixed(2);
       }
-
+      
       function applyCoupon() {
         const couponCode = document.getElementById("couponInput").value.trim().toUpperCase();
         if (couponCode === "SAVE10") {
@@ -368,52 +351,62 @@
         }
         updateSummary();
       }
-
+      
       function proceedToCheckout() {
         alert("Proceeding to checkout...");
       }
-
-      // New delete confirmation functions with bubble thinking style
+      
+      // New delete confirmation functions
       function confirmRemove(index, event) {
         const button = event.currentTarget;
         const icon = button.querySelector('.trash-icon');
+        // Change icon color to red
         icon.style.color = 'red';
         
+        // Create confirmation box element
         const confirmBox = document.createElement('div');
         confirmBox.className = 'confirm-box';
+        confirmBox.style.position = 'absolute';
+        confirmBox.style.background = '#fff';
+        confirmBox.style.border = '1px solid #ccc';
+        confirmBox.style.padding = '10px';
+        confirmBox.style.borderRadius = '5px';
+        confirmBox.style.boxShadow = '0 2px 6px rgba(0,0,0,0.2)';
+        confirmBox.style.zIndex = 1000;
+        
+        // Tricky confirmation message with Confirm and Cancel buttons
         confirmBox.innerHTML = `
-          <div style="display: flex; align-items: center; gap: 8px;">
-            <span style="font-size: 1.2rem;
-            <div>
-              <p style="margin:0; font-size: 0.9rem;">Hold on! Ready to toss this gem?</p>
-              <div style="margin-top: 5px;">
-                <button class="btn btn-sm btn-danger" onclick="confirmDeletion(${index}, this)">Yes, delete it!</button>
-                <button class="btn btn-sm btn-secondary" onclick="cancelDeletion(this, ${index})">No, keep it</button>
-              </div>
-            </div>
-          </div>
+          <p>Hold on! Are you really ready to toss this gem into oblivion?</p>
+          <button class="btn btn-sm btn-danger" onclick="confirmDeletion(${index}, this)">Yes, delete it!</button>
+          <button class="btn btn-sm btn-secondary" onclick="cancelDeletion(this, ${index})">No, keep it</button>
         `;
+        
+        // Save a reference to the related icon for later use
         confirmBox.relatedIcon = icon;
+        
+        // Append the box to body to position it absolutely
         document.body.appendChild(confirmBox);
         
+        // Position the confirmation box above the button
         const rect = button.getBoundingClientRect();
         setTimeout(() => {
-          confirmBox.style.top = (rect.top + (button.offsetHeight - confirmBox.offsetHeight) / 2) + 'px';
-          confirmBox.style.left = (rect.left - confirmBox.offsetWidth - 5) + 'px';
+          confirmBox.style.top = (rect.top - confirmBox.offsetHeight - 5) + 'px';
+          confirmBox.style.left = rect.left + 'px';
         }, 0);
       }
-
+      
       function confirmDeletion(index, btn) {
-        const confirmBox = btn.parentElement.parentElement.parentElement;
+        const confirmBox = btn.parentElement;
         if (confirmBox) {
           confirmBox.remove();
         }
+        // Proceed with deletion and re-render the cart
         cartItems.splice(index, 1);
         renderCartItems();
       }
-
+      
       function cancelDeletion(btn, index) {
-        const confirmBox = btn.parentElement.parentElement.parentElement;
+        const confirmBox = btn.parentElement;
         if (confirmBox && confirmBox.relatedIcon) {
           confirmBox.relatedIcon.style.color = 'black';
         }
@@ -421,8 +414,8 @@
           confirmBox.remove();
         }
       }
-
-      document.addEventListener("DOMContentLoaded", function () {
+      
+      document.addEventListener("DOMContentLoaded", function() {
         renderCartItems();
       });
     </script>
