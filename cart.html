@@ -278,6 +278,13 @@
             if (html) {
               document.getElementById(elementId).innerHTML = html;
               console.log(filePath + " loaded successfully for " + elementId);
+              // If this is the header, reinitialize Bootstrap collapse for the navbar.
+              if (elementId === "header-placeholder") {
+                var navbarNav = document.getElementById("navbarNav");
+                if (navbarNav) {
+                  new bootstrap.Collapse(navbarNav, {toggle: false});
+                }
+              }
             }
           })
           .catch(error => {
@@ -288,7 +295,7 @@
       
       document.addEventListener("DOMContentLoaded", function() {
         // Adjust these paths as necessary.
-        // If your cart page is in a subfolder, you might need "../header.html" instead.
+        // If your cart page is in a subfolder, you might need to change "header.html" to "../header.html"
         loadHTML(
           "header-placeholder",
           "header.html",
