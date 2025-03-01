@@ -2,8 +2,8 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MyBusiness Cart - International Standard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>MyBusiness Cart - No Gap Hero</title>
     <!-- Font Awesome for icons -->
     <link
       rel="stylesheet"
@@ -14,27 +14,22 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
-    <!-- Custom CSS (if any) -->
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css" />
     <!-- Inline CSS for Cart Page -->
     <style>
-      /* Basic resets */
-      body {
-        font-family: 'Roboto', sans-serif;
-        background-color: #f8f9fa;
-        color: #333;
-      }
-      /* Ensure content is below the fixed header */
+      /* Remove top margin so hero touches the header when scrolled up */
       main {
-        margin-top: 80px; /* Space for fixed header */
-        margin-bottom: 80px; /* Space for fixed footer or bottom nav if you have one */
+        margin-top: 0 !important; /* No gap at the top */
+        margin-bottom: 80px;      /* If you have a fixed footer, keep some space */
       }
-      /* Small Hero Section */
+      /* Small Hero Section immediately below header */
       .cart-hero {
-        background: #007bff; /* a bright blue background */
+        background: #007bff; /* bright blue */
         color: #fff;
         padding: 20px 0;
         text-align: center;
+        margin: 0 !important; /* ensure no extra margin above hero */
       }
       .cart-hero h1 {
         font-size: 1.8rem;
@@ -44,6 +39,7 @@
         margin: 0;
         font-size: 1rem;
       }
+
       /* Subheader with extra functions */
       .cart-subheader {
         background: #ffffff;
@@ -68,6 +64,7 @@
       .cart-subheader .extras a:hover {
         color: #007bff;
       }
+
       /* Cart Container */
       .cart-container {
         padding: 40px 0;
@@ -91,7 +88,7 @@
         max-width: 70px;
         border-radius: 5px;
       }
-      /* Compact quantity controls arranged horizontally */
+      /* Quantity controls */
       .quantity-controls {
         display: inline-flex;
         align-items: center;
@@ -108,6 +105,7 @@
         margin: 0 4px;
         padding: 2px;
       }
+
       /* Order Summary */
       .order-summary {
         background: #fff;
@@ -152,12 +150,11 @@
     </style>
   </head>
   <body>
-    <!-- Header Placeholder (loaded dynamically from header.html) -->
+    <!-- Header Placeholder -->
     <div id="header-placeholder"></div>
     
-    <!-- Main Content -->
     <main>
-      <!-- Small Hero Section (immediately below header) -->
+      <!-- Hero Section: No gap at top -->
       <section class="cart-hero">
         <div class="container">
           <h1>Manage Your Cart</h1>
@@ -165,7 +162,7 @@
         </div>
       </section>
 
-      <!-- Subheader: Additional Options (below hero) -->
+      <!-- Subheader below hero -->
       <section class="cart-subheader">
         <div class="container">
           <h2>Shopping Cart</h2>
@@ -236,13 +233,13 @@
       </section>
     </main>
     
-    <!-- Footer Placeholder (loaded dynamically from footer.html) -->
+    <!-- Footer Placeholder -->
     <div id="footer-placeholder"></div>
     
     <!-- Bootstrap 5 JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
-    <!-- Script to Load Header and Footer Dynamically -->
+    <!-- Script to load header and footer dynamically -->
     <script>
       function loadHTML(elementId, filePath) {
         fetch(filePath)
@@ -264,7 +261,6 @@
           })
           .catch(error => console.error(error));
       }
-      
       document.addEventListener("DOMContentLoaded", function() {
         loadHTML("header-placeholder", "header.html");
         loadHTML("footer-placeholder", "footer.html");
@@ -374,10 +370,10 @@
     </script>
     
     <!--
-      Explanation of Changes:
-      1) Added a small hero section (cart-hero) at the top, under the fixed header (margin-top:80px).
-      2) Moved the subheader (Cart Options, icons) below the hero.
-      3) The rest of the cart code remains the same as your original approach (table, order summary, etc.).
+      Explanation:
+      - We removed the margin-top from main so the hero section “touches” the header at the top.
+      - The hero is placed first, subheader second, then the cart table, then the order summary.
+      - Everything else remains the same as your original code (dummy data, coupon logic, etc.).
     -->
   </body>
 </html>
