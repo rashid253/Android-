@@ -14,7 +14,9 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
-    <!-- Inline CSS for styling the page, inner container, table 3D effect, and confirmation box -->
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css" />
+    <!-- Inline CSS for Cart Page -->
     <style>
       /* Main container stays flush to the top */
       main {
@@ -23,9 +25,9 @@
       }
       /* Shrunk Hero Section */
       .cart-hero {
-        background: #007bff;
+        background: #007bff; /* bright blue */
         color: #fff;
-        padding: 10px 0;
+        padding: 10px 0; /* reduced padding for a smaller hero */
         text-align: center;
         margin: 0 !important;
       }
@@ -37,7 +39,7 @@
         margin: 0;
         font-size: 1rem;
       }
-      /* Subheader */
+      /* Subheader with extra functions */
       .cart-subheader {
         background: #ffffff;
         border-bottom: 1px solid #dee2e6;
@@ -61,24 +63,12 @@
       .cart-subheader .extras a:hover {
         color: #007bff;
       }
-      /* 3D effect on the inner container */
+      /* Cart Container: Reduced padding to bring table close to subheader */
       .cart-container {
         padding: 10px 0;
-        transform: perspective(800px) rotateX(3deg);
-        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-        transition: transform 0.3s;
       }
-      .cart-container:hover {
-        transform: perspective(800px) rotateX(0deg);
-      }
-      /* 3D effect on the table */
       .cart-table {
         font-size: 0.9rem;
-        transform: perspective(800px) rotateX(3deg);
-        transition: transform 0.3s;
-      }
-      .cart-table:hover {
-        transform: perspective(800px) rotateX(0deg);
       }
       .cart-table th,
       .cart-table td {
@@ -156,9 +146,9 @@
   <body>
     <!-- Header Placeholder -->
     <div id="header-placeholder"></div>
-
+    
     <main>
-      <!-- Hero Section -->
+      <!-- Hero Section: No gap at top -->
       <section class="cart-hero">
         <div class="container">
           <h1>Manage Your Cart</h1>
@@ -166,7 +156,7 @@
         </div>
       </section>
 
-      <!-- Subheader -->
+      <!-- Subheader below hero -->
       <section class="cart-subheader">
         <div class="container">
           <h2>Shopping Cart</h2>
@@ -177,7 +167,7 @@
           </div>
         </div>
       </section>
-
+      
       <!-- Cart Items Section -->
       <section class="cart-items">
         <div class="container cart-container">
@@ -200,7 +190,7 @@
           </div>
         </div>
       </section>
-
+      
       <!-- Order Summary Section -->
       <section class="order-summary-section">
         <div class="container">
@@ -235,13 +225,13 @@
         </div>
       </section>
     </main>
-
+    
     <!-- Footer Placeholder -->
     <div id="footer-placeholder"></div>
-
+    
     <!-- Bootstrap 5 JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
+    
     <!-- Script to load header and footer dynamically -->
     <script>
       function loadHTML(elementId, filePath) {
@@ -269,7 +259,7 @@
         loadHTML("footer-placeholder", "footer.html");
       });
     </script>
-
+    
     <!-- Cart Functionality Script -->
     <script>
       // Dummy cart data – later replace with real integration
@@ -299,6 +289,15 @@
       
       let couponDiscount = 0; // no discount initially
       let shippingCost = 150; // fixed shipping cost
+      
+      // Array of confirmation messages to display dynamically
+      const confirmationMessages = [
+        "Our AI has detected that this is your FAVORITE item. Are you still sure?",
+        "It seems you really love this item. Confirm deletion?",
+        "Warning: This item might be a prized possession. Delete anyway?",
+        "Our system notes your attachment to this product. Proceed with deletion?",
+        "Are you sure you want to remove this item, which you seem to love?"
+      ];
       
       function renderCartItems() {
         const container = document.getElementById("cartItemsContainer");
@@ -366,26 +365,17 @@
         alert("Proceeding to checkout...");
       }
       
-      // Array of tricky AI confirmation messages.
-      const confirmMessages = [
-        "Our AI has detected that this is your FAVORITE item. Are you still sure?",
-        "Our AI advises caution: this item is too valuable to delete. Confirm deletion?",
-        "AI Warning: Deleting this might break the universe. Proceed?",
-        "Alert: The item seems attached to you. Really delete it?",
-        "Warning: Deleting this item might cause instant regret. Confirm?"
-      ];
-      
-      // Updated delete confirmation functions with random message selection.
+      // Updated delete confirmation function with dynamic message
       function confirmRemove(index, event) {
         const button = event.currentTarget;
         const icon = button.querySelector('.trash-icon');
         // Change icon color to red
         icon.style.color = 'red';
         
-        // Select a random confirmation message
-        const message = confirmMessages[Math.floor(Math.random() * confirmMessages.length)];
+        // Choose a random confirmation message from the array
+        const message = confirmationMessages[Math.floor(Math.random() * confirmationMessages.length)];
         
-        // Create confirmation box element with a fixed horizontal layout
+        // Create confirmation box element with updated style for a smaller, horizontal rectangle
         const confirmBox = document.createElement('div');
         confirmBox.className = 'confirm-box';
         confirmBox.style.position = 'absolute';
@@ -395,9 +385,9 @@
         confirmBox.style.borderRadius = '5px';
         confirmBox.style.boxShadow = '0 2px 6px rgba(0,0,0,0.2)';
         confirmBox.style.zIndex = 1000;
-        confirmBox.style.width = '250px';
+        confirmBox.style.width = '220px'; // Fixed width for horizontal layout
         
-        // Set the inner HTML with the randomly chosen message and buttons
+        // Use the random confirmation message in the prompt
         confirmBox.innerHTML = `
           <p style="margin: 0; font-size: 0.9rem;">${message}</p>
           <div style="margin-top: 5px; text-align: right;">
@@ -409,7 +399,7 @@
         // Save a reference to the related icon for later use
         confirmBox.relatedIcon = icon;
         
-        // Append the confirmation box to the body to allow absolute positioning
+        // Append the confirmation box to the body so it can be absolutely positioned
         document.body.appendChild(confirmBox);
         
         // Position the confirmation box to the left of the trash button and vertically center it
