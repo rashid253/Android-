@@ -278,16 +278,12 @@
             if (html) {
               document.getElementById(elementId).innerHTML = html;
               console.log(filePath + " loaded successfully for " + elementId);
-              // If this is the header, wait briefly and then reinitialize Bootstrap collapse.
+              // If this is the header, reinitialize Bootstrap collapse for the navbar.
               if (elementId === "header-placeholder") {
-                setTimeout(() => {
-                  let navbarCollapse = document.querySelector('.navbar-collapse');
-                  if (navbarCollapse) {
-                    // Reinitialize collapse to ensure the hamburger icon works.
-                    new bootstrap.Collapse(navbarCollapse, { toggle: false });
-                    console.log("Navbar collapse reinitialized.");
-                  }
-                }, 100); // delay in milliseconds
+                var navbarNav = document.getElementById("navbarNav");
+                if (navbarNav) {
+                  new bootstrap.Collapse(navbarNav, {toggle: false});
+                }
               }
             }
           })
@@ -298,10 +294,11 @@
       }
       
       document.addEventListener("DOMContentLoaded", function() {
-        // Use absolute paths if necessary.
+        // Adjust these paths as necessary.
+        // If your cart page is in a subfolder, you might need to change "header.html" to "../header.html"
         loadHTML(
           "header-placeholder",
-          "/header.html",  // Adjust path as needed
+          "header.html",
           '<header style="background:#333;color:#fff;padding:10px;text-align:center;">Default Header</header>'
         );
         loadHTML(
