@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MyBusiness Cart - Your Shopping Cart</title>
+    <title>MyBusiness Cart - International Standard</title>
     <!-- Font Awesome for icons -->
     <link
       rel="stylesheet"
@@ -16,7 +16,7 @@
     />
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css" />
-    <!-- Inline CSS for Cart Page (customized for an international, Daraz/TEMU-inspired look) -->
+    <!-- Inline CSS for Cart Page -->
     <style>
       body {
         font-family: 'Roboto', sans-serif;
@@ -24,75 +24,96 @@
         color: #333;
       }
       main {
-        margin-top: 70px;  /* ensure content is not overlapped by the fixed header */
-        margin-bottom: 70px; /* for footer spacing */
+        margin-top: 80px;  /* Space for fixed header */
+        margin-bottom: 80px; /* Space for fixed footer */
       }
       .cart-container {
-        padding: 30px 0;
+        padding: 40px 0;
       }
       .cart-title {
-        margin-bottom: 30px;
-        font-size: 2rem;
+        font-size: 2.5rem;
         font-weight: bold;
+        margin-bottom: 30px;
         color: #007bff;
         text-align: center;
       }
-      /* Responsive table styling for cart items */
+      .table-responsive {
+        margin-bottom: 30px;
+      }
       .cart-table th,
       .cart-table td {
         vertical-align: middle;
         text-align: center;
+        font-size: 1rem;
       }
       .cart-table img {
         max-width: 80px;
         border-radius: 5px;
       }
       .quantity-input {
-        width: 50px;
+        width: 60px;
         text-align: center;
-        border: none;
-        background: transparent;
+        border: 1px solid #ced4da;
+        border-radius: 5px;
+        padding: 5px;
       }
-      /* Order Summary Card */
       .order-summary {
         background: #fff;
-        padding: 20px;
+        padding: 25px;
         border-radius: 8px;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
       }
       .order-summary h4 {
-        margin-bottom: 20px;
+        font-size: 1.75rem;
         font-weight: bold;
+        margin-bottom: 20px;
         color: #007bff;
       }
       .summary-item {
         display: flex;
         justify-content: space-between;
-        margin-bottom: 10px;
+        margin-bottom: 15px;
         font-size: 1rem;
+      }
+      .summary-total {
+        font-size: 1.25rem;
+        font-weight: bold;
+      }
+      .coupon-code {
+        margin-top: 20px;
+      }
+      .coupon-code input {
+        border-radius: 5px;
+        padding: 8px;
+        border: 1px solid #ced4da;
+        width: 100%;
+      }
+      .apply-coupon {
+        margin-top: 10px;
       }
       .checkout-btn {
         width: 100%;
         padding: 15px;
         font-size: 1.2rem;
+        margin-top: 20px;
       }
-      /* Custom hover effects for buttons */
+      /* Button hover effect */
       .btn-outline-secondary:hover {
         background-color: #f0f0f0;
       }
     </style>
   </head>
   <body>
-    <!-- Header Placeholder (dynamically loaded via your loadHTML function) -->
+    <!-- Header Placeholder (loaded dynamically from header.html) -->
     <div id="header-placeholder"></div>
-
+    
     <!-- Main Cart Content -->
     <main>
       <div class="container cart-container">
         <h1 class="cart-title">Your Shopping Cart</h1>
         <div class="row">
-          <!-- Cart Items Section (Left Column) -->
-          <div class="col-lg-8 mb-4">
+          <!-- Left Column: Cart Items -->
+          <div class="col-lg-8">
             <div class="table-responsive">
               <table class="table table-bordered cart-table">
                 <thead class="table-light">
@@ -106,12 +127,12 @@
                   </tr>
                 </thead>
                 <tbody id="cartItemsContainer">
-                  <!-- Cart items will be dynamically rendered here -->
+                  <!-- Cart items will be rendered dynamically -->
                 </tbody>
               </table>
             </div>
           </div>
-          <!-- Order Summary Section (Right Column) -->
+          <!-- Right Column: Order Summary -->
           <div class="col-lg-4">
             <div class="order-summary">
               <h4>Order Summary</h4>
@@ -124,35 +145,40 @@
                 <span id="taxDisplay">0.00</span>
               </div>
               <div class="summary-item">
+                <span>Shipping:</span>
+                <span id="shippingDisplay">0.00</span>
+              </div>
+              <div class="summary-item summary-total">
                 <span>Total:</span>
                 <span id="totalDisplay">0.00</span>
               </div>
-              <button class="btn btn-success checkout-btn mt-3">Proceed to Checkout</button>
+              <div class="coupon-code">
+                <input type="text" id="couponInput" placeholder="Enter Coupon Code">
+                <button class="btn btn-outline-primary apply-coupon" onclick="applyCoupon()">Apply Coupon</button>
+              </div>
+              <button class="btn btn-success checkout-btn" onclick="proceedToCheckout()">Proceed to Checkout</button>
             </div>
           </div>
         </div>
       </div>
     </main>
-
-    <!-- Footer Placeholder (dynamically loaded) -->
+    
+    <!-- Footer Placeholder (loaded dynamically from footer.html) -->
     <div id="footer-placeholder"></div>
-
+    
     <!-- Bootstrap 5 JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Script to load header and footer dynamically -->
+    
+    <!-- Script to Load Header and Footer Dynamically -->
     <script>
       function loadHTML(elementId, filePath) {
         fetch(filePath)
           .then(response => {
             if (!response.ok) {
-              // Fallback content if file not found
               if (elementId === "header-placeholder") {
-                document.getElementById(elementId).innerHTML =
-                  '<header style="background:#333;color:#fff;padding:10px;text-align:center;">Header</header>';
+                document.getElementById(elementId).innerHTML = '<header style="background:#333;color:#fff;padding:10px;text-align:center;">Header</header>';
               } else if (elementId === "footer-placeholder") {
-                document.getElementById(elementId).innerHTML =
-                  '<footer style="background:#333;color:#fff;padding:10px;text-align:center;">Footer</footer>';
+                document.getElementById(elementId).innerHTML = '<footer style="background:#333;color:#fff;padding:10px;text-align:center;">Footer</footer>';
               }
               throw new Error("Error fetching " + filePath);
             }
@@ -163,15 +189,16 @@
           })
           .catch(error => console.error(error));
       }
+      
       document.addEventListener("DOMContentLoaded", function() {
         loadHTML("header-placeholder", "header.html");
         loadHTML("footer-placeholder", "footer.html");
       });
     </script>
-
+    
     <!-- Cart Functionality Script -->
     <script>
-      // Dummy cart data – replace with real integration later
+      // Dummy cart data – in a real system this would come from a database
       let cartItems = [
         {
           id: 1,
@@ -195,8 +222,10 @@
           image: "https://via.placeholder.com/100?text=Laptop+C"
         }
       ];
-
-      // Render cart items in the table
+      
+      let couponDiscount = 0; // 0 means no discount, 0.1 means 10%, etc.
+      let shippingCost = 150; // Fixed shipping cost
+      
       function renderCartItems() {
         const container = document.getElementById("cartItemsContainer");
         container.innerHTML = "";
@@ -212,42 +241,61 @@
               <input type="text" class="quantity-input" value="${item.quantity}" readonly>
               <button class="btn btn-sm btn-outline-secondary" onclick="changeQuantity(${index}, 1)">+</button>
             </td>
-            <td id="itemSubtotal-${index}">${itemSubtotal}</td>
+            <td id="itemSubtotal-${index}">${itemSubtotal.toFixed(2)}</td>
             <td><button class="btn btn-sm btn-danger" onclick="removeItem(${index})">Remove</button></td>
           `;
           container.appendChild(row);
         });
         updateSummary();
       }
-
-      // Adjust quantity
+      
       function changeQuantity(index, delta) {
         const item = cartItems[index];
         item.quantity = Math.max(1, item.quantity + delta);
         renderCartItems();
       }
-
-      // Remove an item
+      
       function removeItem(index) {
         cartItems.splice(index, 1);
         renderCartItems();
       }
-
-      // Update order summary
+      
       function updateSummary() {
         let subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
         let tax = subtotal * 0.10; // 10% tax
-        let total = subtotal + tax;
+        let discount = subtotal * couponDiscount;
+        let total = subtotal + tax + shippingCost - discount;
+        
         document.getElementById("subtotalDisplay").innerText = subtotal.toFixed(2);
         document.getElementById("taxDisplay").innerText = tax.toFixed(2);
+        document.getElementById("shippingDisplay").innerText = shippingCost.toFixed(2);
         document.getElementById("totalDisplay").innerText = total.toFixed(2);
       }
-
+      
+      function applyCoupon() {
+        const couponCode = document.getElementById("couponInput").value.trim().toUpperCase();
+        if (couponCode === "SAVE10") {
+          couponDiscount = 0.10;
+          alert("Coupon applied: 10% discount!");
+        } else if (couponCode === "SAVE20") {
+          couponDiscount = 0.20;
+          alert("Coupon applied: 20% discount!");
+        } else {
+          couponDiscount = 0;
+          alert("Invalid coupon code.");
+        }
+        updateSummary();
+      }
+      
+      function proceedToCheckout() {
+        alert("Proceeding to checkout...");
+      }
+      
       document.addEventListener("DOMContentLoaded", function() {
         renderCartItems();
       });
     </script>
-
+    
     <!--
       This frontend code is built using dummy data and is structured to be easily integrated with a Firebase backend in the future.
       The fetchProducts() function currently simulates data fetching, and will later be replaced by Firebase Firestore API calls.
