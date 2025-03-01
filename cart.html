@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>MyBusiness Cart - Review & Manage</title>
     <!-- Font Awesome for icons -->
     <link
@@ -14,23 +14,36 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
-    <!-- Custom CSS (if any) -->
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css" />
     <!-- Inline CSS for Cart Page -->
     <style>
-      /* Global styles */
+      /* Basic resets */
       body {
         font-family: 'Roboto', sans-serif;
         background-color: #f8f9fa;
         color: #333;
       }
+      /* Ensure the main content is right below the header */
       main {
-        margin-top: 80px; /* To account for fixed header */
-        margin-bottom: 80px; /* To account for fixed footer if any */
+        margin-top: 70px;  /* match your header’s fixed height */
+        margin-bottom: 70px; /* if you have a fixed footer or bottom nav */
       }
+      /* Delete icon pinned near top-right under header */
+      #deleteIcon {
+        display: none;
+        position: fixed;
+        top: 75px;  /* just under your fixed header */
+        right: 15px;
+        font-size: 1.5rem;
+        color: #dc3545;
+        cursor: pointer;
+        z-index: 1100;
+      }
+
       /* Small Hero Section */
       .cart-hero {
-        background: #007bff; /* A vibrant blue */
+        background: #007bff;
         color: #fff;
         padding: 20px 0;
         text-align: center;
@@ -43,6 +56,7 @@
         font-size: 1rem;
         margin: 0;
       }
+
       /* Subheader below hero for extra options */
       .cart-subheader {
         background: #fff;
@@ -67,13 +81,16 @@
       .cart-subheader .options a:hover {
         color: #007bff;
       }
-      /* Cart Table Styles */
+
+      /* Cart Container */
       .cart-container {
         padding: 30px 0;
       }
+
+      /* Cart Table */
       .cart-table {
         width: 100%;
-        table-layout: fixed;
+        table-layout: fixed; /* keep columns from expanding */
       }
       .cart-table th,
       .cart-table td {
@@ -89,58 +106,44 @@
         max-width: 60px;
         border-radius: 5px;
       }
-      /* First column for checkboxes */
-      .cart-table .chk-col {
-        width: 5%;
-      }
-      /* Product name styling (wrap text nicely) */
-      .cart-table .prod-name {
+      .prod-name {
         word-wrap: break-word;
       }
-      /* Quantity controls */
+
+      /* Quantity controls: vertical stacking */
       .quantity-controls {
-        display: inline-flex;
+        display: flex;
+        flex-direction: column;
         align-items: center;
       }
       .quantity-controls button {
         border: none;
-        padding: 4px 8px;
+        padding: 4px 6px;
+        margin: 2px 0;
         font-size: 0.8rem;
         cursor: pointer;
+        width: 30px;
       }
-      .quantity-controls .qty-plus {
-        background-color: #28a745;
+      .qty-plus {
+        background-color: #28a745; /* green */
         color: #fff;
       }
-      .quantity-controls .qty-minus {
-        background-color: #dc3545;
+      .qty-minus {
+        background-color: #dc3545; /* red */
         color: #fff;
       }
-      .quantity-controls .quantity-input {
-        width: 40px;
+      .quantity-input {
+        width: 32px;
         text-align: center;
         border: 1px solid #ced4da;
-        margin: 0 4px;
         border-radius: 3px;
-        padding: 2px;
       }
-      /* When quantity equals zero, display in red */
       .quantity-zero {
         color: red;
         font-weight: bold;
       }
-      /* Global delete icon – hidden by default */
-      .delete-selected {
-        display: none;
-        position: fixed;
-        top: 90px;
-        right: 30px;
-        font-size: 1.5rem;
-        color: #dc3545;
-        cursor: pointer;
-        z-index: 1100;
-      }
-      /* Order Summary Section */
+
+      /* Order Summary */
       .order-summary {
         background: #fff;
         padding: 20px;
@@ -184,25 +187,24 @@
     </style>
   </head>
   <body>
-    <!-- Header Placeholder (loaded dynamically via loadHTML) -->
+    <!-- Header Placeholder (load header.html dynamically) -->
     <div id="header-placeholder"></div>
     
-    <!-- Global Delete Icon (appears when checkboxes are selected) -->
-    <div id="deleteIcon" class="delete-selected" title="Delete Selected Items">
+    <!-- Delete Icon (trash) at top-right -->
+    <div id="deleteIcon" title="Delete Selected Items">
       <i class="fas fa-trash"></i>
     </div>
     
-    <!-- Main Content -->
     <main>
-      <!-- Small Hero Section -->
+      <!-- Hero Section: small, under the header -->
       <section class="cart-hero">
         <div class="container">
-          <h1>Review & Manage Your Cart</h1>
+          <h1>Review & Manage Cart</h1>
           <p>Make adjustments before checkout</p>
         </div>
       </section>
-      
-      <!-- Subheader with extra options -->
+
+      <!-- Subheader for extra icons/options -->
       <section class="cart-subheader">
         <div class="container">
           <div class="sub-title">Cart Options</div>
@@ -220,21 +222,21 @@
           <table class="table table-bordered cart-table">
             <thead class="table-light">
               <tr>
-                <th class="chk-col"><input type="checkbox" id="selectAll" onchange="toggleSelectAll(this)"></th>
+                <th style="width: 5%;">&nbsp;</th> <!-- No select all, just empty space -->
                 <th style="width: 15%;">Image</th>
                 <th style="width: 35%;">Product</th>
                 <th style="width: 15%;">Price (PKR)</th>
-                <th style="width: 20%;">Quantity</th>
+                <th style="width: 15%;">Quantity</th>
                 <th style="width: 15%;">Subtotal (PKR)</th>
               </tr>
             </thead>
             <tbody id="cartItemsContainer">
-              <!-- Cart items will be dynamically rendered here -->
+              <!-- Items rendered dynamically -->
             </tbody>
           </table>
         </div>
       </section>
-      
+
       <!-- Order Summary Section -->
       <section class="order-summary-section">
         <div class="container">
@@ -258,192 +260,4 @@
                   <span>Total:</span>
                   <span id="totalDisplay">0.00</span>
                 </div>
-                <div class="coupon-code">
-                  <input type="text" id="couponInput" placeholder="Enter Coupon Code">
-                  <button class="btn btn-outline-primary apply-coupon mt-2" onclick="applyCoupon()">Apply Coupon</button>
-                </div>
-                <button class="btn btn-success checkout-btn mt-3" onclick="proceedToCheckout()">Proceed to Checkout</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
-    
-    <!-- Footer Placeholder (loaded dynamically via loadHTML) -->
-    <div id="footer-placeholder"></div>
-    
-    <!-- Bootstrap 5 JS Bundle -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <!-- Script to load header and footer dynamically -->
-    <script>
-      function loadHTML(elementId, filePath) {
-        fetch(filePath)
-          .then(response => {
-            if (!response.ok) {
-              if (elementId === "header-placeholder") {
-                document.getElementById(elementId).innerHTML = '<header style="background:#333;color:#fff;padding:10px;text-align:center;">Header</header>';
-              } else if (elementId === "footer-placeholder") {
-                document.getElementById(elementId).innerHTML = '<footer style="background:#333;color:#fff;padding:10px;text-align:center;">Footer</footer>';
-              }
-              throw new Error("Error fetching " + filePath);
-            }
-            return response.text();
-          })
-          .then(html => {
-            document.getElementById(elementId).innerHTML = html;
-          })
-          .catch(error => console.error(error));
-      }
-      document.addEventListener("DOMContentLoaded", function() {
-        loadHTML("header-placeholder", "header.html");
-        loadHTML("footer-placeholder", "footer.html");
-      });
-    </script>
-    
-    <!-- Cart Functionality Script -->
-    <script>
-      // Dummy cart data – replace with real integration later
-      let cartItems = [
-        {
-          id: 1,
-          name: "Smartphone A",
-          price: 894,
-          quantity: 1,
-          image: "https://via.placeholder.com/100?text=Smartphone+A"
-        },
-        {
-          id: 2,
-          name: "Smart TV B",
-          price: 557,
-          quantity: 2,
-          image: "https://via.placeholder.com/100?text=Smart+TV+B"
-        },
-        {
-          id: 3,
-          name: "Laptop C",
-          price: 1004,
-          quantity: 1,
-          image: "https://via.placeholder.com/100?text=Laptop+C"
-        }
-      ];
-      
-      // Render cart items into the table
-      function renderCartItems() {
-        const container = document.getElementById("cartItemsContainer");
-        container.innerHTML = "";
-        cartItems.forEach((item, index) => {
-          const itemSubtotal = item.price * item.quantity;
-          const row = document.createElement("tr");
-          row.innerHTML = `
-            <td><input type="checkbox" class="item-checkbox" onchange="updateDeleteIcon()"></td>
-            <td><img src="${item.image}" alt="${item.name}"></td>
-            <td class="prod-name">${item.name}</td>
-            <td>${item.price}</td>
-            <td>
-              <div class="quantity-controls">
-                <button class="btn btn-sm btn-outline-secondary qty-minus" onclick="changeQuantity(${index}, -1)">-</button>
-                <input type="text" class="quantity-input" value="${item.quantity}" readonly ${item.quantity==0 ? 'class="quantity-zero"' : ""}>
-                <button class="btn btn-sm btn-outline-secondary qty-plus" onclick="changeQuantity(${index}, 1)">+</button>
-              </div>
-            </td>
-            <td id="itemSubtotal-${index}">${itemSubtotal.toFixed(2)}</td>
-          `;
-          container.appendChild(row);
-        });
-        updateSummary();
-      }
-      
-      // Update quantity
-      function changeQuantity(index, delta) {
-        const item = cartItems[index];
-        item.quantity = Math.max(0, item.quantity + delta);
-        renderCartItems();
-      }
-      
-      // Update global order summary
-      function updateSummary() {
-        let subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
-        let tax = subtotal * 0.10; // 10% tax
-        let discount = subtotal * couponDiscount;
-        let total = subtotal + tax + shippingCost - discount;
-        document.getElementById("subtotalDisplay").innerText = subtotal.toFixed(2);
-        document.getElementById("taxDisplay").innerText = tax.toFixed(2);
-        document.getElementById("shippingDisplay").innerText = shippingCost.toFixed(2);
-        document.getElementById("totalDisplay").innerText = total.toFixed(2);
-      }
-      
-      // Global coupon variables
-      let couponDiscount = 0;
-      let shippingCost = 150;
-      
-      function applyCoupon() {
-        const couponCode = document.getElementById("couponInput").value.trim().toUpperCase();
-        if (couponCode === "SAVE10") {
-          couponDiscount = 0.10;
-          alert("Coupon applied: 10% discount!");
-        } else if (couponCode === "SAVE20") {
-          couponDiscount = 0.20;
-          alert("Coupon applied: 20% discount!");
-        } else {
-          couponDiscount = 0;
-          alert("Invalid coupon code.");
-        }
-        updateSummary();
-      }
-      
-      function proceedToCheckout() {
-        alert("Proceeding to checkout...");
-      }
-      
-      // Global deletion functionality:
-      // When at least one checkbox is selected, show the delete icon.
-      function updateDeleteIcon() {
-        const checkboxes = document.querySelectorAll(".item-checkbox");
-        let anyChecked = Array.from(checkboxes).some(cb => cb.checked);
-        const deleteIcon = document.getElementById("deleteIcon");
-        if (anyChecked) {
-          deleteIcon.style.display = "block";
-        } else {
-          deleteIcon.style.display = "none";
-        }
-      }
-      
-      // When the delete icon is clicked, confirm and then delete the checked items.
-      document.getElementById("deleteIcon")?.addEventListener("click", function() {
-        if (confirm("Are you sure you want to delete the selected items?")) {
-          const checkboxes = document.querySelectorAll(".item-checkbox");
-          // Iterate backwards to safely remove items from array
-          for (let i = checkboxes.length - 1; i >= 0; i--) {
-            if (checkboxes[i].checked) {
-              cartItems.splice(i, 1);
-            }
-          }
-          renderCartItems();
-          // Hide the delete icon after deletion
-          document.getElementById("deleteIcon").style.display = "none";
-        }
-      });
-      
-      document.addEventListener("DOMContentLoaded", function() {
-        renderCartItems();
-      });
-    </script>
-    
-    <!--
-      How to Use Later:
-      1. The header and footer are loaded dynamically via loadHTML().
-      2. The small hero and subheader provide a quick overview and extra options (chat, track order, help).
-      3. The cart table is responsive and fixed to screen width – no horizontal scrolling.
-      4. Quantity controls: The plus button (green) increases quantity; the minus button (red) decreases quantity.
-         If quantity reaches 0, it is shown in red.
-      5. The first table column has checkboxes. When any checkbox is selected, a global delete icon (recycle bin)
-         appears in the top-right of the screen. Clicking this icon prompts a confirmation before deleting the selected items.
-      6. Order summary is automatically updated based on the cart data, tax, shipping, and any coupon applied.
-      
-      Later, you can integrate these functions with your backend (for example, Firebase) to handle real data,
-      authentication, and persistent cart management.
-    -->
-  </body>
-</html>
+                <div
