@@ -174,7 +174,7 @@
     </style>
   </head>
   <body>
-    <!-- Header Placeholder (Main linked header remains untouched) -->
+    <!-- Header Placeholder -->
     <div id="header-placeholder"></div>
     
     <main>
@@ -256,7 +256,7 @@
       </section>
     </main>
     
-    <!-- Footer Placeholder (Main linked footer remains untouched) -->
+    <!-- Footer Placeholder -->
     <div id="footer-placeholder"></div>
     
     <!-- Bootstrap 5 JS Bundle -->
@@ -268,6 +268,7 @@
         fetch(filePath)
           .then(response => {
             if (!response.ok) {
+              console.warn(filePath + " not found. Using default content for " + elementId);
               document.getElementById(elementId).innerHTML = defaultContent;
               return;
             }
@@ -276,24 +277,27 @@
           .then(html => {
             if (html) {
               document.getElementById(elementId).innerHTML = html;
+              console.log(filePath + " loaded successfully for " + elementId);
             }
           })
           .catch(error => {
+            console.error("Error loading " + filePath, error);
             document.getElementById(elementId).innerHTML = defaultContent;
-            console.error(error);
           });
       }
+      
       document.addEventListener("DOMContentLoaded", function() {
-        // Using an absolute path for header.html to ensure it loads correctly.
+        // Adjust these paths as necessary.
+        // If your cart page is in a subfolder, you might need "../header.html" instead.
         loadHTML(
           "header-placeholder",
-          "/header.html",
-          '<header style="background:#333;color:#fff;padding:10px;text-align:center;">Header</header>'
+          "header.html",
+          '<header style="background:#333;color:#fff;padding:10px;text-align:center;">Default Header</header>'
         );
         loadHTML(
           "footer-placeholder",
           "footer.html",
-          '<footer style="background:#333;color:#fff;padding:10px;text-align:center;">Footer</footer>'
+          '<footer style="background:#333;color:#fff;padding:10px;text-align:center;">Default Footer</footer>'
         );
       });
     </script>
