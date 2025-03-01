@@ -1,18 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8">  
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
-    <title>MyBusiness Premium</title>  
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MyBusiness Premium</title>
     <!-- Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
     <!-- Custom JavaScript -->
     <script src="script.js" defer></script>
+    <!-- Inline CSS fixes -->
+    <style>
+      /* Fix: Make header fixed */
+      header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+      }
+      /* Add top margin to main so content is not hidden behind fixed header */
+      main {
+        margin-top: 70px; /* Adjust this value if your header height changes */
+        padding-bottom: 100px; /* Prevent footer overlapping content */
+      }
+      /* (Optional) Ensure footer remains at bottom without overlapping main content */
+    </style>
   </head>
   <body>
-    <!-- Header Placeholder -->
+    <!-- Header Placeholder (will load header.html dynamically) -->
     <div id="header-placeholder"></div>
     
     <!-- Main Content -->
@@ -52,24 +72,19 @@
             </div>
           </div>
         </div>
-      </section>    
+      </section>
     </main>
     
-    <!-- Footer Placeholder -->
+    <!-- Footer Placeholder (will load footer.html dynamically) -->
     <div id="footer-placeholder"></div>
     
     <!-- Script to load header and footer dynamically -->
     <script>
-      /**
-       * Loads external HTML into a given element.
-       * @param {string} elementId - The ID of the element to load content into.
-       * @param {string} filePath - The path of the HTML file to load.
-       */
       function loadHTML(elementId, filePath) {
         fetch(filePath)
           .then(response => {
             if (!response.ok) {
-              throw new Error('Error fetching ' + filePath);
+              throw new Error("Error fetching " + filePath);
             }
             return response.text();
           })
@@ -80,8 +95,8 @@
       }
       
       document.addEventListener("DOMContentLoaded", function() {
-        loadHTML('header-placeholder', 'header.html');
-        loadHTML('footer-placeholder', 'footer.html');
+        loadHTML("header-placeholder", "header.html");
+        loadHTML("footer-placeholder", "footer.html");
       });
     </script>
   </body>
