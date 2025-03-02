@@ -12,7 +12,7 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css" />
     <style>
-      /* Hero Section with Engaging Title and Description */
+      /* Hero Section with Engaging Title and Brief Description */
       .hero-cart {
         background: #007bff;
         color: #fff;
@@ -30,6 +30,7 @@
       .hero-cart p {
         margin-top: 10px;
         font-size: 1rem;
+        line-height: 1.2;
       }
       
       /* Overall Cart Container */
@@ -39,7 +40,7 @@
         min-height: calc(100vh - 140px);
       }
       
-      /* Trash Bin Container (for deletion) */
+      /* Trash Bin Container for Deletion */
       #trash-bin-container {
         position: relative;
         display: inline-block;
@@ -50,7 +51,7 @@
         font-size: 2rem;
         color: blue;
       }
-      #trash-count {
+      #trash-bin-container #trash-count {
         position: absolute;
         bottom: -5px;
         right: -5px;
@@ -95,7 +96,7 @@
         color: #666;
       }
       
-      /* Vertical Quantity Controls on the RHS */
+      /* Vertical Quantity Controls on the Right */
       .quantity-vertical {
         display: flex;
         flex-direction: column;
@@ -221,7 +222,7 @@
     <section class="hero-cart">
       <div class="hero-content">
         <h1>Your Order Awaits</h1>
-        <p>Review your selected items, adjust quantities, and apply tokens for extra savings.</p>
+        <p>Adjust quantities and apply tokens for extra savings.</p>
       </div>
     </section>
     
@@ -236,7 +237,7 @@
       <div id="cart-items">
         <!-- Dynamic cart items will be rendered here -->
       </div>
-      <div class="cart-total" id="cart-total">Total: $0.00</div>
+      <div class="cart-total" id="cart-total">Total: Rs 0.00</div>
       <button class="checkout-button" id="checkout-button">
         Proceed to Checkout
       </button>
@@ -272,9 +273,9 @@
     <!-- External Footer -->
     <div id="footer-placeholder"></div>
     
-    <!-- JavaScript for cart functionality -->
+    <!-- JavaScript for Cart Functionality -->
     <script>
-      /* 
+      /*
          This frontend code uses dummy data and is structured for future integration with Firebase.
          Global state (cartItems, tokens, etc.) is maintained locally.
       */
@@ -303,8 +304,7 @@
         }
         cartItemsContainer.innerHTML = "";
         cartItems.forEach(item => {
-          // Each cart item with a checkbox, image, details (without multiplication calculation),
-          // and vertical quantity controls on the right.
+          // Each cart item with a checkbox, image, details (professional style), and vertical quantity controls.
           const itemEl = document.createElement("div");
           itemEl.className = "cart-item";
           itemEl.innerHTML = `
@@ -312,7 +312,7 @@
             <img src="${item.image}" alt="${item.name}" />
             <div class="cart-item-details">
               <h3>${item.name}</h3>
-              <p>$${item.price.toFixed(2)} each | Quantity: <span id="quantity-${item.id}">${item.quantity}</span></p>
+              <p>Price: Rs ${item.price.toFixed(2)} | Qty: <span id="quantity-${item.id}">${item.quantity}</span></p>
             </div>
             <div class="quantity-vertical">
               <button onclick="increaseQuantity(${item.id})" title="Increase Quantity">
@@ -328,7 +328,7 @@
         });
       };
       
-      // Increase and decrease functions use current state.
+      // Increase and decrease functions using current state.
       function increaseQuantity(itemId) {
         const index = cartItems.findIndex(item => item.id === itemId);
         if (index > -1) {
@@ -342,7 +342,7 @@
         }
       }
       
-      // Update only the quantity for a specific item.
+      // Update only the quantity and update corresponding DOM elements.
       function updateQuantity(itemId, newQuantity) {
         if (newQuantity < 1) return;
         const index = cartItems.findIndex(item => item.id === itemId);
@@ -368,14 +368,14 @@
           row.innerHTML = `
             <td>${item.name}</td>
             <td>${item.quantity}</td>
-            <td>$${item.price.toFixed(2)}</td>
-            <td>$${lineTotal.toFixed(2)}</td>
+            <td>Rs ${item.price.toFixed(2)}</td>
+            <td>Rs ${lineTotal.toFixed(2)}</td>
           `;
           receiptBody.appendChild(row);
         });
         const tokenDiscount = appliedTokens * 0.10;
         const finalTotal = Math.max(total - tokenDiscount, 0);
-        cartTotalContainer.innerText = "Total: $" + finalTotal.toFixed(2);
+        cartTotalContainer.innerText = "Total: Rs " + finalTotal.toFixed(2);
       }
       
       // Update trash bin count (number of selected items).
