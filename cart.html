@@ -83,7 +83,7 @@
       .cart-container {
         padding: 10px 0;
       }
-      /* Polished Card Style for the Cart Table with clear columns and fixed layout */
+      /* Polished Card Style for the Cart Table with clear columns */
       .cart-table {
         background: #fff;
         border-radius: 8px;
@@ -92,17 +92,16 @@
         margin-bottom: 20px;
         border-collapse: collapse;
         width: 100%;
-        table-layout: fixed; /* Force fixed column widths */
+        /* Removed table-layout: fixed; */
       }
-      .cart-table thead {
-        background-color: #f8f9fa;
-      }
+      /* Use colgroup in markup for fixed column widths */
       .cart-table th,
       .cart-table td {
         border: 1px solid #dee2e6;
         vertical-align: middle;
         text-align: center;
         padding: 0.75rem;
+        word-wrap: break-word;
       }
       /* Updated Quantity Controls */
       .quantity-controls {
@@ -127,7 +126,7 @@
         user-select: none;
       }
       .quantity-controls button:active {
-        /* Only change shadow to mimic 3D press without shifting layout */
+        /* Only adjust the box-shadow to mimic a 3D press without shifting layout */
         box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.3);
       }
       .quantity-input {
@@ -230,14 +229,22 @@
         <div class="container cart-container">
           <div class="table-responsive">
             <table class="table table-sm cart-table">
+              <colgroup>
+                <col style="width: 10%;" />
+                <col style="width: 30%;" />
+                <col style="width: 15%;" />
+                <col style="width: 20%;" />
+                <col style="width: 15%;" />
+                <col style="width: 10%;" />
+              </colgroup>
               <thead>
                 <tr>
-                  <th style="width: 10%;">Image</th>
-                  <th style="width: 30%;">Product</th>
-                  <th style="width: 15%;">Price (PKR)</th>
-                  <th style="width: 20%;">Quantity</th>
-                  <th style="width: 15%;">Subtotal (PKR)</th>
-                  <th style="width: 10%;">Action</th>
+                  <th>Image</th>
+                  <th>Product</th>
+                  <th>Price (PKR)</th>
+                  <th>Quantity</th>
+                  <th>Subtotal (PKR)</th>
+                  <th>Action</th>
                 </tr>
               </thead>
               <tbody id="cartItemsContainer">
