@@ -83,37 +83,53 @@
       .cart-container {
         padding: 10px 0;
       }
+      /* Polished Card Style for the Cart Table */
       .cart-table {
-        font-size: 0.85rem;
+        background: #fff;
+        border-radius: 8px;
+        overflow: hidden; /* Ensure rounded corners */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        border: none;
+        margin-bottom: 20px;
+      }
+      .cart-table thead {
+        background-color: #f8f9fa; /* Light header background */
       }
       .cart-table th,
       .cart-table td {
+        border: none; /* Remove default borders */
         vertical-align: middle;
         text-align: center;
-        padding: 0.5rem;
+        padding: 0.75rem;
       }
-      .cart-table img {
-        max-width: 50px;
-        border-radius: 5px;
+      /* Optional divider between rows */
+      .cart-table tbody tr:not(:last-child) {
+        border-bottom: 1px solid #dee2e6;
       }
-      /* Quantity Controls */
-      .quantity-controls {
-        display: inline-flex;
-        align-items: center;
-      }
+      /* Refined styling for Quantity Controls */
       .quantity-controls button {
-        padding: 2px 4px;
-        font-size: 0.75rem;
+        border: 1px solid #ced4da;
+        background: #fff;
+        color: #333;
+        padding: 4px 8px;
+        font-size: 1rem;
+        line-height: 1;
+        border-radius: 4px;
+        transition: background-color 0.2s ease, color 0.2s ease;
+      }
+      .quantity-controls button:hover {
+        background-color: #e9ecef;
+        color: #007bff;
       }
       .quantity-input {
-        width: 30px;
+        width: 40px;
         text-align: center;
         border: 1px solid #ced4da;
-        border-radius: 3px;
-        margin: 0 3px;
-        padding: 2px;
+        border-radius: 4px;
+        margin: 0 5px;
+        padding: 4px;
       }
-      /* Order Summary */
+      /* Order Summary Section */
       .order-summary {
         background: #fff;
         padding: 15px;
