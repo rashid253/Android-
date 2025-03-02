@@ -12,7 +12,7 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css" />
     <style>
-      /* Hero Section with Engaging Title and Description */
+      /* Hero Section with Engaging Title and Concise Description */
       .hero-cart {
         background: #007bff;
         color: #fff;
@@ -30,6 +30,8 @@
       .hero-cart p {
         margin-top: 10px;
         font-size: 1rem;
+        /* Ensure the description stays in one line if possible */
+        white-space: nowrap;
       }
       
       /* Overall Cart Container */
@@ -50,7 +52,7 @@
         font-size: 2rem;
         color: blue;
       }
-      #trash-count {
+      #trash-bin-container #trash-count {
         position: absolute;
         bottom: -5px;
         right: -5px;
@@ -69,7 +71,7 @@
         background: #fff;
         border-radius: 8px;
         margin-bottom: 15px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       }
       .cart-item input[type="checkbox"] {
         margin-right: 10px;
@@ -95,7 +97,7 @@
         color: #666;
       }
       
-      /* Vertical Quantity Controls on the RHS */
+      /* Vertical Quantity Controls on the Right */
       .quantity-vertical {
         display: flex;
         flex-direction: column;
@@ -221,7 +223,7 @@
     <section class="hero-cart">
       <div class="hero-content">
         <h1>Your Order Awaits</h1>
-        <p>Review your selected items, adjust quantities, and apply tokens for extra savings.</p>
+        <p>Review your items and adjust quantities for extra savings.</p>
       </div>
     </section>
     
@@ -236,7 +238,7 @@
       <div id="cart-items">
         <!-- Dynamic cart items will be rendered here -->
       </div>
-      <div class="cart-total" id="cart-total">Total: $0.00</div>
+      <div class="cart-total" id="cart-total">Total: Rs 0.00</div>
       <button class="checkout-button" id="checkout-button">
         Proceed to Checkout
       </button>
@@ -272,7 +274,7 @@
     <!-- External Footer -->
     <div id="footer-placeholder"></div>
     
-    <!-- JavaScript for cart functionality -->
+    <!-- JavaScript for Cart Functionality -->
     <script>
       /* 
          This frontend code uses dummy data and is structured for future integration with Firebase.
@@ -303,8 +305,7 @@
         }
         cartItemsContainer.innerHTML = "";
         cartItems.forEach(item => {
-          // Each cart item with a checkbox, image, details (without multiplication calculation),
-          // and vertical quantity controls on the right.
+          // Each cart item with a checkbox, image, professional details, and vertical quantity controls.
           const itemEl = document.createElement("div");
           itemEl.className = "cart-item";
           itemEl.innerHTML = `
@@ -312,7 +313,7 @@
             <img src="${item.image}" alt="${item.name}" />
             <div class="cart-item-details">
               <h3>${item.name}</h3>
-              <p>$${item.price.toFixed(2)} each | Quantity: <span id="quantity-${item.id}">${item.quantity}</span></p>
+              <p>Price: Rs ${item.price.toFixed(2)} | Qty: <span id="quantity-${item.id}">${item.quantity}</span></p>
             </div>
             <div class="quantity-vertical">
               <button onclick="increaseQuantity(${item.id})" title="Increase Quantity">
@@ -328,7 +329,7 @@
         });
       };
       
-      // Increase and decrease functions use current state.
+      // Increase and decrease functions using current state.
       function increaseQuantity(itemId) {
         const index = cartItems.findIndex(item => item.id === itemId);
         if (index > -1) {
@@ -368,14 +369,14 @@
           row.innerHTML = `
             <td>${item.name}</td>
             <td>${item.quantity}</td>
-            <td>$${item.price.toFixed(2)}</td>
-            <td>$${lineTotal.toFixed(2)}</td>
+            <td>Rs ${item.price.toFixed(2)}</td>
+            <td>Rs ${lineTotal.toFixed(2)}</td>
           `;
           receiptBody.appendChild(row);
         });
         const tokenDiscount = appliedTokens * 0.10;
         const finalTotal = Math.max(total - tokenDiscount, 0);
-        cartTotalContainer.innerText = "Total: $" + finalTotal.toFixed(2);
+        cartTotalContainer.innerText = "Total: Rs " + finalTotal.toFixed(2);
       }
       
       // Update trash bin count (number of selected items).
@@ -396,14 +397,16 @@
         updateTrashCount();
       }
       
-      // Load external HTML for header and footer.
+      // Load external HTML for header and footer; return promise for header.
       const loadHTML = (elementId, filePath) => {
-        fetch(filePath)
+        return fetch(filePath)
           .then(response => {
             if (!response.ok) throw new Error("Error fetching " + filePath);
             return response.text();
           })
-          .then(html => { document.getElementById(elementId).innerHTML = html; })
+          .then(html => {
+            document.getElementById(elementId).innerHTML = html;
+          })
           .catch(error => console.error(error));
       };
       
@@ -440,7 +443,9 @@
       document.addEventListener("DOMContentLoaded", () => {
         renderCartItems();
         updateTotals();
-        loadHTML("header-placeholder", "header.html");
+        loadHTML("header-placeholder", "header.html").then(() => {
+          activateHeaderMenu();
+        });
         loadHTML("footer-placeholder", "footer.html");
         document.addEventListener("change", event => {
           if (event.target.classList.contains("delete-checkbox")) {
@@ -453,7 +458,6 @@
           alert("Proceeding to checkout...");
         });
         document.getElementById("user-tokens").innerText = userTokens;
-        activateHeaderMenu();
       });
     </script>
   </body>
