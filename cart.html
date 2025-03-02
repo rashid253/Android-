@@ -12,18 +12,27 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css" />
     <style>
+      /* Hero Section for the Cart Title */
+      .hero-cart {
+        background: #007bff;
+        color: #fff;
+        padding: 60px 20px;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .hero-cart h1 {
+        font-size: 2.5rem;
+        margin: 0;
+      }
+      
       /* Overall Cart Container */
       .cart-container {
         padding: 20px;
         background: #f4f4f4;
         min-height: calc(100vh - 140px);
       }
-      .cart-container h1 {
-        margin-bottom: 20px;
-        font-size: 2rem;
-        color: #007bff;
-      }
-      /* Trash Bin Container (for deletion) */
+      
+      /* Trash Bin Container for deletion (blue trash bin with red count badge) */
       #trash-bin-container {
         position: relative;
         display: inline-block;
@@ -34,7 +43,6 @@
         font-size: 2rem;
         color: blue;
       }
-      /* Red round label on trash bin */
       #trash-count {
         position: absolute;
         bottom: -5px;
@@ -45,6 +53,7 @@
         padding: 2px 6px;
         font-size: 0.8rem;
       }
+      
       /* Cart Item Styles */
       .cart-item {
         display: flex;
@@ -53,7 +62,7 @@
         background: #fff;
         border-radius: 8px;
         margin-bottom: 15px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
       }
       .cart-item input[type="checkbox"] {
         margin-right: 10px;
@@ -64,7 +73,6 @@
         object-fit: cover;
         border-radius: 4px;
         margin-right: 15px;
-        /* Prevent reflow or flicker */
         display: block;
       }
       .cart-item-details {
@@ -79,7 +87,8 @@
         margin: 4px 0 10px 0;
         color: #666;
       }
-      /* Vertical Quantity Controls on the RHS */
+      
+      /* Vertical Quantity Controls on the Right */
       .quantity-vertical {
         display: flex;
         flex-direction: column;
@@ -104,6 +113,7 @@
         min-width: 20px;
         text-align: center;
       }
+      
       /* Cart Total and Checkout */
       .cart-total {
         text-align: right;
@@ -132,6 +142,7 @@
         margin-top: 50px;
         color: #666;
       }
+      
       /* Detailed Receipt Section */
       .receipt {
         margin-top: 30px;
@@ -158,6 +169,7 @@
       .receipt th {
         background: #f4f4f4;
       }
+      
       /* Token System Section */
       .token-section {
         margin-top: 30px;
@@ -198,11 +210,16 @@
     <!-- External Header -->
     <div id="header-placeholder"></div>
     
+    <!-- Hero Section for Cart Title -->
+    <section class="hero-cart">
+      <div class="hero-content">
+        <h1>Your Shopping Cart</h1>
+      </div>
+    </section>
+    
     <!-- Main Cart Content -->
     <main class="cart-container">
-      <h1>Your Shopping Cart</h1>
-      
-      <!-- Trash Bin Icon with Count -->
+      <!-- Trash Bin Icon for Deletion -->
       <div id="trash-bin-container" title="Delete selected items">
         <i class="fas fa-trash-alt"></i>
         <div id="trash-count">0</div>
@@ -249,9 +266,9 @@
     
     <!-- JavaScript for cart functionality -->
     <script>
-      /*
-        This frontend code uses dummy data and is structured for future integration with Firebase.
-        We maintain a global state for cart items and tokens.
+      /* 
+         This frontend code uses dummy data and is structured for future integration with Firebase.
+         Global state (cartItems, tokens, etc.) is maintained locally.
       */
       
       // Global cart items (dummy data)
@@ -269,7 +286,7 @@
       let updateTimer;
       const DEBOUNCE_DELAY = 300; // milliseconds
       
-      // Render the cart items list (only once on page load)
+      // Render the cart items list (initial rendering)
       const renderCartItems = () => {
         const cartItemsContainer = document.getElementById("cart-items");
         if (cartItems.length === 0) {
@@ -293,11 +310,11 @@
               </p>
             </div>
             <div class="quantity-vertical">
-              <button onclick="updateQuantity(${item.id}, ${item.quantity + 1})" title="Increase Quantity">
+              <button onclick="increaseQuantity(${item.id})" title="Increase Quantity">
                 <i class="fas fa-plus"></i>
               </button>
               <span id="vertical-qty-${item.id}">${item.quantity}</span>
-              <button onclick="updateQuantity(${item.id}, ${item.quantity - 1})" title="Decrease Quantity">
+              <button onclick="decreaseQuantity(${item.id})" title="Decrease Quantity">
                 <i class="fas fa-minus"></i>
               </button>
             </div>
@@ -306,23 +323,35 @@
         });
       };
       
-      // Update only the quantity and line total for a specific item
+      // Increase and decrease functions use the current state to adjust quantity.
+      function increaseQuantity(itemId) {
+        const index = cartItems.findIndex(item => item.id === itemId);
+        if (index > -1) {
+          updateQuantity(itemId, cartItems[index].quantity + 1);
+        }
+      }
+      function decreaseQuantity(itemId) {
+        const index = cartItems.findIndex(item => item.id === itemId);
+        if (index > -1 && cartItems[index].quantity > 1) {
+          updateQuantity(itemId, cartItems[index].quantity - 1);
+        }
+      }
+      
+      // Update only the quantity and line total for a specific item.
       function updateQuantity(itemId, newQuantity) {
         if (newQuantity < 1) return;
         const index = cartItems.findIndex(item => item.id === itemId);
         if (index > -1) {
           cartItems[index].quantity = newQuantity;
-          // Directly update the DOM elements for quantity and line total
           document.getElementById("quantity-" + itemId).innerText = newQuantity;
           document.getElementById("vertical-qty-" + itemId).innerText = newQuantity;
           document.getElementById("lineTotal-" + itemId).innerText = (cartItems[index].price * newQuantity).toFixed(2);
-          // Use debounce to update totals after rapid clicks
           clearTimeout(updateTimer);
           updateTimer = setTimeout(updateTotals, DEBOUNCE_DELAY);
         }
       }
       
-      // Update global total and detailed receipt
+      // Update global total and detailed receipt.
       function updateTotals() {
         const cartTotalContainer = document.getElementById("cart-total");
         const receiptBody = document.getElementById("receipt-body");
@@ -331,7 +360,6 @@
         cartItems.forEach(item => {
           const lineTotal = item.price * item.quantity;
           total += lineTotal;
-          // Build receipt row for each item
           const row = document.createElement("tr");
           row.innerHTML = `
             <td>${item.name}</td>
@@ -341,27 +369,24 @@
           `;
           receiptBody.appendChild(row);
         });
-        // Apply token discount (each token = $0.10 discount)
         const tokenDiscount = appliedTokens * 0.10;
         const finalTotal = Math.max(total - tokenDiscount, 0);
         cartTotalContainer.innerText = "Total: $" + finalTotal.toFixed(2);
       }
       
-      // Update trash bin count (number of selected items)
+      // Update trash bin count (number of selected items).
       function updateTrashCount() {
         const checkedBoxes = document.querySelectorAll(".delete-checkbox:checked");
         document.getElementById("trash-count").innerText = checkedBoxes.length;
       }
       
-      // Delete selected items when trash bin is clicked
+      // Delete selected items when trash bin is clicked.
       function deleteSelectedItems() {
         const checkedBoxes = document.querySelectorAll(".delete-checkbox:checked");
         if (checkedBoxes.length === 0) return;
         if (!confirm("Are you sure you want to delete the selected items?")) return;
         const idsToDelete = Array.from(checkedBoxes).map(cb => parseInt(cb.getAttribute("data-id")));
-        // Remove items from the global array
         cartItems = cartItems.filter(item => !idsToDelete.includes(item.id));
-        // Re-render cart items and update totals
         renderCartItems();
         updateTotals();
         updateTrashCount();
@@ -413,21 +438,16 @@
         updateTotals();
         loadHTML("header-placeholder", "header.html");
         loadHTML("footer-placeholder", "footer.html");
-        // Update trash count when checkboxes change.
         document.addEventListener("change", event => {
           if (event.target.classList.contains("delete-checkbox")) {
             updateTrashCount();
           }
         });
-        // Trash bin click handler.
         document.getElementById("trash-bin-container").addEventListener("click", deleteSelectedItems);
-        // Apply tokens button.
         document.getElementById("apply-tokens").addEventListener("click", applyTokens);
-        // Checkout button.
         document.getElementById("checkout-button").addEventListener("click", () => {
           alert("Proceeding to checkout...");
         });
-        // Display available tokens.
         document.getElementById("user-tokens").innerText = userTokens;
         activateHeaderMenu();
       });
