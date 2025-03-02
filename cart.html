@@ -12,7 +12,7 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css" />
     <style>
-      /* Enhanced Cart Page Styles */
+      /* Additional styles specific for the Cart page */
       .cart-container {
         padding: 20px;
         background: #f4f4f4;
@@ -22,16 +22,15 @@
         margin-bottom: 20px;
         font-size: 2rem;
         color: #007bff;
-        text-align: center;
       }
       .cart-item {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        background: #fff;
         padding: 15px;
-        margin-bottom: 15px;
+        background: #fff;
         border-radius: 8px;
+        margin-bottom: 15px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       }
       .cart-item img {
@@ -45,111 +44,66 @@
         flex: 1;
       }
       .cart-item-details h3 {
-        margin: 0 0 8px 0;
+        font-size: 1.2rem;
+        margin-bottom: 8px;
         color: #333;
       }
       .cart-item-details p {
-        margin: 0 0 10px 0;
         color: #666;
+        margin: 0 0 10px 0;
       }
-      .quantity-controls {
+      .cart-item-quantity {
         display: flex;
         align-items: center;
-        margin-top: 8px;
+        gap: 8px;
       }
-      .qty-btn {
+      .cart-item-quantity button {
         background: #007bff;
-        color: #fff;
         border: none;
-        padding: 5px 10px;
-        cursor: pointer;
-        font-size: 1rem;
+        color: #fff;
+        padding: 5px 8px;
         border-radius: 4px;
-        transition: background 0.3s;
+        cursor: pointer;
+        transition: background-color 0.3s;
       }
-      .qty-btn:hover {
+      .cart-item-quantity button:hover {
         background: #0069d9;
       }
-      .qty-value {
-        margin: 0 10px;
-        font-size: 1rem;
+      .cart-item-quantity span {
         min-width: 20px;
         text-align: center;
+        font-size: 1rem;
       }
       .cart-item-actions {
         display: flex;
+        flex-direction: column;
         align-items: center;
+        gap: 8px;
       }
-      .cart-item-actions button.remove-item {
+      .cart-item-actions button {
         background: none;
         border: none;
-        color: #dc3545;
+        cursor: pointer;
+        color: #007bff;
         font-size: 1.2rem;
-        cursor: pointer;
-        margin-left: 10px;
       }
-      .cart-summary {
-        background: #fff;
-        padding: 15px;
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        max-width: 400px;
-        margin: 20px auto;
-        font-size: 1.1rem;
-      }
-      .cart-summary div {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 10px;
-      }
-      .coupon-container {
-        text-align: center;
-        margin: 20px 0;
-      }
-      .coupon-container input {
-        padding: 8px;
-        font-size: 1rem;
-        width: 200px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        margin-right: 10px;
-      }
-      .coupon-container button {
-        padding: 8px 15px;
-        font-size: 1rem;
-        border: none;
-        background: #28a745;
-        color: #fff;
-        border-radius: 4px;
-        cursor: pointer;
-        transition: background 0.3s;
-      }
-      .coupon-container button:hover {
-        background: #218838;
-      }
-      .cart-actions {
-        text-align: center;
+      .cart-total {
+        text-align: right;
+        font-size: 1.3rem;
+        font-weight: bold;
         margin-top: 20px;
-      }
-      .cart-actions button {
-        padding: 12px 25px;
-        font-size: 1rem;
-        border: none;
-        border-radius: 25px;
-        cursor: pointer;
-        transition: background 0.3s;
-        margin: 0 10px;
-      }
-      .update-cart {
-        background: #007bff;
-        color: #fff;
-      }
-      .update-cart:hover {
-        background: #0069d9;
       }
       .checkout-button {
         background: #28a745;
+        border: none;
         color: #fff;
+        padding: 12px 25px;
+        font-size: 1rem;
+        border-radius: 25px;
+        cursor: pointer;
+        margin-top: 20px;
+        float: right;
+        transition: background-color 0.3s;
       }
       .checkout-button:hover {
         background: #218838;
@@ -157,8 +111,8 @@
       .empty-cart {
         text-align: center;
         font-size: 1.2rem;
-        color: #666;
         margin-top: 50px;
+        color: #666;
       }
     </style>
   </head>
@@ -170,50 +124,114 @@
     <main class="cart-container">
       <h1>Your Shopping Cart</h1>
       <div id="cart-items">
-        <!-- Cart items will be dynamically rendered here -->
+        <!-- Dynamic cart items will be rendered here -->
       </div>
-
-      <!-- Cart Summary Section -->
-      <div class="cart-summary">
-        <div>
-          <span>Subtotal:</span>
-          <span id="subtotal">$0.00</span>
-        </div>
-        <div>
-          <span>Discount:</span>
-          <span id="discount">$0.00</span>
-        </div>
-        <div>
-          <span>Total:</span>
-          <span id="total">$0.00</span>
-        </div>
-      </div>
-
-      <!-- Coupon Code Section -->
-      <div class="coupon-container">
-        <input type="text" id="coupon-code" placeholder="Enter coupon code" />
-        <button id="apply-coupon">Apply Coupon</button>
-      </div>
-
-      <!-- Action Buttons -->
-      <div class="cart-actions">
-        <button id="update-cart" class="update-cart">Update Cart</button>
-        <button id="checkout-button" class="checkout-button">
-          Proceed to Checkout
-        </button>
-      </div>
+      <div class="cart-total" id="cart-total">Total: $0.00</div>
+      <button class="checkout-button" id="checkout-button">
+        Proceed to Checkout
+      </button>
     </main>
 
     <!-- External Footer -->
     <div id="footer-placeholder"></div>
 
-    <!-- JavaScript for Cart Functionality -->
+    <!-- JavaScript for cart functionality -->
     <script>
       /* 
         This frontend code is built using dummy data and is structured to be easily integrated with a Firebase backend in the future.
-        The fetchCartItems() function simulates data fetching, to be replaced by Firebase Firestore API calls.
+        The fetchCartItems() function currently simulates data fetching and will later be replaced by Firebase Firestore API calls.
         Authentication and data persistence will be handled via Firebase, allowing for dynamic and secure data management.
       */
+
+      // Simulated fetch function for cart items (dummy data)
+      const fetchCartItems = () => [
+        {
+          id: 1,
+          name: "Product 1",
+          price: 29.99,
+          quantity: 1,
+          image: "https://via.placeholder.com/80"
+        },
+        {
+          id: 2,
+          name: "Product 2",
+          price: 49.99,
+          quantity: 2,
+          image: "https://via.placeholder.com/80"
+        },
+        {
+          id: 3,
+          name: "Product 3",
+          price: 19.99,
+          quantity: 1,
+          image: "https://via.placeholder.com/80"
+        }
+      ];
+
+      // Store cart items in a global variable for easy state management
+      let cartItems = fetchCartItems();
+
+      // Render the cart items and update the total dynamically
+      const renderCart = () => {
+        const cartItemsContainer = document.getElementById("cart-items");
+        const cartTotalContainer = document.getElementById("cart-total");
+
+        if (cartItems.length === 0) {
+          cartItemsContainer.innerHTML =
+            '<p class="empty-cart">Your cart is empty.</p>';
+          cartTotalContainer.innerText = "Total: $0.00";
+          return;
+        }
+
+        let total = 0;
+        cartItemsContainer.innerHTML = "";
+        cartItems.forEach((item) => {
+          total += item.price * item.quantity;
+          const itemEl = document.createElement("div");
+          itemEl.className = "cart-item";
+          itemEl.innerHTML = `
+            <img src="${item.image}" alt="${item.name}" />
+            <div class="cart-item-details">
+              <h3>${item.name}</h3>
+              <p>$${item.price.toFixed(2)} x ${item.quantity}</p>
+              <div class="cart-item-quantity">
+                <button onclick="updateQuantity(${item.id}, ${item.quantity - 1})" title="Decrease Quantity">
+                  <i class="fas fa-minus"></i>
+                </button>
+                <span id="quantity-${item.id}">${item.quantity}</span>
+                <button onclick="updateQuantity(${item.id}, ${item.quantity + 1})" title="Increase Quantity">
+                  <i class="fas fa-plus"></i>
+                </button>
+              </div>
+            </div>
+            <div class="cart-item-actions">
+              <button onclick="removeItem(${item.id})" title="Remove">
+                <i class="fas fa-trash-alt"></i>
+              </button>
+            </div>
+          `;
+          cartItemsContainer.appendChild(itemEl);
+        });
+        cartTotalContainer.innerText = "Total: $" + total.toFixed(2);
+      };
+
+      // Update the quantity for a specific item and re-render the cart
+      function updateQuantity(itemId, newQuantity) {
+        if (newQuantity < 1) {
+          return; // Prevent quantity from dropping below 1
+        }
+        const index = cartItems.findIndex(item => item.id === itemId);
+        if (index > -1) {
+          cartItems[index].quantity = newQuantity;
+          renderCart();
+        }
+      }
+
+      // Remove an item from the cart and re-render
+      function removeItem(itemId) {
+        cartItems = cartItems.filter(item => item.id !== itemId);
+        renderCart();
+      }
 
       // Load external HTML for header and footer
       const loadHTML = (elementId, filePath) => {
@@ -230,152 +248,16 @@
           .catch((error) => console.error(error));
       };
 
-      // Dummy cart data; to be replaced with Firebase data integration in the future.
-      let cartItems = [
-        {
-          id: 1,
-          name: "Product 1",
-          price: 29.99,
-          quantity: 1,
-          image: "https://via.placeholder.com/80",
-        },
-        {
-          id: 2,
-          name: "Product 2",
-          price: 49.99,
-          quantity: 2,
-          image: "https://via.placeholder.com/80",
-        },
-        {
-          id: 3,
-          name: "Product 3",
-          price: 19.99,
-          quantity: 1,
-          image: "https://via.placeholder.com/80",
-        },
-      ];
-      let appliedCoupon = null;
-
-      // Render cart items to the DOM with plus/minus buttons
-      function renderCart() {
-        const container = document.getElementById("cart-items");
-        container.innerHTML = "";
-        if (cartItems.length === 0) {
-          container.innerHTML =
-            '<p class="empty-cart">Your cart is empty.</p>';
-        } else {
-          cartItems.forEach((item) => {
-            const itemEl = document.createElement("div");
-            itemEl.className = "cart-item";
-            itemEl.innerHTML = `
-              <img src="${item.image}" alt="${item.name}" />
-              <div class="cart-item-details">
-                <h3>${item.name}</h3>
-                <p>$${item.price.toFixed(2)}</p>
-                <div class="quantity-controls">
-                  <button class="qty-btn" onclick="decrementQuantity(${item.id})">
-                    <i class="fas fa-minus"></i>
-                  </button>
-                  <span class="qty-value" id="qty-${item.id}">${item.quantity}</span>
-                  <button class="qty-btn" onclick="incrementQuantity(${item.id})">
-                    <i class="fas fa-plus"></i>
-                  </button>
-                </div>
-              </div>
-              <div class="cart-item-actions">
-                <button class="remove-item" onclick="removeItem(${item.id})" title="Remove">
-                  <i class="fas fa-trash-alt"></i>
-                </button>
-              </div>
-            `;
-            container.appendChild(itemEl);
-          });
-        }
-        calculateTotals();
-      }
-
-      // Increase item quantity
-      function incrementQuantity(id) {
-        const item = cartItems.find(item => item.id === id);
-        if (item) {
-          item.quantity++;
-          document.getElementById(`qty-${id}`).innerText = item.quantity;
-          calculateTotals();
-        }
-      }
-
-      // Decrease item quantity ensuring it does not go below 1
-      function decrementQuantity(id) {
-        const item = cartItems.find(item => item.id === id);
-        if (item && item.quantity > 1) {
-          item.quantity--;
-          document.getElementById(`qty-${id}`).innerText = item.quantity;
-          calculateTotals();
-        }
-      }
-
-      // Remove an item from the cart with confirmation
-      function removeItem(id) {
-        if (confirm("Are you sure you want to remove this item?")) {
-          cartItems = cartItems.filter((item) => item.id !== id);
-          renderCart();
-        }
-      }
-
-      // Calculate subtotal, discount, and total
-      function calculateTotals() {
-        let subtotal = 0;
-        cartItems.forEach((item) => {
-          subtotal += item.price * item.quantity;
-        });
-        let discount = 0;
-        if (appliedCoupon === "SAVE10") {
-          discount = subtotal * 0.1;
-        }
-        const total = subtotal - discount;
-        document.getElementById("subtotal").innerText =
-          "$" + subtotal.toFixed(2);
-        document.getElementById("discount").innerText =
-          "$" + discount.toFixed(2);
-        document.getElementById("total").innerText = "$" + total.toFixed(2);
-      }
-
-      // Apply coupon code logic (dummy implementation)
-      function applyCoupon() {
-        const couponInput = document.getElementById("coupon-code");
-        const coupon = couponInput.value.trim().toUpperCase();
-        if (coupon === "SAVE10") {
-          appliedCoupon = coupon;
-          alert("Coupon applied: 10% off!");
-        } else {
-          appliedCoupon = null;
-          alert("Invalid coupon code.");
-        }
-        calculateTotals();
-      }
-
-      // Simulate saving updated cart data
-      function updateCart() {
-        alert("Cart updated!");
-        calculateTotals();
-      }
-
       // Initialize the cart page on DOM load
       document.addEventListener("DOMContentLoaded", () => {
+        renderCart();
         loadHTML("header-placeholder", "header.html");
         loadHTML("footer-placeholder", "footer.html");
-        renderCart();
-        document
-          .getElementById("apply-coupon")
-          .addEventListener("click", applyCoupon);
-        document
-          .getElementById("update-cart")
-          .addEventListener("click", updateCart);
-        document
-          .getElementById("checkout-button")
-          .addEventListener("click", () => {
-            alert("Proceeding to checkout...");
-          });
+
+        document.getElementById("checkout-button").addEventListener("click", () => {
+          // Future implementation: trigger Firebase Authentication & payment flow.
+          alert("Proceeding to checkout...");
+        });
       });
     </script>
   </body>
