@@ -12,9 +12,12 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css" />
     <style>
-      /* Mobile-first styles */
-
-      /* Hero Section with Engaging Title and Brief Description */
+      /* Prevent horizontal overflow */
+      html, body {
+        overflow-x: hidden;
+      }
+      
+      /* Hero Section with Engaging Title and Concise Description */
       .hero-cart {
         background: #007bff;
         color: #fff;
@@ -32,16 +35,17 @@
       .hero-cart p {
         margin-top: 8px;
         font-size: 0.95rem;
-        white-space: nowrap;
+        /* Allow wrapping so the description doesn't force horizontal scroll */
+        white-space: normal;
       }
-
+      
       /* Overall Cart Container */
       .cart-container {
         padding: 15px;
         background: #f4f4f4;
         min-height: calc(100vh - 120px);
       }
-
+      
       /* Trash Bin Container (for deletion) */
       #trash-bin-container {
         position: relative;
@@ -63,7 +67,7 @@
         padding: 2px 6px;
         font-size: 0.8rem;
       }
-
+      
       /* Cart Item Styles */
       .cart-item {
         display: flex;
@@ -98,7 +102,7 @@
         color: #666;
         font-size: 0.95rem;
       }
-
+      
       /* Vertical Quantity Controls on the Right */
       .quantity-vertical {
         display: flex;
@@ -124,7 +128,7 @@
         min-width: 20px;
         text-align: center;
       }
-
+      
       /* Cart Total and Checkout */
       .cart-total {
         text-align: right;
@@ -153,7 +157,7 @@
         margin-top: 20px;
         color: #666;
       }
-
+      
       /* Detailed Receipt Section */
       .receipt {
         margin-top: 20px;
@@ -181,7 +185,7 @@
       .receipt th {
         background: #f4f4f4;
       }
-
+      
       /* Token System Section */
       .token-section {
         margin-top: 20px;
@@ -216,7 +220,7 @@
       .token-section button:hover {
         background: #218838;
       }
-
+      
       /* Media Query for larger screens */
       @media (min-width: 600px) {
         .cart-container {
