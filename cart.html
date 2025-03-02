@@ -24,6 +24,7 @@
         color: #007bff;
       }
       .cart-item {
+        position: relative;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -49,14 +50,13 @@
         color: #333;
       }
       .cart-item-details p {
-        margin: 4px 0;
         color: #666;
+        margin: 4px 0 10px 0;
       }
       .quantity-controls {
         display: flex;
         align-items: center;
         gap: 8px;
-        margin-top: 8px;
       }
       .quantity-controls button {
         background: #007bff;
@@ -75,18 +75,19 @@
         text-align: center;
         font-size: 1rem;
       }
-      .cart-item-actions {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 8px;
-      }
-      .cart-item-actions button {
+      /* Close button in the top right-hand corner */
+      .close-btn {
+        position: absolute;
+        top: 8px;
+        right: 8px;
         background: none;
         border: none;
+        font-size: 1.5rem;
+        color: #dc3545;
         cursor: pointer;
-        color: #007bff;
-        font-size: 1.2rem;
+      }
+      .close-btn:hover {
+        color: #c82333;
       }
       .cart-total {
         text-align: right;
@@ -115,7 +116,7 @@
         margin-top: 50px;
         color: #666;
       }
-      /* Detailed Receipt */
+      /* Detailed Receipt Section */
       .receipt {
         margin-top: 30px;
         background: #fff;
@@ -228,7 +229,7 @@
       /*
         This frontend code is built using dummy data and is structured to be easily integrated with a Firebase backend in the future.
         The fetchCartItems() simulation and global state management here will later be replaced with Firebase Firestore API calls.
-        Authentication and data persistence will be handled via Firebase, allowing for dynamic and secure data management.
+        Authentication and data persistence will be handled via Firebase.
       */
       
       // Global cart items (dummy data)
@@ -282,10 +283,11 @@
           const lineTotal = item.price * item.quantity;
           total += lineTotal;
           
-          // Render cart item with plus/minus controls.
+          // Render cart item with quantity controls inside details and a close button at top right.
           const itemEl = document.createElement("div");
           itemEl.className = "cart-item";
           itemEl.innerHTML = `
+            <button class="close-btn" onclick="removeItem(${item.id})" title="Remove">&times;</button>
             <img src="${item.image}" alt="${item.name}" />
             <div class="cart-item-details">
               <h3>${item.name}</h3>
@@ -299,11 +301,6 @@
                   <i class="fas fa-plus"></i>
                 </button>
               </div>
-            </div>
-            <div class="cart-item-actions">
-              <button onclick="removeItem(${item.id})" title="Remove">
-                <i class="fas fa-trash-alt"></i>
-              </button>
             </div>
           `;
           cartItemsContainer.appendChild(itemEl);
