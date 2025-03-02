@@ -7,201 +7,64 @@
     <!-- Google Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
     <!-- Font Awesome for icons -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <!-- Bootstrap 5 CSS -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css" />
     <!-- Inline CSS for Cart Page -->
     <style>
-      body {
-        font-family: 'Roboto', sans-serif;
-        background-color: #f8f9fa;
-      }
-      main {
-        margin-top: 0 !important;
-        margin-bottom: 80px;
-      }
-      /* Hero Section */
-      .cart-hero {
-        background: #007bff;
-        color: #fff;
-        padding: 20px 0;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-      }
-      .cart-hero h1 {
-        font-size: 1.5rem;
-        margin-bottom: 5px;
-      }
-      .cart-hero p {
-        font-size: 0.9rem;
-        margin: 0;
-      }
-      /* Subheader */
-      .cart-subheader {
-        background: #ffffff;
-        border-bottom: 1px solid #dee2e6;
-        padding: 10px 0;
-      }
-      .cart-subheader .container {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
-      .cart-subheader h2 {
-        font-size: 1.25rem;
-        margin: 0;
-        color: #007bff;
-      }
-      .cart-subheader .extras {
-        display: flex;
-        gap: 30px;
-      }
-      .cart-subheader .extras a {
-        color: #333;
-        font-size: 1.2rem;
-      }
-      .cart-subheader .extras a:hover {
-        color: #007bff;
-      }
-      /* Cart Container */
-      .cart-container {
-        padding: 10px 0;
-      }
-      /* Polished Card Style for the Cart Table with clear columns */
-      .cart-table {
-        background: #fff;
-        border-radius: 8px;
-        overflow: hidden;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        margin-bottom: 20px;
-        border-collapse: collapse;
-        width: 100%;
-      }
-      /* Fixed column widths using colgroup */
-      .cart-table th,
-      .cart-table td {
-        border: 1px solid #dee2e6;
-        vertical-align: middle;
-        text-align: center;
-        padding: 0.75rem;
-        word-wrap: break-word;
-      }
-      /* Updated Quantity Controls */
-      .quantity-controls {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-      }
+      body { font-family: 'Roboto', sans-serif; background-color: #f8f9fa; }
+      main { margin-top: 0 !important; margin-bottom: 80px; }
+      .cart-hero { background: #007bff; color: #fff; padding: 20px 0; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+      .cart-hero h1 { font-size: 1.5rem; margin-bottom: 5px; }
+      .cart-hero p { font-size: 0.9rem; margin: 0; }
+      .cart-subheader { background: #ffffff; border-bottom: 1px solid #dee2e6; padding: 10px 0; }
+      .cart-subheader .container { display: flex; justify-content: space-between; align-items: center; }
+      .cart-subheader h2 { font-size: 1.25rem; margin: 0; color: #007bff; }
+      .cart-subheader .extras { display: flex; gap: 30px; }
+      .cart-subheader .extras a { color: #333; font-size: 1.2rem; }
+      .cart-subheader .extras a:hover { color: #007bff; }
+      .cart-container { padding: 10px 0; }
+      .cart-table { background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-bottom: 20px; border-collapse: collapse; width: 100%; }
+      .cart-table th, .cart-table td { border: 1px solid #dee2e6; vertical-align: middle; text-align: center; padding: 0.75rem; word-wrap: break-word; }
+      .quantity-controls { display: inline-flex; align-items: center; justify-content: center; }
       .quantity-controls button {
-        width: 30px;
-        height: 36px;
-        background: rgba(255, 255, 255, 0.5);
-        border: none;
-        border-radius: 4px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-        margin: 0 2px;
-        font-size: 1rem;
-        color: #333;
-        cursor: pointer;
-        transition: box-shadow 0.1s ease;
-        outline: none;
-        -webkit-tap-highlight-color: transparent;
-        user-select: none;
+        width: 30px; height: 36px;
+        background: rgba(255,255,255,0.5);
+        border: none; border-radius: 4px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        margin: 0 2px; font-size: 1rem; color: #333;
+        cursor: pointer; transition: box-shadow 0.1s ease;
+        outline: none; -webkit-tap-highlight-color: transparent; user-select: none;
+        tabindex: -1;
       }
       .quantity-controls button:active {
-        /* Mimic a 3D press without layout shifting */
-        box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.3);
+        box-shadow: inset 0 2px 3px rgba(0,0,0,0.3);
       }
       .quantity-input {
-        width: 40px;
-        height: 36px;
+        width: 40px; height: 36px;
         text-align: center;
-        border: 1px solid #ced4da;
-        border-radius: 4px;
-        padding: 4px;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        border: 1px solid #ced4da; border-radius: 4px;
+        padding: 4px; overflow: hidden; text-overflow: ellipsis;
       }
-      /* Order Summary Section */
-      .order-summary {
-        background: #fff;
-        padding: 15px;
-        border-radius: 8px;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-      }
-      .order-summary h4 {
-        font-size: 1.25rem;
-        font-weight: bold;
-        margin-bottom: 15px;
-        color: #007bff;
-      }
-      .summary-item {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 10px;
-        font-size: 0.9rem;
-      }
-      .summary-total {
-        font-size: 1.1rem;
-        font-weight: bold;
-      }
-      .coupon-code {
-        margin-top: 15px;
-      }
-      .coupon-code input {
-        border-radius: 5px;
-        padding: 6px;
-        border: 1px solid #ced4da;
-        width: 100%;
-        font-size: 0.85rem;
-      }
-      .apply-coupon {
-        margin-top: 8px;
-        font-size: 0.85rem;
-      }
-      .checkout-btn {
-        width: 100%;
-        padding: 10px;
-        font-size: 1rem;
-        margin-top: 15px;
-      }
-      /* Confirmation Box */
-      .confirm-box {
-        position: absolute;
-        background: #fff;
-        border: 1px solid #ccc;
-        padding: 6px 10px;
-        border-radius: 5px;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-        z-index: 1000;
-        width: 200px;
-        font-size: 0.85rem;
-      }
-      .confirm-box p {
-        margin: 0 0 8px;
-      }
+      .order-summary { background: #fff; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+      .order-summary h4 { font-size: 1.25rem; font-weight: bold; margin-bottom: 15px; color: #007bff; }
+      .summary-item { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 0.9rem; }
+      .summary-total { font-size: 1.1rem; font-weight: bold; }
+      .coupon-code { margin-top: 15px; }
+      .coupon-code input { border-radius: 5px; padding: 6px; border: 1px solid #ced4da; width: 100%; font-size: 0.85rem; }
+      .apply-coupon { margin-top: 8px; font-size: 0.85rem; }
+      .checkout-btn { width: 100%; padding: 10px; font-size: 1rem; margin-top: 15px; }
+      .confirm-box { position: absolute; background: #fff; border: 1px solid #ccc; padding: 6px 10px; border-radius: 5px; box-shadow: 0 2px 6px rgba(0,0,0,0.2); z-index: 1000; width: 200px; font-size: 0.85rem; }
+      .confirm-box p { margin: 0 0 8px; }
     </style>
   </head>
   <body>
     <!-- Header Placeholder -->
     <div id="header-placeholder"></div>
-    
     <main>
       <!-- Hero Section -->
       <section class="cart-hero">
@@ -210,7 +73,6 @@
           <p>Review and adjust items before checkout</p>
         </div>
       </section>
-  
       <!-- Subheader -->
       <section class="cart-subheader">
         <div class="container">
@@ -222,7 +84,6 @@
           </div>
         </div>
       </section>
-      
       <!-- Cart Items Section -->
       <section class="cart-items">
         <div class="container cart-container">
@@ -253,7 +114,6 @@
           </div>
         </div>
       </section>
-      
       <!-- Order Summary Section -->
       <section class="order-summary-section">
         <div class="container">
@@ -288,13 +148,10 @@
         </div>
       </section>
     </main>
-    
     <!-- Footer Placeholder -->
     <div id="footer-placeholder"></div>
-    
     <!-- Bootstrap 5 JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
     <!-- Script to load header and footer dynamically -->
     <script>
       function loadHTML(elementId, filePath, defaultContent) {
@@ -311,7 +168,6 @@
             if (html) {
               document.getElementById(elementId).innerHTML = html;
               console.log(filePath + " loaded successfully for " + elementId);
-              // Reinitialize Bootstrap collapse if needed
               if (elementId === "header-placeholder") {
                 var navbarNav = document.getElementById("navbarNav");
                 if (navbarNav) {
@@ -358,38 +214,17 @@
         );
       });
     </script>
-    
     <!-- Cart Functionality Script -->
     <script>
-      // Dummy cart data
       let cartItems = [
-        {
-          id: 1,
-          name: "Smartphone A",
-          price: 894,
-          quantity: 1,
-          image: "https://via.placeholder.com/100?text=Smartphone+A"
-        },
-        {
-          id: 2,
-          name: "Smart TV B",
-          price: 557,
-          quantity: 2,
-          image: "https://via.placeholder.com/100?text=Smart+TV+B"
-        },
-        {
-          id: 3,
-          name: "Laptop C",
-          price: 1004,
-          quantity: 1,
-          image: "https://via.placeholder.com/100?text=Laptop+C"
-        }
+        { id: 1, name: "Smartphone A", price: 894, quantity: 1, image: "https://via.placeholder.com/100?text=Smartphone+A" },
+        { id: 2, name: "Smart TV B", price: 557, quantity: 2, image: "https://via.placeholder.com/100?text=Smart+TV+B" },
+        { id: 3, name: "Laptop C", price: 1004, quantity: 1, image: "https://via.placeholder.com/100?text=Laptop+C" }
       ];
       
-      let couponDiscount = 0; // no discount initially
-      let shippingCost = 150; // fixed shipping cost
+      let couponDiscount = 0;
+      let shippingCost = 150;
       
-      // Dynamic AI confirmation messages
       const confirmationMessages = [
         "Our AI has detected that this is your FAVORITE item. Are you still sure?",
         "I ran a simulation. 99.9% chance you’ll regret this.",
@@ -398,7 +233,6 @@
         "Caution: This deletion may trigger unforeseen consequences."
       ];
       
-      // Format price: if number is whole then omit the decimal part.
       function formatPrice(num) {
         let fixed = num.toFixed(2);
         return fixed.endsWith(".00") ? parseInt(num) : fixed;
@@ -520,25 +354,16 @@
         renderCartItems();
       });
     </script>
-    
     <!-- Mobile Side Menu Toggle Script -->
     <script>
       function toggleSideMenu() {
         const sideMenu = document.getElementById("side-menu");
-        if (sideMenu) {
-          sideMenu.classList.toggle("visible");
-        }
+        if (sideMenu) { sideMenu.classList.toggle("visible"); }
       }
-      
       document.addEventListener("click", function(event) {
         const sideMenu = document.getElementById("side-menu");
         const menuToggle = document.querySelector(".menu-toggle");
-        if (
-          sideMenu &&
-          sideMenu.classList.contains("visible") &&
-          !sideMenu.contains(event.target) &&
-          !menuToggle.contains(event.target)
-        ) {
+        if (sideMenu && sideMenu.classList.contains("visible") && !sideMenu.contains(event.target) && !menuToggle.contains(event.target)) {
           sideMenu.classList.remove("visible");
         }
       });
