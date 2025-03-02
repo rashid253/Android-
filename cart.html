@@ -12,17 +12,24 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css" />
     <style>
-      /* Hero Section for the Cart Title */
+      /* Hero Section with Engaging Title and Description */
       .hero-cart {
         background: #007bff;
         color: #fff;
-        padding: 60px 20px;
+        padding: 40px 20px;
         text-align: center;
         margin-bottom: 20px;
       }
       .hero-cart h1 {
         font-size: 2.5rem;
         margin: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .hero-cart p {
+        margin-top: 10px;
+        font-size: 1rem;
       }
       
       /* Overall Cart Container */
@@ -32,7 +39,7 @@
         min-height: calc(100vh - 140px);
       }
       
-      /* Trash Bin Container for deletion (blue trash bin with red count badge) */
+      /* Trash Bin Container (for deletion) */
       #trash-bin-container {
         position: relative;
         display: inline-block;
@@ -88,7 +95,7 @@
         color: #666;
       }
       
-      /* Vertical Quantity Controls on the Right */
+      /* Vertical Quantity Controls on the RHS */
       .quantity-vertical {
         display: flex;
         flex-direction: column;
@@ -210,10 +217,11 @@
     <!-- External Header -->
     <div id="header-placeholder"></div>
     
-    <!-- Hero Section for Cart Title -->
+    <!-- Hero Section with Engaging Title -->
     <section class="hero-cart">
       <div class="hero-content">
-        <h1>Your Shopping Cart</h1>
+        <h1>Your Order Awaits</h1>
+        <p>Review your selected items, adjust quantities, and apply tokens for extra savings.</p>
       </div>
     </section>
     
@@ -295,7 +303,8 @@
         }
         cartItemsContainer.innerHTML = "";
         cartItems.forEach(item => {
-          // Each cart item with a checkbox for selection, image, details, and vertical quantity controls.
+          // Each cart item with a checkbox, image, details (without multiplication calculation),
+          // and vertical quantity controls on the right.
           const itemEl = document.createElement("div");
           itemEl.className = "cart-item";
           itemEl.innerHTML = `
@@ -303,11 +312,7 @@
             <img src="${item.image}" alt="${item.name}" />
             <div class="cart-item-details">
               <h3>${item.name}</h3>
-              <p>
-                $${item.price.toFixed(2)} x 
-                <span id="quantity-${item.id}">${item.quantity}</span> = 
-                $<span id="lineTotal-${item.id}">${(item.price * item.quantity).toFixed(2)}</span>
-              </p>
+              <p>$${item.price.toFixed(2)} each | Quantity: <span id="quantity-${item.id}">${item.quantity}</span></p>
             </div>
             <div class="quantity-vertical">
               <button onclick="increaseQuantity(${item.id})" title="Increase Quantity">
@@ -323,7 +328,7 @@
         });
       };
       
-      // Increase and decrease functions use the current state to adjust quantity.
+      // Increase and decrease functions use current state.
       function increaseQuantity(itemId) {
         const index = cartItems.findIndex(item => item.id === itemId);
         if (index > -1) {
@@ -337,7 +342,7 @@
         }
       }
       
-      // Update only the quantity and line total for a specific item.
+      // Update only the quantity for a specific item.
       function updateQuantity(itemId, newQuantity) {
         if (newQuantity < 1) return;
         const index = cartItems.findIndex(item => item.id === itemId);
@@ -345,7 +350,6 @@
           cartItems[index].quantity = newQuantity;
           document.getElementById("quantity-" + itemId).innerText = newQuantity;
           document.getElementById("vertical-qty-" + itemId).innerText = newQuantity;
-          document.getElementById("lineTotal-" + itemId).innerText = (cartItems[index].price * newQuantity).toFixed(2);
           clearTimeout(updateTimer);
           updateTimer = setTimeout(updateTotals, DEBOUNCE_DELAY);
         }
