@@ -92,9 +92,8 @@
         margin-bottom: 20px;
         border-collapse: collapse;
         width: 100%;
-        /* Removed table-layout: fixed; */
       }
-      /* Use colgroup in markup for fixed column widths */
+      /* Fixed column widths using colgroup */
       .cart-table th,
       .cart-table td {
         border: 1px solid #dee2e6;
@@ -126,7 +125,7 @@
         user-select: none;
       }
       .quantity-controls button:active {
-        /* Only adjust the box-shadow to mimic a 3D press without shifting layout */
+        /* Mimic a 3D press without layout shifting */
         box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.3);
       }
       .quantity-input {
@@ -417,9 +416,9 @@
             <td>${item.price}</td>
             <td>
               <div class="quantity-controls">
-                <button type="button" onclick="changeQuantity(${index}, -1)">-</button>
+                <button type="button" onmousedown="event.preventDefault();" onclick="changeQuantity(${index}, -1)">-</button>
                 <input type="text" class="quantity-input" value="${item.quantity}" readonly />
-                <button type="button" onclick="changeQuantity(${index}, 1)">+</button>
+                <button type="button" onmousedown="event.preventDefault();" onclick="changeQuantity(${index}, 1)">+</button>
               </div>
             </td>
             <td id="itemSubtotal-${index}">${formatPrice(itemSubtotal)}</td>
