@@ -52,20 +52,38 @@
         margin: 0 0 10px 0;
         color: #666;
       }
-      .quantity-input {
-        width: 60px;
-        padding: 5px;
+      .quantity-controls {
+        display: flex;
+        align-items: center;
+        margin-top: 8px;
+      }
+      .qty-btn {
+        background: #007bff;
+        color: #fff;
+        border: none;
+        padding: 5px 10px;
+        cursor: pointer;
         font-size: 1rem;
-        margin-top: 5px;
+        border-radius: 4px;
+        transition: background 0.3s;
+      }
+      .qty-btn:hover {
+        background: #0069d9;
+      }
+      .qty-value {
+        margin: 0 10px;
+        font-size: 1rem;
+        min-width: 20px;
+        text-align: center;
       }
       .cart-item-actions {
         display: flex;
         align-items: center;
       }
-      .cart-item-actions button {
+      .cart-item-actions button.remove-item {
         background: none;
         border: none;
-        color: #007bff;
+        color: #dc3545;
         font-size: 1.2rem;
         cursor: pointer;
         margin-left: 10px;
@@ -126,12 +144,12 @@
         background: #007bff;
         color: #fff;
       }
+      .update-cart:hover {
+        background: #0069d9;
+      }
       .checkout-button {
         background: #28a745;
         color: #fff;
-      }
-      .update-cart:hover {
-        background: #0069d9;
       }
       .checkout-button:hover {
         background: #218838;
@@ -212,7 +230,7 @@
           .catch((error) => console.error(error));
       };
 
-      // Dummy data for cart items; future integration with Firebase will replace this.
+      // Dummy cart data; to be replaced with Firebase data integration in the future.
       let cartItems = [
         {
           id: 1,
@@ -238,7 +256,7 @@
       ];
       let appliedCoupon = null;
 
-      // Render cart items to the DOM
+      // Render cart items to the DOM with plus/minus buttons
       function renderCart() {
         const container = document.getElementById("cart-items");
         container.innerHTML = "";
@@ -254,10 +272,18 @@
               <div class="cart-item-details">
                 <h3>${item.name}</h3>
                 <p>$${item.price.toFixed(2)}</p>
-                <input type="number" min="1" value="${item.quantity}" data-id="${item.id}" class="quantity-input"/>
+                <div class="quantity-controls">
+                  <button class="qty-btn" onclick="decrementQuantity(${item.id})">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                  <span class="qty-value" id="qty-${item.id}">${item.quantity}</span>
+                  <button class="qty-btn" onclick="incrementQuantity(${item.id})">
+                    <i class="fas fa-plus"></i>
+                  </button>
+                </div>
               </div>
               <div class="cart-item-actions">
-                <button class="remove-item" data-id="${item.id}" title="Remove">
+                <button class="remove-item" onclick="removeItem(${item.id})" title="Remove">
                   <i class="fas fa-trash-alt"></i>
                 </button>
               </div>
@@ -266,41 +292,29 @@
           });
         }
         calculateTotals();
-        attachEventListeners();
       }
 
-      // Attach event listeners for quantity changes and remove actions
-      function attachEventListeners() {
-        document.querySelectorAll(".quantity-input").forEach((input) => {
-          input.addEventListener("change", (e) => {
-            const newQuantity = parseInt(e.target.value);
-            const id = parseInt(e.target.getAttribute("data-id"));
-            updateQuantity(id, newQuantity);
-          });
-        });
-        document.querySelectorAll(".remove-item").forEach((button) => {
-          button.addEventListener("click", (e) => {
-            const id = parseInt(
-              e.target.closest("button").getAttribute("data-id")
-            );
-            removeItem(id);
-          });
-        });
-      }
-
-      // Update the quantity of a specific item
-      function updateQuantity(id, newQuantity) {
-        if (newQuantity < 1) {
-          alert("Quantity must be at least 1");
-          return;
+      // Increase item quantity
+      function incrementQuantity(id) {
+        const item = cartItems.find(item => item.id === id);
+        if (item) {
+          item.quantity++;
+          document.getElementById(`qty-${id}`).innerText = item.quantity;
+          calculateTotals();
         }
-        cartItems = cartItems.map((item) =>
-          item.id === id ? { ...item, quantity: newQuantity } : item
-        );
-        calculateTotals();
       }
 
-      // Remove an item from the cart after confirmation
+      // Decrease item quantity ensuring it does not go below 1
+      function decrementQuantity(id) {
+        const item = cartItems.find(item => item.id === id);
+        if (item && item.quantity > 1) {
+          item.quantity--;
+          document.getElementById(`qty-${id}`).innerText = item.quantity;
+          calculateTotals();
+        }
+      }
+
+      // Remove an item from the cart with confirmation
       function removeItem(id) {
         if (confirm("Are you sure you want to remove this item?")) {
           cartItems = cartItems.filter((item) => item.id !== id);
@@ -357,7 +371,6 @@
         document
           .getElementById("update-cart")
           .addEventListener("click", updateCart);
-        // Future integration: Checkout button can trigger Firebase Authentication & payment flow.
         document
           .getElementById("checkout-button")
           .addEventListener("click", () => {
