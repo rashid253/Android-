@@ -12,7 +12,7 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css" />
     <style>
-      /* Additional styles specific for the Cart page */
+      /* Enhanced Cart Page Styles */
       .cart-container {
         padding: 20px;
         background: #f4f4f4;
@@ -22,15 +22,16 @@
         margin-bottom: 20px;
         font-size: 2rem;
         color: #007bff;
+        text-align: center;
       }
       .cart-item {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 15px;
         background: #fff;
-        border-radius: 8px;
+        padding: 15px;
         margin-bottom: 15px;
+        border-radius: 8px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       }
       .cart-item img {
@@ -44,44 +45,93 @@
         flex: 1;
       }
       .cart-item-details h3 {
-        font-size: 1.2rem;
-        margin-bottom: 8px;
+        margin: 0 0 8px 0;
         color: #333;
       }
       .cart-item-details p {
+        margin: 0 0 10px 0;
         color: #666;
-        margin: 0;
+      }
+      .quantity-input {
+        width: 60px;
+        padding: 5px;
+        font-size: 1rem;
+        margin-top: 5px;
       }
       .cart-item-actions {
         display: flex;
-        flex-direction: column;
         align-items: center;
-        gap: 8px;
       }
       .cart-item-actions button {
         background: none;
         border: none;
-        cursor: pointer;
         color: #007bff;
         font-size: 1.2rem;
+        cursor: pointer;
+        margin-left: 10px;
       }
-      .cart-total {
-        text-align: right;
-        font-size: 1.3rem;
-        font-weight: bold;
+      .cart-summary {
+        background: #fff;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        max-width: 400px;
+        margin: 20px auto;
+        font-size: 1.1rem;
+      }
+      .cart-summary div {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+      }
+      .coupon-container {
+        text-align: center;
+        margin: 20px 0;
+      }
+      .coupon-container input {
+        padding: 8px;
+        font-size: 1rem;
+        width: 200px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        margin-right: 10px;
+      }
+      .coupon-container button {
+        padding: 8px 15px;
+        font-size: 1rem;
+        border: none;
+        background: #28a745;
+        color: #fff;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background 0.3s;
+      }
+      .coupon-container button:hover {
+        background: #218838;
+      }
+      .cart-actions {
+        text-align: center;
         margin-top: 20px;
+      }
+      .cart-actions button {
+        padding: 12px 25px;
+        font-size: 1rem;
+        border: none;
+        border-radius: 25px;
+        cursor: pointer;
+        transition: background 0.3s;
+        margin: 0 10px;
+      }
+      .update-cart {
+        background: #007bff;
+        color: #fff;
       }
       .checkout-button {
         background: #28a745;
-        border: none;
         color: #fff;
-        padding: 12px 25px;
-        font-size: 1rem;
-        border-radius: 25px;
-        cursor: pointer;
-        margin-top: 20px;
-        float: right;
-        transition: background-color 0.3s;
+      }
+      .update-cart:hover {
+        background: #0069d9;
       }
       .checkout-button:hover {
         background: #218838;
@@ -89,8 +139,8 @@
       .empty-cart {
         text-align: center;
         font-size: 1.2rem;
-        margin-top: 50px;
         color: #666;
+        margin-top: 50px;
       }
     </style>
   </head>
@@ -102,109 +152,52 @@
     <main class="cart-container">
       <h1>Your Shopping Cart</h1>
       <div id="cart-items">
-        <!-- Dynamic cart items will be rendered here -->
+        <!-- Cart items will be dynamically rendered here -->
       </div>
-      <div class="cart-total" id="cart-total">Total: $0.00</div>
-      <button class="checkout-button" id="checkout-button">
-        Proceed to Checkout
-      </button>
+
+      <!-- Cart Summary Section -->
+      <div class="cart-summary">
+        <div>
+          <span>Subtotal:</span>
+          <span id="subtotal">$0.00</span>
+        </div>
+        <div>
+          <span>Discount:</span>
+          <span id="discount">$0.00</span>
+        </div>
+        <div>
+          <span>Total:</span>
+          <span id="total">$0.00</span>
+        </div>
+      </div>
+
+      <!-- Coupon Code Section -->
+      <div class="coupon-container">
+        <input type="text" id="coupon-code" placeholder="Enter coupon code" />
+        <button id="apply-coupon">Apply Coupon</button>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="cart-actions">
+        <button id="update-cart" class="update-cart">Update Cart</button>
+        <button id="checkout-button" class="checkout-button">
+          Proceed to Checkout
+        </button>
+      </div>
     </main>
 
     <!-- External Footer -->
     <div id="footer-placeholder"></div>
 
-    <!-- JavaScript for cart functionality -->
+    <!-- JavaScript for Cart Functionality -->
     <script>
       /* 
         This frontend code is built using dummy data and is structured to be easily integrated with a Firebase backend in the future.
-        The fetchCartItems() function currently simulates data fetching, and will later be replaced by Firebase Firestore API calls.
+        The fetchCartItems() function simulates data fetching, to be replaced by Firebase Firestore API calls.
         Authentication and data persistence will be handled via Firebase, allowing for dynamic and secure data management.
       */
 
-      // Simulated fetch function for cart items (dummy data)
-      const fetchCartItems = () => [
-        {
-          id: 1,
-          name: "Product 1",
-          price: 29.99,
-          quantity: 1,
-          image: "https://via.placeholder.com/80"
-        },
-        {
-          id: 2,
-          name: "Product 2",
-          price: 49.99,
-          quantity: 2,
-          image: "https://via.placeholder.com/80"
-        },
-        {
-          id: 3,
-          name: "Product 3",
-          price: 19.99,
-          quantity: 1,
-          image: "https://via.placeholder.com/80"
-        }
-      ];
-
-      // Render the cart items and update the total
-      const renderCart = () => {
-        const cartItemsContainer = document.getElementById("cart-items");
-        const cartTotalContainer = document.getElementById("cart-total");
-        const cartItems = fetchCartItems();
-
-        if (!cartItems.length) {
-          cartItemsContainer.innerHTML =
-            '<p class="empty-cart">Your cart is empty.</p>';
-          cartTotalContainer.innerText = "Total: $0.00";
-          return;
-        }
-
-        let total = 0;
-        cartItemsContainer.innerHTML = "";
-        cartItems.forEach((item) => {
-          total += item.price * item.quantity;
-          const itemEl = document.createElement("div");
-          itemEl.className = "cart-item";
-          itemEl.innerHTML = `
-            <img src="${item.image}" alt="${item.name}" />
-            <div class="cart-item-details">
-              <h3>${item.name}</h3>
-              <p>$${item.price.toFixed(2)} x ${item.quantity}</p>
-            </div>
-            <div class="cart-item-actions">
-              <button onclick="removeItem(${item.id})" title="Remove">
-                <i class="fas fa-trash-alt"></i>
-              </button>
-              <button onclick="updateQuantity(${item.id}, ${item.quantity + 1})" title="Increase Quantity">
-                <i class="fas fa-plus"></i>
-              </button>
-              <button onclick="updateQuantity(${item.id}, ${item.quantity - 1})" title="Decrease Quantity">
-                <i class="fas fa-minus"></i>
-              </button>
-            </div>
-          `;
-          cartItemsContainer.appendChild(itemEl);
-        });
-        cartTotalContainer.innerText = "Total: $" + total.toFixed(2);
-      };
-
-      // Dummy function for removing an item from the cart
-      function removeItem(itemId) {
-        alert("Remove item with id: " + itemId);
-        // Future implementation: Remove item from Firebase and update the UI
-      }
-
-      // Dummy function for updating item quantity
-      function updateQuantity(itemId, newQuantity) {
-        if (newQuantity < 1) {
-          alert("Quantity cannot be less than 1.");
-          return;
-        }
-        alert("Update item " + itemId + " to quantity " + newQuantity);
-        // Future implementation: Update quantity in Firebase and re-render cart
-      }
-
-      // Function to load external HTML (for header and footer)
+      // Load external HTML for header and footer
       const loadHTML = (elementId, filePath) => {
         fetch(filePath)
           .then((response) => {
@@ -219,11 +212,157 @@
           .catch((error) => console.error(error));
       };
 
-      // Initialize the cart and load external components on page load
+      // Dummy data for cart items; future integration with Firebase will replace this.
+      let cartItems = [
+        {
+          id: 1,
+          name: "Product 1",
+          price: 29.99,
+          quantity: 1,
+          image: "https://via.placeholder.com/80",
+        },
+        {
+          id: 2,
+          name: "Product 2",
+          price: 49.99,
+          quantity: 2,
+          image: "https://via.placeholder.com/80",
+        },
+        {
+          id: 3,
+          name: "Product 3",
+          price: 19.99,
+          quantity: 1,
+          image: "https://via.placeholder.com/80",
+        },
+      ];
+      let appliedCoupon = null;
+
+      // Render cart items to the DOM
+      function renderCart() {
+        const container = document.getElementById("cart-items");
+        container.innerHTML = "";
+        if (cartItems.length === 0) {
+          container.innerHTML =
+            '<p class="empty-cart">Your cart is empty.</p>';
+        } else {
+          cartItems.forEach((item) => {
+            const itemEl = document.createElement("div");
+            itemEl.className = "cart-item";
+            itemEl.innerHTML = `
+              <img src="${item.image}" alt="${item.name}" />
+              <div class="cart-item-details">
+                <h3>${item.name}</h3>
+                <p>$${item.price.toFixed(2)}</p>
+                <input type="number" min="1" value="${item.quantity}" data-id="${item.id}" class="quantity-input"/>
+              </div>
+              <div class="cart-item-actions">
+                <button class="remove-item" data-id="${item.id}" title="Remove">
+                  <i class="fas fa-trash-alt"></i>
+                </button>
+              </div>
+            `;
+            container.appendChild(itemEl);
+          });
+        }
+        calculateTotals();
+        attachEventListeners();
+      }
+
+      // Attach event listeners for quantity changes and remove actions
+      function attachEventListeners() {
+        document.querySelectorAll(".quantity-input").forEach((input) => {
+          input.addEventListener("change", (e) => {
+            const newQuantity = parseInt(e.target.value);
+            const id = parseInt(e.target.getAttribute("data-id"));
+            updateQuantity(id, newQuantity);
+          });
+        });
+        document.querySelectorAll(".remove-item").forEach((button) => {
+          button.addEventListener("click", (e) => {
+            const id = parseInt(
+              e.target.closest("button").getAttribute("data-id")
+            );
+            removeItem(id);
+          });
+        });
+      }
+
+      // Update the quantity of a specific item
+      function updateQuantity(id, newQuantity) {
+        if (newQuantity < 1) {
+          alert("Quantity must be at least 1");
+          return;
+        }
+        cartItems = cartItems.map((item) =>
+          item.id === id ? { ...item, quantity: newQuantity } : item
+        );
+        calculateTotals();
+      }
+
+      // Remove an item from the cart after confirmation
+      function removeItem(id) {
+        if (confirm("Are you sure you want to remove this item?")) {
+          cartItems = cartItems.filter((item) => item.id !== id);
+          renderCart();
+        }
+      }
+
+      // Calculate subtotal, discount, and total
+      function calculateTotals() {
+        let subtotal = 0;
+        cartItems.forEach((item) => {
+          subtotal += item.price * item.quantity;
+        });
+        let discount = 0;
+        if (appliedCoupon === "SAVE10") {
+          discount = subtotal * 0.1;
+        }
+        const total = subtotal - discount;
+        document.getElementById("subtotal").innerText =
+          "$" + subtotal.toFixed(2);
+        document.getElementById("discount").innerText =
+          "$" + discount.toFixed(2);
+        document.getElementById("total").innerText = "$" + total.toFixed(2);
+      }
+
+      // Apply coupon code logic (dummy implementation)
+      function applyCoupon() {
+        const couponInput = document.getElementById("coupon-code");
+        const coupon = couponInput.value.trim().toUpperCase();
+        if (coupon === "SAVE10") {
+          appliedCoupon = coupon;
+          alert("Coupon applied: 10% off!");
+        } else {
+          appliedCoupon = null;
+          alert("Invalid coupon code.");
+        }
+        calculateTotals();
+      }
+
+      // Simulate saving updated cart data
+      function updateCart() {
+        alert("Cart updated!");
+        calculateTotals();
+      }
+
+      // Initialize the cart page on DOM load
       document.addEventListener("DOMContentLoaded", () => {
-        renderCart();
         loadHTML("header-placeholder", "header.html");
         loadHTML("footer-placeholder", "footer.html");
+        renderCart();
+        document
+          .getElementById("apply-coupon")
+          .addEventListener("click", applyCoupon);
+        document
+          .getElementById("update-cart")
+          .addEventListener("click", updateCart);
+        // Future integration: Checkout button can trigger Firebase Authentication & payment flow.
+        document
+          .getElementById("checkout-button")
+          .addEventListener("click", () => {
+            alert("Proceeding to checkout...");
+          });
       });
     </script>
   </body>
