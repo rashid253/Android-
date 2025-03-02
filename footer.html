@@ -2,49 +2,75 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Footer</title>
+  <title>Footer with Hidden Sub-Footer</title>
   <!-- Font Awesome for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <style>
     footer {
+      position: relative; /* For absolute positioning of sub-footer and more icon */
       background: #333;
       color: #fff;
       padding: 10px;
       text-align: center;
     }
-    .footer-icons {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 20px;
-    }
-    .footer-icons a {
-      color: #fff;
+    /* More icon always visible at the footer's right-hand side */
+    .more-icon {
+      position: absolute;
+      right: 10px;
+      top: 10px;
       font-size: 1.5rem;
-      text-decoration: none;
+      cursor: pointer;
+    }
+    /* Sub-footer hidden by default */
+    .sub-footer {
+      display: none;
+      position: absolute;
+      right: 10px;
+      top: 40px;  /* Adjust as needed to position below the more icon */
+      background: #444;
+      padding: 5px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    }
+    .sub-footer .icon {
+      margin: 0 5px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      color: #fff;
       transition: color 0.3s;
     }
-    .footer-icons a:hover {
+    .sub-footer .icon:hover {
       color: #007bff;
     }
   </style>
 </head>
 <body>
   <footer>
-    <div class="footer-icons">
-      <a href="#" title="Chat with Seller">
+    Main Footer Content
+    <!-- More icon at the right-hand side -->
+    <span class="more-icon" onclick="toggleSubFooter()">
+      <i class="fas fa-ellipsis-h"></i>
+    </span>
+    <!-- Hidden sub-footer with chat, delivery, and help icons -->
+    <div class="sub-footer" id="subFooter">
+      <span class="icon" title="Chat">
         <i class="fas fa-comments"></i>
-      </a>
-      <a href="#" title="Track Order">
+      </span>
+      <span class="icon" title="Delivery">
         <i class="fas fa-truck"></i>
-      </a>
-      <a href="#" title="Help &amp; Support">
+      </span>
+      <span class="icon" title="Help">
         <i class="fas fa-headset"></i>
-      </a>
-      <a href="analytics.html" title="Analytics">
-        <i class="fas fa-chart-line"></i>
-      </a>
+      </span>
     </div>
   </footer>
+
+  <script>
+    function toggleSubFooter() {
+      var subFooter = document.getElementById('subFooter');
+      // Toggle display state
+      subFooter.style.display = (subFooter.style.display === "block") ? "none" : "block";
+    }
+  </script>
 </body>
 </html>
