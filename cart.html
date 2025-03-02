@@ -83,7 +83,7 @@
       .cart-container {
         padding: 10px 0;
       }
-      /* Polished Card Style for the Cart Table with clear columns and rows */
+      /* Polished Card Style for the Cart Table with clear columns and fixed layout */
       .cart-table {
         background: #fff;
         border-radius: 8px;
@@ -92,6 +92,7 @@
         margin-bottom: 20px;
         border-collapse: collapse;
         width: 100%;
+        table-layout: fixed; /* Force fixed column widths */
       }
       .cart-table thead {
         background-color: #f8f9fa;
@@ -110,7 +111,6 @@
         justify-content: center;
       }
       .quantity-controls button {
-        /* Reduced width and fixed height */
         width: 30px;
         height: 36px;
         background: rgba(255, 255, 255, 0.5);
@@ -126,8 +126,8 @@
         -webkit-tap-highlight-color: transparent;
         user-select: none;
       }
-      /* Remove the transform to avoid any page shift on click */
       .quantity-controls button:active {
+        /* Only change shadow to mimic 3D press without shifting layout */
         box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.3);
       }
       .quantity-input {
@@ -137,6 +137,8 @@
         border: 1px solid #ced4da;
         border-radius: 4px;
         padding: 4px;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
       /* Order Summary Section */
       .order-summary {
@@ -255,7 +257,7 @@
                 <h4>Order Summary</h4>
                 <div class="summary-item">
                   <span>Subtotal:</span>
-                  <span id="subtotalDisplay">0.00</span>
+                  <span id="subtotalDisplay">0</span>
                 </div>
                 <div class="summary-item">
                   <span>Tax (10%):</span>
@@ -263,7 +265,7 @@
                 </div>
                 <div class="summary-item">
                   <span>Shipping:</span>
-                  <span id="shippingDisplay">0.00</span>
+                  <span id="shippingDisplay">150.00</span>
                 </div>
                 <div class="summary-item summary-total">
                   <span>Total:</span>
@@ -390,6 +392,12 @@
         "Caution: This deletion may trigger unforeseen consequences."
       ];
       
+      // Format price: if number is whole then omit the decimal part.
+      function formatPrice(num) {
+        let fixed = num.toFixed(2);
+        return fixed.endsWith(".00") ? parseInt(num) : fixed;
+      }
+      
       function renderCartItems() {
         const container = document.getElementById("cartItemsContainer");
         container.innerHTML = "";
@@ -407,7 +415,7 @@
                 <button type="button" onclick="changeQuantity(${index}, 1)">+</button>
               </div>
             </td>
-            <td id="itemSubtotal-${index}">${itemSubtotal.toFixed(2)}</td>
+            <td id="itemSubtotal-${index}">${formatPrice(itemSubtotal)}</td>
             <td>
               <button class="btn btn-sm" onclick="confirmRemove(${index}, event)" style="position: relative; border: none; background: transparent;">
                 <i class="fas fa-trash-alt trash-icon" style="color: black;"></i>
@@ -431,7 +439,7 @@
         let discount = subtotal * couponDiscount;
         let total = subtotal + tax + shippingCost - discount;
         
-        document.getElementById("subtotalDisplay").innerText = subtotal.toFixed(2);
+        document.getElementById("subtotalDisplay").innerText = formatPrice(subtotal);
         document.getElementById("taxDisplay").innerText = tax.toFixed(2);
         document.getElementById("shippingDisplay").innerText = shippingCost.toFixed(2);
         document.getElementById("totalDisplay").innerText = total.toFixed(2);
