@@ -83,50 +83,47 @@
       .cart-container {
         padding: 10px 0;
       }
-      /* Polished Card Style for the Cart Table */
+      /* Polished Card Style for the Cart Table with clear columns and rows */
       .cart-table {
         background: #fff;
         border-radius: 8px;
-        overflow: hidden; /* Ensure rounded corners */
+        overflow: hidden;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        border: none;
         margin-bottom: 20px;
+        border-collapse: collapse;
+        width: 100%;
       }
       .cart-table thead {
-        background-color: #f8f9fa; /* Light header background */
+        background-color: #f8f9fa;
       }
       .cart-table th,
       .cart-table td {
-        border: none; /* Remove default borders */
+        border: 1px solid #dee2e6; /* Clear delineation of columns and rows */
         vertical-align: middle;
         text-align: center;
         padding: 0.75rem;
       }
-      /* Optional divider between rows */
-      .cart-table tbody tr:not(:last-child) {
-        border-bottom: 1px solid #dee2e6;
-      }
-      /* Refined styling for Quantity Controls */
+      /* Refined 3D style for Quantity Controls (Plus/Minus Buttons) */
       .quantity-controls button {
-        border: 1px solid #ced4da;
-        background: #fff;
-        color: #333;
-        padding: 4px 8px;
-        font-size: 1rem;
-        line-height: 1;
+        background: linear-gradient(180deg, #f0f0f0, #dcdcdc);
+        border: 1px solid #ccc;
         border-radius: 4px;
-        transition: background-color 0.2s ease, color 0.2s ease;
+        box-shadow: inset 0 -2px 3px rgba(0, 0, 0, 0.2);
+        transition: all 0.1s ease-in-out;
+        padding: 6px 10px;
+        font-size: 1rem;
+        color: #333;
+        margin: 0 2px;
       }
-      .quantity-controls button:hover {
-        background-color: #e9ecef;
-        color: #007bff;
+      .quantity-controls button:active {
+        box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.2);
+        transform: translateY(2px);
       }
       .quantity-input {
         width: 40px;
         text-align: center;
         border: 1px solid #ced4da;
         border-radius: 4px;
-        margin: 0 5px;
         padding: 4px;
       }
       /* Order Summary Section */
@@ -218,8 +215,8 @@
       <section class="cart-items">
         <div class="container cart-container">
           <div class="table-responsive">
-            <table class="table table-sm table-bordered cart-table">
-              <thead class="table-light">
+            <table class="table table-sm cart-table">
+              <thead>
                 <tr>
                   <th style="width: 10%;">Image</th>
                   <th style="width: 30%;">Product</th>
@@ -393,9 +390,9 @@
             <td>${item.price}</td>
             <td>
               <div class="quantity-controls">
-                <button class="btn btn-sm btn-outline-secondary" onclick="changeQuantity(${index}, -1)">-</button>
+                <button class="btn btn-sm" onclick="changeQuantity(${index}, -1)">-</button>
                 <input type="text" class="quantity-input" value="${item.quantity}" readonly />
-                <button class="btn btn-sm btn-outline-secondary" onclick="changeQuantity(${index}, 1)">+</button>
+                <button class="btn btn-sm" onclick="changeQuantity(${index}, 1)">+</button>
               </div>
             </td>
             <td id="itemSubtotal-${index}">${itemSubtotal.toFixed(2)}</td>
