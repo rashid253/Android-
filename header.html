@@ -10,7 +10,7 @@
       <a href="index.html" onclick="openPage('index.html')"><i class="fas fa-home"></i></a>
       <a href="offers.html" onclick="openPage('offers.html')"><i class="fas fa-tags"></i></a>
       <a href="analytics.html" onclick="openPage('analytics.html')"><i class="fas fa-chart-line"></i></a>
-      <!-- Changed from ecommerce.html to cart.html with updated text and badge -->
+      <!-- Updated Cart icon/link: points to cart.html, shows icon, text, and badge -->
       <a href="cart.html" onclick="openPage('cart.html')" class="cart-icon">
         <i class="fas fa-shopping-cart"></i>
         <span class="badge" id="cart-count-desktop">0</span>
@@ -18,27 +18,31 @@
       </a>
       <a href="more.html" onclick="openPage('more.html')"><i class="fas fa-ellipsis-h"></i></a>
     </nav>
-    <!-- Hamburger for Mobile -->
+    <!-- Hamburger for Mobile (3-line icon) -->
     <button class="menu-toggle" onclick="toggleSideMenu()">
       <i class="fas fa-bars"></i>
     </button>
   </div>
 </header>
-<!-- Mobile Side Menu -->
+
+<!-- Mobile Side Menu (Dropdown) -->
 <aside id="side-menu" class="side-menu">
   <a href="index.html" onclick="openPage('index.html'); toggleSideMenu()">Home</a>
   <a href="offers.html" onclick="openPage('offers.html'); toggleSideMenu()">Offers</a>
   <a href="analytics.html" onclick="openPage('analytics.html'); toggleSideMenu()">Analytics</a>
-  <!-- Updated link and text for the Cart item -->
-  <a href="cart.html" onclick="openPage('cart.html'); toggleSideMenu()">Cart</a>
+  <!-- Updated Cart option with badge inside the dropdown -->
+  <a href="cart.html" onclick="openPage('cart.html'); toggleSideMenu()" class="cart-icon-dropdown">
+    Cart <span class="badge" id="cart-count-dropdown">0</span>
+  </a>
   <a href="more.html" onclick="openPage('more.html'); toggleSideMenu()">More</a>
 </aside>
+
 <!-- Fixed Bottom Navigation (Mobile) -->
 <nav class="mobile-nav">
   <a href="index.html" onclick="openPage('index.html')"><i class="fas fa-home"></i><span>Home</span></a>
   <a href="offers.html" onclick="openPage('offers.html')"><i class="fas fa-tags"></i><span>Offers</span></a>
   <a href="analytics.html" onclick="openPage('analytics.html')"><i class="fas fa-chart-line"></i><span>Analytics</span></a>
-  <!-- Changed from ecommerce.html to cart.html with updated text and badge -->
+  <!-- Updated Cart icon/link for mobile bottom nav -->
   <a href="cart.html" onclick="openPage('cart.html')" class="cart-icon">
     <i class="fas fa-shopping-cart"></i>
     <span class="badge" id="cart-count-mobile">0</span>
@@ -47,42 +51,54 @@
   <a href="more.html" onclick="openPage('more.html')"><i class="fas fa-ellipsis-h"></i><span>More</span></a>
 </nav>
 
-<!-- Add this CSS (or integrate it into your existing stylesheet) -->
+<!-- CSS Styles -->
 <style>
-  .cart-icon {
+  /* Cart icon styles (applies to desktop, dropdown, and bottom nav) */
+  .cart-icon, .cart-icon-dropdown {
     position: relative;
     text-decoration: none;
     color: inherit;
     display: inline-flex;
     align-items: center;
   }
-  /* Badge styling for the red round counting label */
+  /* Badge styling: red round label */
   .badge {
-    position: absolute;
-    top: -5px;
-    right: -10px;
     background-color: red;
     color: white;
     border-radius: 50%;
     padding: 2px 5px;
     font-size: 10px;
   }
+  /* For the dropdown (side menu), adjust the badge so it displays inline */
+  .cart-icon-dropdown .badge {
+    margin-left: 5px;
+    position: static;
+  }
+  /* Remove default button styles for the hamburger icon */
+  .menu-toggle {
+    border: none;
+    background: none;
+    cursor: pointer;
+  }
+  .menu-toggle:focus {
+    outline: none;
+  }
 </style>
 
-<!-- Add this script to update the cart count on both instances -->
+<!-- JavaScript for Updating the Cart Count -->
 <script>
-  // Call this function after adding a product to the cart
+  // Function to update the cart count on all instances (desktop, dropdown, and mobile nav)
   function updateCartCount() {
-    // Retrieve the current cart count (default to 0)
     var count = Number(localStorage.getItem('cartCount')) || 0;
-    // Update both desktop and mobile badges
     var desktopBadge = document.getElementById('cart-count-desktop');
     var mobileBadge = document.getElementById('cart-count-mobile');
+    var dropdownBadge = document.getElementById('cart-count-dropdown');
     if(desktopBadge) desktopBadge.innerText = count;
     if(mobileBadge) mobileBadge.innerText = count;
+    if(dropdownBadge) dropdownBadge.innerText = count;
   }
   
-  // For example, an addToCart function:
+  // Example function to simulate adding a product to the cart
   function addToCart() {
     var count = Number(localStorage.getItem('cartCount')) || 0;
     count++;
@@ -90,6 +106,6 @@
     updateCartCount();
   }
   
-  // Initialize count on page load
+  // Initialize the cart count on page load
   document.addEventListener('DOMContentLoaded', updateCartCount);
 </script>
