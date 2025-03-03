@@ -1,448 +1,390 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MyBusiness Cart</title>
-    <!-- Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-    <link rel="stylesheet" href="style.css" />
-    <style>
-      /* Global Resets */
-      html, body {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        overflow-x: hidden;
-        font-family: Arial, sans-serif;
-      }
-      
-      /* Hero Section */
-      .hero-cart {
-        background: #007bff;
-        color: #fff;
-        padding: 30px 15px;
-        text-align: center;
-        margin-top: 60px;
-        margin-bottom: 15px;
-      }
-      .hero-cart h1 {
-        font-size: 2.2rem;
-        margin: 0;
-      }
-      .hero-cart p {
-        margin-top: 8px;
-        font-size: 0.95rem;
-        white-space: normal;
-      }
-      
-      /* Cart Container */
-      .cart-container {
-        padding: 15px;
-        padding-bottom: 100px;
-        background: #f4f4f4;
-        min-height: calc(100vh - 120px);
-      }
-      
-      /* Trash Bin for Deletion */
-      #trash-bin-container {
-        position: relative;
-        display: inline-block;
-        cursor: pointer;
-        margin-bottom: 10px;
-      }
-      #trash-bin-container i {
-        font-size: 2rem;
-        color: blue;
-      }
-      #trash-bin-container #trash-count {
-        position: absolute;
-        bottom: -5px;
-        right: -5px;
-        background: red;
-        color: #fff;
-        border-radius: 50%;
-        padding: 2px 6px;
-        font-size: 0.8rem;
-      }
-      
-      /* Cart Item */
-      .cart-item {
-        display: flex;
-        align-items: center;
-        padding: 10px;
-        background: #fff;
-        border-radius: 8px;
-        margin-bottom: 10px;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-      }
-      .cart-item input.delete-checkbox {
-        margin-right: 8px;
-      }
-      .cart-item img {
-        width: 70px;
-        height: 70px;
-        object-fit: cover;
-        border-radius: 4px;
-        margin-right: 10px;
-        display: block;
-      }
-      .cart-item-details {
-        flex: 1;
-      }
-      .cart-item-details h3 {
-        font-size: 1.1rem;
-        margin-bottom: 4px;
-        color: #333;
-      }
-      .cart-item-details p {
-        font-size: 0.95rem;
-        color: #666;
-      }
-      
-      /* Vertical Quantity Controls */
-      .quantity-vertical {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin-left: 8px;
-      }
-      .quantity-vertical button {
-        background: #007bff;
-        border: none;
-        color: #fff;
-        padding: 4px 8px;
-        border-radius: 4px;
-        cursor: pointer;
-        transition: background 0.3s;
-      }
-      .quantity-vertical button:hover {
-        background: #0069d9;
-      }
-      .quantity-vertical span {
-        margin: 4px 0;
-        font-size: 1rem;
-        min-width: 20px;
-        text-align: center;
-      }
-      
-      /* Cart Total and Checkout */
-      .cart-total {
-        text-align: right;
-        font-size: 1.2rem;
-        font-weight: bold;
-        margin-top: 10px;
-      }
-      .checkout-button {
-        background: #28a745;
-        border: none;
-        color: #fff;
-        padding: 10px 20px;
-        font-size: 1rem;
-        border-radius: 25px;
-        cursor: pointer;
-        margin-top: 10px;
-        width: 100%;
-        transition: background-color 0.3s;
-      }
-      .checkout-button:hover {
-        background: #218838;
-      }
-      .empty-cart {
-        text-align: center;
-        font-size: 1rem;
-        margin-top: 20px;
-        color: #666;
-      }
-      
-      /* Detailed Receipt Section */
-      .receipt {
-        margin-top: 20px;
-        background: #fff;
-        padding: 10px;
-        border-radius: 8px;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-      }
-      .receipt h2 {
-        font-size: 1.3rem;
-        color: #007bff;
-        margin-bottom: 10px;
-      }
-      .receipt table {
-        width: 100%;
-        border-collapse: collapse;
-      }
-      .receipt th,
-      .receipt td {
-        padding: 6px;
-        text-align: left;
-        border-bottom: 1px solid #ddd;
-        font-size: 0.9rem;
-      }
-      .receipt th {
-        background: #f4f4f4;
-      }
-      
-      /* Token Section */
-      .token-section {
-        margin-top: 40px;
-        background: #fff;
-        padding: 10px;
-        border-radius: 8px;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-      }
-      .token-section h2 {
-        font-size: 1.3rem;
-        color: #007bff;
-        margin-bottom: 10px;
-      }
-      .token-section input {
-        padding: 6px;
-        font-size: 0.9rem;
-        width: 120px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        margin-right: 8px;
-      }
-      .token-section button {
-        padding: 6px 12px;
-        font-size: 0.9rem;
-        border: none;
-        background: #28a745;
-        color: #fff;
-        border-radius: 4px;
-        cursor: pointer;
-        transition: background 0.3s;
-      }
-      .token-section button:hover {
-        background: #218838;
-      }
-      
-      /* Media Query for larger screens */
-      @media (min-width: 600px) {
-        .cart-container {
-          padding: 20px 40px;
-        }
-        .checkout-button {
-          width: auto;
-          float: right;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <!-- External Header -->
-    <div id="header-placeholder"></div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MyBusiness Cart</title>
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Global Resets */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { font-family: Arial, sans-serif; background: #f4f4f4; overflow-x: hidden; }
     
-    <!-- Hero Section -->
-    <section class="hero-cart">
-      <div class="hero-content">
-        <h1>Your Order Awaits</h1>
-        <p>Review your order, adjust quantities, and apply tokens for extra Rs savings.</p>
-      </div>
-    </section>
+    /* Hero Section */
+    .hero-cart {
+      background: #007bff;
+      color: #fff;
+      padding: 30px 15px;
+      text-align: center;
+      margin-top: 60px;
+      margin-bottom: 15px;
+    }
+    .hero-cart h1 { font-size: 2.2rem; }
+    .hero-cart p { margin-top: 8px; font-size: 0.95rem; }
     
-    <!-- Cart Container -->
-    <main class="cart-container">
-      <!-- Trash Bin Icon for Deletion -->
-      <div id="trash-bin-container" title="Delete selected items">
-        <i class="fas fa-trash-alt"></i>
-        <div id="trash-count">0</div>
-      </div>
-      
-      <div id="cart-items">
-        <!-- Cart items will be dynamically rendered here -->
-      </div>
-      <div class="cart-total" id="cart-total">Total: Rs 0.00</div>
-      <button class="checkout-button" id="checkout-button">Proceed to Checkout</button>
-      
-      <!-- Detailed Receipt Section -->
-      <div class="receipt" id="detailed-receipt">
-        <h2>Order Details</h2>
-        <table>
-          <thead>
-            <tr>
-              <th>Item</th>
-              <th>Qty</th>
-              <th>Unit Price</th>
-              <th>Line Total</th>
-            </tr>
-          </thead>
-          <tbody id="receipt-body">
-            <!-- Receipt details will be inserted here -->
-          </tbody>
-        </table>
-      </div>
-      
-      <!-- Token Section -->
-      <div class="token-section">
-        <h2>Apply Tokens</h2>
-        <p>You have <span id="user-tokens">50</span> tokens available.</p>
-        <input type="number" id="token-input" placeholder="Tokens to apply" min="0">
-        <button id="apply-tokens">Apply Tokens</button>
-        <p id="token-message"></p>
-      </div>
-    </main>
+    /* Cart Container */
+    .cart-container {
+      padding: 15px;
+      padding-bottom: 100px;
+      background: #f4f4f4;
+      min-height: calc(100vh - 120px);
+    }
     
-    <!-- External Footer -->
-    <div id="footer-placeholder"></div>
+    /* Updated Trash Bin Style */
+    #trash-bin-container {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      background: #e0e0e0;
+      border-radius: 50%;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+      margin-bottom: 10px;
+    }
+    #trash-bin-container:hover {
+      background: #d0d0d0;
+      transform: scale(1.05);
+    }
+    #trash-bin-container i {
+      font-size: 1.5rem;
+      color: #333;
+    }
+    #trash-bin-container #trash-count {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      background: red;
+      color: #fff;
+      border: 2px solid #fff;
+      border-radius: 50%;
+      padding: 2px 5px;
+      font-size: 0.75rem;
+    }
     
-    <script>
-      // Dummy cart data
-      let cartItems = [
-        { id: 1, name: "Product 1", price: 29.99, quantity: 1, image: "https://via.placeholder.com/80" },
-        { id: 2, name: "Product 2", price: 49.99, quantity: 2, image: "https://via.placeholder.com/80" },
-        { id: 3, name: "Product 3", price: 19.99, quantity: 1, image: "https://via.placeholder.com/80" }
-      ];
-      
-      let userTokens = 50;
-      let appliedTokens = 0;
-      let updateTimer;
-      const DEBOUNCE_DELAY = 300;
-      
-      function renderCartItems() {
-        const container = document.getElementById("cart-items");
-        if (cartItems.length === 0) {
-          container.innerHTML = '<p class="empty-cart">Your cart is empty.</p>';
-          return;
-        }
-        container.innerHTML = "";
-        cartItems.forEach(item => {
-          const div = document.createElement("div");
-          div.className = "cart-item";
-          div.innerHTML = `
-            <input type="checkbox" class="delete-checkbox" data-id="${item.id}" />
-            <img src="${item.image}" alt="${item.name}">
-            <div class="cart-item-details">
-              <h3>${item.name}</h3>
-              <p>Price: Rs ${item.price.toFixed(2)} | Qty: <span id="quantity-${item.id}">${item.quantity}</span></p>
-            </div>
-            <div class="quantity-vertical">
-              <button onclick="increaseQuantity(${item.id})" title="Increase Quantity">
-                <i class="fas fa-plus"></i>
-              </button>
-              <span id="vertical-qty-${item.id}">${item.quantity}</span>
-              <button onclick="decreaseQuantity(${item.id})" title="Decrease Quantity">
-                <i class="fas fa-minus"></i>
-              </button>
-            </div>
-          `;
-          container.appendChild(div);
-        });
+    /* Cart Items */
+    .cart-item {
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      background: #fff;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    .cart-item input.delete-checkbox { margin-right: 8px; }
+    .cart-item img { width: 70px; height: 70px; object-fit: cover; border-radius: 4px; margin-right: 10px; display: block; }
+    .cart-item-details { flex: 1; }
+    .cart-item-details h3 { font-size: 1.1rem; color: #333; margin-bottom: 4px; }
+    .cart-item-details p { font-size: 0.95rem; color: #666; }
+    
+    /* Vertical Quantity Controls */
+    .quantity-vertical {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-left: 8px;
+    }
+    .quantity-vertical button {
+      background: #007bff;
+      border: none;
+      color: #fff;
+      padding: 4px 8px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .quantity-vertical button:hover { background: #0069d9; }
+    .quantity-vertical span {
+      margin: 4px 0;
+      font-size: 1rem;
+      min-width: 20px;
+      text-align: center;
+    }
+    
+    /* Cart Total & Checkout Button */
+    .cart-total { text-align: right; font-size: 1.2rem; font-weight: bold; margin-top: 10px; }
+    .checkout-button {
+      background: #28a745;
+      border: none;
+      color: #fff;
+      padding: 10px 20px;
+      font-size: 1rem;
+      border-radius: 25px;
+      cursor: pointer;
+      margin-top: 10px;
+      width: 100%;
+      transition: background-color 0.3s;
+    }
+    .checkout-button:hover { background: #218838; }
+    .empty-cart { text-align: center; font-size: 1rem; margin-top: 20px; color: #666; }
+    
+    /* Detailed Receipt Section */
+    .receipt {
+      margin-top: 20px;
+      background: #fff;
+      padding: 10px;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    .receipt h2 { font-size: 1.3rem; color: #007bff; margin-bottom: 10px; }
+    .receipt table { width: 100%; border-collapse: collapse; }
+    .receipt th, .receipt td {
+      padding: 6px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+      font-size: 0.9rem;
+    }
+    .receipt th { background: #f4f4f4; }
+    
+    /* Token Section */
+    .token-section {
+      margin-top: 40px;
+      background: #fff;
+      padding: 10px;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    .token-section h2 { font-size: 1.3rem; color: #007bff; margin-bottom: 10px; }
+    .token-section input {
+      padding: 6px;
+      font-size: 0.9rem;
+      width: 120px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      margin-right: 8px;
+    }
+    .token-section button {
+      padding: 6px 12px;
+      font-size: 0.9rem;
+      border: none;
+      background: #28a745;
+      color: #fff;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .token-section button:hover { background: #218838; }
+    
+    /* Media Query for larger screens */
+    @media (min-width: 600px) {
+      .cart-container { padding: 20px 40px; }
+      .checkout-button { width: auto; float: right; }
+    }
+  </style>
+</head>
+<body>
+  <!-- External Header -->
+  <div id="header-placeholder"></div>
+  
+  <!-- Hero Section -->
+  <section class="hero-cart">
+    <div class="hero-content">
+      <h1>Your Order Awaits</h1>
+      <p>Review your order, adjust quantities, and apply tokens for extra Rs savings.</p>
+    </div>
+  </section>
+  
+  <!-- Cart Container -->
+  <main class="cart-container">
+    <!-- Trash Bin for Deletion -->
+    <div id="trash-bin-container" title="Delete selected items">
+      <i class="fas fa-trash-alt"></i>
+      <div id="trash-count">0</div>
+    </div>
+    
+    <div id="cart-items">
+      <!-- Cart items will be dynamically rendered here -->
+    </div>
+    <div class="cart-total" id="cart-total">Total: Rs 0.00</div>
+    <button class="checkout-button" id="checkout-button">Proceed to Checkout</button>
+    
+    <!-- Detailed Receipt Section -->
+    <div class="receipt" id="detailed-receipt">
+      <h2>Order Details</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Qty</th>
+            <th>Unit Price</th>
+            <th>Line Total</th>
+          </tr>
+        </thead>
+        <tbody id="receipt-body">
+          <!-- Receipt rows will be inserted here -->
+        </tbody>
+      </table>
+    </div>
+    
+    <!-- Token Section -->
+    <div class="token-section">
+      <h2>Apply Tokens</h2>
+      <p>You have <span id="user-tokens">50</span> tokens available.</p>
+      <input type="number" id="token-input" placeholder="Tokens to apply" min="0">
+      <button id="apply-tokens">Apply Tokens</button>
+      <p id="token-message"></p>
+    </div>
+  </main>
+  
+  <!-- External Footer -->
+  <div id="footer-placeholder"></div>
+  
+  <script>
+    // Dummy cart data
+    let cartItems = [
+      { id: 1, name: "Product 1", price: 29.99, quantity: 1, image: "https://via.placeholder.com/80" },
+      { id: 2, name: "Product 2", price: 49.99, quantity: 2, image: "https://via.placeholder.com/80" },
+      { id: 3, name: "Product 3", price: 19.99, quantity: 1, image: "https://via.placeholder.com/80" }
+    ];
+    let userTokens = 50;
+    let appliedTokens = 0;
+    let updateTimer;
+    const DEBOUNCE_DELAY = 300;
+    
+    function renderCartItems() {
+      const container = document.getElementById("cart-items");
+      if (cartItems.length === 0) {
+        container.innerHTML = '<p class="empty-cart">Your cart is empty.</p>';
+        return;
       }
-      
-      function increaseQuantity(itemId) {
-        const index = cartItems.findIndex(item => item.id === itemId);
-        if (index > -1) {
-          updateQuantity(itemId, cartItems[index].quantity + 1);
-        }
-      }
-      
-      function decreaseQuantity(itemId) {
-        const index = cartItems.findIndex(item => item.id === itemId);
-        if (index > -1 && cartItems[index].quantity > 1) {
-          updateQuantity(itemId, cartItems[index].quantity - 1);
-        }
-      }
-      
-      function updateQuantity(itemId, newQuantity) {
-        if (newQuantity < 1) return;
-        const index = cartItems.findIndex(item => item.id === itemId);
-        if (index > -1) {
-          cartItems[index].quantity = newQuantity;
-          document.getElementById("quantity-" + itemId).innerText = newQuantity;
-          document.getElementById("vertical-qty-" + itemId).innerText = newQuantity;
-          clearTimeout(updateTimer);
-          updateTimer = setTimeout(updateTotals, DEBOUNCE_DELAY);
-        }
-      }
-      
-      function updateTotals() {
-        const totalContainer = document.getElementById("cart-total");
-        const receiptBody = document.getElementById("receipt-body");
-        let total = 0;
-        receiptBody.innerHTML = "";
-        cartItems.forEach(item => {
-          const lineTotal = item.price * item.quantity;
-          total += lineTotal;
-          const row = document.createElement("tr");
-          row.innerHTML = `
-            <td>${item.name}</td>
-            <td>${item.quantity}</td>
-            <td>Rs ${item.price.toFixed(2)}</td>
-            <td>Rs ${lineTotal.toFixed(2)}</td>
-          `;
-          receiptBody.appendChild(row);
-        });
-        const tokenDiscount = appliedTokens * 0.10;
-        const finalTotal = Math.max(total - tokenDiscount, 0);
-        totalContainer.innerText = "Total: Rs " + finalTotal.toFixed(2);
-      }
-      
-      function updateTrashCount() {
-        const checked = document.querySelectorAll(".delete-checkbox:checked");
-        document.getElementById("trash-count").innerText = checked.length;
-      }
-      
-      function deleteSelectedItems() {
-        const checked = document.querySelectorAll(".delete-checkbox:checked");
-        if (checked.length === 0) return;
-        if (!confirm("Are you sure you want to delete the selected items?")) return;
-        const ids = Array.from(checked).map(cb => parseInt(cb.getAttribute("data-id")));
-        cartItems = cartItems.filter(item => !ids.includes(item.id));
-        renderCartItems();
-        updateTotals();
-        updateTrashCount();
-      }
-      
-      // Load external header/footer
-      function loadHTML(elementId, filePath) {
-        return fetch(filePath)
-          .then(response => {
-            if (!response.ok) throw new Error("Error fetching " + filePath);
-            return response.text();
-          })
-          .then(html => {
-            document.getElementById(elementId).innerHTML = html;
-          })
-          .catch(error => console.error(error));
-      }
-      
-      function applyTokens() {
-        const tokenInput = document.getElementById("token-input");
-        const tokens = parseInt(tokenInput.value);
-        const tokenMsg = document.getElementById("token-message");
-        if (isNaN(tokens) || tokens < 0) {
-          tokenMsg.innerText = "Please enter a valid number of tokens.";
-          return;
-        }
-        if (tokens > userTokens) {
-          tokenMsg.innerText = "You do not have enough tokens.";
-          return;
-        }
-        appliedTokens = tokens;
-        tokenMsg.innerText = "Tokens applied: " + appliedTokens;
-        updateTotals();
-      }
-      
-      document.addEventListener("DOMContentLoaded", () => {
-        renderCartItems();
-        updateTotals();
-        loadHTML("header-placeholder", "header.html");
-        loadHTML("footer-placeholder", "footer.html");
-        document.addEventListener("change", event => {
-          if (event.target.classList.contains("delete-checkbox")) {
-            updateTrashCount();
-          }
-        });
-        document.getElementById("trash-bin-container").addEventListener("click", deleteSelectedItems);
-        document.getElementById("apply-tokens").addEventListener("click", applyTokens);
-        document.getElementById("checkout-button").addEventListener("click", () => {
-          window.location.href = "checkout.html";
-        });
-        // Display available tokens if needed (if header/footer use tokens display)
-        document.getElementById("user-tokens") && (document.getElementById("user-tokens").innerText = userTokens);
+      container.innerHTML = "";
+      cartItems.forEach(item => {
+        const div = document.createElement("div");
+        div.className = "cart-item";
+        div.innerHTML = `
+          <input type="checkbox" class="delete-checkbox" data-id="${item.id}">
+          <img src="${item.image}" alt="${item.name}">
+          <div class="cart-item-details">
+            <h3>${item.name}</h3>
+            <p>Price: Rs ${item.price.toFixed(2)} | Qty: <span id="quantity-${item.id}">${item.quantity}</span></p>
+          </div>
+          <div class="quantity-vertical">
+            <button onclick="increaseQuantity(${item.id})" title="Increase Quantity">
+              <i class="fas fa-plus"></i>
+            </button>
+            <span id="vertical-qty-${item.id}">${item.quantity}</span>
+            <button onclick="decreaseQuantity(${item.id})" title="Decrease Quantity">
+              <i class="fas fa-minus"></i>
+            </button>
+          </div>
+        `;
+        container.appendChild(div);
       });
-    </script>
-  </body>
+    }
+    
+    function increaseQuantity(itemId) {
+      const index = cartItems.findIndex(item => item.id === itemId);
+      if (index > -1) {
+        updateQuantity(itemId, cartItems[index].quantity + 1);
+      }
+    }
+    
+    function decreaseQuantity(itemId) {
+      const index = cartItems.findIndex(item => item.id === itemId);
+      if (index > -1 && cartItems[index].quantity > 1) {
+        updateQuantity(itemId, cartItems[index].quantity - 1);
+      }
+    }
+    
+    function updateQuantity(itemId, newQuantity) {
+      if (newQuantity < 1) return;
+      const index = cartItems.findIndex(item => item.id === itemId);
+      if (index > -1) {
+        cartItems[index].quantity = newQuantity;
+        document.getElementById("quantity-" + itemId).innerText = newQuantity;
+        document.getElementById("vertical-qty-" + itemId).innerText = newQuantity;
+        clearTimeout(updateTimer);
+        updateTimer = setTimeout(updateTotals, DEBOUNCE_DELAY);
+      }
+    }
+    
+    function updateTotals() {
+      const totalContainer = document.getElementById("cart-total");
+      const receiptBody = document.getElementById("receipt-body");
+      let total = 0;
+      receiptBody.innerHTML = "";
+      cartItems.forEach(item => {
+        const lineTotal = item.price * item.quantity;
+        total += lineTotal;
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${item.name}</td>
+          <td>${item.quantity}</td>
+          <td>Rs ${item.price.toFixed(2)}</td>
+          <td>Rs ${lineTotal.toFixed(2)}</td>
+        `;
+        receiptBody.appendChild(row);
+      });
+      const tokenDiscount = appliedTokens * 0.10;
+      const finalTotal = Math.max(total - tokenDiscount, 0);
+      totalContainer.innerText = "Total: Rs " + finalTotal.toFixed(2);
+    }
+    
+    function updateTrashCount() {
+      const checked = document.querySelectorAll(".delete-checkbox:checked");
+      document.getElementById("trash-count").innerText = checked.length;
+    }
+    
+    function deleteSelectedItems() {
+      const checked = document.querySelectorAll(".delete-checkbox:checked");
+      if (checked.length === 0) return;
+      if (!confirm("Are you sure you want to delete the selected items?")) return;
+      const ids = Array.from(checked).map(cb => parseInt(cb.getAttribute("data-id")));
+      cartItems = cartItems.filter(item => !ids.includes(item.id));
+      renderCartItems();
+      updateTotals();
+      updateTrashCount();
+    }
+    
+    function applyTokens() {
+      const tokenInput = document.getElementById("token-input");
+      const tokens = parseInt(tokenInput.value);
+      const tokenMsg = document.getElementById("token-message");
+      if (isNaN(tokens) || tokens < 0) {
+        tokenMsg.innerText = "Please enter a valid number of tokens.";
+        return;
+      }
+      if (tokens > userTokens) {
+        tokenMsg.innerText = "You do not have enough tokens.";
+        return;
+      }
+      appliedTokens = tokens;
+      tokenMsg.innerText = "Tokens applied: " + appliedTokens;
+      updateTotals();
+    }
+    
+    document.addEventListener("DOMContentLoaded", () => {
+      renderCartItems();
+      updateTotals();
+      document.getElementById("checkout-button").addEventListener("click", () => {
+        window.location.href = "checkout.html";
+      });
+      document.getElementById("apply-tokens").addEventListener("click", applyTokens);
+      document.getElementById("trash-bin-container").addEventListener("click", deleteSelectedItems);
+      document.addEventListener("change", event => {
+        if (event.target.classList.contains("delete-checkbox")) {
+          updateTrashCount();
+        }
+      });
+      loadHTML("header-placeholder", "header.html");
+      loadHTML("footer-placeholder", "footer.html");
+    });
+    
+    function loadHTML(elementId, filePath) {
+      fetch(filePath)
+        .then(response => {
+          if (!response.ok) throw new Error("Error fetching " + filePath);
+          return response.text();
+        })
+        .then(html => { document.getElementById(elementId).innerHTML = html; })
+        .catch(error => console.error(error));
+    }
+  </script>
+</body>
 </html>
