@@ -10,7 +10,7 @@
       <a href="index.html" onclick="openPage('index.html')"><i class="fas fa-home"></i></a>
       <a href="offers.html" onclick="openPage('offers.html')"><i class="fas fa-tags"></i></a>
       <a href="analytics.html" onclick="openPage('analytics.html')"><i class="fas fa-chart-line"></i></a>
-      <!-- Changed from ecommerce.html to cart.html with updated text and badge -->
+      <!-- Cart link with badge -->
       <a href="cart.html" onclick="openPage('cart.html')" class="cart-icon">
         <i class="fas fa-shopping-cart"></i>
         <span class="badge" id="cart-count-desktop">0</span>
@@ -24,21 +24,21 @@
     </button>
   </div>
 </header>
+
 <!-- Mobile Side Menu -->
 <aside id="side-menu" class="side-menu">
   <a href="index.html" onclick="openPage('index.html'); toggleSideMenu()">Home</a>
   <a href="offers.html" onclick="openPage('offers.html'); toggleSideMenu()">Offers</a>
   <a href="analytics.html" onclick="openPage('analytics.html'); toggleSideMenu()">Analytics</a>
-  <!-- Updated link and text for the Cart item -->
   <a href="cart.html" onclick="openPage('cart.html'); toggleSideMenu()">Cart</a>
   <a href="more.html" onclick="openPage('more.html'); toggleSideMenu()">More</a>
 </aside>
+
 <!-- Fixed Bottom Navigation (Mobile) -->
 <nav class="mobile-nav">
   <a href="index.html" onclick="openPage('index.html')"><i class="fas fa-home"></i><span>Home</span></a>
   <a href="offers.html" onclick="openPage('offers.html')"><i class="fas fa-tags"></i><span>Offers</span></a>
   <a href="analytics.html" onclick="openPage('analytics.html')"><i class="fas fa-chart-line"></i><span>Analytics</span></a>
-  <!-- Changed from ecommerce.html to cart.html with updated text and badge -->
   <a href="cart.html" onclick="openPage('cart.html')" class="cart-icon">
     <i class="fas fa-shopping-cart"></i>
     <span class="badge" id="cart-count-mobile">0</span>
@@ -47,8 +47,42 @@
   <a href="more.html" onclick="openPage('more.html')"><i class="fas fa-ellipsis-h"></i><span>More</span></a>
 </nav>
 
-<!-- Add this CSS (or integrate it into your existing stylesheet) -->
+<!-- CSS for styling -->
 <style>
+  /* Fixed Header */
+  .header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: #333;
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+  }
+
+  .header-content {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .brand {
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  /* Desktop Navigation */
+  .nav-desktop a {
+    color: white;
+    text-decoration: none;
+    margin: 0 10px;
+  }
+
+  /* Cart Icon and Badge */
   .cart-icon {
     position: relative;
     text-decoration: none;
@@ -56,7 +90,7 @@
     display: inline-flex;
     align-items: center;
   }
-  /* Badge styling for the red round counting label */
+
   .badge {
     position: absolute;
     top: -5px;
@@ -67,29 +101,91 @@
     padding: 2px 5px;
     font-size: 10px;
   }
+
+  /* Side Menu (Mobile) */
+  .side-menu {
+    position: fixed;
+    top: 0;
+    left: -200px; /* Initially hidden */
+    width: 200px; /* Reduced width */
+    max-width: 80%;
+    height: 100%;
+    background: #222;
+    padding-top: 20px;
+    transition: left 0.3s ease;
+  }
+
+  .side-menu a {
+    display: block;
+    color: white;
+    padding: 10px 15px;
+    text-decoration: none;
+  }
+
+  /* Show menu when active */
+  .side-menu.active {
+    left: 0;
+  }
+
+  /* Mobile Navigation */
+  .mobile-nav {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: #333;
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+  }
+
+  .mobile-nav a {
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    font-size: 14px;
+  }
+
+  .mobile-nav .cart-icon {
+    position: relative;
+  }
+
+  /* Hamburger Menu Button */
+  .menu-toggle {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+  }
 </style>
 
-<!-- Add this script to update the cart count on both instances -->
+<!-- JavaScript -->
 <script>
-  // Call this function after adding a product to the cart
-  function updateCartCount() {
-    // Retrieve the current cart count (default to 0)
-    var count = Number(localStorage.getItem('cartCount')) || 0;
-    // Update both desktop and mobile badges
-    var desktopBadge = document.getElementById('cart-count-desktop');
-    var mobileBadge = document.getElementById('cart-count-mobile');
-    if(desktopBadge) desktopBadge.innerText = count;
-    if(mobileBadge) mobileBadge.innerText = count;
+  // Function to toggle side menu visibility
+  function toggleSideMenu() {
+    var menu = document.getElementById('side-menu');
+    if (menu.classList.contains('active')) {
+      menu.classList.remove('active');
+    } else {
+      menu.classList.add('active');
+    }
   }
-  
-  // For example, an addToCart function:
+
+  // Function to update the cart count
+  function updateCartCount() {
+    var count = Number(localStorage.getItem('cartCount')) || 0;
+    document.getElementById('cart-count-desktop').innerText = count;
+    document.getElementById('cart-count-mobile').innerText = count;
+  }
+
+  // Example function to add items to cart
   function addToCart() {
     var count = Number(localStorage.getItem('cartCount')) || 0;
     count++;
     localStorage.setItem('cartCount', count);
     updateCartCount();
   }
-  
-  // Initialize count on page load
+
+  // Initialize cart count on page load
   document.addEventListener('DOMContentLoaded', updateCartCount);
 </script>
