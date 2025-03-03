@@ -1,37 +1,168 @@
-<!-- header.html -->
-<!-- Fixed Header -->
-<header class="header">
-  <div class="header-content">
-    <div class="brand">
-      <i class="fas fa-briefcase"></i> <span>MyBusiness</span>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Right-Side Menu Example</title>
+  <!-- Font Awesome for icons -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+  />
+  <style>
+    /* Basic Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Body and basic font styles */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f9fa;
+    }
+
+    /* Header */
+    .header {
+      background-color: #ffffff;
+      padding: 10px 15px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .header-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between; /* Brand on the left, hamburger on the right */
+    }
+    .brand {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #333;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .brand i {
+      font-size: 1.2rem;
+    }
+
+    /* Hamburger button */
+    .menu-toggle {
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: #333;
+    }
+
+    /* Side menu container */
+    .side-menu {
+      position: fixed;
+      top: 0;
+      right: -230px;            /* Initially hidden to the right */
+      width: 230px;             /* Narrow width */
+      height: 100vh;
+      background-color: #fff;
+      box-shadow: -2px 0 5px rgba(0, 0, 0, 0.15);
+      transition: right 0.3s ease;
+      z-index: 999;             /* Appear on top of other elements */
+      overflow-y: auto;         /* Scroll if content is long */
+    }
+    /* When the menu is "open", bring it into view */
+    .side-menu.open {
+      right: 0;
+    }
+
+    /* Optional close button at the top of side menu */
+    .side-menu-header {
+      display: flex;
+      justify-content: flex-end;
+      padding: 10px;
+      border-bottom: 1px solid #eee;
+    }
+    .close-btn {
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: #333;
+    }
+
+    /* Menu items */
+    .side-menu ul {
+      list-style: none;
+    }
+    .side-menu li a {
+      display: flex;
+      align-items: center;
+      padding: 10px 15px;
+      color: #333;
+      text-decoration: none;
+      font-size: 16px;
+      border-bottom: 1px solid #f2f2f2;
+      transition: background-color 0.2s ease;
+    }
+    .side-menu li a i {
+      margin-right: 8px;
+      width: 20px;
+      text-align: center;
+    }
+    .side-menu li a:hover {
+      background-color: #f2f2f2;
+    }
+
+    /* Main content (just an example placeholder) */
+    .content {
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-content">
+      <!-- Left: Brand -->
+      <div class="brand">
+        <i class="fas fa-briefcase"></i>
+        <span>MyBusiness</span>
+      </div>
+      <!-- Right: Hamburger Icon -->
+      <button class="menu-toggle" onclick="toggleSideMenu()">
+        <i class="fas fa-bars"></i>
+      </button>
     </div>
-    <!-- Desktop Navigation (visible on larger screens) -->
-    <nav class="nav-desktop">
-      <a href="index.html" onclick="openPage('index.html')"><i class="fas fa-home"></i></a>
-      <a href="offers.html" onclick="openPage('offers.html')"><i class="fas fa-tags"></i></a>
-      <a href="analytics.html" onclick="openPage('analytics.html')"><i class="fas fa-chart-line"></i></a>
-      <a href="ecommerce.html" onclick="openPage('ecommerce.html')"><i class="fas fa-shopping-cart"></i></a>
-      <a href="more.html" onclick="openPage('more.html')"><i class="fas fa-ellipsis-h"></i></a>
-    </nav>
-    <!-- Hamburger for Mobile -->
-    <button class="menu-toggle" onclick="toggleSideMenu()">
-      <i class="fas fa-bars"></i>
-    </button>
+  </header>
+
+  <!-- Main Content (Demo) -->
+  <div class="content">
+    <h2>Welcome to the Main Content Area</h2>
+    <p>This is where your main page content would go. Click the hamburger icon in the top-right to open the side menu.</p>
   </div>
-</header>
-<!-- Mobile Side Menu -->
-<aside id="side-menu" class="side-menu">
-  <a href="index.html" onclick="openPage('index.html'); toggleSideMenu()">Home</a>
-  <a href="offers.html" onclick="openPage('offers.html'); toggleSideMenu()">Offers</a>
-  <a href="analytics.html" onclick="openPage('analytics.html'); toggleSideMenu()">Analytics</a>
-  <a href="ecommerce.html" onclick="openPage('ecommerce.html'); toggleSideMenu()">Shop</a>
-  <a href="more.html" onclick="openPage('more.html'); toggleSideMenu()">More</a>
-</aside>
-<!-- Fixed Bottom Navigation (Mobile) -->
-<nav class="mobile-nav">
-  <a href="index.html" onclick="openPage('index.html')"><i class="fas fa-home"></i><span>Home</span></a>
-  <a href="offers.html" onclick="openPage('offers.html')"><i class="fas fa-tags"></i><span>Offers</span></a>
-  <a href="analytics.html" onclick="openPage('analytics.html')"><i class="fas fa-chart-line"></i><span>Analytics</span></a>
-  <a href="ecommerce.html" onclick="openPage('ecommerce.html')"><i class="fas fa-shopping-cart"></i><span>Shop</span></a>
-  <a href="more.html" onclick="openPage('more.html')"><i class="fas fa-ellipsis-h"></i><span>More</span></a>
-</nav>
+
+  <!-- Side Menu (slides in from the right) -->
+  <aside id="side-menu" class="side-menu">
+    <div class="side-menu-header">
+      <button class="close-btn" onclick="toggleSideMenu()">&times;</button>
+    </div>
+    <ul>
+      <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
+      <li><a href="#"><i class="fas fa-exclamation-circle"></i> Issues</a></li>
+      <li><a href="#"><i class="fas fa-code-branch"></i> Pull Requests</a></li>
+      <li><a href="#"><i class="fas fa-book"></i> Projects</a></li>
+      <li><a href="#"><i class="fas fa-comments"></i> Discussions</a></li>
+      <li><a href="#"><i class="fas fa-cogs"></i> Codespaces</a></li>
+      <li><a href="#"><i class="fas fa-robot"></i> Copilot</a></li>
+      <li><a href="#"><i class="fas fa-search"></i> Explore</a></li>
+      <li><a href="#"><i class="fas fa-store"></i> Marketplace</a></li>
+    </ul>
+  </aside>
+
+  <!-- JavaScript -->
+  <script>
+    function toggleSideMenu() {
+      const sideMenu = document.getElementById("side-menu");
+      sideMenu.classList.toggle("open");
+    }
+  </script>
+</body>
+</html>
