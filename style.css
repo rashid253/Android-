@@ -8,25 +8,24 @@ body {
   font-family: 'Roboto', sans-serif;
   background-color: #f4f4f4;
   color: #333;
-  padding-top: 70px;   /* Space for fixed header */
-  padding-bottom: 70px; /* Space for fixed bottom nav */
+  /* Reserve space for fixed header and bottom nav */
+  padding-top: 70px;
+  padding-bottom: 70px;
 }
-
-/* Container */
 .container {
   width: 90%;
   max-width: 1200px;
   margin: 0 auto;
 }
 
-/* Fixed Header */
+/* Header */
 .header {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   background: #fff;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   z-index: 1000;
 }
 .header-content {
@@ -48,7 +47,22 @@ body {
   color: #007bff;
 }
 
-/* Hamburger Menu Toggle */
+/* Desktop Navigation (visible on larger screens only) */
+.nav-desktop {
+  display: none;
+}
+.nav-desktop a {
+  text-decoration: none;
+  color: #333;
+  font-size: 1.2rem;
+  margin-left: 15px;
+  position: relative;
+}
+.nav-desktop a:hover {
+  color: #007bff;
+}
+
+/* Hamburger Menu Toggle (visible on mobile) */
 .menu-toggle {
   background: none;
   border: none;
@@ -56,32 +70,18 @@ body {
   font-size: 1.8rem;
   cursor: pointer;
   display: block;
-  margin-top: 0; /* Adjust if you need to raise it slightly */
-}
-
-/* Desktop Navigation */
-.nav-desktop {
-  display: flex;
-  gap: 20px;
-}
-.nav-desktop a {
-  text-decoration: none;
-  color: #333;
-  font-size: 1.2rem;
-  position: relative;
-}
-.nav-desktop a:hover {
-  color: #007bff;
+  /* Adjust margin-top as needed for vertical placement */
+  margin-top: 0;
 }
 
 /* Mobile Side Menu */
 .side-menu {
   position: fixed;
-  top: 70px;
+  top: 70px; /* directly below header */
   right: 0;
   width: 160px;
   background: #fff;
-  box-shadow: -2px 0 4px rgba(0,0,0,0.1);
+  box-shadow: -2px 0 4px rgba(0, 0, 0, 0.1);
   padding: 20px;
   display: none;
   flex-direction: column;
@@ -93,19 +93,15 @@ body {
   padding: 10px 0;
   border-bottom: 1px solid #e0e0e0;
   font-size: 1rem;
-  position: relative;
 }
 .side-menu a:last-child {
   border-bottom: none;
 }
-.side-menu.visible {
-  display: flex;
-}
 
 /* Hero Section */
 .hero {
-  height: calc(100vh - 140px); /* Full viewport minus header & bottom nav */
-  background-color: #2196F3; /* Bright blue background */
+  height: calc(100vh - 140px); /* subtract header and bottom nav heights */
+  background-color: #2196F3;  /* Bright blue background */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -136,7 +132,7 @@ body {
   justify-content: center;
 }
 .cta-buttons button {
-  background: #4CAF50; /* Green */
+  background: #4CAF50;
   border: none;
   padding: 12px 25px;
   font-size: 1rem;
@@ -172,7 +168,7 @@ body {
   border-radius: 8px;
   width: 280px;
   text-align: center;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s;
 }
 .feature-item:hover {
@@ -220,7 +216,7 @@ body {
   margin-top: 3px;
 }
 
-/* Fixed Footer */
+/* Fixed Footer (optional for additional info) */
 .footer {
   position: fixed;
   bottom: 70px;
@@ -229,13 +225,13 @@ body {
   background: #fff;
   text-align: center;
   padding: 8px 0;
-  box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
   font-size: 0.85rem;
   color: #333;
   z-index: 1000;
 }
 
-/* Cart Badge Placement */
+/* Cart Icon & Badge */
 .cart-icon {
   position: relative;
 }
@@ -244,7 +240,7 @@ body {
   top: -10px;
   right: -10px;
   background-color: red;
-  color: white;
+  color: #fff;
   border-radius: 50%;
   padding: 2px 5px;
   font-size: 10px;
@@ -252,13 +248,18 @@ body {
 
 /* Responsive Adjustments */
 @media (min-width: 600px) {
-  /* Hide mobile nav, footer & side menu on larger screens */
+  /* On larger screens, hide mobile-only elements */
+  .menu-toggle,
+  .side-menu,
   .mobile-nav,
-  .footer,
-  .side-menu {
+  .footer {
     display: none;
   }
-  /* Adjust hero height for larger screens */
+  /* Show desktop navigation */
+  .nav-desktop {
+    display: flex;
+  }
+  /* Adjust hero height if needed */
   .hero {
     height: calc(100vh - 60px);
   }
