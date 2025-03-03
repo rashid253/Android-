@@ -4,7 +4,6 @@
   padding: 0;
   box-sizing: border-box;
 }
-
 body {
   font-family: 'Roboto', sans-serif;
   background-color: #f4f4f4;
@@ -57,31 +56,22 @@ body {
   font-size: 1.8rem;
   cursor: pointer;
   display: block;
-  /* Remove or reduce negative margin so it's higher */
-  margin-top: 0;
+  margin-top: 0; /* Adjust if you need to raise it slightly */
 }
 
 /* Desktop Navigation */
 .nav-desktop {
-  display: none;
+  display: flex;
+  gap: 20px;
 }
-@media (min-width: 600px) {
-  .menu-toggle {
-    display: none;
-  }
-  .nav-desktop {
-    display: flex;
-    gap: 20px;
-  }
-  .nav-desktop a {
-    text-decoration: none;
-    color: #333;
-    font-size: 1.2rem;
-    position: relative;
-  }
-  .nav-desktop a:hover {
-    color: #007bff;
-  }
+.nav-desktop a {
+  text-decoration: none;
+  color: #333;
+  font-size: 1.2rem;
+  position: relative;
+}
+.nav-desktop a:hover {
+  color: #007bff;
 }
 
 /* Mobile Side Menu */
@@ -251,8 +241,8 @@ body {
 }
 .cart-icon .badge {
   position: absolute;
-  top: -10px;   /* Adjust to align with your icon size */
-  right: -10px; /* Adjust as needed */
+  top: -10px;
+  right: -10px;
   background-color: red;
   color: white;
   border-radius: 50%;
@@ -262,11 +252,13 @@ body {
 
 /* Responsive Adjustments */
 @media (min-width: 600px) {
+  /* Hide mobile nav, footer & side menu on larger screens */
   .mobile-nav,
   .footer,
   .side-menu {
     display: none;
   }
+  /* Adjust hero height for larger screens */
   .hero {
     height: calc(100vh - 60px);
   }
