@@ -33,6 +33,9 @@ document.addEventListener("DOMContentLoaded", function() {
     if (document.getElementById("cartCount")) {
       document.getElementById("cartCount").innerText = count;
     }
+    if (document.getElementById("cartCountMobile")) {
+      document.getElementById("cartCountMobile").innerText = count;
+    }
     if (document.getElementById("cartCountMobileBottom")) {
       document.getElementById("cartCountMobileBottom").innerText = count;
     }
