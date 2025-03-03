@@ -53,27 +53,6 @@
 
 <!-- CSS Styles -->
 <style>
-  /* Cart icon styles (applies to desktop, dropdown, and bottom nav) */
-  .cart-icon, .cart-icon-dropdown {
-    position: relative;
-    text-decoration: none;
-    color: inherit;
-    display: inline-flex;
-    align-items: center;
-  }
-  /* Badge styling: red round label */
-  .badge {
-    background-color: red;
-    color: white;
-    border-radius: 50%;
-    padding: 2px 5px;
-    font-size: 10px;
-  }
-  /* For the dropdown (side menu), adjust the badge so it displays inline */
-  .cart-icon-dropdown .badge {
-    margin-left: 5px;
-    position: static;
-  }
   /* Remove default button styles for the hamburger icon */
   .menu-toggle {
     border: none;
@@ -82,6 +61,38 @@
   }
   .menu-toggle:focus {
     outline: none;
+  }
+  
+  /* Common styling for cart icons (desktop and mobile bottom nav) */
+  .cart-icon {
+    position: relative;
+    text-decoration: none;
+    color: inherit;
+    display: inline-flex;
+    align-items: center;
+  }
+  /* Adjust badge for the cart icon: position it correctly relative to the icon */
+  .cart-icon .badge {
+    position: absolute;
+    top: -5px;  /* Adjust this value to move the badge vertically */
+    right: -5px; /* Adjust this value to move the badge horizontally */
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 5px;
+    font-size: 10px;
+  }
+  /* Dropdown cart icon: display badge inline */
+  .cart-icon-dropdown {
+    position: relative;
+    text-decoration: none;
+    color: inherit;
+    display: inline-flex;
+    align-items: center;
+  }
+  .cart-icon-dropdown .badge {
+    margin-left: 5px;
+    position: static;
   }
 </style>
 
@@ -93,9 +104,9 @@
     var desktopBadge = document.getElementById('cart-count-desktop');
     var mobileBadge = document.getElementById('cart-count-mobile');
     var dropdownBadge = document.getElementById('cart-count-dropdown');
-    if(desktopBadge) desktopBadge.innerText = count;
-    if(mobileBadge) mobileBadge.innerText = count;
-    if(dropdownBadge) dropdownBadge.innerText = count;
+    if (desktopBadge) desktopBadge.innerText = count;
+    if (mobileBadge) mobileBadge.innerText = count;
+    if (dropdownBadge) dropdownBadge.innerText = count;
   }
   
   // Example function to simulate adding a product to the cart
