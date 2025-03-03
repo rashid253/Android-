@@ -10,7 +10,10 @@
       <a href="index.html" onclick="openPage('index.html')"><i class="fas fa-home"></i></a>
       <a href="offers.html" onclick="openPage('offers.html')"><i class="fas fa-tags"></i></a>
       <a href="analytics.html" onclick="openPage('analytics.html')"><i class="fas fa-chart-line"></i></a>
-      <a href="ecommerce.html" onclick="openPage('ecommerce.html')"><i class="fas fa-shopping-cart"></i></a>
+      <a href="cart.html" onclick="openPage('cart.html')">
+        <i class="fas fa-shopping-cart"></i>
+        <span id="cartCount" class="cart-badge"></span>
+      </a>
       <a href="more.html" onclick="openPage('more.html')"><i class="fas fa-ellipsis-h"></i></a>
     </nav>
     <!-- Hamburger for Mobile -->
@@ -24,7 +27,9 @@
   <a href="index.html" onclick="openPage('index.html'); toggleSideMenu()">Home</a>
   <a href="offers.html" onclick="openPage('offers.html'); toggleSideMenu()">Offers</a>
   <a href="analytics.html" onclick="openPage('analytics.html'); toggleSideMenu()">Analytics</a>
-  <a href="ecommerce.html" onclick="openPage('ecommerce.html'); toggleSideMenu()">Shop</a>
+  <a href="cart.html" onclick="openPage('cart.html'); toggleSideMenu()">
+    Cart <span id="cartCountMobile" class="cart-badge"></span>
+  </a>
   <a href="more.html" onclick="openPage('more.html'); toggleSideMenu()">More</a>
 </aside>
 <!-- Fixed Bottom Navigation (Mobile) -->
@@ -32,6 +37,54 @@
   <a href="index.html" onclick="openPage('index.html')"><i class="fas fa-home"></i><span>Home</span></a>
   <a href="offers.html" onclick="openPage('offers.html')"><i class="fas fa-tags"></i><span>Offers</span></a>
   <a href="analytics.html" onclick="openPage('analytics.html')"><i class="fas fa-chart-line"></i><span>Analytics</span></a>
-  <a href="ecommerce.html" onclick="openPage('ecommerce.html')"><i class="fas fa-shopping-cart"></i><span>Shop</span></a>
+  <a href="cart.html" onclick="openPage('cart.html')">
+    <i class="fas fa-shopping-cart"></i><span>Cart</span>
+    <span id="cartCountMobileBottom" class="cart-badge"></span>
+  </a>
   <a href="more.html" onclick="openPage('more.html')"><i class="fas fa-ellipsis-h"></i><span>More</span></a>
 </nav>
+..............
+document.addEventListener("DOMContentLoaded", function() {
+  // Global function to open pages in a new tab/window
+  window.openPage = function(url) {
+    window.open(url, '_blank');
+  };
+
+  // Toggle mobile side menu
+  window.toggleSideMenu = function() {
+    const sideMenu = document.getElementById("side-menu");
+    if (sideMenu) {
+      sideMenu.classList.toggle("visible");
+    }
+  };
+
+  // Close side menu when clicking outside the menu and the toggle button
+  document.addEventListener("click", function(event) {
+    const sideMenu = document.getElementById("side-menu");
+    const menuToggle = document.querySelector(".menu-toggle");
+    if (
+      sideMenu &&
+      sideMenu.classList.contains("visible") &&
+      !sideMenu.contains(event.target) &&
+      !menuToggle.contains(event.target)
+    ) {
+      sideMenu.classList.remove("visible");
+    }
+  });
+
+  // Dummy function to update the cart count badge
+  function updateCartCount() {
+    // For demonstration, using a dummy value (3). Replace with real integration later.
+    var count = localStorage.getItem("cartCount") || 3;
+    if (document.getElementById("cartCount")) {
+      document.getElementById("cartCount").innerText = count;
+    }
+    if (document.getElementById("cartCountMobile")) {
+      document.getElementById("cartCountMobile").innerText = count;
+    }
+    if (document.getElementById("cartCountMobileBottom")) {
+      document.getElementById("cartCountMobileBottom").innerText = count;
+    }
+  }
+  updateCartCount();
+});
