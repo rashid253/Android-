@@ -10,7 +10,20 @@
   <style>
     /* Global Resets */
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    html, body { font-family: Arial, sans-serif; background: #f4f4f4; overflow-x: hidden; }
+    html, body { 
+      font-family: Arial, sans-serif; 
+      background: #f4f4f4; 
+      overflow-x: hidden; 
+    }
+    /* Add red star for required fields */
+    label.required::after {
+      content: " *";
+      color: red;
+    }
+    /* Input invalid style */
+    input:invalid, textarea:invalid, select:invalid {
+      border-color: red;
+    }
     
     /* Container */
     .container {
@@ -19,7 +32,7 @@
       margin: 20px auto;
       background: #fff;
       padding: 20px;
-      padding-bottom: 120px;
+      padding-bottom: 120px; /* Extra bottom padding */
       border-radius: 8px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
@@ -70,9 +83,9 @@
     }
     .payment-method input { margin-right: 10px; }
     
-    /* Order Summary - Center-Aligned Table */
+    /* Order Summary with Center-Aligned Cells */
     .order-summary {
-      border: 1px solid #ddd;
+      border: 1px solid #ccc;
       padding: 15px;
       border-radius: 6px;
       background: #e9f1f7;
@@ -90,7 +103,7 @@
     .order-summary th,
     .order-summary td {
       padding: 8px;
-      text-align: center; /* Center-align all cells */
+      text-align: center;
       border-bottom: 1px solid #ccc;
       font-size: 0.9rem;
     }
@@ -135,37 +148,37 @@
   <div id="header-placeholder"></div>
   
   <div class="container">
-    <form class="checkout-form" id="checkoutForm">
+    <form class="checkout-form" id="checkoutForm" novalidate>
       <div class="form-left">
         <!-- Shipping Information Section -->
         <div class="form-section">
           <h2>Shipping Information</h2>
           <div class="form-group">
-            <label for="fullName">Full Name</label>
+            <label for="fullName" class="required">Full Name</label>
             <input type="text" id="fullName" name="fullName" placeholder="Enter your full name" required>
           </div>
           <div class="form-group">
-            <label for="email">Email Address</label>
+            <label for="email" class="required">Email Address</label>
             <input type="email" id="email" name="email" placeholder="Enter your email" required>
           </div>
           <div class="form-group">
-            <label for="phone">Phone Number</label>
-            <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
+            <label for="phone" class="required">Phone Number</label>
+            <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required pattern="^\+?\d{10,15}$">
           </div>
           <div class="form-group">
-            <label for="address">Shipping Address</label>
+            <label for="address" class="required">Shipping Address</label>
             <textarea id="address" name="address" rows="3" placeholder="Enter your address" required></textarea>
           </div>
           <div class="form-group">
-            <label for="city">City</label>
+            <label for="city" class="required">City</label>
             <input type="text" id="city" name="city" placeholder="Enter your city" required>
           </div>
           <div class="form-group">
-            <label for="postalCode">Postal Code</label>
-            <input type="text" id="postalCode" name="postalCode" placeholder="Enter your postal code" required>
+            <label for="postalCode" class="required">Postal Code</label>
+            <input type="text" id="postalCode" name="postalCode" placeholder="Enter your postal code" required pattern="^\d{4,6}$">
           </div>
           <div class="form-group">
-            <label for="country">Country</label>
+            <label for="country" class="required">Country</label>
             <select id="country" name="country" required>
               <option value="Pakistan" selected>Pakistan</option>
               <option value="Other">Other</option>
@@ -197,26 +210,26 @@
           <div id="paymentDetails" style="display:none; margin-top:15px;">
             <div id="cardDetails" style="display:none;">
               <div class="form-group">
-                <label for="cardNumber">Card Number</label>
-                <input type="text" id="cardNumber" name="cardNumber" placeholder="XXXX-XXXX-XXXX-XXXX">
+                <label for="cardNumber" class="required">Card Number</label>
+                <input type="text" id="cardNumber" name="cardNumber" placeholder="XXXX-XXXX-XXXX-XXXX" pattern="^\d{4}-\d{4}-\d{4}-\d{4}$">
               </div>
               <div class="form-group">
-                <label for="cardExpiry">Expiry Date</label>
-                <input type="text" id="cardExpiry" name="cardExpiry" placeholder="MM/YY">
+                <label for="cardExpiry" class="required">Expiry Date</label>
+                <input type="text" id="cardExpiry" name="cardExpiry" placeholder="MM/YY" pattern="^(0[1-9]|1[0-2])\/\d{2}$">
               </div>
               <div class="form-group">
-                <label for="cardCVV">CVV</label>
-                <input type="text" id="cardCVV" name="cardCVV" placeholder="XXX">
+                <label for="cardCVV" class="required">CVV</label>
+                <input type="text" id="cardCVV" name="cardCVV" placeholder="XXX" pattern="^\d{3}$">
               </div>
             </div>
             <div id="mobileWalletDetails" style="display:none;">
               <div class="form-group">
-                <label for="walletNumber">Mobile Wallet Number</label>
-                <input type="text" id="walletNumber" name="walletNumber" placeholder="Enter your wallet number">
+                <label for="walletNumber" class="required">Mobile Wallet Number</label>
+                <input type="text" id="walletNumber" name="walletNumber" placeholder="Enter your wallet number" pattern="^\+?\d{10,15}$">
               </div>
               <div class="form-group">
-                <label for="transactionId">Transaction ID</label>
-                <input type="text" id="transactionId" name="transactionId" placeholder="Enter transaction ID">
+                <label for="transactionId" class="required">Transaction ID</label>
+                <input type="text" id="transactionId" name="transactionId" placeholder="Enter transaction ID" required>
               </div>
             </div>
           </div>
@@ -302,19 +315,16 @@
         });
       });
       
-      // Form submission handler with validation
+      // Form submission handler with HTML5 validation
       const checkoutForm = document.getElementById("checkoutForm");
       checkoutForm.addEventListener("submit", (e) => {
-        e.preventDefault();
-        const fullName = document.getElementById("fullName").value.trim();
-        const email = document.getElementById("email").value.trim();
-        const phone = document.getElementById("phone").value.trim();
-        const address = document.getElementById("address").value.trim();
-        if (!fullName || !email || !phone || !address) {
-          alert("Please fill in all required fields.");
+        if (!checkoutForm.checkValidity()) {
+          checkoutForm.reportValidity();
+          e.preventDefault();
           return;
         }
-        // Additional validation can be added here (e.g., email format, phone number)
+        e.preventDefault();
+        // Process the order (simulate payment processing)
         alert("Payment processed successfully. Order placed!");
       });
     });
