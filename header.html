@@ -395,7 +395,7 @@
         updateTrashCount();
       }
       
-      // Modified loadHTML function to extract only the header or footer element and its styles.
+      // Updated loadHTML function to extract only the needed header or footer and its styles.
       function loadHTML(elementId, filePath) {
         fetch(filePath)
           .then(response => {
@@ -406,29 +406,23 @@
             var parser = new DOMParser();
             var doc = parser.parseFromString(data, 'text/html');
             if (filePath.includes("header.html")) {
-              // Append header styles from header.html into the current document head.
+              // Extract and append header styles
               var headerStyles = doc.head.querySelectorAll("style");
               headerStyles.forEach(style => {
                 document.head.appendChild(style);
               });
+              // Extract only the <header> element
               var header = doc.querySelector("header");
-              if (header) {
-                document.getElementById(elementId).innerHTML = header.outerHTML;
-              } else {
-                document.getElementById(elementId).innerHTML = data;
-              }
+              document.getElementById(elementId).innerHTML = header ? header.outerHTML : data;
             } else if (filePath.includes("footer.html")) {
-              // Append footer styles if any.
+              // Extract and append footer styles
               var footerStyles = doc.head.querySelectorAll("style");
               footerStyles.forEach(style => {
                 document.head.appendChild(style);
               });
+              // Extract only the <footer> element
               var footer = doc.querySelector("footer");
-              if (footer) {
-                document.getElementById(elementId).innerHTML = footer.outerHTML;
-              } else {
-                document.getElementById(elementId).innerHTML = data;
-              }
+              document.getElementById(elementId).innerHTML = footer ? footer.outerHTML : data;
             } else {
               document.getElementById(elementId).innerHTML = data;
             }
@@ -468,8 +462,10 @@
         document.getElementById("checkout-button").addEventListener("click", () => {
           window.location.href = "checkout.html";
         });
-        // Display available tokens if needed (if header/footer use tokens display)
-        document.getElementById("user-tokens") && (document.getElementById("user-tokens").innerText = userTokens);
+        // Display available tokens if needed
+        if (document.getElementById("user-tokens")) {
+          document.getElementById("user-tokens").innerText = userTokens;
+        }
       });
     </script>
   </body>
