@@ -12,8 +12,6 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html, body { font-family: Arial, sans-serif; background: #f4f4f4; overflow-x: hidden; }
     
-    /* External header and footer will be loaded */
-    
     /* Container */
     .container {
       width: 90%;
@@ -71,7 +69,7 @@
     }
     .payment-method input { margin-right: 10px; }
     
-    /* Order Summary */
+    /* Order Summary (Table style same as cart) */
     .order-summary {
       border: 1px solid #ddd;
       padding: 15px;
@@ -89,9 +87,10 @@
     }
     .order-summary th,
     .order-summary td {
-      padding: 8px;
+      padding: 6px;
       text-align: left;
       border-bottom: 1px solid #ddd;
+      font-size: 0.9rem;
     }
     .order-summary th { background: #f4f4f4; }
     .total-amount {
@@ -247,7 +246,7 @@
   <div id="footer-placeholder"></div>
   
   <script>
-    // Dummy order data
+    // Dummy order data (simulate cart contents)
     const orderData = [
       { name: "Product 1", quantity: 1, price: 29.99 },
       { name: "Product 2", quantity: 2, price: 49.99 },
