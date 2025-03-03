@@ -14,11 +14,13 @@
     /* Header */
     header.site-header {
       background: #007bff;
-      padding: 10px 15px;
+      padding: 10px 15px 15px; /* Added extra bottom padding */
       color: #fff;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      position: relative;
+      z-index: 100;
     }
     header.site-header .logo {
       font-size: 1.5rem;
@@ -157,6 +159,9 @@
 </head>
 <body>
   <!-- External Header -->
+  <div id="header-placeholder"></div>
+  
+  <!-- Inline Sample Header (for demonstration) -->
   <header class="site-header">
     <div class="logo">MyBusiness</div>
     <nav class="nav-desktop">
@@ -171,7 +176,7 @@
   <div class="container">
     <form class="checkout-form" id="checkoutForm">
       <div class="form-left">
-        <!-- Shipping Information -->
+        <!-- Shipping Information Section -->
         <div class="form-section">
           <h2>Shipping Information</h2>
           <div class="form-group">
@@ -207,7 +212,7 @@
           </div>
         </div>
         
-        <!-- Payment Information -->
+        <!-- Payment Information Section -->
         <div class="form-section">
           <h2>Payment Method</h2>
           <div class="payment-options">
@@ -258,7 +263,7 @@
       </div>
       
       <div class="form-right">
-        <!-- Order Summary -->
+        <!-- Order Summary Section -->
         <div class="order-summary">
           <h2>Order Summary</h2>
           <table>
@@ -271,7 +276,7 @@
               </tr>
             </thead>
             <tbody id="orderSummaryBody">
-              <!-- Order summary rows inserted via JS -->
+              <!-- Order summary rows will be inserted via JS -->
             </tbody>
           </table>
           <div class="total-amount" id="orderTotal">Total: Rs 0.00</div>
@@ -312,7 +317,7 @@
       document.getElementById("orderTotal").innerText = "Total: Rs " + total.toFixed(2);
     }
     
-    // Payment method toggle logic
+    // Payment method toggle
     document.addEventListener("DOMContentLoaded", () => {
       renderOrderSummary();
       
@@ -336,7 +341,7 @@
         });
       });
       
-      // Form submission
+      // Form submission handler
       const checkoutForm = document.getElementById("checkoutForm");
       checkoutForm.addEventListener("submit", (e) => {
         e.preventDefault();
@@ -352,7 +357,7 @@
       });
     });
     
-    // Load external header and footer
+    // Load external header/footer
     function loadHTML(elementId, filePath) {
       fetch(filePath)
         .then(response => {
