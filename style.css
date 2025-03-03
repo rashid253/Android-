@@ -47,6 +47,7 @@ body {
   font-size: 1.8rem;
   color: #007bff;
 }
+/* Hamburger Menu Toggle */
 .menu-toggle {
   background: none;
   border: none;
@@ -54,6 +55,7 @@ body {
   font-size: 1.8rem;
   cursor: pointer;
   display: block;
+  margin-top: -7mm;  /* Raised by 7mm */
 }
 
 /* Desktop Navigation */
@@ -117,6 +119,7 @@ body {
   text-align: center;
   padding: 0 15px;
   color: #fff;
+  margin-top: -7mm;  /* Raised by 7mm */
 }
 .hero-content {
   max-width: 600px;
