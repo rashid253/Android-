@@ -11,7 +11,7 @@
     /* Global Resets */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html, body { font-family: Arial, sans-serif; background: #f4f4f4; overflow-x: hidden; }
-    
+
     /* Container */
     .container {
       width: 90%;
@@ -19,6 +19,7 @@
       margin: 20px auto;
       background: #fff;
       padding: 20px;
+      padding-bottom: 120px; /* Extra bottom padding */
       border-radius: 8px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
@@ -69,17 +70,17 @@
     }
     .payment-method input { margin-right: 10px; }
     
-    /* Order Summary (Table style same as cart) */
+    /* Order Summary - Professional Color Scheme */
     .order-summary {
-      border: 1px solid #ddd;
+      border: 1px solid #ccc;
       padding: 15px;
       border-radius: 6px;
-      background: #fafafa;
+      background: #e9f1f7;
     }
     .order-summary h2 {
       font-size: 1.5rem;
       margin-bottom: 10px;
-      color: #007bff;
+      color: #005a9e;
     }
     .order-summary table {
       width: 100%;
@@ -87,17 +88,21 @@
     }
     .order-summary th,
     .order-summary td {
-      padding: 6px;
+      padding: 8px;
       text-align: left;
-      border-bottom: 1px solid #ddd;
+      border-bottom: 1px solid #ccc;
       font-size: 0.9rem;
     }
-    .order-summary th { background: #f4f4f4; }
+    .order-summary th {
+      background: #cce0f5;
+      color: #005a9e;
+    }
     .total-amount {
       text-align: right;
       font-size: 1.2rem;
       margin-top: 10px;
       font-weight: bold;
+      color: #005a9e;
     }
     
     /* Place Order Button */
@@ -117,10 +122,17 @@
     
     /* Mobile-First Layout */
     @media (min-width: 768px) {
-      .checkout-form { flex-direction: row; }
-      .form-left, .form-right { flex: 1; }
+      .checkout-form {
+        flex-direction: row;
+      }
+      .form-left, .form-right {
+        flex: 1;
+      }
       .form-left { margin-right: 20px; }
-      .place-order { width: auto; align-self: flex-end; }
+      .place-order {
+        width: auto;
+        align-self: flex-end;
+      }
     }
   </style>
 </head>
@@ -272,7 +284,7 @@
       document.getElementById("orderTotal").innerText = "Total: Rs " + total.toFixed(2);
     }
     
-    // Payment method toggle logic
+    // Payment method toggle
     document.addEventListener("DOMContentLoaded", () => {
       renderOrderSummary();
       
@@ -296,7 +308,7 @@
         });
       });
       
-      // Form submission handler
+      // Form submission with additional validation
       const checkoutForm = document.getElementById("checkoutForm");
       checkoutForm.addEventListener("submit", (e) => {
         e.preventDefault();
@@ -308,6 +320,7 @@
           alert("Please fill in all required fields.");
           return;
         }
+        // Further validation could be added here (e.g., regex for phone/email)
         alert("Payment processed successfully. Order placed!");
       });
     });
