@@ -62,7 +62,7 @@
     <!-- Footer Placeholder (loads footer.html) -->
     <div id="footer-placeholder"></div>
 
-    <!-- Script to dynamically load header and footer -->
+    <!-- Script to dynamically load header and footer, and initialize hamburger -->
     <script>
       function loadHTML(elementId, filePath) {
         fetch(filePath)
@@ -74,8 +74,23 @@
           })
           .then(html => {
             document.getElementById(elementId).innerHTML = html;
+            // If loading the header, initialize the hamburger icon functionality
+            if (elementId === "header-placeholder") {
+              initializeHamburger();
+            }
           })
           .catch(error => console.error(error));
+      }
+
+      // This function attaches a click listener to the hamburger icon.
+      function initializeHamburger() {
+        const hamburger = document.getElementById("hamburger");
+        const navMenu = document.getElementById("nav-menu");
+        if (hamburger && navMenu) {
+          hamburger.addEventListener("click", function() {
+            navMenu.classList.toggle("show");
+          });
+        }
       }
 
       document.addEventListener("DOMContentLoaded", function() {
