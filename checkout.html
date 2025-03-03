@@ -15,8 +15,8 @@
       background: #f4f4f4; 
       overflow-x: hidden; 
     }
-    /* Only show error star on label when input is invalid */
-    label.error::after {
+    /* Append red star for required fields only when needed (error styling added by browser) */
+    label.required::after {
       content: " *";
       color: red;
     }
@@ -28,7 +28,7 @@
       margin: 20px auto;
       background: #fff;
       padding: 20px;
-      padding-bottom: 120px; /* Extra bottom padding */
+      padding-bottom: 120px;
       border-radius: 8px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
@@ -102,7 +102,7 @@
     }
     .payment-method input { margin-right: 10px; }
     
-    /* Order Summary - Center-Aligned Table with Professional Color Scheme */
+    /* Order Summary - Center-Aligned Table with Professional Colors */
     .order-summary {
       border: 1px solid #ccc;
       padding: 15px;
@@ -184,7 +184,7 @@
             <label for="phone" class="required">Phone Number</label>
             <div class="phone-input">
               <span class="phone-prefix">+92</span>
-              <input type="tel" id="phone" name="phone" placeholder="" required pattern="^\d{10}$">
+              <input type="tel" id="phone" name="phone" placeholder="3001234567" required pattern="^\d{10}$" value="">
             </div>
           </div>
           <div class="form-group">
@@ -337,7 +337,7 @@
         });
       });
       
-      // Form submission handler with HTML5 native validation
+      // Form submission handler with native HTML5 validation
       const checkoutForm = document.getElementById("checkoutForm");
       checkoutForm.addEventListener("submit", (e) => {
         if (!checkoutForm.checkValidity()) {
@@ -346,6 +346,7 @@
           return;
         }
         e.preventDefault();
+        // Process order here (simulate payment processing)
         alert("Payment processed successfully. Order placed!");
       });
     });
