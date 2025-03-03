@@ -11,7 +11,7 @@
     /* Global Resets */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html, body { font-family: Arial, sans-serif; background: #f4f4f4; overflow-x: hidden; }
-
+    
     /* Container */
     .container {
       width: 90%;
@@ -19,7 +19,7 @@
       margin: 20px auto;
       background: #fff;
       padding: 20px;
-      padding-bottom: 120px; /* Extra bottom padding */
+      padding-bottom: 120px;
       border-radius: 8px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
@@ -70,9 +70,9 @@
     }
     .payment-method input { margin-right: 10px; }
     
-    /* Order Summary - Professional Color Scheme */
+    /* Order Summary - Center-Aligned Table */
     .order-summary {
-      border: 1px solid #ccc;
+      border: 1px solid #ddd;
       padding: 15px;
       border-radius: 6px;
       background: #e9f1f7;
@@ -81,6 +81,7 @@
       font-size: 1.5rem;
       margin-bottom: 10px;
       color: #005a9e;
+      text-align: center;
     }
     .order-summary table {
       width: 100%;
@@ -89,7 +90,7 @@
     .order-summary th,
     .order-summary td {
       padding: 8px;
-      text-align: left;
+      text-align: center; /* Center-align all cells */
       border-bottom: 1px solid #ccc;
       font-size: 0.9rem;
     }
@@ -98,7 +99,7 @@
       color: #005a9e;
     }
     .total-amount {
-      text-align: right;
+      text-align: center;
       font-size: 1.2rem;
       margin-top: 10px;
       font-weight: bold;
@@ -122,17 +123,10 @@
     
     /* Mobile-First Layout */
     @media (min-width: 768px) {
-      .checkout-form {
-        flex-direction: row;
-      }
-      .form-left, .form-right {
-        flex: 1;
-      }
+      .checkout-form { flex-direction: row; }
+      .form-left, .form-right { flex: 1; }
       .form-left { margin-right: 20px; }
-      .place-order {
-        width: auto;
-        align-self: flex-end;
-      }
+      .place-order { width: auto; align-self: flex-end; }
     }
   </style>
 </head>
@@ -284,7 +278,7 @@
       document.getElementById("orderTotal").innerText = "Total: Rs " + total.toFixed(2);
     }
     
-    // Payment method toggle
+    // Payment method toggle logic
     document.addEventListener("DOMContentLoaded", () => {
       renderOrderSummary();
       
@@ -308,7 +302,7 @@
         });
       });
       
-      // Form submission with additional validation
+      // Form submission handler with validation
       const checkoutForm = document.getElementById("checkoutForm");
       checkoutForm.addEventListener("submit", (e) => {
         e.preventDefault();
@@ -320,7 +314,7 @@
           alert("Please fill in all required fields.");
           return;
         }
-        // Further validation could be added here (e.g., regex for phone/email)
+        // Additional validation can be added here (e.g., email format, phone number)
         alert("Payment processed successfully. Order placed!");
       });
     });
