@@ -1,4 +1,23 @@
 <!-- header.html -->
+<style>
+  /* Inline styles for the cart badge */
+  .cart-badge {
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 0.75em;
+    position: absolute;
+    top: -5px;
+    right: -5px;
+  }
+  /* Ensure the parent anchors are positioned relatively */
+  .nav-desktop a,
+  .side-menu a,
+  .mobile-nav a {
+    position: relative;
+  }
+</style>
 <!-- Fixed Header -->
 <header class="header">
   <div class="header-content">
@@ -34,16 +53,25 @@
 </aside>
 <!-- Fixed Bottom Navigation (Mobile) -->
 <nav class="mobile-nav">
-  <a href="index.html" onclick="openPage('index.html')"><i class="fas fa-home"></i><span>Home</span></a>
-  <a href="offers.html" onclick="openPage('offers.html')"><i class="fas fa-tags"></i><span>Offers</span></a>
-  <a href="analytics.html" onclick="openPage('analytics.html')"><i class="fas fa-chart-line"></i><span>Analytics</span></a>
+  <a href="index.html" onclick="openPage('index.html')">
+    <i class="fas fa-home"></i><span>Home</span>
+  </a>
+  <a href="offers.html" onclick="openPage('offers.html')">
+    <i class="fas fa-tags"></i><span>Offers</span>
+  </a>
+  <a href="analytics.html" onclick="openPage('analytics.html')">
+    <i class="fas fa-chart-line"></i><span>Analytics</span>
+  </a>
   <a href="cart.html" onclick="openPage('cart.html')">
     <i class="fas fa-shopping-cart"></i><span>Cart</span>
     <span id="cartCountMobileBottom" class="cart-badge"></span>
   </a>
-  <a href="more.html" onclick="openPage('more.html')"><i class="fas fa-ellipsis-h"></i><span>More</span></a>
+  <a href="more.html" onclick="openPage('more.html')">
+    <i class="fas fa-ellipsis-h"></i><span>More</span>
+  </a>
 </nav>
 ..............
+<script>
 document.addEventListener("DOMContentLoaded", function() {
   // Global function to open pages in a new tab/window
   window.openPage = function(url) {
@@ -88,3 +116,4 @@ document.addEventListener("DOMContentLoaded", function() {
   }
   updateCartCount();
 });
+</script>
