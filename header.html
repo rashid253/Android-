@@ -1,37 +1,96 @@
-<!-- header.html -->
-<!-- Fixed Header -->
-<header class="header">
-  <div class="header-content">
-    <div class="brand">
-      <i class="fas fa-briefcase"></i> <span>MyBusiness</span>
-    </div>
-    <!-- Desktop Navigation (visible on larger screens) -->
-    <nav class="nav-desktop">
-      <a href="index.html" onclick="openPage('index.html')"><i class="fas fa-home"></i></a>
-      <a href="offers.html" onclick="openPage('offers.html')"><i class="fas fa-tags"></i></a>
-      <a href="analytics.html" onclick="openPage('analytics.html')"><i class="fas fa-chart-line"></i></a>
-      <a href="ecommerce.html" onclick="openPage('ecommerce.html')"><i class="fas fa-shopping-cart"></i></a>
-      <a href="more.html" onclick="openPage('more.html')"><i class="fas fa-ellipsis-h"></i></a>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- This file should not include a full HTML <head> if it's being loaded into a container.
+         Instead, include only the header markup and its specific styles or link to a common stylesheet. -->
+    <style>
+      /* Header-specific styles */
+      .site-header {
+        background: #007bff;
+        padding: 10px 15px;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .site-header .logo {
+        font-size: 1.5rem;
+        font-weight: bold;
+        cursor: pointer;
+      }
+      .site-header nav a {
+        color: #fff;
+        margin-left: 15px;
+        text-decoration: none;
+        font-size: 1rem;
+      }
+      .site-header nav a:hover {
+        text-decoration: underline;
+      }
+      /* Hamburger icon for mobile */
+      .site-header .menu-toggle {
+        display: none;
+        background: none;
+        border: none;
+        color: #fff;
+        font-size: 1.5rem;
+        cursor: pointer;
+      }
+      /* Mobile Menu (hidden by default) */
+      .mobile-menu {
+        display: none;
+        flex-direction: column;
+        background: #007bff;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+      }
+      .mobile-menu a {
+        padding: 10px 20px;
+        border-top: 1px solid rgba(255,255,255,0.2);
+        color: #fff;
+        text-decoration: none;
+      }
+      @media (max-width: 768px) {
+        .site-header nav { display: none; }
+        .site-header .menu-toggle { display: block; }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="logo" onclick="window.location.href='index.html'">MyBusiness</div>
+      <nav class="nav-desktop">
+        <a href="index.html">Home</a>
+        <a href="offers.html">Offers</a>
+        <a href="analytics.html">Analytics</a>
+        <a href="cart.html">Cart</a>
+        <a href="more.html">More</a>
+      </nav>
+      <button class="menu-toggle" onclick="toggleSideMenu()">
+        <i class="fas fa-bars"></i>
+      </button>
+    </header>
+    <!-- Mobile Navigation -->
+    <nav class="mobile-menu" id="mobile-menu">
+      <a href="index.html" onclick="toggleSideMenu()">Home</a>
+      <a href="offers.html" onclick="toggleSideMenu()">Offers</a>
+      <a href="analytics.html" onclick="toggleSideMenu()">Analytics</a>
+      <a href="cart.html" onclick="toggleSideMenu()">Cart</a>
+      <a href="more.html" onclick="toggleSideMenu()">More</a>
     </nav>
-    <!-- Hamburger for Mobile -->
-    <button class="menu-toggle" onclick="toggleSideMenu()">
-      <i class="fas fa-bars"></i>
-    </button>
-  </div>
-</header>
-<!-- Mobile Side Menu -->
-<aside id="side-menu" class="side-menu">
-  <a href="index.html" onclick="openPage('index.html'); toggleSideMenu()">Home</a>
-  <a href="offers.html" onclick="openPage('offers.html'); toggleSideMenu()">Offers</a>
-  <a href="analytics.html" onclick="openPage('analytics.html'); toggleSideMenu()">Analytics</a>
-  <a href="ecommerce.html" onclick="openPage('ecommerce.html'); toggleSideMenu()">Shop</a>
-  <a href="more.html" onclick="openPage('more.html'); toggleSideMenu()">More</a>
-</aside>
-<!-- Fixed Bottom Navigation (Mobile) -->
-<nav class="mobile-nav">
-  <a href="index.html" onclick="openPage('index.html')"><i class="fas fa-home"></i><span>Home</span></a>
-  <a href="offers.html" onclick="openPage('offers.html')"><i class="fas fa-tags"></i><span>Offers</span></a>
-  <a href="analytics.html" onclick="openPage('analytics.html')"><i class="fas fa-chart-line"></i><span>Analytics</span></a>
-  <a href="ecommerce.html" onclick="openPage('ecommerce.html')"><i class="fas fa-shopping-cart"></i><span>Shop</span></a>
-  <a href="more.html" onclick="openPage('more.html')"><i class="fas fa-ellipsis-h"></i><span>More</span></a>
-</nav>
+    
+    <script>
+      // Toggle mobile menu
+      function toggleSideMenu() {
+        var menu = document.getElementById("mobile-menu");
+        if(menu.style.display === "flex") {
+          menu.style.display = "none";
+        } else {
+          menu.style.display = "flex";
+        }
+      }
+    </script>
+  </body>
+</html>
