@@ -15,8 +15,8 @@
       background: #f4f4f4; 
       overflow-x: hidden; 
     }
-    /* Append red star for required fields */
-    label.required::after {
+    /* Only show error star on label when input is invalid */
+    label.error::after {
       content: " *";
       color: red;
     }
@@ -67,6 +67,29 @@
       border-radius: 4px;
     }
     
+    /* Phone Input Group */
+    .phone-input {
+      display: flex;
+      align-items: center;
+    }
+    .phone-input .phone-prefix {
+      background: #eee;
+      padding: 8px 10px;
+      border: 1px solid #ccc;
+      border-right: none;
+      border-radius: 4px 0 0 4px;
+      font-size: 1rem;
+      color: #333;
+    }
+    .phone-input input {
+      flex: 1;
+      padding: 8px 10px;
+      border: 1px solid #ccc;
+      border-left: none;
+      border-radius: 0 4px 4px 0;
+      font-size: 1rem;
+    }
+    
     /* Payment Options */
     .payment-options {
       display: flex;
@@ -79,7 +102,7 @@
     }
     .payment-method input { margin-right: 10px; }
     
-    /* Order Summary with Center-Aligned Table & Professional Color Scheme */
+    /* Order Summary - Center-Aligned Table with Professional Color Scheme */
     .order-summary {
       border: 1px solid #ccc;
       padding: 15px;
@@ -159,8 +182,10 @@
           </div>
           <div class="form-group">
             <label for="phone" class="required">Phone Number</label>
-            <!-- Prepopulated with +92 and pattern to enforce +92 followed by 10 digits -->
-            <input type="tel" id="phone" name="phone" placeholder="+923001234567" required pattern="^\+92\d{10}$" value="+92">
+            <div class="phone-input">
+              <span class="phone-prefix">+92</span>
+              <input type="tel" id="phone" name="phone" placeholder="" required pattern="^\d{10}$">
+            </div>
           </div>
           <div class="form-group">
             <label for="address" class="required">Shipping Address</label>
@@ -312,7 +337,7 @@
         });
       });
       
-      // Form submission with native HTML5 validation
+      // Form submission handler with HTML5 native validation
       const checkoutForm = document.getElementById("checkoutForm");
       checkoutForm.addEventListener("submit", (e) => {
         if (!checkoutForm.checkValidity()) {
