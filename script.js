@@ -4,41 +4,36 @@ document.addEventListener("DOMContentLoaded", function() {
     window.open(url, '_blank');
   };
 
-  // Toggle mobile side menu
+  // Global toggle function for the side menu (using "active" class)
   window.toggleSideMenu = function() {
     const sideMenu = document.getElementById("side-menu");
     if (sideMenu) {
-      sideMenu.classList.toggle("visible");
+      sideMenu.classList.toggle("active");
     }
   };
 
-  // Close side menu when clicking outside the menu and the toggle button
+  // Close side menu when clicking outside the menu and toggle button
   document.addEventListener("click", function(event) {
     const sideMenu = document.getElementById("side-menu");
     const menuToggle = document.querySelector(".menu-toggle");
     if (
       sideMenu &&
-      sideMenu.classList.contains("visible") &&
+      sideMenu.classList.contains("active") &&
       !sideMenu.contains(event.target) &&
       !menuToggle.contains(event.target)
     ) {
-      sideMenu.classList.remove("visible");
+      sideMenu.classList.remove("active");
     }
   });
 
   // Dummy function to update the cart count badge
   function updateCartCount() {
-    // For demonstration, using a dummy value (3). Replace with real integration later.
-    var count = localStorage.getItem("cartCount") || 3;
-    if (document.getElementById("cartCount")) {
-      document.getElementById("cartCount").innerText = count;
-    }
-    if (document.getElementById("cartCountMobile")) {
-      document.getElementById("cartCountMobile").innerText = count;
-    }
-    if (document.getElementById("cartCountMobileBottom")) {
-      document.getElementById("cartCountMobileBottom").innerText = count;
-    }
+    // Replace with real integration as needed
+    const count = localStorage.getItem("cartCount") || 3;
+    // Update all elements with the badge class (or target specific IDs if desired)
+    document.querySelectorAll(".badge").forEach(badge => {
+      badge.innerText = count;
+    });
   }
   updateCartCount();
 });
