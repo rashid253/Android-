@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function() {
-  // Global function to open pages in a new tab/window
+  // Global function to open pages
   window.openPage = function(url) {
-    window.open(url, '_blank');
+    window.location.href = url;
   };
 
   // Toggle mobile side menu
@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   };
 
-  // Close side menu when clicking outside the menu and the toggle button
+  // Close side menu when clicking outside the menu and toggle button
   document.addEventListener("click", function(event) {
     const sideMenu = document.getElementById("side-menu");
     const menuToggle = document.querySelector(".menu-toggle");
@@ -26,19 +26,15 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   });
 
-  // Dummy function to update the cart count badge
+  // Update cart count for badges in header, side menu, and mobile nav
   function updateCartCount() {
-    // For demonstration, using a dummy value (3). Replace with real integration later.
-    var count = localStorage.getItem("cartCount") || 3;
-    if (document.getElementById("cartCount")) {
-      document.getElementById("cartCount").innerText = count;
-    }
-    if (document.getElementById("cartCountMobile")) {
-      document.getElementById("cartCountMobile").innerText = count;
-    }
-    if (document.getElementById("cartCountMobileBottom")) {
-      document.getElementById("cartCountMobileBottom").innerText = count;
-    }
+    const count = Number(localStorage.getItem("cartCount")) || 0;
+    const desktopBadge = document.getElementById("cart-count-desktop");
+    const mobileBadge = document.getElementById("cart-count-mobile");
+    const sideBadge = document.getElementById("cart-count-side");
+    if (desktopBadge) desktopBadge.innerText = count;
+    if (mobileBadge) mobileBadge.innerText = count;
+    if (sideBadge) sideBadge.innerText = count;
   }
   updateCartCount();
 });
