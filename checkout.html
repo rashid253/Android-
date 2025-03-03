@@ -6,43 +6,13 @@
   <title>Checkout - MyBusiness</title>
   <!-- Font Awesome for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
   <style>
     /* Global Resets */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html, body { font-family: Arial, sans-serif; background: #f4f4f4; overflow-x: hidden; }
     
-    /* Header */
-    header.site-header {
-      background: #007bff;
-      padding: 10px 15px 15px; /* Added extra bottom padding */
-      color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      position: relative;
-      z-index: 100;
-    }
-    header.site-header .logo {
-      font-size: 1.5rem;
-      font-weight: bold;
-    }
-    header.site-header nav a {
-      color: #fff;
-      margin-left: 15px;
-      text-decoration: none;
-      font-size: 1rem;
-    }
-    header.site-header .menu-toggle {
-      background: none;
-      border: none;
-      color: #fff;
-      font-size: 1.5rem;
-      display: none;
-    }
-    @media (max-width: 768px) {
-      header.site-header nav { display: none; }
-      header.site-header .menu-toggle { display: block; }
-    }
+    /* External header and footer will be loaded */
     
     /* Container */
     .container {
@@ -148,9 +118,7 @@
     
     /* Mobile-First Layout */
     @media (min-width: 768px) {
-      .checkout-form {
-        flex-direction: row;
-      }
+      .checkout-form { flex-direction: row; }
       .form-left, .form-right { flex: 1; }
       .form-left { margin-right: 20px; }
       .place-order { width: auto; align-self: flex-end; }
@@ -160,18 +128,6 @@
 <body>
   <!-- External Header -->
   <div id="header-placeholder"></div>
-  
-  <!-- Inline Sample Header (for demonstration) -->
-  <header class="site-header">
-    <div class="logo">MyBusiness</div>
-    <nav class="nav-desktop">
-      <a href="index.html">Home</a>
-      <a href="cart.html">Cart</a>
-      <a href="checkout.html">Checkout</a>
-      <a href="about.html">About</a>
-    </nav>
-    <button class="menu-toggle"><i class="fas fa-bars"></i></button>
-  </header>
   
   <div class="container">
     <form class="checkout-form" id="checkoutForm">
@@ -276,7 +232,7 @@
               </tr>
             </thead>
             <tbody id="orderSummaryBody">
-              <!-- Order summary rows will be inserted via JS -->
+              <!-- Order summary rows inserted via JS -->
             </tbody>
           </table>
           <div class="total-amount" id="orderTotal">Total: Rs 0.00</div>
@@ -317,7 +273,7 @@
       document.getElementById("orderTotal").innerText = "Total: Rs " + total.toFixed(2);
     }
     
-    // Payment method toggle
+    // Payment method toggle logic
     document.addEventListener("DOMContentLoaded", () => {
       renderOrderSummary();
       
@@ -357,7 +313,7 @@
       });
     });
     
-    // Load external header/footer
+    // Load external header and footer
     function loadHTML(elementId, filePath) {
       fetch(filePath)
         .then(response => {
