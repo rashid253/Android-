@@ -9,28 +9,29 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
-    <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css" />
     <style>
-      /* Prevent horizontal overflow */
+      /* Global resets */
       html, body {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
         overflow-x: hidden;
+        font-family: Arial, sans-serif;
       }
       
-      /* Hero Section with Engaging Title and Professional Instructions */
+      /* Hero Section */
       .hero-cart {
         background: #007bff;
         color: #fff;
         padding: 30px 15px;
         text-align: center;
+        margin-top: 60px;
         margin-bottom: 15px;
       }
       .hero-cart h1 {
         font-size: 2.2rem;
         margin: 0;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
       }
       .hero-cart p {
         margin-top: 8px;
@@ -38,37 +39,15 @@
         white-space: normal;
       }
       
-      /* Overall Cart Container with extra bottom padding */
+      /* Cart Container */
       .cart-container {
         padding: 15px;
-        padding-bottom: 100px; /* Increased bottom padding */
+        padding-bottom: 100px;
         background: #f4f4f4;
         min-height: calc(100vh - 120px);
       }
       
-      /* Trash Bin Container (for deletion) */
-      #trash-bin-container {
-        position: relative;
-        display: inline-block;
-        cursor: pointer;
-        margin-bottom: 10px;
-      }
-      #trash-bin-container i {
-        font-size: 2rem;
-        color: blue;
-      }
-      #trash-bin-container #trash-count {
-        position: absolute;
-        bottom: -5px;
-        right: -5px;
-        background: red;
-        color: #fff;
-        border-radius: 50%;
-        padding: 2px 6px;
-        font-size: 0.8rem;
-      }
-      
-      /* Cart Item Styles */
+      /* Cart Item */
       .cart-item {
         display: flex;
         align-items: center;
@@ -78,16 +57,12 @@
         margin-bottom: 10px;
         box-shadow: 0 1px 3px rgba(0,0,0,0.1);
       }
-      .cart-item input[type="checkbox"] {
-        margin-right: 8px;
-      }
       .cart-item img {
         width: 70px;
         height: 70px;
         object-fit: cover;
         border-radius: 4px;
         margin-right: 10px;
-        display: block;
       }
       .cart-item-details {
         flex: 1;
@@ -98,12 +73,11 @@
         color: #333;
       }
       .cart-item-details p {
-        margin: 2px 0 6px 0;
-        color: #666;
         font-size: 0.95rem;
+        color: #666;
       }
       
-      /* Vertical Quantity Controls on the Right */
+      /* Vertical Quantity Controls */
       .quantity-vertical {
         display: flex;
         flex-direction: column;
@@ -129,7 +103,7 @@
         text-align: center;
       }
       
-      /* Cart Total and Checkout */
+      /* Cart Total and Checkout Button */
       .cart-total {
         text-align: right;
         font-size: 1.2rem;
@@ -175,8 +149,7 @@
         width: 100%;
         border-collapse: collapse;
       }
-      .receipt th,
-      .receipt td {
+      .receipt th, .receipt td {
         padding: 6px;
         text-align: left;
         border-bottom: 1px solid #ddd;
@@ -186,9 +159,9 @@
         background: #f4f4f4;
       }
       
-      /* Token System Section */
+      /* Token Section */
       .token-section {
-        margin-top: 20px;
+        margin-top: 40px;
         background: #fff;
         padding: 10px;
         border-radius: 8px;
@@ -237,29 +210,21 @@
     <!-- External Header -->
     <div id="header-placeholder"></div>
     
-    <!-- Hero Section with Engaging Title -->
+    <!-- Hero Section -->
     <section class="hero-cart">
       <div class="hero-content">
         <h1>Your Order Awaits</h1>
-        <p>Review your order, adjust quantities, and apply tokens for extra savings.</p>
+        <p>Review your order, adjust quantities, and apply tokens for extra Rs savings.</p>
       </div>
     </section>
     
-    <!-- Main Cart Content -->
+    <!-- Cart Container -->
     <main class="cart-container">
-      <!-- Trash Bin Icon for Deletion -->
-      <div id="trash-bin-container" title="Delete selected items">
-        <i class="fas fa-trash-alt"></i>
-        <div id="trash-count">0</div>
-      </div>
-      
       <div id="cart-items">
         <!-- Dynamic cart items will be rendered here -->
       </div>
       <div class="cart-total" id="cart-total">Total: Rs 0.00</div>
-      <button class="checkout-button" id="checkout-button">
-        Proceed to Checkout
-      </button>
+      <button class="checkout-button" id="checkout-button">Proceed to Checkout</button>
       
       <!-- Detailed Receipt Section -->
       <div class="receipt" id="detailed-receipt">
@@ -279,11 +244,11 @@
         </table>
       </div>
       
-      <!-- Token System Section -->
+      <!-- Token Section -->
       <div class="token-section">
         <h2>Apply Tokens</h2>
         <p>You have <span id="user-tokens">50</span> tokens available.</p>
-        <input type="number" id="token-input" placeholder="Tokens to apply" min="0" />
+        <input type="number" id="token-input" placeholder="Tokens to apply" min="0">
         <button id="apply-tokens">Apply Tokens</button>
         <p id="token-message"></p>
       </div>
@@ -292,43 +257,32 @@
     <!-- External Footer -->
     <div id="footer-placeholder"></div>
     
-    <!-- JavaScript for Cart Functionality -->
     <script>
-      /* 
-         This frontend code uses dummy data and is structured for future integration with Firebase.
-         Global state (cartItems, tokens, etc.) is maintained locally.
-      */
-      
-      // Global cart items (dummy data)
+      // Dummy cart data
       let cartItems = [
         { id: 1, name: "Product 1", price: 29.99, quantity: 1, image: "https://via.placeholder.com/80" },
         { id: 2, name: "Product 2", price: 49.99, quantity: 2, image: "https://via.placeholder.com/80" },
         { id: 3, name: "Product 3", price: 19.99, quantity: 1, image: "https://via.placeholder.com/80" }
       ];
       
-      // Token system: dummy tokens
       let userTokens = 50;
       let appliedTokens = 0;
       
-      // Debounce timer for quantity updates
       let updateTimer;
-      const DEBOUNCE_DELAY = 300; // milliseconds
+      const DEBOUNCE_DELAY = 300;
       
-      // Render the cart items list (initial rendering)
-      const renderCartItems = () => {
-        const cartItemsContainer = document.getElementById("cart-items");
+      function renderCartItems() {
+        const container = document.getElementById("cart-items");
         if (cartItems.length === 0) {
-          cartItemsContainer.innerHTML = '<p class="empty-cart">Your cart is empty.</p>';
+          container.innerHTML = '<p class="empty-cart">Your cart is empty.</p>';
           return;
         }
-        cartItemsContainer.innerHTML = "";
+        container.innerHTML = "";
         cartItems.forEach(item => {
-          // Each cart item with a checkbox, image, professional details, and vertical quantity controls.
-          const itemEl = document.createElement("div");
-          itemEl.className = "cart-item";
-          itemEl.innerHTML = `
-            <input type="checkbox" class="delete-checkbox" data-id="${item.id}" />
-            <img src="${item.image}" alt="${item.name}" />
+          const div = document.createElement("div");
+          div.className = "cart-item";
+          div.innerHTML = `
+            <img src="${item.image}" alt="${item.name}">
             <div class="cart-item-details">
               <h3>${item.name}</h3>
               <p>Price: Rs ${item.price.toFixed(2)} | Qty: <span id="quantity-${item.id}">${item.quantity}</span></p>
@@ -343,17 +297,17 @@
               </button>
             </div>
           `;
-          cartItemsContainer.appendChild(itemEl);
+          container.appendChild(div);
         });
-      };
+      }
       
-      // Increase and decrease functions using current state.
       function increaseQuantity(itemId) {
         const index = cartItems.findIndex(item => item.id === itemId);
         if (index > -1) {
           updateQuantity(itemId, cartItems[index].quantity + 1);
         }
       }
+      
       function decreaseQuantity(itemId) {
         const index = cartItems.findIndex(item => item.id === itemId);
         if (index > -1 && cartItems[index].quantity > 1) {
@@ -361,22 +315,20 @@
         }
       }
       
-      // Update only the quantity for a specific item.
-      function updateQuantity(itemId, newQuantity) {
-        if (newQuantity < 1) return;
+      function updateQuantity(itemId, newQty) {
+        if (newQty < 1) return;
         const index = cartItems.findIndex(item => item.id === itemId);
         if (index > -1) {
-          cartItems[index].quantity = newQuantity;
-          document.getElementById("quantity-" + itemId).innerText = newQuantity;
-          document.getElementById("vertical-qty-" + itemId).innerText = newQuantity;
+          cartItems[index].quantity = newQty;
+          document.getElementById("quantity-" + itemId).innerText = newQty;
+          document.getElementById("vertical-qty-" + itemId).innerText = newQty;
           clearTimeout(updateTimer);
           updateTimer = setTimeout(updateTotals, DEBOUNCE_DELAY);
         }
       }
       
-      // Update global total and detailed receipt.
       function updateTotals() {
-        const cartTotalContainer = document.getElementById("cart-total");
+        const totalContainer = document.getElementById("cart-total");
         const receiptBody = document.getElementById("receipt-body");
         let total = 0;
         receiptBody.innerHTML = "";
@@ -394,41 +346,9 @@
         });
         const tokenDiscount = appliedTokens * 0.10;
         const finalTotal = Math.max(total - tokenDiscount, 0);
-        cartTotalContainer.innerText = "Total: Rs " + finalTotal.toFixed(2);
+        totalContainer.innerText = "Total: Rs " + finalTotal.toFixed(2);
       }
       
-      // Update trash bin count (number of selected items).
-      function updateTrashCount() {
-        const checkedBoxes = document.querySelectorAll(".delete-checkbox:checked");
-        document.getElementById("trash-count").innerText = checkedBoxes.length;
-      }
-      
-      // Delete selected items when trash bin is clicked.
-      function deleteSelectedItems() {
-        const checkedBoxes = document.querySelectorAll(".delete-checkbox:checked");
-        if (checkedBoxes.length === 0) return;
-        if (!confirm("Are you sure you want to delete the selected items?")) return;
-        const idsToDelete = Array.from(checkedBoxes).map(cb => parseInt(cb.getAttribute("data-id")));
-        cartItems = cartItems.filter(item => !idsToDelete.includes(item.id));
-        renderCartItems();
-        updateTotals();
-        updateTrashCount();
-      }
-      
-      // Load external HTML for header and footer; return promise for header.
-      const loadHTML = (elementId, filePath) => {
-        return fetch(filePath)
-          .then(response => {
-            if (!response.ok) throw new Error("Error fetching " + filePath);
-            return response.text();
-          })
-          .then(html => {
-            document.getElementById(elementId).innerHTML = html;
-          })
-          .catch(error => console.error(error));
-      };
-      
-      // Apply tokens to the order.
       function applyTokens() {
         const tokenInput = document.getElementById("token-input");
         const tokensToApply = parseInt(tokenInput.value);
@@ -446,36 +366,29 @@
         updateTotals();
       }
       
-      // Activate header hamburger icon if present.
-      function activateHeaderMenu() {
-        const menuToggle = document.querySelector(".menu-toggle");
-        if (menuToggle) {
-          menuToggle.addEventListener("click", () => {
-            const sideMenu = document.getElementById("side-menu");
-            if (sideMenu) sideMenu.classList.toggle("visible");
-          });
-        }
-      }
-      
-      // Initialization on DOM load.
       document.addEventListener("DOMContentLoaded", () => {
         renderCartItems();
         updateTotals();
-        loadHTML("header-placeholder", "header.html").then(() => {
-          activateHeaderMenu();
-        });
-        loadHTML("footer-placeholder", "footer.html");
-        document.addEventListener("change", event => {
-          if (event.target.classList.contains("delete-checkbox")) {
-            updateTrashCount();
-          }
-        });
-        document.getElementById("trash-bin-container").addEventListener("click", deleteSelectedItems);
-        document.getElementById("apply-tokens").addEventListener("click", applyTokens);
+        // Proceed to checkout: navigate to checkout.html
         document.getElementById("checkout-button").addEventListener("click", () => {
-          alert("Proceeding to checkout...");
+          window.location.href = "checkout.html";
         });
-        document.getElementById("user-tokens").innerText = userTokens;
+        document.getElementById("apply-tokens").addEventListener("click", applyTokens);
+        
+        // Load external header and footer if available
+        function loadHTML(elementId, filePath) {
+          fetch(filePath)
+            .then(response => {
+              if (!response.ok) throw new Error("Error fetching " + filePath);
+              return response.text();
+            })
+            .then(html => {
+              document.getElementById(elementId).innerHTML = html;
+            })
+            .catch(error => console.error(error));
+        }
+        loadHTML("header-placeholder", "header.html");
+        loadHTML("footer-placeholder", "footer.html");
       });
     </script>
   </body>
