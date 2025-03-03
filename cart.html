@@ -5,13 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MyBusiness Cart</title>
     <!-- Font Awesome for icons -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <link rel="stylesheet" href="style.css" />
     <style>
-      /* Global resets */
+      /* Global Resets */
       html, body {
         margin: 0;
         padding: 0;
@@ -47,6 +44,28 @@
         min-height: calc(100vh - 120px);
       }
       
+      /* Trash Bin for Deletion */
+      #trash-bin-container {
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+        margin-bottom: 10px;
+      }
+      #trash-bin-container i {
+        font-size: 2rem;
+        color: blue;
+      }
+      #trash-bin-container #trash-count {
+        position: absolute;
+        bottom: -5px;
+        right: -5px;
+        background: red;
+        color: #fff;
+        border-radius: 50%;
+        padding: 2px 6px;
+        font-size: 0.8rem;
+      }
+      
       /* Cart Item */
       .cart-item {
         display: flex;
@@ -57,12 +76,16 @@
         margin-bottom: 10px;
         box-shadow: 0 1px 3px rgba(0,0,0,0.1);
       }
+      .cart-item input.delete-checkbox {
+        margin-right: 8px;
+      }
       .cart-item img {
         width: 70px;
         height: 70px;
         object-fit: cover;
         border-radius: 4px;
         margin-right: 10px;
+        display: block;
       }
       .cart-item-details {
         flex: 1;
@@ -103,7 +126,7 @@
         text-align: center;
       }
       
-      /* Cart Total and Checkout Button */
+      /* Cart Total and Checkout */
       .cart-total {
         text-align: right;
         font-size: 1.2rem;
@@ -149,7 +172,8 @@
         width: 100%;
         border-collapse: collapse;
       }
-      .receipt th, .receipt td {
+      .receipt th,
+      .receipt td {
         padding: 6px;
         text-align: left;
         border-bottom: 1px solid #ddd;
@@ -220,8 +244,14 @@
     
     <!-- Cart Container -->
     <main class="cart-container">
+      <!-- Trash Bin Icon for Deletion -->
+      <div id="trash-bin-container" title="Delete selected items">
+        <i class="fas fa-trash-alt"></i>
+        <div id="trash-count">0</div>
+      </div>
+      
       <div id="cart-items">
-        <!-- Dynamic cart items will be rendered here -->
+        <!-- Cart items will be dynamically rendered here -->
       </div>
       <div class="cart-total" id="cart-total">Total: Rs 0.00</div>
       <button class="checkout-button" id="checkout-button">Proceed to Checkout</button>
@@ -239,7 +269,7 @@
             </tr>
           </thead>
           <tbody id="receipt-body">
-            <!-- Receipt details will be rendered here -->
+            <!-- Receipt details will be inserted here -->
           </tbody>
         </table>
       </div>
@@ -267,7 +297,6 @@
       
       let userTokens = 50;
       let appliedTokens = 0;
-      
       let updateTimer;
       const DEBOUNCE_DELAY = 300;
       
@@ -282,6 +311,7 @@
           const div = document.createElement("div");
           div.className = "cart-item";
           div.innerHTML = `
+            <input type="checkbox" class="delete-checkbox" data-id="${item.id}" />
             <img src="${item.image}" alt="${item.name}">
             <div class="cart-item-details">
               <h3>${item.name}</h3>
@@ -315,13 +345,13 @@
         }
       }
       
-      function updateQuantity(itemId, newQty) {
-        if (newQty < 1) return;
+      function updateQuantity(itemId, newQuantity) {
+        if (newQuantity < 1) return;
         const index = cartItems.findIndex(item => item.id === itemId);
         if (index > -1) {
-          cartItems[index].quantity = newQty;
-          document.getElementById("quantity-" + itemId).innerText = newQty;
-          document.getElementById("vertical-qty-" + itemId).innerText = newQty;
+          cartItems[index].quantity = newQuantity;
+          document.getElementById("quantity-" + itemId).innerText = newQuantity;
+          document.getElementById("vertical-qty-" + itemId).innerText = newQuantity;
           clearTimeout(updateTimer);
           updateTimer = setTimeout(updateTotals, DEBOUNCE_DELAY);
         }
@@ -349,46 +379,69 @@
         totalContainer.innerText = "Total: Rs " + finalTotal.toFixed(2);
       }
       
+      function updateTrashCount() {
+        const checked = document.querySelectorAll(".delete-checkbox:checked");
+        document.getElementById("trash-count").innerText = checked.length;
+      }
+      
+      function deleteSelectedItems() {
+        const checked = document.querySelectorAll(".delete-checkbox:checked");
+        if (checked.length === 0) return;
+        if (!confirm("Are you sure you want to delete the selected items?")) return;
+        const ids = Array.from(checked).map(cb => parseInt(cb.getAttribute("data-id")));
+        cartItems = cartItems.filter(item => !ids.includes(item.id));
+        renderCartItems();
+        updateTotals();
+        updateTrashCount();
+      }
+      
+      // Load external header/footer
+      function loadHTML(elementId, filePath) {
+        return fetch(filePath)
+          .then(response => {
+            if (!response.ok) throw new Error("Error fetching " + filePath);
+            return response.text();
+          })
+          .then(html => {
+            document.getElementById(elementId).innerHTML = html;
+          })
+          .catch(error => console.error(error));
+      }
+      
       function applyTokens() {
         const tokenInput = document.getElementById("token-input");
-        const tokensToApply = parseInt(tokenInput.value);
-        const tokenMessage = document.getElementById("token-message");
-        if (isNaN(tokensToApply) || tokensToApply < 0) {
-          tokenMessage.innerText = "Please enter a valid number of tokens.";
+        const tokens = parseInt(tokenInput.value);
+        const tokenMsg = document.getElementById("token-message");
+        if (isNaN(tokens) || tokens < 0) {
+          tokenMsg.innerText = "Please enter a valid number of tokens.";
           return;
         }
-        if (tokensToApply > userTokens) {
-          tokenMessage.innerText = "You do not have enough tokens.";
+        if (tokens > userTokens) {
+          tokenMsg.innerText = "You do not have enough tokens.";
           return;
         }
-        appliedTokens = tokensToApply;
-        tokenMessage.innerText = "Tokens applied: " + appliedTokens;
+        appliedTokens = tokens;
+        tokenMsg.innerText = "Tokens applied: " + appliedTokens;
         updateTotals();
       }
       
       document.addEventListener("DOMContentLoaded", () => {
         renderCartItems();
         updateTotals();
-        // Proceed to checkout: navigate to checkout.html
+        loadHTML("header-placeholder", "header.html");
+        loadHTML("footer-placeholder", "footer.html");
+        document.addEventListener("change", event => {
+          if (event.target.classList.contains("delete-checkbox")) {
+            updateTrashCount();
+          }
+        });
+        document.getElementById("trash-bin-container").addEventListener("click", deleteSelectedItems);
+        document.getElementById("apply-tokens").addEventListener("click", applyTokens);
         document.getElementById("checkout-button").addEventListener("click", () => {
           window.location.href = "checkout.html";
         });
-        document.getElementById("apply-tokens").addEventListener("click", applyTokens);
-        
-        // Load external header and footer if available
-        function loadHTML(elementId, filePath) {
-          fetch(filePath)
-            .then(response => {
-              if (!response.ok) throw new Error("Error fetching " + filePath);
-              return response.text();
-            })
-            .then(html => {
-              document.getElementById(elementId).innerHTML = html;
-            })
-            .catch(error => console.error(error));
-        }
-        loadHTML("header-placeholder", "header.html");
-        loadHTML("footer-placeholder", "footer.html");
+        // Display available tokens if needed (if header/footer use tokens display)
+        document.getElementById("user-tokens") && (document.getElementById("user-tokens").innerText = userTokens);
       });
     </script>
   </body>
