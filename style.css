@@ -8,7 +8,7 @@ body {
   font-family: 'Roboto', sans-serif;
   background-color: #f4f4f4;
   color: #333;
-  /* Reserve space for fixed header and bottom nav */
+  /* Reserve space for fixed header and bottom navigation */
   padding-top: 70px;
   padding-bottom: 70px;
 }
@@ -25,7 +25,7 @@ body {
   left: 0;
   width: 100%;
   background: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   z-index: 1000;
 }
 .header-content {
@@ -47,19 +47,9 @@ body {
   color: #007bff;
 }
 
-/* Desktop Navigation (visible on larger screens only) */
+/* Desktop Navigation - Hide entirely (not required at top) */
 .nav-desktop {
   display: none;
-}
-.nav-desktop a {
-  text-decoration: none;
-  color: #333;
-  font-size: 1.2rem;
-  margin-left: 15px;
-  position: relative;
-}
-.nav-desktop a:hover {
-  color: #007bff;
 }
 
 /* Hamburger Menu Toggle (visible on mobile) */
@@ -70,8 +60,6 @@ body {
   font-size: 1.8rem;
   cursor: pointer;
   display: block;
-  /* Adjust margin-top as needed for vertical placement */
-  margin-top: 0;
 }
 
 /* Mobile Side Menu */
@@ -81,7 +69,7 @@ body {
   right: 0;
   width: 160px;
   background: #fff;
-  box-shadow: -2px 0 4px rgba(0, 0, 0, 0.1);
+  box-shadow: -2px 0 4px rgba(0,0,0,0.1);
   padding: 20px;
   display: none;
   flex-direction: column;
@@ -100,7 +88,7 @@ body {
 
 /* Hero Section */
 .hero {
-  height: calc(100vh - 140px); /* subtract header and bottom nav heights */
+  height: calc(100vh - 140px); /* subtract header & bottom nav heights */
   background-color: #2196F3;  /* Bright blue background */
   display: flex;
   align-items: center;
@@ -132,7 +120,7 @@ body {
   justify-content: center;
 }
 .cta-buttons button {
-  background: #4CAF50;
+  background: #4CAF50; /* Green */
   border: none;
   padding: 12px 25px;
   font-size: 1rem;
@@ -143,50 +131,6 @@ body {
 }
 .cta-buttons button:hover {
   background: #388E3C;
-}
-
-/* Features Section */
-.features {
-  padding: 40px 15px;
-  background: #fff;
-}
-.features h2 {
-  text-align: center;
-  font-size: 2rem;
-  margin-bottom: 30px;
-  color: #007bff;
-}
-.features-grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
-}
-.feature-item {
-  background: #f9f9f9;
-  padding: 20px;
-  border-radius: 8px;
-  width: 280px;
-  text-align: center;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s;
-}
-.feature-item:hover {
-  transform: translateY(-5px);
-}
-.feature-item i {
-  font-size: 2rem;
-  margin-bottom: 15px;
-  color: #007bff;
-}
-.feature-item h3 {
-  font-size: 1.3rem;
-  margin-bottom: 10px;
-  color: #333;
-}
-.feature-item p {
-  font-size: 1rem;
-  color: #666;
 }
 
 /* Mobile Bottom Navigation */
@@ -216,7 +160,7 @@ body {
   margin-top: 3px;
 }
 
-/* Fixed Footer (optional for additional info) */
+/* (Optional) Fixed Footer */
 .footer {
   position: fixed;
   bottom: 70px;
@@ -225,7 +169,7 @@ body {
   background: #fff;
   text-align: center;
   padding: 8px 0;
-  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
   font-size: 0.85rem;
   color: #333;
   z-index: 1000;
@@ -246,21 +190,14 @@ body {
   font-size: 10px;
 }
 
-/* Responsive Adjustments */
+/* Responsive Adjustments for Larger Screens (if needed) */
 @media (min-width: 600px) {
-  /* On larger screens, hide mobile-only elements */
-  .menu-toggle,
-  .side-menu,
+  /* For a mobile app, you might still want to use bottom nav only.
+     Here we keep the header simple with only the brand and hamburger. */
   .mobile-nav,
+  .side-menu,
   .footer {
     display: none;
   }
-  /* Show desktop navigation */
-  .nav-desktop {
-    display: flex;
-  }
-  /* Adjust hero height if needed */
-  .hero {
-    height: calc(100vh - 60px);
-  }
+  /* If desired, you can add desktop-specific styling here */
 }
