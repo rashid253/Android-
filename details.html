@@ -21,13 +21,13 @@
     <style>
       /* Additional overrides for details.html */
 
-      /* Ensure content is pushed down by the fixed header (70px here) */
+      /* Ensure the content is pushed down so the fixed header doesn't overlap it */
       body {
-        margin-top: 70px;
+        margin-top: 70px; /* adjust to match your header's height */
         scroll-behavior: smooth;
       }
 
-      /* Sticky Section Navigation (below header) */
+      /* Sticky Section Navigation (appears just below the header) */
       .section-nav {
         background: #fff;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -185,7 +185,8 @@
     <!-- Bootstrap JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-      // Basic loadHTML function that loads external HTML content.
+      // Updated loadHTML() function that removes style tags (to avoid duplicate styles)
+      // and appends script tags.
       function loadHTML(elementId, filePath) {
         return fetch(filePath)
           .then((response) => {
@@ -198,12 +199,10 @@
             const parser = new DOMParser();
             const doc = parser.parseFromString(htmlText, "text/html");
 
-            // Append style tags to head.
-            doc.querySelectorAll("style").forEach((styleTag) => {
-              document.head.appendChild(styleTag.cloneNode(true));
-            });
+            // Remove style tags to avoid duplicate CSS (since your global style.css already includes header styles)
+            doc.querySelectorAll("style").forEach((el) => el.remove());
 
-            // Append script tags to head.
+            // Append script tags to document head.
             doc.querySelectorAll("script").forEach((scriptTag) => {
               const newScript = document.createElement("script");
               if (scriptTag.src) {
@@ -215,8 +214,7 @@
               document.head.appendChild(newScript);
             });
 
-            // Remove script and style tags from fetched HTML.
-            doc.querySelectorAll("script, style").forEach((el) => el.remove());
+            // Insert the remaining HTML into the target element.
             document.getElementById(elementId).innerHTML = doc.body.innerHTML;
           })
           .catch((error) =>
@@ -224,32 +222,22 @@
           );
       }
 
-      // Use MutationObserver to detect when header is injected, then attach hamburger toggle.
-      function observeHeaderAndAttachToggle() {
-        const targetNode = document.getElementById("header-placeholder");
-        if (!targetNode) return;
-        const observer = new MutationObserver((mutationsList, observer) => {
-          if (targetNode.innerHTML.trim().length > 0) {
-            // Header content is loaded; now attach hamburger event.
-            const menuToggle = document.querySelector(".menu-toggle");
-            if (menuToggle) {
-              menuToggle.addEventListener("click", function () {
-                const sideMenu = document.getElementById("side-menu");
-                if (sideMenu) {
-                  sideMenu.classList.toggle("visible");
-                }
-              });
-              // Once attached, disconnect observer.
-              observer.disconnect();
+      // Function to attach hamburger toggle event.
+      function attachHamburgerToggle() {
+        const menuToggle = document.querySelector(".menu-toggle");
+        if (menuToggle) {
+          menuToggle.addEventListener("click", function () {
+            const sideMenu = document.getElementById("side-menu");
+            if (sideMenu) {
+              sideMenu.classList.toggle("visible");
             }
-          }
-        });
-        observer.observe(targetNode, { childList: true, subtree: true });
+          });
+        }
       }
 
       document.addEventListener("DOMContentLoaded", function () {
         loadHTML("header-placeholder", "header.html").then(() => {
-          observeHeaderAndAttachToggle();
+          attachHamburgerToggle();
         });
         loadHTML("footer-placeholder", "footer.html");
       });
@@ -292,7 +280,7 @@
         return html;
       }
 
-      // "Read More" functionality for Description.
+      // "Read More" functionality for Description section.
       document
         .getElementById("descReadMore")
         .addEventListener("click", function () {
@@ -311,7 +299,10 @@
         if (e.target && e.target.classList.contains("review-read-more")) {
           const fullReview = e.target.parentElement.nextElementSibling;
           if (fullReview && fullReview.classList.contains("review-full")) {
-            if (fullReview.style.display === "none" || fullReview.style.display === "") {
+            if (
+              fullReview.style.display === "none" ||
+              fullReview.style.display === ""
+            ) {
               fullReview.style.display = "block";
               e.target.textContent = " Show less";
             } else {
