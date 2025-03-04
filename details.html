@@ -28,20 +28,10 @@
         text-decoration: none;
         color: inherit;
       }
-      /* Header & Footer */
-      .site-header {
-        background: #007bff;
-        color: #fff;
-        padding: 15px;
-        text-align: center;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-      }
-      .site-footer {
-        background: #333;
-        color: #fff;
-        padding: 15px;
-        text-align: center;
-        box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.2);
+      /* Header & Footer placeholders */
+      #header-placeholder,
+      #footer-placeholder {
+        width: 100%;
       }
       /* Horizontal Navigation Bar */
       .section-nav {
@@ -188,17 +178,13 @@
         object-fit: cover;
         border-radius: 4px;
       }
-   </style>
+    </style>
   </head>
   <body>
     <!-- External Header -->
     <div id="header-placeholder"></div>
-    <!-- Inline Header Fallback -->
-    <header class="site-header">
-      <h1>NextGen E-commerce</h1>
-    </header>
 
-    <!-- Product Details -->
+    <!-- Product Details Section -->
     <div class="product-details container">
       <div class="product-image">
         <img id="productImage" src="https://via.placeholder.com/400x300?text=Product+Image" alt="Product Image">
@@ -214,7 +200,7 @@
       </div>
     </div>
 
-    <!-- Horizontal Navigation Bar (for scrolling to sections) -->
+    <!-- Horizontal Navigation Bar for Sections -->
     <nav class="section-nav container">
       <a href="#section-description">
         <i class="fa fa-file-text"></i>
@@ -304,29 +290,30 @@
 
     <!-- External Footer -->
     <div id="footer-placeholder"></div>
-    <!-- Inline Footer Fallback -->
-    <footer class="site-footer">
-      <p>NextGen E-commerce © 2025</p>
-    </footer>
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-      // Load external header and footer if available
+      // Function to load external HTML into an element
       function loadHTML(elementId, filePath) {
         fetch(filePath)
-          .then(response => response.ok ? response.text() : Promise.reject("Error loading " + filePath))
+          .then(response => {
+            if (!response.ok) {
+              throw new Error("Network response was not ok for " + filePath);
+            }
+            return response.text();
+          })
           .then(html => {
             document.getElementById(elementId).innerHTML = html;
           })
-          .catch(error => console.error(error));
+          .catch(error => console.error("Error loading " + filePath + ":", error));
       }
       document.addEventListener("DOMContentLoaded", function () {
         loadHTML("header-placeholder", "header.html");
         loadHTML("footer-placeholder", "footer.html");
       });
 
-      // Dummy product data (will later be replaced with Firebase Firestore calls)
+      // Dummy product data (to be replaced with Firebase Firestore calls)
       const product = JSON.parse(localStorage.getItem("selectedProduct")) || {
         name: "Default Product",
         price: "PKR 0",
