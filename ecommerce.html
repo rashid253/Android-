@@ -13,10 +13,10 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: 'Roboto', sans-serif; background: #f7f7f7; color: #333; }
     a { text-decoration: none; color: inherit; }
-    
+
     /* Container */
     .container { width: 90%; max-width: 1200px; margin: 0 auto; padding: 20px 0; }
-    
+
     /* Header & Footer */
     header, footer {
       background: #fff; 
@@ -26,8 +26,8 @@
     }
     header .brand { font-size: 1.8rem; font-weight: 700; }
     footer { text-align: center; font-size: 0.9rem; color: #777; }
-    
-    /* Hero Section (inspired by Play Store/Daraz) */
+
+    /* Hero Section – Smart & Modern (inspired by Play Store/Daraz) */
     .hero {
       position: relative;
       height: 60vh;
@@ -52,8 +52,8 @@
       transition: background 0.3s ease, transform 0.3s ease;
     }
     .hero-content .btn:hover { background-color: #e0e0e0; transform: scale(1.03); }
-    
-    /* Category Filter Bar */
+
+    /* Category Filter Bar – Using your provided style for the 1st line */
     .category-bar { display: flex; gap: 10px; margin: 20px 0; }
     .category-bar button {
       background: #fff;
@@ -70,13 +70,13 @@
       border-color: #4285f4;
       color: #fff;
     }
-    
-    /* Product Listing Grid */
+
+    /* Product Listing Grid – Inspired by your provided card design */
+    #listing-view { margin-bottom: 40px; }
     #product-listing { 
       display: grid; 
       grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
       gap: 20px; 
-      margin-bottom: 40px;
     }
     .product-card {
       background: #fff;
@@ -92,17 +92,19 @@
     }
     .product-card img { 
       width: 100%; 
-      height: 150px; 
-      object-fit: cover; 
+      height: 180px; 
+      object-fit: cover;
       display: block;
     }
     .product-card .card-content {
       padding: 10px;
+      text-align: center;
     }
     .product-card h3 { font-size: 1.1rem; margin-bottom: 5px; }
-    .product-card .price { color: #4285f4; font-weight: 500; }
-    
-    /* Product Detail View */
+    .product-card .price { color: #e4393c; font-weight: bold; font-size: 1.1rem; }
+    /* (Optional: You can add old price, orders, shipping info if available) */
+
+    /* Product Detail View – Google Inspired */
     #detail-view { 
       display: none; 
       background: #fff; 
@@ -146,7 +148,7 @@
       transition: background 0.3s;
     }
     .add-to-cart:hover { background: #218838; }
-    
+
     /* Tabs for Detail View */
     .tab-buttons { display: flex; border-bottom: 1px solid #e0e0e0; margin-top: 20px; }
     .tab-buttons button { 
@@ -233,18 +235,20 @@
   
   <!-- Main Container -->
   <div class="container">
-    <!-- Product Listing View -->
+    <!-- Listing View: Categories and Product Grid -->
     <div id="listing-view">
+      <!-- Category Filter Bar (first line of categories) -->
       <div class="category-bar" id="category-bar">
         <button class="active" onclick="filterCategory('All', this)">All</button>
         <button onclick="filterCategory('Electronics', this)">Electronics</button>
         <button onclick="filterCategory('Baby Garments', this)">Baby Garments</button>
         <button onclick="filterCategory('Home & Kitchen', this)">Home & Kitchen</button>
       </div>
+      <!-- Product Listing Grid -->
       <div id="product-listing"></div>
     </div>
     
-    <!-- Product Detail View -->
+    <!-- Detail View: When a Product is Clicked -->
     <div id="detail-view">
       <div class="back-btn" onclick="backToListing()">
         <i class="fas fa-arrow-left"></i> Back to Products
@@ -262,7 +266,7 @@
         </div>
       </div>
       
-      <!-- Tab Buttons -->
+      <!-- Tab Buttons for Details, Reviews, and Related Items -->
       <div class="tab-buttons">
         <button class="active" onclick="showTab('overview', event)">Overview</button>
         <button onclick="showTab('reviews', event)">Reviews</button>
@@ -289,7 +293,7 @@
   
   <!-- JavaScript Section -->
   <script>
-    // Dummy Product Data Array
+    // Dummy product data – you can later integrate with your backend
     const products = [
       {
         id: 1,
@@ -366,7 +370,7 @@
       }
     ];
     
-    // Render Product Listing based on Category Filter
+    // Render product listing based on category filter
     function renderProductListing(filter = "All") {
       const container = document.getElementById("product-listing");
       container.innerHTML = "";
@@ -386,32 +390,32 @@
       });
     }
     
-    // Filter Category Handler
+    // Category filter handler
     function filterCategory(category, btn) {
       document.querySelectorAll(".category-bar button").forEach(b => b.classList.remove("active"));
       btn.classList.add("active");
       renderProductListing(category);
     }
     
-    // Scroll to Product Listing (when "Shop Now" is clicked)
+    // Smooth scroll to product listing when "Shop Now" is clicked
     function scrollToListing() {
       document.getElementById("listing-view").scrollIntoView({ behavior: "smooth" });
     }
     
-    // Open Product Detail View
+    // Open product detail view (Google inspired)
     function openProductDetail(productId) {
       const product = products.find(p => p.id === productId);
       if (!product) return;
-      // Populate Detail View
+      
+      // Populate detail view fields
       document.getElementById("detail-img").src = product.image;
       document.getElementById("detail-name").innerText = product.name;
       document.getElementById("detail-price").innerText = product.price;
       document.getElementById("detail-meta").innerText = product.meta;
       document.getElementById("detail-description").innerText = product.description;
-      // Overview Tab
       document.getElementById("overview-description").innerText = product.description;
       
-      // Render Reviews
+      // Render reviews
       const reviewsContainer = document.getElementById("reviews-container");
       reviewsContainer.innerHTML = "";
       product.reviews.forEach(review => {
@@ -426,7 +430,7 @@
         reviewsContainer.appendChild(reviewDiv);
       });
       
-      // Render Related Items (Other products in the same category)
+      // Render related items (other products in the same category)
       const relatedContainer = document.getElementById("related-items-container");
       relatedContainer.innerHTML = "";
       products.filter(p => p.category === product.category && p.id !== product.id)
@@ -441,28 +445,29 @@
         relatedContainer.appendChild(relatedDiv);
       });
       
-      // Toggle Views
+      // Toggle views: hide listing, show detail
       document.getElementById("listing-view").style.display = "none";
       document.getElementById("detail-view").style.display = "block";
-      // Reset Tabs: show Overview by default
+      
+      // Reset tabs – show Overview by default
       document.querySelectorAll(".tab-content").forEach(tab => tab.style.display = "none");
       document.getElementById("overview").style.display = "block";
       document.querySelectorAll(".tab-buttons button").forEach(btn => btn.classList.remove("active"));
       document.querySelector(".tab-buttons button").classList.add("active");
     }
     
-    // Back to Listing
+    // Go back to product listing view
     function backToListing() {
       document.getElementById("detail-view").style.display = "none";
       document.getElementById("listing-view").style.display = "block";
     }
     
-    // Simple Add to Cart Function (Demo)
+    // Add to Cart functionality (demo)
     function addToCart() {
       alert("Product added to cart!");
     }
     
-    // Tab Switching in Detail View
+    // Tab switching in detail view
     function showTab(tabId, event) {
       document.querySelectorAll(".tab-content").forEach(tab => tab.style.display = "none");
       document.getElementById(tabId).style.display = "block";
@@ -470,7 +475,7 @@
       event.currentTarget.classList.add("active");
     }
     
-    // Initial Render
+    // Initial render of product listing
     renderProductListing("All");
   </script>
 </body>
