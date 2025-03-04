@@ -38,7 +38,7 @@
       .hero {
         position: relative;
         height: calc(500px + 3cm);
-        background: linear-gradient(135deg, #4285F4, #34A853);
+        background: linear-gradient(135deg, #4285f4, #34a853);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -51,18 +51,16 @@
         padding: 0 20px;
         transform: translateY(-20px);
       }
-      .hero-content h1,
-      .hero-content p {
-        color: #fff;
-      }
       .hero-content h1 {
         font-size: 3rem;
         font-weight: bold;
         margin-bottom: 1rem;
+        color: #fff;
       }
       .hero-content p {
         font-size: 1.2rem;
         margin-bottom: 1.5rem;
+        color: #fff;
       }
       .hero-content .btn {
         font-size: 1.2rem;
@@ -94,7 +92,7 @@
         border-radius: 8px;
         overflow: hidden;
         background: #fff;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         height: 150px;
       }
       .banner img {
@@ -239,8 +237,9 @@
     </style>
   </head>
   <body>
-    <!-- Header Placeholder (loaded dynamically) -->
+    <!-- Header Placeholder -->
     <div id="header-placeholder"></div>
+    
     <!-- Main Ecommerce Content -->
     <main>
       <!-- Hero Section -->
@@ -251,6 +250,7 @@
           <a href="#categoriesContainer" class="btn">Shop Now</a>
         </div>
       </section>
+      
       <!-- Main Page: Categories with Banners and Horizontal Scroll -->
       <div class="container my-4" id="mainPage">
         <h1 class="mb-4 text-center">Product Categories</h1>
@@ -258,6 +258,7 @@
           <!-- Dynamic category sections will be rendered here -->
         </div>
       </div>
+      
       <!-- Category Page: Vertical Grid of Products -->
       <div class="container my-4" id="categoryPage" style="display: none;">
         <button class="btn btn-secondary mb-3" onclick="backToMain()">Back to Categories</button>
@@ -266,7 +267,8 @@
           <!-- Products will be rendered here in a grid -->
         </div>
       </div>
-      <!-- Modal: Extended Product Details with horizontal nav -->
+      
+      <!-- Modal: Extended Product Details with Horizontal Navigation -->
       <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered">
           <div class="modal-content">
@@ -326,16 +328,49 @@
         </div>
       </div>
     </main>
+    
     <!-- Footer Placeholder -->
     <div id="footer-placeholder"></div>
+    
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-      // --- Utility Functions ---
+      // Load header and footer dynamically
+      function loadHTML(elementId, filePath) {
+        fetch(filePath)
+          .then(response => {
+            if (!response.ok) {
+              throw new Error("Network response was not ok");
+            }
+            return response.text();
+          })
+          .then(html => {
+            document.getElementById(elementId).innerHTML = html;
+          })
+          .catch(error => {
+            console.error("Error loading " + filePath + ":", error);
+            // Fallback content if external file is not available
+            if (elementId === "header-placeholder") {
+              document.getElementById(elementId).innerHTML =
+                '<header style="background:#333;color:#fff;padding:10px;text-align:center;">Header</header>';
+            }
+            if (elementId === "footer-placeholder") {
+              document.getElementById(elementId).innerHTML =
+                '<footer style="background:#333;color:#fff;padding:10px;text-align:center;">Footer</footer>';
+            }
+          });
+      }
+      document.addEventListener("DOMContentLoaded", function () {
+        loadHTML("header-placeholder", "header.html");
+        loadHTML("footer-placeholder", "footer.html");
+      });
+      
+      // Utility: Smooth scroll to a given section inside the modal
       function scrollToSection(sectionId) {
         document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
       }
       
+      // Generate star icons based on numeric rating (for product cards)
       function generateStars(rating) {
         let html = "";
         let fullStars = Math.floor(rating);
@@ -349,11 +384,10 @@
         return html;
       }
       
-      // --- Review Functions ---
+      // Reviews functionality
       function toggleReviews() {
         const container = document.getElementById("reviewsContainer");
         const btn = document.getElementById("viewMoreReviewsBtn");
-        // If maxHeight is not set or equals the collapsed height, expand; otherwise collapse.
         if (container.style.maxHeight === "200px" || container.style.maxHeight === "") {
           container.style.maxHeight = container.scrollHeight + "px";
           btn.innerText = "View Less";
@@ -376,7 +410,7 @@
         }
       }
       
-      // --- Rating Input ---
+      // Rating input in review form
       let currentRating = 0;
       function setRating(element) {
         currentRating = parseInt(element.getAttribute("data-value"));
@@ -390,7 +424,7 @@
         });
       }
       
-      // --- Populate Reviews ---
+      // Populate reviews (sample data)
       function populateReviews() {
         const reviewsContainer = document.getElementById("reviewsContainer");
         const reviews = [
@@ -422,7 +456,7 @@
         });
       }
       
-      // --- Populate Related Items ---
+      // Populate related items using products from same category (sample)
       function populateRelatedItems() {
         const container = document.getElementById("relatedItemsContainer");
         container.innerHTML = "";
@@ -440,14 +474,13 @@
         }
       }
       
-      // --- Modal Function ---
+      // Open product modal and populate details
       function openProductModal(product) {
         window.currentProduct = product;
         document.getElementById("modalProductImage").src = product.image;
         document.getElementById("modalProductName").innerText = product.name;
         document.getElementById("modalProductPrice").innerText = product.price;
         document.getElementById("modalProductDescription").innerText = product.description;
-        // Populate reviews and related items
         populateReviews();
         document.getElementById("reviewsContainer").style.maxHeight = "200px";
         document.getElementById("viewMoreReviewsBtn").innerText = "View More";
@@ -456,7 +489,7 @@
         modal.show();
       }
       
-      // --- Product Data and Page Functions ---
+      // Product Data
       const productData = {
         "Countdown Sales": [
           {
@@ -605,7 +638,7 @@
         ]
       };
       
-      // --- Page Rendering Functions ---
+      // Render Main Page Categories
       function createBannerForCategory(category, index) {
         let banner = document.createElement("div");
         banner.className = "banner";
@@ -707,7 +740,7 @@
             card.style.minWidth = "150px";
             card.style.marginRight = "0.75rem";
             card.onclick = function () {
-              openCategoryPage(category);
+              openProductModal(product);
             };
             card.innerHTML = `
               <img src="${product.image}" class="card-img-top" alt="${product.name}">
