@@ -16,18 +16,18 @@
     />
     <!-- Global Styles -->
     <link rel="stylesheet" href="style.css" />
-    <!-- Custom JavaScript (including header functionality) -->
+    <!-- Custom JavaScript -->
     <script src="script.js" defer></script>
     <style>
       /* Additional overrides for details.html */
 
-      /* Ensure content is pushed down to accommodate the fixed header */
+      /* Ensure content is pushed down by the fixed header (70px here) */
       body {
-        margin-top: 70px; /* Adjust this value to match your header's height */
+        margin-top: 70px;
         scroll-behavior: smooth;
       }
 
-      /* Sticky Section Navigation – by default it has a shadow */
+      /* Sticky Section Navigation (below header) */
       .section-nav {
         background: #fff;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -160,7 +160,6 @@
     <section id="section-related" class="container">
       <h3>Related Items</h3>
       <div class="related-items" id="relatedItemsContainer">
-        <!-- Dummy related items (to be replaced by AI recommendations later) -->
         <div class="related-item">
           <img src="https://via.placeholder.com/140x100?text=Item+1" alt="Item 1" />
           <p class="small">Item 1</p>
@@ -186,7 +185,7 @@
     <!-- Bootstrap JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-      // Basic loadHTML() function that loads external HTML content.
+      // Basic loadHTML function that loads external HTML content.
       function loadHTML(elementId, filePath) {
         return fetch(filePath)
           .then((response) => {
@@ -199,10 +198,12 @@
             const parser = new DOMParser();
             const doc = parser.parseFromString(htmlText, "text/html");
 
-            // Remove style tags to avoid duplicate styles (we assume header.css in style.css handles header styling)
-            doc.querySelectorAll("style").forEach((el) => el.remove());
+            // Append style tags to head.
+            doc.querySelectorAll("style").forEach((styleTag) => {
+              document.head.appendChild(styleTag.cloneNode(true));
+            });
 
-            // Append any script tags from the fetched HTML to the head.
+            // Append script tags to head.
             doc.querySelectorAll("script").forEach((scriptTag) => {
               const newScript = document.createElement("script");
               if (scriptTag.src) {
@@ -214,7 +215,8 @@
               document.head.appendChild(newScript);
             });
 
-            // Insert the remaining HTML into the target element.
+            // Remove script and style tags from fetched HTML.
+            doc.querySelectorAll("script, style").forEach((el) => el.remove());
             document.getElementById(elementId).innerHTML = doc.body.innerHTML;
           })
           .catch((error) =>
@@ -222,35 +224,32 @@
           );
       }
 
-      // Function to attach hamburger toggle event.
-      function attachHamburgerToggle() {
-        const menuToggle = document.querySelector(".menu-toggle");
-        if (menuToggle) {
-          menuToggle.addEventListener("click", function () {
-            const sideMenu = document.getElementById("side-menu");
-            if (sideMenu) {
-              sideMenu.classList.toggle("visible");
+      // Use MutationObserver to detect when header is injected, then attach hamburger toggle.
+      function observeHeaderAndAttachToggle() {
+        const targetNode = document.getElementById("header-placeholder");
+        if (!targetNode) return;
+        const observer = new MutationObserver((mutationsList, observer) => {
+          if (targetNode.innerHTML.trim().length > 0) {
+            // Header content is loaded; now attach hamburger event.
+            const menuToggle = document.querySelector(".menu-toggle");
+            if (menuToggle) {
+              menuToggle.addEventListener("click", function () {
+                const sideMenu = document.getElementById("side-menu");
+                if (sideMenu) {
+                  sideMenu.classList.toggle("visible");
+                }
+              });
+              // Once attached, disconnect observer.
+              observer.disconnect();
             }
-          });
-        }
+          }
+        });
+        observer.observe(targetNode, { childList: true, subtree: true });
       }
-
-      // Remove duplicate shadows on scroll: when section-nav overlaps header, remove its shadow.
-      document.addEventListener("scroll", function () {
-        const nav = document.querySelector(".section-nav");
-        if (!nav) return;
-        const headerHeight = 70; // adjust if needed
-        const navRect = nav.getBoundingClientRect();
-        if (navRect.top < headerHeight) {
-          nav.style.boxShadow = "none";
-        } else {
-          nav.style.boxShadow = "0 2px 4px rgba(0,0,0,0.1)";
-        }
-      });
 
       document.addEventListener("DOMContentLoaded", function () {
         loadHTML("header-placeholder", "header.html").then(() => {
-          attachHamburgerToggle();
+          observeHeaderAndAttachToggle();
         });
         loadHTML("footer-placeholder", "footer.html");
       });
