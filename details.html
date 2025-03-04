@@ -28,7 +28,7 @@
         text-decoration: none;
         color: inherit;
       }
-      /* Header & Footer placeholders */
+      /* Header & Footer Placeholders */
       #header-placeholder,
       #footer-placeholder {
         width: 100%;
@@ -187,7 +187,11 @@
     <!-- Product Details Section -->
     <div class="product-details container">
       <div class="product-image">
-        <img id="productImage" src="https://via.placeholder.com/400x300?text=Product+Image" alt="Product Image">
+        <img
+          id="productImage"
+          src="https://via.placeholder.com/400x300?text=Product+Image"
+          alt="Product Image"
+        />
       </div>
       <div class="product-info">
         <h2 id="productName">Product Name</h2>
@@ -221,7 +225,11 @@
       <h3>Description</h3>
       <div class="content" id="descriptionContent">
         <p id="productDescription">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel mauris quam. Praesent sed nisi eleifend, varius nulla eu, auctor urna. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Suspendisse potenti. Proin ut tincidunt mauris, vel dapibus nulla. Nulla facilisi. Sed nec nulla vitae eros aliquet fermentum.
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel mauris
+          quam. Praesent sed nisi eleifend, varius nulla eu, auctor urna. Vestibulum
+          ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae;
+          Suspendisse potenti. Proin ut tincidunt mauris, vel dapibus nulla. Nulla
+          facilisi. Sed nec nulla vitae eros aliquet fermentum.
         </p>
       </div>
       <div class="read-more-btn" id="descReadMore">Read More</div>
@@ -232,21 +240,25 @@
       <h3>Reviews</h3>
       <div id="reviewsContainer">
         <div class="review-item">
-          <p><strong>User1:</strong> Amazing quality, highly recommended!
+          <p>
+            <strong>User1:</strong> Amazing quality, highly recommended!
             <span class="review-read-more">...Read more</span>
           </p>
           <p><small>Reviewed on July 10, 2025</small></p>
           <p class="review-full">
-            Full review text for User1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            Full review text for User1. Lorem ipsum dolor sit amet, consectetur adipiscing
+            elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
           </p>
         </div>
         <div class="review-item">
-          <p><strong>User2:</strong> Good value for money.
+          <p>
+            <strong>User2:</strong> Good value for money.
             <span class="review-read-more">...Read more</span>
           </p>
           <p><small>Reviewed on July 8, 2025</small></p>
           <p class="review-full">
-            Full review text for User2. Additional details about the product experience go here.
+            Full review text for User2. Additional details about the product experience go
+            here.
           </p>
         </div>
       </div>
@@ -270,19 +282,19 @@
       <div class="related-items" id="relatedItemsContainer">
         <!-- Dummy related items (to be replaced by AI recommendations later) -->
         <div class="related-item">
-          <img src="https://via.placeholder.com/140x100?text=Item+1" alt="Item 1">
+          <img src="https://via.placeholder.com/140x100?text=Item+1" alt="Item 1" />
           <p class="small">Item 1</p>
         </div>
         <div class="related-item">
-          <img src="https://via.placeholder.com/140x100?text=Item+2" alt="Item 2">
+          <img src="https://via.placeholder.com/140x100?text=Item+2" alt="Item 2" />
           <p class="small">Item 2</p>
         </div>
         <div class="related-item">
-          <img src="https://via.placeholder.com/140x100?text=Item+3" alt="Item 3">
+          <img src="https://via.placeholder.com/140x100?text=Item+3" alt="Item 3" />
           <p class="small">Item 3</p>
         </div>
         <div class="related-item">
-          <img src="https://via.placeholder.com/140x100?text=Item+4" alt="Item 4">
+          <img src="https://via.placeholder.com/140x100?text=Item+4" alt="Item 4" />
           <p class="small">Item 4</p>
         </div>
       </div>
@@ -314,15 +326,16 @@
       });
 
       // Dummy product data (to be replaced with Firebase Firestore calls)
-      const product = JSON.parse(localStorage.getItem("selectedProduct")) || {
-        name: "Default Product",
-        price: "PKR 0",
-        description: "No description available.",
-        image: "https://via.placeholder.com/400x300?text=Product+Image",
-        rating: 0,
-        added: "0",
-        sold: "0"
-      };
+      const product =
+        JSON.parse(localStorage.getItem("selectedProduct")) || {
+          name: "Default Product",
+          price: "PKR 0",
+          description: "No description available.",
+          image: "https://via.placeholder.com/400x300?text=Product+Image",
+          rating: 0,
+          added: "0",
+          sold: "0"
+        };
 
       // Populate product details
       document.getElementById("productName").innerText = product.name;
