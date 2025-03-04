@@ -14,20 +14,22 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
     />
-    <!-- Global styles -->
+    <!-- Global Styles -->
     <link rel="stylesheet" href="style.css" />
     <style>
-      /* Additional overrides specific to details.html */
-      /* Ensure body top margin matches header height (70px in this example) */
+      /* Additional overrides for details.html */
+
+      /* Ensure the body is pushed down so the fixed header does not overlap content.
+         Adjust 70px to match your header’s actual height. */
       body {
         margin-top: 70px;
         scroll-behavior: smooth;
       }
 
-      /* Sticky Navigation for sections */
+      /* Sticky Section Navigation (below header) */
       .section-nav {
         background: #fff;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         display: flex;
         justify-content: space-around;
         align-items: center;
@@ -54,7 +56,7 @@
     </style>
   </head>
   <body>
-    <!-- External Header -->
+    <!-- External Header will be loaded here -->
     <div id="header-placeholder"></div>
 
     <!-- Product Details Section -->
@@ -177,15 +179,14 @@
       </div>
     </section>
 
-    <!-- External Footer -->
+    <!-- External Footer will be loaded here -->
     <div id="footer-placeholder"></div>
 
     <!-- Bootstrap JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-      // Enhanced loadHTML() function: 
-      // It fetches external HTML, then extracts and appends <style> and <script> tags,
-      // ensuring that inline scripts are executed.
+      // Updated loadHTML() function that extracts <style> and <script> tags,
+      // appending external scripts to the head with async disabled.
       function loadHTML(elementId, filePath) {
         fetch(filePath)
           .then((response) => {
@@ -198,25 +199,28 @@
             const parser = new DOMParser();
             const doc = parser.parseFromString(htmlText, "text/html");
 
-            // Extract and append style tags
+            // Append any <style> tags to the document head.
             doc.querySelectorAll("style").forEach((styleTag) => {
               document.head.appendChild(styleTag.cloneNode(true));
             });
 
-            // Extract and execute script tags
+            // Append any <script> tags to the document head with async disabled.
             doc.querySelectorAll("script").forEach((scriptTag) => {
               const newScript = document.createElement("script");
-              // Copy attributes such as src
               if (scriptTag.src) {
+                // Resolve relative URLs if necessary.
                 newScript.src = scriptTag.src;
+                newScript.async = false;
               } else {
                 newScript.textContent = scriptTag.textContent;
               }
-              document.body.appendChild(newScript);
+              document.head.appendChild(newScript);
             });
 
-            // Remove script and style tags from the fetched HTML, then insert the remaining HTML
+            // Remove script and style tags from the fetched HTML.
             doc.querySelectorAll("script, style").forEach((el) => el.remove());
+
+            // Insert the remaining content into the target element.
             document.getElementById(elementId).innerHTML = doc.body.innerHTML;
           })
           .catch((error) =>
@@ -225,12 +229,11 @@
       }
 
       document.addEventListener("DOMContentLoaded", function () {
-        // Load external header and footer.
         loadHTML("header-placeholder", "header.html");
         loadHTML("footer-placeholder", "footer.html");
       });
 
-      // Dummy product data (for now; replace with Firebase calls later)
+      // Dummy product data (replace with Firebase later)
       const product =
         JSON.parse(localStorage.getItem("selectedProduct")) || {
           name: "Default Product",
@@ -268,7 +271,7 @@
         return html;
       }
 
-      // "Read More" functionality for Description section
+      // "Read More" functionality for Description
       document
         .getElementById("descReadMore")
         .addEventListener("click", function () {
@@ -287,7 +290,10 @@
         if (e.target && e.target.classList.contains("review-read-more")) {
           const fullReview = e.target.parentElement.nextElementSibling;
           if (fullReview && fullReview.classList.contains("review-full")) {
-            if (fullReview.style.display === "none" || fullReview.style.display === "") {
+            if (
+              fullReview.style.display === "none" ||
+              fullReview.style.display === ""
+            ) {
               fullReview.style.display = "block";
               e.target.textContent = " Show less";
             } else {
@@ -298,7 +304,7 @@
         }
       });
 
-      // Star rating functionality in "Write a Review"
+      // Star rating functionality for "Write a Review"
       const starIcons = document.querySelectorAll("#ratingStars .star-icon");
       starIcons.forEach((star) => {
         star.addEventListener("click", function () {
