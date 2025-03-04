@@ -3,394 +3,291 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NextGen E-commerce</title>
-  <!-- Font Awesome for icons -->
+  <title>NextGen E-commerce – Single Page System</title>
+  <!-- Font Awesome and Google Fonts -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <!-- Google Fonts -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" />
   <style>
-    /* Global Reset and Base Styles */
+    /* Global Reset & Base Styles */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: 'Roboto', sans-serif; background: #f7f7f7; color: #333; }
     a { text-decoration: none; color: inherit; }
-
-    /* Container */
     .container { width: 90%; max-width: 1200px; margin: 0 auto; padding: 20px 0; }
-
-    /* Header & Footer */
     header, footer {
-      background: #fff; 
-      padding: 15px 20px; 
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      margin-bottom: 20px;
+      background: #fff; padding: 15px 20px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-bottom: 20px;
     }
     header .brand { font-size: 1.8rem; font-weight: 700; }
     footer { text-align: center; font-size: 0.9rem; color: #777; }
 
-    /* Hero Section – Smart & Modern */
-    .hero {
-      position: relative;
-      height: 60vh;
+    /* Views – only one is visible at a time */
+    .view { display: none; }
+    .view.active { display: block; }
+
+    /* Hero Section (Home View) */
+    #homeView .hero {
+      position: relative; height: 60vh;
       background: linear-gradient(135deg, #4285f4, #34a853);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      color: #fff;
-      padding: 0 20px;
+      display: flex; align-items: center; justify-content: center;
+      text-align: center; color: #fff; padding: 0 20px;
     }
-    .hero-content h1 { font-size: 2.8rem; margin-bottom: 15px; }
-    .hero-content p { font-size: 1.2rem; margin-bottom: 25px; }
-    .hero-content .btn {
-      font-size: 1.1rem;
-      padding: 0.75rem 1.5rem;
-      background-color: #fff;
-      color: #4285f4;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: background 0.3s ease, transform 0.3s ease;
+    #homeView .hero h1 { font-size: 2.8rem; margin-bottom: 15px; }
+    #homeView .hero p { font-size: 1.2rem; margin-bottom: 25px; }
+    #homeView .hero .btn {
+      font-size: 1.1rem; padding: 0.75rem 1.5rem;
+      background-color: #fff; color: #4285f4;
+      border: none; border-radius: 4px; cursor: pointer;
+      transition: background 0.3s, transform 0.3s;
     }
-    .hero-content .btn:hover { background-color: #e0e0e0; transform: scale(1.03); }
+    #homeView .hero .btn:hover { background: #e0e0e0; transform: scale(1.03); }
 
-    /* Category Filter Bar – Using provided style */
-    .category-bar { display: flex; gap: 10px; margin: 20px 0; }
-    .category-bar button {
-      background: #fff;
-      border: 1px solid #ddd;
-      padding: 8px 12px;
-      cursor: pointer;
-      border-radius: 4px;
-      font-weight: 500;
-      transition: background 0.3s, border-color 0.3s;
+    /* Home – Categories as Horizontal Scroll Rows */
+    #homeView .category-row { margin-bottom: 30px; }
+    #homeView .category-row h2 { margin-bottom: 10px; padding-left: 5px; }
+    #homeView .horizontal-scroll {
+      display: flex; gap: 10px; overflow-x: auto; padding-bottom: 10px;
     }
-    .category-bar button.active,
-    .category-bar button:hover {
-      background: #4285f4;
-      border-color: #4285f4;
-      color: #fff;
-    }
-
-    /* Product Listing Grid – Inspired by your provided card design */
-    #listing-view { margin-bottom: 40px; }
-    #product-listing { 
-      display: grid; 
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
-      gap: 20px; 
-    }
-    .product-card {
-      background: #fff;
-      border-radius: 8px;
-      overflow: hidden;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-      cursor: pointer;
+    #homeView .horizontal-scroll .product-card {
+      flex: 0 0 auto; width: 200px;
+      background: #fff; border-radius: 8px; overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1); cursor: pointer;
       transition: transform 0.2s, box-shadow 0.2s;
     }
-    .product-card:hover { 
-      transform: translateY(-3px); 
-      box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+    #homeView .horizontal-scroll .product-card:hover {
+      transform: translateY(-3px); box-shadow: 0 3px 6px rgba(0,0,0,0.15);
     }
-    .product-card img { 
-      width: 100%; 
-      height: 180px; 
-      object-fit: cover;
-      display: block;
+    #homeView .product-card img {
+      width: 100%; height: 150px; object-fit: cover;
     }
-    .product-card .card-content {
-      padding: 10px;
-      text-align: center;
+    #homeView .product-card .card-content {
+      padding: 10px; text-align: center;
     }
-    .product-card h3 { font-size: 1.1rem; margin-bottom: 5px; }
-    .product-card .price { color: #e4393c; font-weight: bold; font-size: 1.1rem; }
+    #homeView .product-card h3 { font-size: 1rem; margin-bottom: 5px; }
+    #homeView .product-card .price { color: #e4393c; font-weight: bold; font-size: 1rem; }
 
-    /* Product Detail View – Google Inspired */
-    #detail-view { 
-      display: none; 
-      background: #fff; 
-      border-radius: 8px; 
-      padding: 20px; 
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      margin-bottom: 40px;
+    /* Category View (Full Grid) */
+    #categoryView .category-title { font-size: 2rem; margin-bottom: 20px; }
+    #categoryView .product-grid {
+      display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     }
-    #detail-view .back-btn { 
-      margin-bottom: 15px; 
-      cursor: pointer; 
-      color: #4285f4; 
-      font-size: 1rem;
+    #categoryView .product-grid .product-card {
+      background: #fff; border-radius: 8px; overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1); cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
     }
-    .detail-header { 
-      display: flex; 
-      gap: 20px; 
-      border-bottom: 1px solid #e0e0e0; 
-      padding-bottom: 20px;
+    #categoryView .product-grid .product-card:hover {
+      transform: translateY(-3px); box-shadow: 0 3px 6px rgba(0,0,0,0.15);
     }
-    .detail-image { flex: 0 0 300px; }
-    .detail-image img { 
-      width: 300px; 
-      height: 300px; 
-      object-fit: cover; 
-      border-radius: 8px;
+    #categoryView .product-grid .product-card img {
+      width: 100%; height: 200px; object-fit: cover;
     }
-    .detail-info { flex: 1; }
-    .detail-info h1 { font-size: 2rem; margin-bottom: 10px; }
-    .detail-info .price { font-size: 1.6rem; color: #4285f4; margin-bottom: 10px; }
-    .detail-info .meta { color: #777; margin-bottom: 15px; }
-    .detail-info .description { line-height: 1.6; margin-bottom: 15px; }
-    .add-to-cart {
-      background: #28a745; 
-      color: #fff; 
-      padding: 12px 25px; 
-      border: none; 
-      border-radius: 4px; 
-      font-size: 1rem; 
-      cursor: pointer; 
+    #categoryView .product-grid .card-content {
+      padding: 10px; text-align: center;
+    }
+    #categoryView .product-grid .card-content h3 { font-size: 1.2rem; margin-bottom: 5px; }
+    #categoryView .product-grid .card-content .price { color: #e4393c; font-weight: bold; font-size: 1.2rem; }
+
+    /* Product Detail View */
+    #productView .back-btn { margin-bottom: 15px; cursor: pointer; color: #4285f4; font-size: 1rem; }
+    #productView .detail-header {
+      display: flex; gap: 20px; border-bottom: 1px solid #e0e0e0; padding-bottom: 20px;
+    }
+    #productView .detail-image { flex: 0 0 300px; }
+    #productView .detail-image img { width: 300px; height: 300px; object-fit: cover; border-radius: 8px; }
+    #productView .detail-info { flex: 1; }
+    #productView .detail-info h1 { font-size: 2rem; margin-bottom: 10px; }
+    #productView .detail-info .price { font-size: 1.6rem; color: #4285f4; margin-bottom: 10px; }
+    #productView .detail-info .meta { color: #777; margin-bottom: 15px; }
+    #productView .detail-info .description { line-height: 1.6; margin-bottom: 15px; }
+    #productView .add-to-cart {
+      background: #28a745; color: #fff; padding: 12px 25px;
+      border: none; border-radius: 4px; font-size: 1rem; cursor: pointer;
       transition: background 0.3s;
     }
-    .add-to-cart:hover { background: #218838; }
+    #productView .add-to-cart:hover { background: #218838; }
 
-    /* Tabs for Detail View */
-    .tab-buttons { display: flex; border-bottom: 1px solid #e0e0e0; margin-top: 20px; }
-    .tab-buttons button { 
-      flex: 1; 
-      padding: 10px; 
-      background: none; 
-      border: none; 
-      font-size: 1rem; 
-      cursor: pointer; 
-      transition: color 0.3s;
+    /* Tabs in Product Detail */
+    #productView .tab-buttons { display: flex; border-bottom: 1px solid #e0e0e0; margin-top: 20px; }
+    #productView .tab-buttons button {
+      flex: 1; padding: 10px; background: none; border: none; font-size: 1rem;
+      cursor: pointer; transition: color 0.3s;
     }
-    .tab-buttons button.active { 
-      border-bottom: 3px solid #4285f4; 
-      color: #4285f4; 
-      font-weight: bold;
+    #productView .tab-buttons button.active {
+      border-bottom: 3px solid #4285f4; color: #4285f4; font-weight: bold;
     }
-    .tab-content { margin-top: 20px; }
+    #productView .tab-content { margin-top: 20px; }
     
     /* Reviews Section */
-    .reviews { margin-top: 20px; }
-    .reviews h2 { font-size: 1.4rem; margin-bottom: 10px; }
-    .review { 
-      background: #fafafa; 
-      padding: 10px; 
-      border-radius: 6px; 
-      margin-bottom: 10px;
+    #productView .reviews { margin-top: 20px; }
+    #productView .reviews h2 { font-size: 1.4rem; margin-bottom: 10px; }
+    #productView .review {
+      background: #fafafa; padding: 10px; border-radius: 6px; margin-bottom: 10px;
       border: 1px solid #e0e0e0;
     }
-    .review .reviewer { font-weight: 500; margin-bottom: 5px; }
-    .review .rating { color: #f39c12; margin-bottom: 5px; }
-    .review p { font-size: 0.95rem; }
+    #productView .review .reviewer { font-weight: 500; margin-bottom: 5px; }
+    #productView .review .rating { color: #f39c12; margin-bottom: 5px; }
+    #productView .review p { font-size: 0.95rem; }
     
     /* Related Items Section */
-    .related { margin-top: 20px; }
-    .related h2 { font-size: 1.4rem; margin-bottom: 10px; }
-    .related-items { 
-      display: flex; 
-      gap: 10px; 
-      overflow-x: auto; 
-      padding-bottom: 10px; 
+    #productView .related { margin-top: 20px; }
+    #productView .related h2 { font-size: 1.4rem; margin-bottom: 10px; }
+    #productView .related-items {
+      display: flex; gap: 10px; overflow-x: auto; padding-bottom: 10px;
     }
-    .related-item {
-      flex: 0 0 180px;
-      background: #fff;
-      border-radius: 6px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-      padding: 10px;
-      text-align: center;
-      cursor: pointer;
-      transition: transform 0.2s;
+    #productView .related-item {
+      flex: 0 0 180px; background: #fff; border-radius: 6px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1); padding: 10px; text-align: center;
+      cursor: pointer; transition: transform 0.2s;
     }
-    .related-item:hover { transform: translateY(-2px); }
-    .related-item img { 
-      width: 100%; 
-      height: 120px; 
-      object-fit: cover; 
-      border-radius: 4px; 
-      margin-bottom: 5px;
+    #productView .related-item:hover { transform: translateY(-2px); }
+    #productView .related-item img {
+      width: 100%; height: 120px; object-fit: cover; border-radius: 4px; margin-bottom: 5px;
     }
-    .related-item h4 { font-size: 1rem; margin: 5px 0; }
-
+    #productView .related-item h4 { font-size: 1rem; margin: 5px 0; }
+    
     /* Responsive Adjustments */
     @media (max-width: 768px) {
-      /* Detail view adjustments */
-      .detail-header { flex-direction: column; align-items: center; }
-      .detail-image, .detail-info { width: 100%; text-align: center; }
-      .detail-image img { width: 250px; height: 250px; }
-      
-      /* Product listing: horizontal scroll for mobile */
-      #product-listing {
-        display: flex;
-        overflow-x: auto;
-        gap: 10px;
-        padding-bottom: 10px;
-      }
-      #product-listing .product-card {
-        flex: 0 0 80%;
-        margin-right: 10px;
-      }
+      /* Home view: adjust hero font size */
+      #homeView .hero h1 { font-size: 2.2rem; }
+      /* Product detail view adjustments */
+      #productView .detail-header { flex-direction: column; align-items: center; }
+      #productView .detail-image, #productView .detail-info { width: 100%; text-align: center; }
+      #productView .detail-image img { width: 250px; height: 250px; }
     }
   </style>
 </head>
 <body>
-  <!-- Header -->
+  <!-- Header (Always Visible) -->
   <header>
     <div class="brand">MyBusiness</div>
   </header>
-  
-  <!-- Hero Section -->
-  <section class="hero">
-    <div class="hero-content">
-      <h1>Welcome to NextGen E-commerce</h1>
-      <p>Your one-stop shop for quality products—from electronics to baby garments.</p>
-      <button class="btn" onclick="scrollToListing()">Shop Now</button>
-    </div>
-  </section>
-  
-  <!-- Main Container -->
-  <div class="container">
-    <!-- Listing View: Categories and Product Grid -->
-    <div id="listing-view">
-      <!-- Category Filter Bar (first line of categories) -->
-      <div class="category-bar" id="category-bar">
-        <button class="active" onclick="filterCategory('All', this)">All</button>
-        <button onclick="filterCategory('Electronics', this)">Electronics</button>
-        <button onclick="filterCategory('Baby Garments', this)">Baby Garments</button>
-        <button onclick="filterCategory('Home & Kitchen', this)">Home & Kitchen</button>
+
+  <!-- Home View -->
+  <div id="homeView" class="view active">
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-content">
+        <h1>Welcome to NextGen E-commerce</h1>
+        <p>Your one-stop shop for quality products—from electronics to baby garments.</p>
+        <button class="btn" onclick="goToCategoryView('All')">Shop Now</button>
       </div>
-      <!-- Product Listing Grid -->
-      <div id="product-listing"></div>
+    </section>
+    <!-- Category Rows: Each category in its own horizontal scroll row -->
+    <div class="container" id="home-categories"></div>
+  </div>
+
+  <!-- Category View (Full Grid) -->
+  <div id="categoryView" class="view">
+    <div class="container">
+      <div class="back-btn" onclick="goToHome()"> 
+        <i class="fas fa-arrow-left"></i> Back to Home
+      </div>
+      <div class="category-title" id="catTitle">Category Name</div>
+      <div class="product-grid" id="catGrid"></div>
     </div>
-    
-    <!-- Detail View: When a Product is Clicked -->
-    <div id="detail-view">
-      <div class="back-btn" onclick="backToListing()">
-        <i class="fas fa-arrow-left"></i> Back to Products
+  </div>
+
+  <!-- Product Detail View -->
+  <div id="productView" class="view">
+    <div class="container">
+      <div class="back-btn" onclick="goBackToCategory()">
+        <i class="fas fa-arrow-left"></i> Back to Category
       </div>
       <div class="detail-header">
         <div class="detail-image">
-          <img id="detail-img" src="" alt="Product Image">
+          <img id="prodImg" src="" alt="Product Image">
         </div>
         <div class="detail-info">
-          <h1 id="detail-name"></h1>
-          <div class="price" id="detail-price"></div>
-          <div class="meta" id="detail-meta"></div>
-          <div class="description" id="detail-description"></div>
+          <h1 id="prodName"></h1>
+          <div class="price" id="prodPrice"></div>
+          <div class="meta" id="prodMeta"></div>
+          <div class="description" id="prodDesc"></div>
           <button class="add-to-cart" onclick="addToCart()">Add to Cart</button>
         </div>
       </div>
-      
-      <!-- Tab Buttons for Details, Reviews, and Related Items -->
+      <!-- Tabs for Details, Reviews, and Related Items -->
       <div class="tab-buttons">
-        <button class="active" onclick="showTab('overview', event)">Overview</button>
-        <button onclick="showTab('reviews', event)">Reviews</button>
-        <button onclick="showTab('related', event)">Related</button>
+        <button class="active" onclick="showDetailTab('overview', event)">Overview</button>
+        <button onclick="showDetailTab('reviews', event)">Reviews</button>
+        <button onclick="showDetailTab('related', event)">Related</button>
       </div>
-      
-      <!-- Tab Contents -->
       <div id="overview" class="tab-content">
-        <div class="description" id="overview-description"></div>
+        <div class="description" id="overviewDesc"></div>
       </div>
       <div id="reviews" class="tab-content" style="display:none;">
-        <div class="reviews" id="reviews-container"></div>
+        <div class="reviews" id="reviewsContainer"></div>
       </div>
       <div id="related" class="tab-content" style="display:none;">
-        <div class="related-items" id="related-items-container"></div>
+        <div class="related-items" id="relatedContainer"></div>
       </div>
     </div>
   </div>
-  
-  <!-- Footer -->
+
+  <!-- Footer (Always Visible) -->
   <footer>
     &copy; 2023 MyBusiness. All Rights Reserved.
   </footer>
-  
+
   <!-- JavaScript Section -->
   <script>
-    // Dummy product data – replace with your backend integration as needed
+    // Dummy product data (shared across views)
     const products = [
-      {
-        id: 1,
-        name: "Smartphone X",
-        category: "Electronics",
-        image: "https://via.placeholder.com/300x200?text=Smartphone+X",
-        price: "$699",
-        meta: "50M+ installs • Updated Sep 2023",
-        description: "A high-end smartphone with advanced features and a sleek design. Enjoy unmatched performance and long battery life.",
-        reviews: [
-          { reviewer: "Alice", rating: 5, text: "Amazing performance and battery life!", date: "2023-09-15" },
-          { reviewer: "Bob", rating: 4, text: "Great phone, but a bit pricey.", date: "2023-09-10" }
-        ]
-      },
-      {
-        id: 2,
-        name: "Wireless Headphones",
-        category: "Electronics",
-        image: "https://via.placeholder.com/300x200?text=Headphones",
-        price: "$199",
-        meta: "20K+ installs • Updated Aug 2023",
-        description: "Experience superior sound quality with these wireless headphones featuring noise cancellation and long battery life.",
-        reviews: [
-          { reviewer: "Charlie", rating: 4, text: "Comfortable and clear sound.", date: "2023-08-20" }
-        ]
-      },
-      {
-        id: 3,
-        name: "Baby Onesie",
-        category: "Baby Garments",
-        image: "https://via.placeholder.com/300x200?text=Baby+Onesie",
-        price: "$29",
-        meta: "5K+ sold • Updated Sep 2023",
-        description: "Soft, organic cotton onesie for your baby with adorable prints. Perfect for everyday wear.",
-        reviews: [
-          { reviewer: "Diana", rating: 5, text: "Perfect for my little one!", date: "2023-09-05" }
-        ]
-      },
-      {
-        id: 4,
-        name: "Blender Pro",
-        category: "Home & Kitchen",
-        image: "https://via.placeholder.com/300x200?text=Blender+Pro",
-        price: "$89",
-        meta: "10K+ sold • Updated Sep 2023",
-        description: "A high-power blender perfect for smoothies, soups, and more. Easy to clean and built to last.",
-        reviews: [
-          { reviewer: "Evan", rating: 4, text: "Very efficient and easy to clean.", date: "2023-09-12" }
-        ]
-      },
-      {
-        id: 5,
-        name: "LED TV 50\"",
-        category: "Electronics",
-        image: "https://via.placeholder.com/300x200?text=LED+TV+50",
-        price: "$499",
-        meta: "30K+ installs • Updated Aug 2023",
-        description: "Enjoy your favorite shows on this crisp, vibrant 50-inch LED TV with smart features and excellent sound quality.",
-        reviews: [
-          { reviewer: "Fiona", rating: 5, text: "Fantastic picture quality!", date: "2023-08-30" }
-        ]
-      },
-      {
-        id: 6,
-        name: "Baby Romper",
-        category: "Baby Garments",
-        image: "https://via.placeholder.com/300x200?text=Baby+Romper",
-        price: "$35",
-        meta: "3K+ sold • Updated Sep 2023",
-        description: "Comfortable and stylish romper available in various colors. Perfect for playtime and outings.",
-        reviews: [
-          { reviewer: "George", rating: 4, text: "Very cute and soft.", date: "2023-09-08" }
-        ]
-      }
+      { id: 1, name: "Smartphone X", category: "Electronics", image: "https://via.placeholder.com/300x200?text=Smartphone+X", price: "$699", meta: "50M+ installs • Updated Sep 2023", description: "A high-end smartphone with advanced features and sleek design. Enjoy unmatched performance and long battery life.", reviews: [ { reviewer: "Alice", rating: 5, text: "Amazing performance!", date: "2023-09-15" }, { reviewer: "Bob", rating: 4, text: "Great phone but pricey.", date: "2023-09-10" } ] },
+      { id: 2, name: "Wireless Headphones", category: "Electronics", image: "https://via.placeholder.com/300x200?text=Headphones", price: "$199", meta: "20K+ installs • Updated Aug 2023", description: "Experience superior sound quality with noise cancellation and long battery life.", reviews: [ { reviewer: "Charlie", rating: 4, text: "Comfortable and clear sound.", date: "2023-08-20" } ] },
+      { id: 3, name: "Baby Onesie", category: "Baby Garments", image: "https://via.placeholder.com/300x200?text=Baby+Onesie", price: "$29", meta: "5K+ sold • Updated Sep 2023", description: "Soft, organic cotton onesie with adorable prints. Perfect for everyday wear.", reviews: [ { reviewer: "Diana", rating: 5, text: "Perfect for my little one!", date: "2023-09-05" } ] },
+      { id: 4, name: "Baby Romper", category: "Baby Garments", image: "https://via.placeholder.com/300x200?text=Baby+Romper", price: "$35", meta: "3K+ sold • Updated Sep 2023", description: "Comfortable and stylish romper available in various colors.", reviews: [ { reviewer: "George", rating: 4, text: "Very cute and soft.", date: "2023-09-08" } ] },
+      { id: 5, name: "Blender Pro", category: "Home & Kitchen", image: "https://via.placeholder.com/300x200?text=Blender+Pro", price: "$89", meta: "10K+ sold • Updated Sep 2023", description: "High-power blender perfect for smoothies and soups. Easy to clean.", reviews: [ { reviewer: "Evan", rating: 4, text: "Efficient and easy to clean.", date: "2023-09-12" } ] },
+      { id: 6, name: "Kitchen Mixer", category: "Home & Kitchen", image: "https://via.placeholder.com/300x200?text=Kitchen+Mixer", price: "$129", meta: "8K+ sold • Updated Sep 2023", description: "Robust mixer for all your kitchen needs.", reviews: [ { reviewer: "Helen", rating: 5, text: "Mixes perfectly!", date: "2023-09-07" } ] }
     ];
-    
-    // Render product listing based on category filter
-    function renderProductListing(filter = "All") {
-      const container = document.getElementById("product-listing");
+
+    // Get unique categories
+    const categories = [...new Set(products.map(p => p.category))];
+
+    // View management functions
+    function showView(viewId) {
+      document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+      document.getElementById(viewId).classList.add('active');
+    }
+
+    // Home View: Render category rows (each row is horizontal scrolling)
+    function renderHomeCategories() {
+      const container = document.getElementById("home-categories");
       container.innerHTML = "";
-      const filteredProducts = filter === "All" ? products : products.filter(p => p.category === filter);
-      filteredProducts.forEach(product => {
+      categories.forEach(cat => {
+        const row = document.createElement("div");
+        row.className = "category-row";
+        const title = document.createElement("h2");
+        title.innerText = cat;
+        row.appendChild(title);
+        const scrollDiv = document.createElement("div");
+        scrollDiv.className = "horizontal-scroll";
+        products.filter(p => p.category === cat).forEach(product => {
+          const card = document.createElement("div");
+          card.className = "product-card";
+          card.onclick = () => goToCategoryView(cat);
+          card.innerHTML = `
+            <img src="${product.image}" alt="${product.name}">
+            <div class="card-content">
+              <h3>${product.name}</h3>
+              <div class="price">${product.price}</div>
+            </div>
+          `;
+          scrollDiv.appendChild(card);
+        });
+        row.appendChild(scrollDiv);
+        container.appendChild(row);
+      });
+    }
+
+    // Navigate to Category View (full grid)
+    function goToCategoryView(cat) {
+      document.getElementById("catTitle").innerText = cat;
+      const grid = document.getElementById("catGrid");
+      grid.innerHTML = "";
+      products.filter(p => p.category === cat).forEach(product => {
         const card = document.createElement("div");
         card.className = "product-card";
-        card.onclick = () => openProductDetail(product.id);
+        card.onclick = () => goToProductView(product.id, cat);
         card.innerHTML = `
           <img src="${product.image}" alt="${product.name}">
           <div class="card-content">
@@ -398,97 +295,95 @@
             <div class="price">${product.price}</div>
           </div>
         `;
-        container.appendChild(card);
+        grid.appendChild(card);
       });
+      showView("categoryView");
     }
-    
-    // Category filter handler
-    function filterCategory(category, btn) {
-      document.querySelectorAll(".category-bar button").forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
-      renderProductListing(category);
+
+    // Navigate to Home View
+    function goToHome() {
+      showView("homeView");
     }
-    
-    // Smooth scroll to product listing when "Shop Now" is clicked
-    function scrollToListing() {
-      document.getElementById("listing-view").scrollIntoView({ behavior: "smooth" });
-    }
-    
-    // Open product detail view
-    function openProductDetail(productId) {
-      const product = products.find(p => p.id === productId);
-      if (!product) return;
-      
-      // Populate detail view fields
-      document.getElementById("detail-img").src = product.image;
-      document.getElementById("detail-name").innerText = product.name;
-      document.getElementById("detail-price").innerText = product.price;
-      document.getElementById("detail-meta").innerText = product.meta;
-      document.getElementById("detail-description").innerText = product.description;
-      document.getElementById("overview-description").innerText = product.description;
+
+    // Navigate to Product Detail View
+    function goToProductView(prodId, cat) {
+      const prod = products.find(p => p.id === prodId);
+      if (!prod) return;
+      // Populate product details
+      document.getElementById("prodImg").src = prod.image;
+      document.getElementById("prodName").innerText = prod.name;
+      document.getElementById("prodPrice").innerText = prod.price;
+      document.getElementById("prodMeta").innerText = prod.meta;
+      document.getElementById("prodDesc").innerText = prod.description;
+      document.getElementById("overviewDesc").innerText = prod.description;
       
       // Render reviews
-      const reviewsContainer = document.getElementById("reviews-container");
-      reviewsContainer.innerHTML = "";
-      product.reviews.forEach(review => {
-        const reviewDiv = document.createElement("div");
-        reviewDiv.className = "review";
-        reviewDiv.innerHTML = `
-          <div class="reviewer">${review.reviewer}</div>
-          <div class="rating">${"★".repeat(review.rating)}</div>
-          <p>${review.text}</p>
-          <small>${review.date}</small>
+      const revContainer = document.getElementById("reviewsContainer");
+      revContainer.innerHTML = "";
+      prod.reviews.forEach(r => {
+        const div = document.createElement("div");
+        div.className = "review";
+        div.innerHTML = `
+          <div class="reviewer">${r.reviewer}</div>
+          <div class="rating">${"★".repeat(r.rating)}</div>
+          <p>${r.text}</p>
+          <small>${r.date}</small>
         `;
-        reviewsContainer.appendChild(reviewDiv);
+        revContainer.appendChild(div);
       });
       
-      // Render related items (other products in the same category)
-      const relatedContainer = document.getElementById("related-items-container");
-      relatedContainer.innerHTML = "";
-      products.filter(p => p.category === product.category && p.id !== product.id)
-              .forEach(p => {
-        const relatedDiv = document.createElement("div");
-        relatedDiv.className = "related-item";
-        relatedDiv.onclick = () => openProductDetail(p.id);
-        relatedDiv.innerHTML = `
-          <img src="${p.image}" alt="${p.name}">
-          <h4>${p.name}</h4>
-        `;
-        relatedContainer.appendChild(relatedDiv);
-      });
+      // Render related items (same category, excluding current)
+      const relContainer = document.getElementById("relatedContainer");
+      relContainer.innerHTML = "";
+      products.filter(p => p.category === cat && p.id !== prodId)
+        .forEach(p => {
+          const relDiv = document.createElement("div");
+          relDiv.className = "related-item";
+          relDiv.onclick = () => goToProductView(p.id, cat);
+          relDiv.innerHTML = `
+            <img src="${p.image}" alt="${p.name}">
+            <h4>${p.name}</h4>
+          `;
+          relContainer.appendChild(relDiv);
+        });
       
-      // Toggle views: hide listing, show detail
-      document.getElementById("listing-view").style.display = "none";
-      document.getElementById("detail-view").style.display = "block";
-      
-      // Reset tabs – show Overview by default
-      document.querySelectorAll(".tab-content").forEach(tab => tab.style.display = "none");
+      // Reset tabs
+      document.querySelectorAll("#productView .tab-content").forEach(tab => tab.style.display = "none");
       document.getElementById("overview").style.display = "block";
-      document.querySelectorAll(".tab-buttons button").forEach(btn => btn.classList.remove("active"));
-      document.querySelector(".tab-buttons button").classList.add("active");
+      document.querySelectorAll("#productView .tab-buttons button").forEach(btn => btn.classList.remove("active"));
+      document.querySelector("#productView .tab-buttons button").classList.add("active");
+      
+      // Store current category for "Back" navigation
+      currentCategory = cat;
+      showView("productView");
     }
-    
-    // Go back to product listing view
-    function backToListing() {
-      document.getElementById("detail-view").style.display = "none";
-      document.getElementById("listing-view").style.display = "block";
+
+    // Back to Category View from Product View
+    function goBackToCategory() {
+      showView("categoryView");
     }
-    
-    // Simple Add to Cart functionality (demo)
+
+    // Simple Add to Cart demo
     function addToCart() {
       alert("Product added to cart!");
     }
-    
-    // Tab switching in detail view
-    function showTab(tabId, event) {
-      document.querySelectorAll(".tab-content").forEach(tab => tab.style.display = "none");
+
+    // Tab switching in product detail
+    function showDetailTab(tabId, event) {
+      document.querySelectorAll("#productView .tab-content").forEach(tab => tab.style.display = "none");
       document.getElementById(tabId).style.display = "block";
-      document.querySelectorAll(".tab-buttons button").forEach(btn => btn.classList.remove("active"));
+      document.querySelectorAll("#productView .tab-buttons button").forEach(btn => btn.classList.remove("active"));
       event.currentTarget.classList.add("active");
     }
-    
-    // Initial render of product listing
-    renderProductListing("All");
+
+    // Global variable to store current category for back navigation
+    let currentCategory = "All";
+
+    // Initial rendering
+    document.addEventListener("DOMContentLoaded", () => {
+      renderHomeCategories();
+      showView("homeView");
+    });
   </script>
 </body>
 </html>
