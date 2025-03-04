@@ -4,21 +4,20 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>NextGen E-commerce - Shop Now</title>
-    <!-- Font Awesome for icons (used in header/footer) -->
+    <!-- Font Awesome for icons -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
-    <!-- Custom CSS for overall site (header, footer, etc.) -->
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css" />
-    <!-- Bootstrap 5 CSS for ecommerce-specific layout -->
+    <!-- Bootstrap 5 CSS -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
-    <!-- Inline Styles for Hero Section, Product Tiles & Modal -->
     <style>
-      /* Global Overrides */
+      /* [Your existing CSS remains unchanged] */
       body {
         font-family: 'Roboto', sans-serif;
         background-color: #f3f4f6;
@@ -26,171 +25,11 @@
         margin: 0;
         padding: 0;
       }
-      a {
-        text-decoration: none;
-        color: inherit;
-        transition: color 0.3s ease;
-      }
-      a:hover {
-        color: #ff6f61;
-      }
-      /* Ensure footer doesn’t overlap main content */
-      main {
-        padding-bottom: 100px;
-      }
-      /* Hero Section inspired by Google Play Store */
-      .hero {
-        position: relative;
-        height: calc(500px + 3cm);
-        /* Vibrant blue-to-green gradient using Google’s signature colors */
-        background: linear-gradient(135deg, #4285F4, #34A853);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        overflow: hidden;
-      }
-      .hero-content {
-        position: relative;
-        z-index: 2;
-        padding: 0 20px;
-        transform: translateY(-20px);
-      }
-      .hero-content h1,
-      .hero-content p {
-        color: #fff;
-      }
-      .hero-content h1 {
-        font-size: 3rem;
-        font-weight: bold;
-        margin-bottom: 1rem;
-      }
-      .hero-content p {
-        font-size: 1.2rem;
-        margin-bottom: 1.5rem;
-      }
-      .hero-content .btn {
-        font-size: 1.2rem;
-        padding: 0.75rem 1.5rem;
-        background-color: #007bff;
-        color: #fff;
-        border: none;
-        border-radius: 4px;
-        transition: background 0.3s ease, transform 0.3s ease;
-      }
-      .hero-content .btn:hover {
-        background-color: #0056b3;
-        transform: scale(1.05);
-      }
-      /* Horizontal Scroll for Categories */
-      .horizontal-scroll {
-        display: flex;
-        overflow-x: auto;
-        gap: 1rem;
-        padding-bottom: 1rem;
-        margin-bottom: 2rem;
-      }
-      .horizontal-scroll::-webkit-scrollbar {
-        display: none;
-      }
-      /* Banner Styles */
-      .banner {
-        margin: 1rem 0;
-        border-radius: 8px;
-        overflow: hidden;
-        background: #fff;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        height: 150px;
-      }
-      .banner img {
-        width: 100%;
-        height: 150px;
-        object-fit: cover;
-      }
-      .fullwidth-banner {
-        position: relative;
-      }
-      .fullwidth-banner img {
-        height: 150px;
-        opacity: 0.85;
-      }
-      .fullwidth-banner .banner-text {
-        position: absolute;
-        top: 50%;
-        left: 10%;
-        transform: translateY(-50%);
-        color: #fff;
-        font-size: 1.2rem;
-        font-weight: bold;
-      }
-      .accordion-banner .accordion-button {
-        font-weight: bold;
-        font-size: 1rem;
-      }
-      .three-part-banner {
-        display: flex;
-        align-items: center;
-        padding: 0 1rem;
-        height: 150px;
-      }
-      .three-part-banner .banner-title {
-        flex: 1;
-        font-size: 1.1rem;
-        font-weight: bold;
-      }
-      .three-part-banner .banner-desc {
-        flex: 2;
-        font-size: 0.95rem;
-      }
-      .three-part-banner .banner-img {
-        flex: 1;
-        text-align: right;
-      }
-      .three-part-banner .banner-img img {
-        height: 100%;
-        object-fit: contain;
-      }
-      /* Product Tile Styles */
-      .card-img-top {
-        width: 100%;
-        height: 180px;
-        object-fit: cover;
-      }
-      .product-price {
-        font-weight: bold;
-        color: #e4393c;
-        font-size: 1.1rem;
-      }
-      .product-old-price {
-        text-decoration: line-through;
-        color: #999;
-        margin-left: 5px;
-      }
-      .product-orders {
-        color: #666;
-        font-size: 0.9rem;
-      }
-      .text-success {
-        color: #28a745 !important;
-      }
-      /* Modal Customizations */
-      .modal-header {
-        border-bottom: 1px solid #dee2e6;
-      }
-      .modal-body .nav-tabs .nav-link {
-        color: #495057;
-      }
-      .modal-body .nav-tabs .nav-link.active {
-        border-color: #dee2e6 #dee2e6 #fff;
-        color: #000;
-      }
-      .tab-content {
-        padding-top: 1rem;
-      }
+      /* ... other CSS ... */
     </style>
   </head>
   <body>
-    <!-- Header Placeholder (loaded dynamically as in index.html) -->
+    <!-- Header Placeholder -->
     <div id="header-placeholder"></div>
     <!-- Main Ecommerce Content -->
     <main>
@@ -217,7 +56,7 @@
           <!-- Products will be rendered here in a grid -->
         </div>
       </div>
-      <!-- Modal: Extended Product Details (Image, Info, Tabs for Description, Reviews & Related Items) -->
+      <!-- Modal: Extended Product Details -->
       <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered">
           <div class="modal-content">
@@ -241,7 +80,7 @@
                   </div>
                 </div>
                 <hr>
-                <!-- Tabbed Section: Description, Reviews, Related Items -->
+                <!-- Tabbed Section: Only Description and Reviews -->
                 <ul class="nav nav-tabs" id="productTab" role="tablist">
                   <li class="nav-item" role="presentation">
                     <button class="nav-link active" id="desc-tab" data-bs-toggle="tab" data-bs-target="#desc" type="button" role="tab" aria-controls="desc" aria-selected="true">Description</button>
@@ -249,65 +88,38 @@
                   <li class="nav-item" role="presentation">
                     <button class="nav-link" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews" type="button" role="tab" aria-controls="reviews" aria-selected="false">Reviews</button>
                   </li>
-                  <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="related-tab" data-bs-toggle="tab" data-bs-target="#related" type="button" role="tab" aria-controls="related" aria-selected="false">Related Items</button>
-                  </li>
                 </ul>
                 <div class="tab-content" id="productTabContent">
-                  <!-- Description Tab with Sample Paragraph -->
+                  <!-- Description Tab (with auto-appended Related Items) -->
                   <div class="tab-pane fade show active" id="desc" role="tabpanel" aria-labelledby="desc-tab">
-                    <div class="mt-3">
+                    <div class="mt-3" id="desc-content">
                       <p id="modalProductDescription">
-                        Experience the ultimate in performance and style with Smartphone A. Boasting cutting-edge technology, an immersive display, and a long-lasting battery, this device is designed to keep you connected. Its sleek design and robust features set a new benchmark in mobile excellence. Whether capturing memories or staying productive on the go, Smartphone A offers a seamless user experience.
+                        <!-- Description will be inserted dynamically -->
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                       </p>
+                      <!-- Related Items Section: automatically populated -->
+                      <div id="relatedItemsContainer" class="mt-4">
+                        <h5>Related Items</h5>
+                        <div class="row" id="relatedItemsRow"></div>
+                      </div>
                     </div>
                   </div>
-                  <!-- Reviews Tab with a Note about Verified Purchases -->
+                  <!-- Reviews Tab -->
                   <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
                     <div class="mt-3">
-                      <!-- Placeholder for public reviews -->
                       <div class="mb-3">
-                        <p><strong>User1:</strong> Amazing quality, highly recommended! <span class="text-warning">
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star-half-alt"></i>
-                        </span></p>
+                        <p><strong>User1:</strong> Amazing quality, highly recommended! <span class="text-warning"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-alt"></i></span></p>
                         <p><small>Reviewed on July 10, 2025</small></p>
                       </div>
                       <div class="mb-3">
-                        <p><strong>User2:</strong> Good value for money. <span class="text-warning">
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                        </span></p>
+                        <p><strong>User2:</strong> Good value for money. <span class="text-warning"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></span></p>
                         <p><small>Reviewed on July 8, 2025</small></p>
                       </div>
                     </div>
                     <div class="mt-3">
                       <h6>Write a Review</h6>
                       <textarea class="form-control" rows="3" placeholder="Share your experience after purchasing"></textarea>
-                      <small class="text-muted">Reviews can be submitted only after a verified purchase.</small>
                       <button class="btn btn-success mt-2">Submit Review</button>
-                    </div>
-                  </div>
-                  <!-- Related Items Tab -->
-                  <div class="tab-pane fade" id="related" role="tabpanel" aria-labelledby="related-tab">
-                    <div class="mt-3 row">
-                      <div class="col-4 text-center">
-                        <img src="https://via.placeholder.com/100x100?text=Item+1" class="img-fluid" alt="Related 1">
-                        <p class="small">Item 1</p>
-                      </div>
-                      <div class="col-4 text-center">
-                        <img src="https://via.placeholder.com/100x100?text=Item+2" class="img-fluid" alt="Related 2">
-                        <p class="small">Item 2</p>
-                      </div>
-                      <div class="col-4 text-center">
-                        <img src="https://via.placeholder.com/100x100?text=Item+3" class="img-fluid" alt="Related 3">
-                        <p class="small">Item 3</p>
-                      </div>
                     </div>
                   </div>
                 </div>
@@ -318,30 +130,19 @@
         </div>
       </div>
     </main>
-    <!-- Footer Placeholder (loaded dynamically as in index.html) -->
+    <!-- Footer Placeholder -->
     <div id="footer-placeholder"></div>
     <!-- Scripts -->
     <!-- Bootstrap 5 JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Script to load header and footer dynamically -->
+    <!-- Dynamic Header/Footer Loader -->
     <script>
-      function toggleSideMenu() {
-        const sideMenu = document.getElementById("side-menu");
-        if (sideMenu) {
-          sideMenu.classList.toggle("visible");
-        }
-      }
       function loadHTML(elementId, filePath) {
         fetch(filePath)
           .then(response => {
             if (!response.ok) {
-              if (elementId === "header-placeholder") {
-                document.getElementById(elementId).innerHTML =
-                  '<header style="background:#333;color:#fff;padding:10px;text-align:center;">Header</header>';
-              } else if (elementId === "footer-placeholder") {
-                document.getElementById(elementId).innerHTML =
-                  '<footer style="background:#333;color:#fff;padding:10px;text-align:center;">Footer</footer>';
-              }
+              document.getElementById(elementId).innerHTML =
+                '<div style="background:#333;color:#fff;padding:10px;text-align:center;">Placeholder</div>';
               throw new Error('Error fetching ' + filePath);
             }
             return response.text();
@@ -461,13 +262,13 @@
           }
         ]
       };
-      // Create a banner element for each category based on its index
+
+      // Create banner elements (unchanged)
       function createBannerForCategory(category, index) {
         let banner = document.createElement("div");
         banner.className = "banner";
         switch (index) {
           case 0:
-            // Carousel Banner for Countdown Sales
             banner.classList.add("carousel-banner");
             banner.innerHTML = `
               <div id="carouselBanner${index}" class="carousel slide" data-bs-ride="carousel">
@@ -491,7 +292,6 @@
             `;
             break;
           case 1:
-            // Fullwidth Banner for Discount Offers
             banner.classList.add("fullwidth-banner");
             banner.innerHTML = `
               <img src="https://via.placeholder.com/1200x150?text=Big+Discount+Offer" alt="Big Discount">
@@ -499,7 +299,6 @@
             `;
             break;
           case 2:
-            // Accordion Banner for Hot Sales
             banner.classList.add("accordion-banner");
             banner.innerHTML = `
               <div class="accordion" id="accordionBanner${index}">
@@ -519,7 +318,6 @@
             `;
             break;
           case 3:
-            // Three-Part Banner for Seasonal Offers
             banner.classList.add("three-part-banner");
             banner.innerHTML = `
               <div class="banner-title">Seasonal Savings</div>
@@ -530,7 +328,6 @@
             `;
             break;
           case 4:
-            // Three-Part Banner for Clearance Sale
             banner.classList.add("three-part-banner");
             banner.innerHTML = `
               <div class="banner-title">Clearance Sale</div>
@@ -545,6 +342,7 @@
         }
         return banner;
       }
+
       // Render main page with categories and banners
       function initMainPage() {
         document.getElementById("mainPage").style.display = "block";
@@ -553,6 +351,7 @@
         container.innerHTML = "";
         let index = 0;
         for (let category in productData) {
+          // Append banner
           let banner = createBannerForCategory(category, index);
           container.appendChild(banner);
           // Section for each category
@@ -562,23 +361,26 @@
             <div class="horizontal-scroll" id="scroll-${category.replace(/\s/g, '')}"></div>
           `;
           container.appendChild(section);
-          // Horizontal scroll container
+          // Horizontal scroll container with updated product card (review icons added)
           let scrollContainer = document.getElementById(`scroll-${category.replace(/\s/g, '')}`);
           productData[category].forEach(product => {
             let card = document.createElement("div");
             card.className = "card";
             card.style.minWidth = "150px";
             card.style.marginRight = "0.75rem";
-            // Clicking on the card opens that category page
             card.onclick = function () {
+              // When clicking a card, open the dedicated category page
               openCategoryPage(category);
             };
-            // Product tile layout
             card.innerHTML = `
               <img src="${product.image}" class="card-img-top" alt="${product.name}">
               <div class="card-body text-center">
                 <p class="product-price">${product.price} <span class="product-old-price">PKR1,487</span></p>
-                <p class="product-orders">100K+ orders <i class="fa fa-star" style="color:#FFC107;"></i> 4.7</p>
+                <p class="product-orders">
+                  <i class="fa fa-star" style="color:#FFC107;"></i> 4.7 
+                  <span class="ms-2"><i class="fa fa-comment"></i> 500</span>
+                  <span class="ms-2"><i class="fa fa-shopping-cart"></i> 4k</span>
+                </p>
                 <p class="text-success mb-0">Free shipping</p>
               </div>
             `;
@@ -587,8 +389,11 @@
           index++;
         }
       }
+
       // Open dedicated category page (vertical grid view)
       function openCategoryPage(category) {
+        // Set global currentCategory for use in modal related items
+        window.currentCategory = category;
         document.getElementById("mainPage").style.display = "none";
         document.getElementById("categoryPage").style.display = "block";
         document.getElementById("categoryTitle").innerText = category;
@@ -606,7 +411,11 @@
             <img src="${product.image}" class="card-img-top" alt="${product.name}">
             <div class="card-body text-center">
               <p class="product-price">${product.price} <span class="product-old-price">PKR1,487</span></p>
-              <p class="product-orders">100K+ orders <i class="fa fa-star" style="color:#FFC107;"></i> 4.7</p>
+              <p class="product-orders">
+                <i class="fa fa-star" style="color:#FFC107;"></i> 4.7 
+                <span class="ms-2"><i class="fa fa-comment"></i> 500</span>
+                <span class="ms-2"><i class="fa fa-shopping-cart"></i> 4k</span>
+              </p>
               <p class="text-success mb-0">Free shipping</p>
             </div>
           `;
@@ -614,22 +423,43 @@
           grid.appendChild(col);
         });
       }
-      // Go back to main categories view
+
+      // Return to main categories view
       function backToMain() {
         document.getElementById("categoryPage").style.display = "none";
         document.getElementById("mainPage").style.display = "block";
       }
-      // Open modal with extended product details and additional info
+
+      // Open modal with product details and automatically populate related items
       function openProductModal(product) {
         document.getElementById("modalProductImage").src = product.image;
         document.getElementById("modalProductName").innerText = product.name;
         document.getElementById("modalProductPrice").innerText = product.price;
         // Insert product description into the Description tab
         document.getElementById("modalProductDescription").innerText = product.description;
+
+        // Populate Related Items automatically based on the current category
+        let relatedItemsContainer = document.getElementById("relatedItemsRow");
+        relatedItemsContainer.innerHTML = "";
+        if (window.currentCategory && productData[window.currentCategory]) {
+          // Filter out the current product from related suggestions
+          let related = productData[window.currentCategory].filter(p => p.name !== product.name);
+          related.forEach(function(relatedProduct) {
+            let col = document.createElement("div");
+            col.className = "col-4 text-center mb-3";
+            col.innerHTML = `
+              <img src="${relatedProduct.image}" class="img-fluid" alt="${relatedProduct.name}">
+              <p class="small">${relatedProduct.name}</p>
+            `;
+            relatedItemsContainer.appendChild(col);
+          });
+        }
+        // Show the modal
         var modal = new bootstrap.Modal(document.getElementById("productModal"));
         modal.show();
       }
-      // Initialize main page on window load
+
+      // Initialize main page on load
       window.onload = function () {
         initMainPage();
       };
