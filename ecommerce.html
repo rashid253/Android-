@@ -165,7 +165,7 @@
       .modal-header {
         border-bottom: 1px solid #dee2e6;
       }
-      /* New modal navigation bar */
+      /* Modal horizontal navigation bar */
       .modal-nav {
         display: flex;
         justify-content: space-around;
@@ -184,7 +184,7 @@
         outline: none;
         color: #007bff;
       }
-      /* Each section inside the modal */
+      /* Modal sections */
       .modal-section {
         margin-bottom: 20px;
       }
@@ -194,7 +194,7 @@
         overflow: hidden;
         position: relative;
       }
-      /* Related items container: horizontal scroll */
+      /* Related items: horizontal scroll */
       .related-items-container {
         display: flex;
         overflow-x: auto;
@@ -205,7 +205,7 @@
         min-width: 150px;
         text-align: center;
       }
-      /* Star rating style (for product tiles and in modal header) */
+      /* Star rating style */
       .star-rating i {
         font-size: 1rem;
         transition: transform 0.2s ease, color 0.2s ease;
@@ -331,53 +331,11 @@
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-      // Scroll smoothly to a given section inside the modal
+      // --- Utility Functions ---
       function scrollToSection(sectionId) {
         document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
       }
-
-      // Toggle the reviews container height to show/hide extra reviews
-      function toggleReviews() {
-        const container = document.getElementById("reviewsContainer");
-        const btn = document.getElementById("viewMoreReviewsBtn");
-        if (container.style.maxHeight && container.style.maxHeight !== "200px") {
-          container.style.maxHeight = "200px";
-          btn.innerText = "View More";
-        } else {
-          container.style.maxHeight = container.scrollHeight + "px";
-          btn.innerText = "View Less";
-        }
-      }
-
-      // Toggle an individual review's text between truncated and full
-      function toggleReview(element) {
-        const parent = element.parentElement;
-        const fullText = parent.getAttribute("data-fulltext");
-        const preview = parent.getAttribute("data-preview");
-        if (parent.classList.contains("expanded")) {
-          parent.innerHTML = preview + ' <span class="read-more" onclick="toggleReview(this)">Read More</span>';
-          parent.classList.remove("expanded");
-        } else {
-          parent.innerHTML = fullText + ' <span class="read-less" onclick="toggleReview(this)">Read Less</span>';
-          parent.classList.add("expanded");
-        }
-      }
-
-      // Rating input: set star rating in write-review section
-      let currentRating = 0;
-      function setRating(element) {
-        currentRating = parseInt(element.getAttribute("data-value"));
-        const stars = element.parentElement.querySelectorAll(".star");
-        stars.forEach((star, index) => {
-          if (index < currentRating) {
-            star.classList.add("active");
-          } else {
-            star.classList.remove("active");
-          }
-        });
-      }
-
-      // Generate star icons based on numeric rating (used in product cards and modal header)
+      
       function generateStars(rating) {
         let html = "";
         let fullStars = Math.floor(rating);
@@ -390,8 +348,49 @@
         }
         return html;
       }
-
-      // Sample reviews data (could be replaced with dynamic data)
+      
+      // --- Review Functions ---
+      function toggleReviews() {
+        const container = document.getElementById("reviewsContainer");
+        const btn = document.getElementById("viewMoreReviewsBtn");
+        // If maxHeight is not set or equals the collapsed height, expand; otherwise collapse.
+        if (container.style.maxHeight === "200px" || container.style.maxHeight === "") {
+          container.style.maxHeight = container.scrollHeight + "px";
+          btn.innerText = "View Less";
+        } else {
+          container.style.maxHeight = "200px";
+          btn.innerText = "View More";
+        }
+      }
+      
+      function toggleReview(element) {
+        const parent = element.parentElement;
+        const fullText = parent.getAttribute("data-fulltext");
+        const preview = parent.getAttribute("data-preview");
+        if (parent.classList.contains("expanded")) {
+          parent.innerHTML = preview + ' <span class="read-more" onclick="toggleReview(this)">Read More</span>';
+          parent.classList.remove("expanded");
+        } else {
+          parent.innerHTML = fullText + ' <span class="read-less" onclick="toggleReview(this)">Read Less</span>';
+          parent.classList.add("expanded");
+        }
+      }
+      
+      // --- Rating Input ---
+      let currentRating = 0;
+      function setRating(element) {
+        currentRating = parseInt(element.getAttribute("data-value"));
+        const stars = element.parentElement.querySelectorAll(".star");
+        stars.forEach((star, index) => {
+          if (index < currentRating) {
+            star.classList.add("active");
+          } else {
+            star.classList.remove("active");
+          }
+        });
+      }
+      
+      // --- Populate Reviews ---
       function populateReviews() {
         const reviewsContainer = document.getElementById("reviewsContainer");
         const reviews = [
@@ -412,7 +411,6 @@
           reviewDiv.className = "review mb-3";
           let reviewText = review.text;
           let preview = reviewText;
-          // If review text is long, show only a preview (first 100 characters)
           if (reviewText.length > 100) {
             preview = reviewText.substring(0, 100) + "...";
             reviewDiv.innerHTML = `<p class="review-text" data-fulltext="${reviewText}" data-preview="${preview}">${preview} <span class="read-more" onclick="toggleReview(this)">Read More</span></p>`;
@@ -423,16 +421,14 @@
           reviewsContainer.appendChild(reviewDiv);
         });
       }
-
-      // Populate Related Items (using other products from the same category)
+      
+      // --- Populate Related Items ---
       function populateRelatedItems() {
         const container = document.getElementById("relatedItemsContainer");
         container.innerHTML = "";
         if (window.currentCategory && productData[window.currentCategory]) {
-          let related = productData[window.currentCategory].filter(
-            (p) => p.name !== window.currentProduct.name
-          );
-          related.forEach((relatedProduct) => {
+          let related = productData[window.currentCategory].filter(p => p.name !== window.currentProduct.name);
+          related.forEach(relatedProduct => {
             const itemDiv = document.createElement("div");
             itemDiv.className = "related-item";
             itemDiv.innerHTML = `
@@ -443,28 +439,24 @@
           });
         }
       }
-
-      // Open product modal and populate details
+      
+      // --- Modal Function ---
       function openProductModal(product) {
         window.currentProduct = product;
         document.getElementById("modalProductImage").src = product.image;
         document.getElementById("modalProductName").innerText = product.name;
         document.getElementById("modalProductPrice").innerText = product.price;
         document.getElementById("modalProductDescription").innerText = product.description;
-        // You can also set the star rating in the header if needed:
-        // document.getElementById("modalProductRating").innerHTML = generateStars(product.rating);
-        // Reset reviews container
+        // Populate reviews and related items
         populateReviews();
         document.getElementById("reviewsContainer").style.maxHeight = "200px";
         document.getElementById("viewMoreReviewsBtn").innerText = "View More";
-        // Populate related items
         populateRelatedItems();
         var modal = new bootstrap.Modal(document.getElementById("productModal"));
         modal.show();
       }
-    </script>
-    <script>
-      // Dummy product data with additional properties: rating, added, sold
+      
+      // --- Product Data and Page Functions ---
       const productData = {
         "Countdown Sales": [
           {
@@ -612,7 +604,8 @@
           }
         ]
       };
-
+      
+      // --- Page Rendering Functions ---
       function createBannerForCategory(category, index) {
         let banner = document.createElement("div");
         banner.className = "banner";
@@ -691,7 +684,7 @@
         }
         return banner;
       }
-
+      
       function initMainPage() {
         document.getElementById("mainPage").style.display = "block";
         document.getElementById("categoryPage").style.display = "none";
@@ -733,7 +726,7 @@
           index++;
         }
       }
-
+      
       function openCategoryPage(category) {
         window.currentCategory = category;
         document.getElementById("mainPage").style.display = "none";
@@ -765,12 +758,12 @@
           grid.appendChild(col);
         });
       }
-
+      
       function backToMain() {
         document.getElementById("categoryPage").style.display = "none";
         document.getElementById("mainPage").style.display = "block";
       }
-
+      
       window.onload = function () {
         initMainPage();
       };
