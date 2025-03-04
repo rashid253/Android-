@@ -24,9 +24,9 @@
   /* Side Menu */ 
   .side-menu { 
     position: fixed; 
-    top: calc(70px - 6mm);  /* Remains as before */ 
+    top: calc(70px - 6mm);  /* Remains unchanged */ 
     right: 0; 
-    width: 110px;  /* Half the previous width */ 
+    width: 110px;  /* Reduced width: half of the original 220px */ 
     background: #fff; 
     box-shadow: -2px 0 4px rgba(0,0,0,0.1); 
     padding: 20px; 
@@ -80,7 +80,7 @@
     <a href="index.html" onclick="openPage('index.html'); toggleSideMenu()">Home</a> 
     <a href="offers.html" onclick="openPage('offers.html'); toggleSideMenu()">Offers</a> 
     <a href="analytics.html" onclick="openPage('analytics.html'); toggleSideMenu()">Analytics</a> 
-    <a href="cart.html" onclick="openPage('cart.html'); toggleSideMenu()">Cart <span id="cartCountMobile" class="badge" style="display: inline-block; margin-left: 5px;">0</span></a> 
+    <a href="cart.html" onclick="openPage('cart.html'); toggleSideMenu()">Cart <span id="cartCountMobile" class="badge" style="margin-left: 5px;">0</span></a> 
     <a href="more.html" onclick="openPage('more.html'); toggleSideMenu()">More</a> 
   </aside> 
   <!-- Mobile Bottom Navigation --> 
