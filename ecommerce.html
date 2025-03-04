@@ -27,7 +27,7 @@
     header .brand { font-size: 1.8rem; font-weight: 700; }
     footer { text-align: center; font-size: 0.9rem; color: #777; }
 
-    /* Hero Section – Smart & Modern (inspired by Play Store/Daraz) */
+    /* Hero Section – Smart & Modern */
     .hero {
       position: relative;
       height: 60vh;
@@ -53,7 +53,7 @@
     }
     .hero-content .btn:hover { background-color: #e0e0e0; transform: scale(1.03); }
 
-    /* Category Filter Bar – Using your provided style for the 1st line */
+    /* Category Filter Bar – Using provided style */
     .category-bar { display: flex; gap: 10px; margin: 20px 0; }
     .category-bar button {
       background: #fff;
@@ -102,7 +102,6 @@
     }
     .product-card h3 { font-size: 1.1rem; margin-bottom: 5px; }
     .product-card .price { color: #e4393c; font-weight: bold; font-size: 1.1rem; }
-    /* (Optional: You can add old price, orders, shipping info if available) */
 
     /* Product Detail View – Google Inspired */
     #detail-view { 
@@ -209,12 +208,25 @@
       margin-bottom: 5px;
     }
     .related-item h4 { font-size: 1rem; margin: 5px 0; }
-    
+
     /* Responsive Adjustments */
     @media (max-width: 768px) {
+      /* Detail view adjustments */
       .detail-header { flex-direction: column; align-items: center; }
       .detail-image, .detail-info { width: 100%; text-align: center; }
       .detail-image img { width: 250px; height: 250px; }
+      
+      /* Product listing: horizontal scroll for mobile */
+      #product-listing {
+        display: flex;
+        overflow-x: auto;
+        gap: 10px;
+        padding-bottom: 10px;
+      }
+      #product-listing .product-card {
+        flex: 0 0 80%;
+        margin-right: 10px;
+      }
     }
   </style>
 </head>
@@ -293,7 +305,7 @@
   
   <!-- JavaScript Section -->
   <script>
-    // Dummy product data – you can later integrate with your backend
+    // Dummy product data – replace with your backend integration as needed
     const products = [
       {
         id: 1,
@@ -402,7 +414,7 @@
       document.getElementById("listing-view").scrollIntoView({ behavior: "smooth" });
     }
     
-    // Open product detail view (Google inspired)
+    // Open product detail view
     function openProductDetail(productId) {
       const product = products.find(p => p.id === productId);
       if (!product) return;
@@ -462,7 +474,7 @@
       document.getElementById("listing-view").style.display = "block";
     }
     
-    // Add to Cart functionality (demo)
+    // Simple Add to Cart functionality (demo)
     function addToCart() {
       alert("Product added to cart!");
     }
