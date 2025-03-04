@@ -4,19 +4,19 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>NextGen E-commerce - Shop Now</title>
-    <!-- Font Awesome for icons (used in header/footer) -->
+    <!-- Font Awesome for icons -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
-    <!-- Custom CSS for overall site (header, footer, etc.) -->
+    <!-- Custom CSS (if any) -->
     <link rel="stylesheet" href="style.css" />
-    <!-- Bootstrap 5 CSS for ecommerce-specific layout -->
+    <!-- Bootstrap 5 CSS -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
-    <!-- Inline Styles for Hero Section, Product Tiles & Modal -->
+    <!-- Inline Styles -->
     <style>
       /* Global Overrides */
       body {
@@ -34,15 +34,14 @@
       a:hover {
         color: #ff6f61;
       }
-      /* Ensure footer doesn’t overlap main content */
       main {
         padding-bottom: 100px;
       }
-      /* Hero Section inspired by Google Play Store */
+      /* HERO SECTION (Google Play–inspired) */
       .hero {
         position: relative;
         height: calc(500px + 3cm);
-        /* Vibrant blue-to-green gradient using Google’s signature colors */
+        /* A vibrant diagonal gradient inspired by Google Play colors */
         background: linear-gradient(135deg, #4285F4, #34A853);
         display: flex;
         align-items: center;
@@ -93,7 +92,7 @@
       .horizontal-scroll::-webkit-scrollbar {
         display: none;
       }
-      /* Banner Styles */
+      /* Banner Styles (for category headers) */
       .banner {
         margin: 1rem 0;
         border-radius: 8px;
@@ -123,33 +122,6 @@
         font-size: 1.2rem;
         font-weight: bold;
       }
-      .accordion-banner .accordion-button {
-        font-weight: bold;
-        font-size: 1rem;
-      }
-      .three-part-banner {
-        display: flex;
-        align-items: center;
-        padding: 0 1rem;
-        height: 150px;
-      }
-      .three-part-banner .banner-title {
-        flex: 1;
-        font-size: 1.1rem;
-        font-weight: bold;
-      }
-      .three-part-banner .banner-desc {
-        flex: 2;
-        font-size: 0.95rem;
-      }
-      .three-part-banner .banner-img {
-        flex: 1;
-        text-align: right;
-      }
-      .three-part-banner .banner-img img {
-        height: 100%;
-        object-fit: contain;
-      }
       /* Product Tile Styles */
       .card-img-top {
         width: 100%;
@@ -173,26 +145,41 @@
       .text-success {
         color: #28a745 !important;
       }
-      /* Modal Customizations */
-      .modal-header {
-        border-bottom: 1px solid #dee2e6;
+      /* PRODUCT DETAIL PAGE STYLES */
+      #productDetailPage {
+        display: none;
       }
-      .modal-body .nav-tabs .nav-link {
+      .pd-header {
+        border-bottom: 1px solid #dee2e6;
+        padding-bottom: 1rem;
+        margin-bottom: 1rem;
+      }
+      .pd-back-btn {
+        margin-bottom: 1rem;
+      }
+      .pd-summary {
+        margin-bottom: 1rem;
+      }
+      .pd-summary .icon-info {
+        font-size: 1rem;
+        margin-right: 1.5rem;
+      }
+      .pd-tabs .nav-link {
         color: #495057;
       }
-      .modal-body .nav-tabs .nav-link.active {
+      .pd-tabs .nav-link.active {
         border-color: #dee2e6 #dee2e6 #fff;
         color: #000;
       }
-      .tab-content {
+      .pd-tab-content {
         padding-top: 1rem;
       }
     </style>
   </head>
   <body>
-    <!-- Header Placeholder (loaded dynamically as in index.html) -->
+    <!-- Header Placeholder -->
     <div id="header-placeholder"></div>
-    <!-- Main Ecommerce Content -->
+    <!-- Main Content -->
     <main>
       <!-- Hero Section -->
       <section class="hero">
@@ -202,135 +189,129 @@
           <a href="#categoriesContainer" class="btn">Shop Now</a>
         </div>
       </section>
-      <!-- Main Page: Categories with Banners and Horizontal Scroll -->
+      <!-- Categories & Product Grid Page -->
       <div class="container my-4" id="mainPage">
         <h1 class="mb-4 text-center">Product Categories</h1>
         <div id="categoriesContainer">
           <!-- Dynamic category sections will be rendered here -->
         </div>
       </div>
-      <!-- Category Page: Vertical Grid of Products -->
+      <!-- Category Page (Vertical Grid) -->
       <div class="container my-4" id="categoryPage" style="display: none;">
         <button class="btn btn-secondary mb-3" onclick="backToMain()">Back to Categories</button>
         <h2 id="categoryTitle" class="mb-4"></h2>
         <div class="row" id="categoryProducts">
-          <!-- Products will be rendered here in a grid -->
+          <!-- Products in the selected category will appear here -->
         </div>
       </div>
-      <!-- Modal: Extended Product Details (Image, Info, Tabs for Description, Reviews & Related Items) -->
-      <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="productModalLabel">Product Details</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      <!-- PRODUCT DETAIL PAGE (Full Page, not a modal) -->
+      <div class="container my-4" id="productDetailPage">
+        <button class="btn btn-secondary pd-back-btn" onclick="backToMain()">← Back</button>
+        <div class="row pd-header">
+          <div class="col-md-5">
+            <img id="pdImage" src="" class="img-fluid" alt="Product Image" />
+          </div>
+          <div class="col-md-7">
+            <h3 id="pdName"></h3>
+            <p id="pdPrice" class="text-danger h5"></p>
+            <!-- Prominent icons with summary info -->
+            <div class="d-flex align-items-center pd-summary">
+              <span class="icon-info me-3">
+                <i class="fa fa-star text-warning"></i>
+                <strong id="pdRating">4.0</strong>
+              </span>
+              <span class="icon-info me-3">
+                <i class="fa fa-users"></i>
+                <strong id="pdSold">4K Sold</strong>
+              </span>
+              <!-- You can add more summary icons here -->
             </div>
-            <div class="modal-body">
-              <div class="container-fluid">
-                <!-- Top Section: Product Image & Basic Info -->
-                <div class="row">
-                  <div class="col-md-5">
-                    <img id="modalProductImage" src="" class="img-fluid" alt="Product Image">
-                  </div>
-                  <div class="col-md-7">
-                    <h4 id="modalProductName"></h4>
-                    <p id="modalProductPrice" class="text-danger h5"></p>
-                    <button class="btn btn-primary mb-3">
-                      <i class="fa fa-shopping-cart me-1"></i> Add to Cart
-                    </button>
-                  </div>
-                </div>
-                <hr>
-                <!-- Tabbed Section: Description, Reviews, Related Items -->
-                <ul class="nav nav-tabs" id="productTab" role="tablist">
-                  <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="desc-tab" data-bs-toggle="tab" data-bs-target="#desc" type="button" role="tab" aria-controls="desc" aria-selected="true">Description</button>
-                  </li>
-                  <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews" type="button" role="tab" aria-controls="reviews" aria-selected="false">Reviews</button>
-                  </li>
-                  <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="related-tab" data-bs-toggle="tab" data-bs-target="#related" type="button" role="tab" aria-controls="related" aria-selected="false">Related Items</button>
-                  </li>
-                </ul>
-                <div class="tab-content" id="productTabContent">
-                  <!-- Description Tab with Sample Paragraph -->
-                  <div class="tab-pane fade show active" id="desc" role="tabpanel" aria-labelledby="desc-tab">
-                    <div class="mt-3">
-                      <p id="modalProductDescription">
-                        Experience the ultimate in performance and style with Smartphone A. Boasting cutting-edge technology, an immersive display, and a long-lasting battery, this device is designed to keep you connected. Its sleek design and robust features set a new benchmark in mobile excellence. Whether capturing memories or staying productive on the go, Smartphone A offers a seamless user experience.
-                      </p>
-                    </div>
-                  </div>
-                  <!-- Reviews Tab with a Note about Verified Purchases -->
-                  <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
-                    <div class="mt-3">
-                      <!-- Placeholder for public reviews -->
-                      <div class="mb-3">
-                        <p><strong>User1:</strong> Amazing quality, highly recommended! <span class="text-warning">
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star-half-alt"></i>
-                        </span></p>
-                        <p><small>Reviewed on July 10, 2025</small></p>
-                      </div>
-                      <div class="mb-3">
-                        <p><strong>User2:</strong> Good value for money. <span class="text-warning">
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                        </span></p>
-                        <p><small>Reviewed on July 8, 2025</small></p>
-                      </div>
-                    </div>
-                    <div class="mt-3">
-                      <h6>Write a Review</h6>
-                      <textarea class="form-control" rows="3" placeholder="Share your experience after purchasing"></textarea>
-                      <small class="text-muted">Reviews can be submitted only after a verified purchase.</small>
-                      <button class="btn btn-success mt-2">Submit Review</button>
-                    </div>
-                  </div>
-                  <!-- Related Items Tab -->
-                  <div class="tab-pane fade" id="related" role="tabpanel" aria-labelledby="related-tab">
-                    <div class="mt-3 row">
-                      <div class="col-4 text-center">
-                        <img src="https://via.placeholder.com/100x100?text=Item+1" class="img-fluid" alt="Related 1">
-                        <p class="small">Item 1</p>
-                      </div>
-                      <div class="col-4 text-center">
-                        <img src="https://via.placeholder.com/100x100?text=Item+2" class="img-fluid" alt="Related 2">
-                        <p class="small">Item 2</p>
-                      </div>
-                      <div class="col-4 text-center">
-                        <img src="https://via.placeholder.com/100x100?text=Item+3" class="img-fluid" alt="Related 3">
-                        <p class="small">Item 3</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <!-- End Tabbed Section -->
+            <button class="btn btn-primary mb-3">
+              <i class="fa fa-shopping-cart me-1"></i> Add to Cart
+            </button>
+          </div>
+        </div>
+        <!-- Tabs for About, Reviews, Related Items -->
+        <ul class="nav nav-tabs pd-tabs" id="pdTab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="about-tab" data-bs-toggle="tab" data-bs-target="#about" type="button" role="tab" aria-controls="about" aria-selected="true">About</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#pd-reviews" type="button" role="tab" aria-controls="pd-reviews" aria-selected="false">Reviews</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="related-tab" data-bs-toggle="tab" data-bs-target="#pd-related" type="button" role="tab" aria-controls="pd-related" aria-selected="false">Related Items</button>
+          </li>
+        </ul>
+        <div class="tab-content pd-tab-content" id="pdTabContent">
+          <!-- About Tab -->
+          <div class="tab-pane fade show active" id="about" role="tabpanel" aria-labelledby="about-tab">
+            <p id="pdDescription">
+              Experience the ultimate in performance and style with Smartphone A. Boasting cutting-edge technology, an immersive display, and a long-lasting battery, this device redefines mobile excellence. Whether capturing stunning photos or staying connected on the go, Smartphone A is designed to deliver a seamless experience. Discover more features, benefits, and advanced innovations that make this product a top choice.
+            </p>
+          </div>
+          <!-- Reviews Tab -->
+          <div class="tab-pane fade" id="pd-reviews" role="tabpanel" aria-labelledby="reviews-tab">
+            <div class="mt-3">
+              <!-- Sample Reviews -->
+              <div class="mb-3">
+                <p><strong>User1:</strong> Amazing quality and performance! 
+                  <span class="text-warning">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star-half-alt"></i>
+                  </span>
+                </p>
+                <p><small>Reviewed on July 10, 2025</small></p>
+              </div>
+              <div class="mb-3">
+                <p><strong>User2:</strong> Great value for money.
+                  <span class="text-warning">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                  </span>
+                </p>
+                <p><small>Reviewed on July 8, 2025</small></p>
+              </div>
+            </div>
+            <div class="mt-3">
+              <h6>Write a Review</h6>
+              <textarea class="form-control" rows="3" placeholder="Share your experience"></textarea>
+              <button class="btn btn-success mt-2">Submit Review</button>
+            </div>
+          </div>
+          <!-- Related Items Tab -->
+          <div class="tab-pane fade" id="pd-related" role="tabpanel" aria-labelledby="related-tab">
+            <div class="mt-3 row">
+              <div class="col-4 text-center">
+                <img src="https://via.placeholder.com/100x100?text=Item+1" class="img-fluid" alt="Related 1">
+                <p class="small">Item 1</p>
+              </div>
+              <div class="col-4 text-center">
+                <img src="https://via.placeholder.com/100x100?text=Item+2" class="img-fluid" alt="Related 2">
+                <p class="small">Item 2</p>
+              </div>
+              <div class="col-4 text-center">
+                <img src="https://via.placeholder.com/100x100?text=Item+3" class="img-fluid" alt="Related 3">
+                <p class="small">Item 3</p>
               </div>
             </div>
           </div>
         </div>
       </div>
+      <!-- End Product Detail Page -->
     </main>
-    <!-- Footer Placeholder (loaded dynamically as in index.html) -->
+    <!-- Footer Placeholder -->
     <div id="footer-placeholder"></div>
     <!-- Scripts -->
     <!-- Bootstrap 5 JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Script to load header and footer dynamically -->
     <script>
-      function toggleSideMenu() {
-        const sideMenu = document.getElementById("side-menu");
-        if (sideMenu) {
-          sideMenu.classList.toggle("visible");
-        }
-      }
       function loadHTML(elementId, filePath) {
         fetch(filePath)
           .then(response => {
@@ -342,7 +323,7 @@
                 document.getElementById(elementId).innerHTML =
                   '<footer style="background:#333;color:#fff;padding:10px;text-align:center;">Footer</footer>';
               }
-              throw new Error('Error fetching ' + filePath);
+              throw new Error("Error fetching " + filePath);
             }
             return response.text();
           })
@@ -352,8 +333,8 @@
           .catch(error => console.error(error));
       }
       document.addEventListener("DOMContentLoaded", function () {
-        loadHTML('header-placeholder', 'header.html');
-        loadHTML('footer-placeholder', 'footer.html');
+        loadHTML("header-placeholder", "header.html");
+        loadHTML("footer-placeholder", "footer.html");
       });
     </script>
     <!-- Ecommerce-specific JavaScript -->
@@ -467,7 +448,6 @@
         banner.className = "banner";
         switch (index) {
           case 0:
-            // Carousel Banner for Countdown Sales
             banner.classList.add("carousel-banner");
             banner.innerHTML = `
               <div id="carouselBanner${index}" class="carousel slide" data-bs-ride="carousel">
@@ -491,7 +471,6 @@
             `;
             break;
           case 1:
-            // Fullwidth Banner for Discount Offers
             banner.classList.add("fullwidth-banner");
             banner.innerHTML = `
               <img src="https://via.placeholder.com/1200x150?text=Big+Discount+Offer" alt="Big Discount">
@@ -499,7 +478,6 @@
             `;
             break;
           case 2:
-            // Accordion Banner for Hot Sales
             banner.classList.add("accordion-banner");
             banner.innerHTML = `
               <div class="accordion" id="accordionBanner${index}">
@@ -519,7 +497,6 @@
             `;
             break;
           case 3:
-            // Three-Part Banner for Seasonal Offers
             banner.classList.add("three-part-banner");
             banner.innerHTML = `
               <div class="banner-title">Seasonal Savings</div>
@@ -530,7 +507,6 @@
             `;
             break;
           case 4:
-            // Three-Part Banner for Clearance Sale
             banner.classList.add("three-part-banner");
             banner.innerHTML = `
               <div class="banner-title">Clearance Sale</div>
@@ -545,35 +521,32 @@
         }
         return banner;
       }
-      // Render main page with categories and banners
+      // Render Main Page with Categories and Banners
       function initMainPage() {
         document.getElementById("mainPage").style.display = "block";
         document.getElementById("categoryPage").style.display = "none";
+        document.getElementById("productDetailPage").style.display = "none";
         const container = document.getElementById("categoriesContainer");
         container.innerHTML = "";
         let index = 0;
         for (let category in productData) {
           let banner = createBannerForCategory(category, index);
           container.appendChild(banner);
-          // Section for each category
           let section = document.createElement("div");
           section.innerHTML = `
             <h2 class="mt-4">${category}</h2>
             <div class="horizontal-scroll" id="scroll-${category.replace(/\s/g, '')}"></div>
           `;
           container.appendChild(section);
-          // Horizontal scroll container
           let scrollContainer = document.getElementById(`scroll-${category.replace(/\s/g, '')}`);
           productData[category].forEach(product => {
             let card = document.createElement("div");
             card.className = "card";
             card.style.minWidth = "150px";
             card.style.marginRight = "0.75rem";
-            // Clicking on the card opens that category page
             card.onclick = function () {
-              openCategoryPage(category);
+              openProductDetail(product);
             };
-            // Product tile layout
             card.innerHTML = `
               <img src="${product.image}" class="card-img-top" alt="${product.name}">
               <div class="card-body text-center">
@@ -587,9 +560,10 @@
           index++;
         }
       }
-      // Open dedicated category page (vertical grid view)
+      // Open Category Page (Grid of Products)
       function openCategoryPage(category) {
         document.getElementById("mainPage").style.display = "none";
+        document.getElementById("productDetailPage").style.display = "none";
         document.getElementById("categoryPage").style.display = "block";
         document.getElementById("categoryTitle").innerText = category;
         const grid = document.getElementById("categoryProducts");
@@ -600,7 +574,7 @@
           let card = document.createElement("div");
           card.className = "card";
           card.onclick = function () {
-            openProductModal(product);
+            openProductDetail(product);
           };
           card.innerHTML = `
             <img src="${product.image}" class="card-img-top" alt="${product.name}">
@@ -614,22 +588,26 @@
           grid.appendChild(col);
         });
       }
-      // Go back to main categories view
+      // Open Product Detail Page (instead of a modal)
+      function openProductDetail(product) {
+        document.getElementById("mainPage").style.display = "none";
+        document.getElementById("categoryPage").style.display = "none";
+        document.getElementById("productDetailPage").style.display = "block";
+        // Fill in product details
+        document.getElementById("pdImage").src = product.image;
+        document.getElementById("pdName").innerText = product.name;
+        document.getElementById("pdPrice").innerText = product.price;
+        document.getElementById("pdDescription").innerText = product.description;
+        // Set sample overall rating and sold count (could be dynamic)
+        document.getElementById("pdRating").innerText = "4.0";
+        document.getElementById("pdSold").innerText = "4K Sold";
+      }
+      // Back to main/categories view
       function backToMain() {
         document.getElementById("categoryPage").style.display = "none";
+        document.getElementById("productDetailPage").style.display = "none";
         document.getElementById("mainPage").style.display = "block";
       }
-      // Open modal with extended product details and additional info
-      function openProductModal(product) {
-        document.getElementById("modalProductImage").src = product.image;
-        document.getElementById("modalProductName").innerText = product.name;
-        document.getElementById("modalProductPrice").innerText = product.price;
-        // Insert product description into the Description tab
-        document.getElementById("modalProductDescription").innerText = product.description;
-        var modal = new bootstrap.Modal(document.getElementById("productModal"));
-        modal.show();
-      }
-      // Initialize main page on window load
       window.onload = function () {
         initMainPage();
       };
