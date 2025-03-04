@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>NextGen E-commerce - Shop Now</title>
-    <!-- Font Awesome for icons (only used for star ratings) -->
+    <!-- Font Awesome for icons (used for star ratings) -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -177,6 +177,33 @@
       .tab-content {
         padding-top: 1rem;
       }
+      /* Adjustments for neater mobile look and cleaner font sizes */
+      .star-rating i {
+        font-size: 0.9rem; /* Reduced star icon size */
+      }
+      .product-stats small,
+      #modalProductStats {
+        font-size: 0.75rem; /* Smaller font for added & sold info */
+      }
+      /* Responsive adjustments for mobile devices */
+      @media (max-width: 576px) {
+        .hero-content h1 {
+          font-size: 2rem;
+        }
+        .hero-content p {
+          font-size: 1rem;
+        }
+        .hero-content .btn {
+          font-size: 1rem;
+          padding: 0.5rem 1rem;
+        }
+        .card {
+          font-size: 0.9rem;
+        }
+        .card-img-top {
+          height: 150px; /* Reduced height for mobile */
+        }
+      }
     </style>
   </head>
   <body>
@@ -225,9 +252,9 @@
                   <div class="col-md-7">
                     <h4 id="modalProductName"></h4>
                     <p id="modalProductPrice" class="text-danger h5"></p>
-                    <!-- Star Rating (first line) -->
+                    <!-- Star Rating -->
                     <p id="modalProductRating" class="mb-1"></p>
-                    <!-- Added & Sold Info (second line) -->
+                    <!-- Added & Sold Info -->
                     <p id="modalProductStats" class="small text-muted mb-3"></p>
                     <button class="btn btn-primary mb-3">
                       <i class="fa fa-shopping-cart me-1"></i> Add to Cart
@@ -248,7 +275,7 @@
                   </li>
                 </ul>
                 <div class="tab-content" id="productTabContent">
-                  <!-- Description Tab with auto-related items -->
+                  <!-- Description Tab -->
                   <div class="tab-pane fade show active" id="desc" role="tabpanel" aria-labelledby="desc-tab">
                     <div class="mt-3">
                       <p id="modalProductDescription">
@@ -294,7 +321,7 @@
                       <button class="btn btn-success mt-2">Submit Review</button>
                     </div>
                   </div>
-                  <!-- Related Items Tab (static content) -->
+                  <!-- Related Items Tab -->
                   <div class="tab-pane fade" id="related" role="tabpanel" aria-labelledby="related-tab">
                     <div class="mt-3 row" id="staticRelatedItems">
                       <div class="col-4 text-center">
@@ -337,7 +364,7 @@
         }
         return html;
       }
-
+      
       // Load header and footer dynamically
       function loadHTML(elementId, filePath) {
         fetch(filePath)
@@ -514,7 +541,6 @@
         ]
       };
 
-      // Create banner element for each category (unchanged)
       function createBannerForCategory(category, index) {
         let banner = document.createElement("div");
         banner.className = "banner";
@@ -594,7 +620,6 @@
         return banner;
       }
 
-      // Render main page with categories and banners
       function initMainPage() {
         document.getElementById("mainPage").style.display = "block";
         document.getElementById("categoryPage").style.display = "none";
@@ -616,13 +641,9 @@
             card.className = "card";
             card.style.minWidth = "150px";
             card.style.marginRight = "0.75rem";
-            // Clicking on the card opens the dedicated category page
             card.onclick = function () {
               openCategoryPage(category);
             };
-            // Product card with two lines:
-            // 1st line: Star rating
-            // 2nd line: Plain text with added & sold info
             card.innerHTML = `
               <img src="${product.image}" class="card-img-top" alt="${product.name}">
               <div class="card-body text-center">
@@ -641,7 +662,6 @@
         }
       }
 
-      // Open dedicated category page (vertical grid view)
       function openCategoryPage(category) {
         window.currentCategory = category;
         document.getElementById("mainPage").style.display = "none";
@@ -657,7 +677,6 @@
           card.onclick = function () {
             openProductModal(product);
           };
-          // Grid view product card with same two-line info
           card.innerHTML = `
             <img src="${product.image}" class="card-img-top" alt="${product.name}">
             <div class="card-body text-center">
@@ -675,22 +694,18 @@
         });
       }
 
-      // Return to main categories view
       function backToMain() {
         document.getElementById("categoryPage").style.display = "none";
         document.getElementById("mainPage").style.display = "block";
       }
 
-      // Open modal with product details and auto-populate related items in the Description tab
       function openProductModal(product) {
         document.getElementById("modalProductImage").src = product.image;
         document.getElementById("modalProductName").innerText = product.name;
         document.getElementById("modalProductPrice").innerText = product.price;
         document.getElementById("modalProductDescription").innerText = product.description;
-        // Set the star rating and stats in the modal details
         document.getElementById("modalProductRating").innerHTML = generateStars(product.rating);
         document.getElementById("modalProductStats").innerText = product.added + " Added | " + product.sold + " Sold";
-        
         let autoRelatedContainer = document.getElementById("autoRelatedItemsRow");
         autoRelatedContainer.innerHTML = "";
         if (window.currentCategory && productData[window.currentCategory]) {
@@ -709,7 +724,6 @@
         modal.show();
       }
 
-      // Initialize main page on window load
       window.onload = function () {
         initMainPage();
       };
