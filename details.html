@@ -11,36 +11,18 @@
     />
     <!-- Bootstrap 5 CSS -->
     <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
       rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
     />
+    <!-- Your Global Styles (style.css) -->
+    <link rel="stylesheet" href="style.css" />
     <style>
-      /* 
-         IMPORTANT: The header (loaded externally) is fixed.
-         Ensure body has top margin equal to or greater than the header's height.
-      */
-      body {
-        font-family: 'Roboto', sans-serif;
-        background-color: #f3f4f6;
-        color: #2d3748;
-        margin: 0;
-        padding: 0;
-        margin-top: 70px; /* adjust to match your header height */
-        scroll-behavior: smooth;
-      }
-      a {
-        text-decoration: none;
-        color: inherit;
-      }
-      /* Placeholders for external header/footer */
-      #header-placeholder,
-      #footer-placeholder {
-        width: 100%;
-      }
-      /* Sticky Navigation Bar for sections (below header) */
+      /* Additional styles for details.html (if needed) */
+
+      /* Sticky Navigation for page sections */
       .section-nav {
         background: #fff;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         display: flex;
         justify-content: space-around;
         align-items: center;
@@ -64,128 +46,17 @@
       .section-nav a:hover {
         color: #0056b3;
       }
-      /* Product Details Section */
-      .product-details {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 20px;
-        margin: 20px;
-        background: #fff;
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        padding: 20px;
-      }
-      .product-image {
-        flex: 1 1 300px;
-      }
-      .product-image img {
-        width: 100%;
-        border-radius: 8px;
-      }
-      .product-info {
-        flex: 1 1 300px;
-        padding: 10px;
-      }
-      .product-info h2 {
-        font-size: 2rem;
-        margin-bottom: 10px;
-      }
-      .product-info p.price {
-        font-size: 1.5rem;
-        color: #e4393c;
-        margin-bottom: 15px;
-      }
-      .star-rating i {
-        font-size: 1.2rem;
-        color: #FFC107;
-        margin-right: 2px;
-      }
-      .add-to-cart-btn {
-        margin-top: 15px;
-      }
-      /* Section Styling */
-      section {
-        margin: 20px;
-        background: #fff;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      }
-      section h3 {
-        margin-bottom: 15px;
-      }
-      /* Description Section */
-      #section-description .content {
-        max-height: 150px;
-        overflow: hidden;
-        position: relative;
-      }
-      #section-description .read-more-btn {
-        display: block;
-        text-align: center;
-        background: #007bff;
-        color: #fff;
-        padding: 5px 10px;
-        margin-top: 10px;
-        border-radius: 20px;
-        cursor: pointer;
-        width: 120px;
-        margin-left: auto;
-        margin-right: auto;
-      }
-      /* Reviews Section */
-      .review-item {
-        border-bottom: 1px solid #e0e0e0;
-        padding: 10px 0;
-      }
-      .review-item:last-child {
-        border-bottom: none;
-      }
-      .review-full {
-        display: none;
-        margin-top: 5px;
-      }
-      .review-read-more {
-        color: #007bff;
-        cursor: pointer;
-        font-size: 0.9rem;
-      }
-      .write-review {
-        margin-top: 20px;
-      }
-      .star-icon {
-        cursor: pointer;
-        font-size: 1.2rem;
-        color: #ccc;
-      }
-      .star-icon.selected {
-        color: #FFC107;
-      }
-      /* Related Items Section */
-      .related-items {
-        display: flex;
-        overflow-x: auto;
-        gap: 15px;
-        padding: 10px 0;
-      }
-      .related-items::-webkit-scrollbar {
-        display: none;
-      }
-      .related-item {
-        flex: 0 0 auto;
-        width: 140px;
-        text-align: center;
-      }
-      .related-item img {
-        width: 100%;
-        height: 100px;
-        object-fit: cover;
-        border-radius: 4px;
+
+      /* Additional override: ensure the body has top margin
+         matching your header's height (70px in this example) */
+      body {
+        margin-top: 70px;
+        scroll-behavior: smooth;
       }
     </style>
   </head>
   <body>
-    <!-- Load external header -->
+    <!-- External Header will be loaded here -->
     <div id="header-placeholder"></div>
 
     <!-- Product Details Section -->
@@ -275,11 +146,7 @@
           <i class="fa fa-star star-icon" data-value="4"></i>
           <i class="fa fa-star star-icon" data-value="5"></i>
         </div>
-        <textarea
-          class="form-control"
-          rows="3"
-          placeholder="Share your experience after purchasing"
-        ></textarea>
+        <textarea class="form-control" rows="3" placeholder="Share your experience after purchasing"></textarea>
         <button class="btn btn-success mt-2">Submit Review</button>
       </div>
     </section>
@@ -288,7 +155,7 @@
     <section id="section-related" class="container">
       <h3>Related Items</h3>
       <div class="related-items" id="relatedItemsContainer">
-        <!-- Dummy related items -->
+        <!-- Dummy related items (to be replaced by AI recommendations later) -->
         <div class="related-item">
           <img src="https://via.placeholder.com/140x100?text=Item+1" alt="Item 1" />
           <p class="small">Item 1</p>
@@ -308,15 +175,13 @@
       </div>
     </section>
 
-    <!-- Load external footer -->
+    <!-- External Footer -->
     <div id="footer-placeholder"></div>
 
-    <!-- Bootstrap and Custom Scripts -->
+    <!-- Bootstrap JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-      // Enhanced loadHTML() function:
-      // This function fetches the external file, parses its HTML, extracts <style> tags
-      // and appends them to the document head, then places the rest of the content in the target element.
+      // Simple function to load external HTML into a container element.
       function loadHTML(elementId, filePath) {
         fetch(filePath)
           .then((response) => {
@@ -325,19 +190,8 @@
             }
             return response.text();
           })
-          .then((htmlText) => {
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(htmlText, "text/html");
-
-            // Move any style tags from the fetched file into document.head
-            const styleTags = doc.querySelectorAll("style");
-            styleTags.forEach((styleTag) => {
-              document.head.appendChild(styleTag.cloneNode(true));
-            });
-
-            // Insert the remaining content (e.g. header markup) into the target element
-            document.getElementById(elementId).innerHTML =
-              doc.body.innerHTML;
+          .then((html) => {
+            document.getElementById(elementId).innerHTML = html;
           })
           .catch((error) =>
             console.error("Error loading " + filePath + ":", error)
@@ -345,20 +199,22 @@
       }
 
       document.addEventListener("DOMContentLoaded", function () {
+        // Load external header and footer.
         loadHTML("header-placeholder", "header.html");
         loadHTML("footer-placeholder", "footer.html");
       });
 
-      // Dummy product data (for now; later to be replaced with Firebase Firestore calls)
-      const product = JSON.parse(localStorage.getItem("selectedProduct")) || {
-        name: "Default Product",
-        price: "PKR 0",
-        description: "No description available.",
-        image: "https://via.placeholder.com/400x300?text=Product+Image",
-        rating: 0,
-        added: "0",
-        sold: "0",
-      };
+      // Dummy product data (replace with Firebase calls later)
+      const product =
+        JSON.parse(localStorage.getItem("selectedProduct")) || {
+          name: "Default Product",
+          price: "PKR 0",
+          description: "No description available.",
+          image: "https://via.placeholder.com/400x300?text=Product+Image",
+          rating: 0,
+          added: "0",
+          sold: "0",
+        };
 
       // Populate product details
       document.getElementById("productName").innerText = product.name;
@@ -400,7 +256,7 @@
           }
         });
 
-      // Reviews "Read More" toggle functionality
+      // Reviews "Read More" toggle
       document.addEventListener("click", function (e) {
         if (e.target && e.target.classList.contains("review-read-more")) {
           const fullReview = e.target.parentElement.nextElementSibling;
@@ -419,7 +275,7 @@
         }
       });
 
-      // Star rating for "Write a Review"
+      // Star rating functionality for Write a Review
       const starIcons = document.querySelectorAll("#ratingStars .star-icon");
       starIcons.forEach((star) => {
         star.addEventListener("click", function () {
