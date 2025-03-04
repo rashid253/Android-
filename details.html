@@ -1,323 +1,97 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Product Details - NextGen E-commerce</title>
-    <!-- Font Awesome for icons -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
-    <!-- Bootstrap 5 CSS -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-    />
-    <!-- Global Styles -->
-    <link rel="stylesheet" href="style.css" />
-    <style>
-      /* Additional overrides for details.html */
-
-      /* Ensure the body is pushed down so the fixed header does not overlap content.
-         Adjust 70px to match your header’s actual height. */
-      body {
-        margin-top: 70px;
-        scroll-behavior: smooth;
-      }
-
-      /* Sticky Section Navigation (below header) */
-      .section-nav {
-        background: #fff;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        position: sticky;
-        top: 0;
-        z-index: 999;
-        padding: 10px 0;
-      }
-      .section-nav a {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 100px;
-        color: #007bff;
-        font-weight: bold;
-      }
-      .section-nav a i {
-        font-size: 1.5rem;
-        margin-bottom: 5px;
-      }
-      .section-nav a:hover {
-        color: #0056b3;
-      }
-    </style>
-  </head>
-  <body>
-    <!-- External Header will be loaded here -->
-    <div id="header-placeholder"></div>
-
-    <!-- Product Details Section -->
-    <div class="product-details container">
-      <div class="product-image">
-        <img
-          id="productImage"
-          src="https://via.placeholder.com/400x300?text=Product+Image"
-          alt="Product Image"
-        />
-      </div>
-      <div class="product-info">
-        <h2 id="productName">Product Name</h2>
-        <p class="price" id="productPrice">PKR 0</p>
-        <div id="productRating" class="star-rating"></div>
-        <p id="productStats" class="text-muted">0 Added | 0 Sold</p>
-        <button class="btn btn-primary add-to-cart-btn">
-          <i class="fa fa-shopping-cart"></i> Add to Cart
-        </button>
-      </div>
+<!-- header.html -->
+<header class="header">
+  <div class="header-content">
+    <div class="brand">
+      <i class="fas fa-briefcase"></i>
+      <span>MyBusiness</span>
     </div>
-
-    <!-- Section Navigation Bar -->
-    <nav class="section-nav container">
-      <a href="#section-description">
-        <i class="fa fa-file-text"></i>
-        <span>Description</span>
+    <!-- Desktop Navigation -->
+    <nav class="nav-desktop">
+      <a href="index.html" onclick="openPage('index.html')">
+        <i class="fas fa-home"></i>
       </a>
-      <a href="#section-reviews">
-        <i class="fa fa-comments"></i>
-        <span>Reviews</span>
+      <a href="offers.html" onclick="openPage('offers.html')">
+        <i class="fas fa-tags"></i>
       </a>
-      <a href="#section-related">
-        <i class="fa fa-th"></i>
-        <span>Related Items</span>
+      <a href="analytics.html" onclick="openPage('analytics.html')">
+        <i class="fas fa-chart-line"></i>
+      </a>
+      <a href="cart.html" onclick="openPage('cart.html')" style="position: relative;">
+        <i class="fas fa-shopping-cart"></i>
+        <span>Cart</span>
+        <span id="cartCount" class="badge" style="position: absolute; top: -5px; right: -10px;">0</span>
+      </a>
+      <a href="more.html" onclick="openPage('more.html')">
+        <i class="fas fa-ellipsis-h"></i>
       </a>
     </nav>
+    <!-- Hamburger for Mobile -->
+    <button class="menu-toggle">
+      <i class="fas fa-bars"></i>
+    </button>
+  </div>
+  <!-- Mobile Side Menu -->
+  <aside id="side-menu" class="side-menu">
+    <a href="index.html" onclick="openPage('index.html'); toggleSideMenu()">Home</a>
+    <a href="offers.html" onclick="openPage('offers.html'); toggleSideMenu()">Offers</a>
+    <a href="analytics.html" onclick="openPage('analytics.html'); toggleSideMenu()">Analytics</a>
+    <a href="cart.html" onclick="openPage('cart.html'); toggleSideMenu()" style="position: relative;">
+      Cart
+      <span id="cartCountMobile" class="badge" style="position: absolute; top: 3px; right: -2px;">0</span>
+    </a>
+    <a href="more.html" onclick="openPage('more.html'); toggleSideMenu()">More</a>
+  </aside>
+  <!-- Mobile Bottom Navigation -->
+  <nav class="mobile-nav">
+    <a href="index.html" onclick="openPage('index.html')">
+      <i class="fas fa-home"></i><span>Home</span>
+    </a>
+    <a href="offers.html" onclick="openPage('offers.html')">
+      <i class="fas fa-tags"></i><span>Offers</span>
+    </a>
+    <a href="analytics.html" onclick="openPage('analytics.html')">
+      <i class="fas fa-chart-line"></i><span>Analytics</span>
+    </a>
+    <a href="cart.html" onclick="openPage('cart.html')" style="position: relative;">
+      <i class="fas fa-shopping-cart"></i>
+      <span>Cart</span>
+      <span id="cartCountMobileBottom" class="badge" style="position: absolute; top: -5px; right: -10px;">0</span>
+    </a>
+    <a href="more.html" onclick="openPage('more.html')">
+      <i class="fas fa-ellipsis-h"></i><span>More</span>
+    </a>
+  </nav>
+</header>
 
-    <!-- Description Section -->
-    <section id="section-description" class="container">
-      <h3>Description</h3>
-      <div class="content" id="descriptionContent">
-        <p id="productDescription">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel mauris
-          quam. Praesent sed nisi eleifend, varius nulla eu, auctor urna. Vestibulum
-          ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae;
-          Suspendisse potenti. Proin ut tincidunt mauris, vel dapibus nulla. Nulla
-          facilisi. Sed nec nulla vitae eros aliquet fermentum.
-        </p>
-      </div>
-      <div class="read-more-btn" id="descReadMore">Read More</div>
-    </section>
+<!-- Inline header CSS (or link to header.css) -->
+<style>
+  .header {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    background: #fff !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+    z-index: 1000 !important;
+    height: 70px;
+  }
+</style>
 
-    <!-- Reviews Section -->
-    <section id="section-reviews" class="container">
-      <h3>Reviews</h3>
-      <div id="reviewsContainer">
-        <div class="review-item">
-          <p>
-            <strong>User1:</strong> Amazing quality, highly recommended!
-            <span class="review-read-more">...Read more</span>
-          </p>
-          <p><small>Reviewed on July 10, 2025</small></p>
-          <p class="review-full">
-            Full review text for User1. Lorem ipsum dolor sit amet, consectetur adipiscing
-            elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-          </p>
-        </div>
-        <div class="review-item">
-          <p>
-            <strong>User2:</strong> Good value for money.
-            <span class="review-read-more">...Read more</span>
-          </p>
-          <p><small>Reviewed on July 8, 2025</small></p>
-          <p class="review-full">
-            Full review text for User2. Additional details about the product experience go
-            here.
-          </p>
-        </div>
-      </div>
-      <div class="write-review">
-        <h5>Write a Review</h5>
-        <div id="ratingStars" class="mb-2">
-          <i class="fa fa-star star-icon" data-value="1"></i>
-          <i class="fa fa-star star-icon" data-value="2"></i>
-          <i class="fa fa-star star-icon" data-value="3"></i>
-          <i class="fa fa-star star-icon" data-value="4"></i>
-          <i class="fa fa-star star-icon" data-value="5"></i>
-        </div>
-        <textarea
-          class="form-control"
-          rows="3"
-          placeholder="Share your experience after purchasing"
-        ></textarea>
-        <button class="btn btn-success mt-2">Submit Review</button>
-      </div>
-    </section>
-
-    <!-- Related Items Section -->
-    <section id="section-related" class="container">
-      <h3>Related Items</h3>
-      <div class="related-items" id="relatedItemsContainer">
-        <!-- Dummy related items -->
-        <div class="related-item">
-          <img src="https://via.placeholder.com/140x100?text=Item+1" alt="Item 1" />
-          <p class="small">Item 1</p>
-        </div>
-        <div class="related-item">
-          <img src="https://via.placeholder.com/140x100?text=Item+2" alt="Item 2" />
-          <p class="small">Item 2</p>
-        </div>
-        <div class="related-item">
-          <img src="https://via.placeholder.com/140x100?text=Item+3" alt="Item 3" />
-          <p class="small">Item 3</p>
-        </div>
-        <div class="related-item">
-          <img src="https://via.placeholder.com/140x100?text=Item+4" alt="Item 4" />
-          <p class="small">Item 4</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- External Footer will be loaded here -->
-    <div id="footer-placeholder"></div>
-
-    <!-- Bootstrap JS Bundle -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-      // Updated loadHTML() function that extracts <style> and <script> tags,
-      // appending external scripts to the head with async disabled.
-      function loadHTML(elementId, filePath) {
-        fetch(filePath)
-          .then((response) => {
-            if (!response.ok) {
-              throw new Error("Network response was not ok for " + filePath);
-            }
-            return response.text();
-          })
-          .then((htmlText) => {
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(htmlText, "text/html");
-
-            // Append any <style> tags to the document head.
-            doc.querySelectorAll("style").forEach((styleTag) => {
-              document.head.appendChild(styleTag.cloneNode(true));
-            });
-
-            // Append any <script> tags to the document head with async disabled.
-            doc.querySelectorAll("script").forEach((scriptTag) => {
-              const newScript = document.createElement("script");
-              if (scriptTag.src) {
-                // Resolve relative URLs if necessary.
-                newScript.src = scriptTag.src;
-                newScript.async = false;
-              } else {
-                newScript.textContent = scriptTag.textContent;
-              }
-              document.head.appendChild(newScript);
-            });
-
-            // Remove script and style tags from the fetched HTML.
-            doc.querySelectorAll("script, style").forEach((el) => el.remove());
-
-            // Insert the remaining content into the target element.
-            document.getElementById(elementId).innerHTML = doc.body.innerHTML;
-          })
-          .catch((error) =>
-            console.error("Error loading " + filePath + ":", error)
-          );
-      }
-
-      document.addEventListener("DOMContentLoaded", function () {
-        loadHTML("header-placeholder", "header.html");
-        loadHTML("footer-placeholder", "footer.html");
-      });
-
-      // Dummy product data (replace with Firebase later)
-      const product =
-        JSON.parse(localStorage.getItem("selectedProduct")) || {
-          name: "Default Product",
-          price: "PKR 0",
-          description: "No description available.",
-          image: "https://via.placeholder.com/400x300?text=Product+Image",
-          rating: 0,
-          added: "0",
-          sold: "0",
-        };
-
-      // Populate product details
-      document.getElementById("productName").innerText = product.name;
-      document.getElementById("productPrice").innerText = product.price;
-      document.getElementById("productDescription").innerText =
-        product.description;
-      document.getElementById("productImage").src = product.image;
-      document.getElementById("productRating").innerHTML = generateStars(
-        product.rating
-      );
-      document.getElementById("productStats").innerText =
-        product.added + " Added | " + product.sold + " Sold";
-
-      // Helper function to generate star rating HTML
-      function generateStars(rating) {
-        let html = "";
-        const fullStars = Math.floor(rating);
-        const halfStar = rating - fullStars >= 0.5 ? 1 : 0;
-        for (let i = 0; i < fullStars; i++) {
-          html += '<i class="fa fa-star"></i>';
-        }
-        if (halfStar) {
-          html += '<i class="fa fa-star-half-alt"></i>';
-        }
-        return html;
-      }
-
-      // "Read More" functionality for Description
-      document
-        .getElementById("descReadMore")
-        .addEventListener("click", function () {
-          const descContent = document.getElementById("descriptionContent");
-          if (descContent.style.maxHeight === "none") {
-            descContent.style.maxHeight = "150px";
-            this.textContent = "Read More";
-          } else {
-            descContent.style.maxHeight = "none";
-            this.textContent = "Show Less";
-          }
-        });
-
-      // Reviews "Read More" toggle functionality
-      document.addEventListener("click", function (e) {
-        if (e.target && e.target.classList.contains("review-read-more")) {
-          const fullReview = e.target.parentElement.nextElementSibling;
-          if (fullReview && fullReview.classList.contains("review-full")) {
-            if (
-              fullReview.style.display === "none" ||
-              fullReview.style.display === ""
-            ) {
-              fullReview.style.display = "block";
-              e.target.textContent = " Show less";
-            } else {
-              fullReview.style.display = "none";
-              e.target.textContent = "...Read more";
-            }
-          }
+<!-- Inline header JS initialization -->
+<script>
+  function initializeHeader() {
+    const menuToggle = document.querySelector(".menu-toggle");
+    if (menuToggle) {
+      menuToggle.addEventListener("click", function () {
+        const sideMenu = document.getElementById("side-menu");
+        if (sideMenu) {
+          sideMenu.classList.toggle("visible");
         }
       });
-
-      // Star rating functionality for "Write a Review"
-      const starIcons = document.querySelectorAll("#ratingStars .star-icon");
-      starIcons.forEach((star) => {
-        star.addEventListener("click", function () {
-          const rating = this.getAttribute("data-value");
-          starIcons.forEach((s) => {
-            if (s.getAttribute("data-value") <= rating) {
-              s.classList.add("selected");
-            } else {
-              s.classList.remove("selected");
-            }
-          });
-        });
-      });
-    </script>
-  </body>
-</html>
+    }
+  }
+  // Optionally, call initializeHeader immediately if the header is already loaded
+  if (document.readyState !== "loading") {
+    initializeHeader();
+  }
+</script>
