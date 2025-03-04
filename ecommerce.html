@@ -1,663 +1,550 @@
 <!DOCTYPE html>
-<html lang="en"> 
-  <head> 
-    <meta charset="UTF-8" />   
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">   
-    <title>NextGen E-commerce - Shop Now</title>   
-    <!-- Font Awesome for icons (used in header/footer) --> 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"> 
-    <!-- Custom CSS for overall site (header, footer, etc.) --> 
-    <link rel="stylesheet" href="style.css"> 
-    <!-- Bootstrap 5 CSS for ecommerce-specific layout --> 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"> 
-    <!-- Inline Styles for modifications -->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NextGen E-commerce - Shop Now</title>
+    <!-- Font Awesome for icons (used in header/footer) -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <!-- Custom CSS for overall site (header, footer, etc.) -->
+    <link rel="stylesheet" href="style.css" />
+    <!-- Bootstrap 5 CSS for ecommerce-specific layout -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Inline Styles for Hero Section & Product Tiles -->
     <style>
       /* Global Overrides */
-      body { 
-        font-family: 'Roboto', sans-serif; 
-        background-color: #f3f4f6; 
-        color: #2d3748; 
-        margin: 0; 
-        padding: 0; 
-      } 
-      a { 
-        text-decoration: none; 
-        color: inherit; 
-        transition: color 0.3s ease; 
-      } 
-      main { padding-bottom: 100px; }
-
-      /* --- Modified Hero Section: Play Store Inspired Gradient --- */
-      .hero { 
-        position: relative; 
-        height: calc(500px + 3cm); 
-        background: linear-gradient(135deg, #4285f4, #34a853); /* New gradient */
-        display: flex; 
-        align-items: center; 
-        justify-content: center; 
-        text-align: center; 
-        overflow: hidden; 
-      } 
-      .hero-content { 
-        position: relative; 
-        z-index: 2; 
-        padding: 0 20px; 
-        transform: translateY(-20px); 
-      } 
-      .hero-content h1, .hero-content p { 
-        color: #fff; 
-      } 
-      .hero-content h1 { 
-        font-size: 3rem; 
-        font-weight: bold; 
-        margin-bottom: 1rem; 
-      } 
-      .hero-content p { 
-        font-size: 1.2rem; 
-        margin-bottom: 1.5rem; 
-      } 
-      .hero-content .btn { 
-        font-size: 1.2rem; 
-        padding: 0.75rem 1.5rem; 
-        background-color: #fff; 
-        color: #4285f4; 
-        border: none; 
-        border-radius: 4px; 
-        transition: background 0.3s ease, transform 0.3s ease; 
-      } 
-      .hero-content .btn:hover { 
-        background-color: #e0e0e0; 
-        transform: scale(1.05); 
-      } 
-
-      /* --- New Categories Buttons Section (beneath hero) --- */
-      .categories {
-        background: #fff; 
-        padding: 15px 0; 
+      body {
+        font-family: 'Roboto', sans-serif;
+        background-color: #f3f4f6;
+        color: #2d3748;
+        margin: 0;
+        padding: 0;
+      }
+      a {
+        text-decoration: none;
+        color: inherit;
+        transition: color 0.3s ease;
+      }
+      a:hover {
+        color: #ff6f61;
+      }
+      /* ہیڈر کے نیچے مواد کے اوپر فوٹر نہ آئے، اس کے لیے تھوڑا نیچے اسپیس */
+      main {
+        padding-bottom: 100px;
+      }
+      /* Hero Section */
+      .hero {
+        position: relative;
+        height: calc(500px + 3cm); /* اضافی اونچائی */
+        background: red;           /* سرخ پس منظر */
+        display: flex;
+        align-items: center;
+        justify-content: center;
         text-align: center;
+        overflow: hidden;
       }
-      .categories .container {
-        display: flex; 
-        justify-content: center; 
-        gap: 10px;
+      .hero-content {
+        position: relative;
+        z-index: 2;
+        padding: 0 20px;
+        transform: translateY(-20px); /* ٹیکسٹ کو تھوڑا اوپر لانے کے لیے */
       }
-      .category-btn {
-        padding: 10px 20px;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-        background: #fff;
-        font-size: 1rem;
-        cursor: pointer;
-        transition: background 0.3s, border-color 0.3s;
+      /* ہیرو سیکشن کا ٹیکسٹ سفید */
+      .hero-content h1,
+      .hero-content p {
+        color: #fff; /* سفید رنگ */
       }
-      .category-btn:hover, .category-btn.active {
-        background: #4285f4;
-        border-color: #4285f4;
+      .hero-content h1 {
+        font-size: 3rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+      }
+      .hero-content p {
+        font-size: 1.2rem;
+        margin-bottom: 1.5rem;
+      }
+      /* بٹن کا رنگ آپ کی خواہش کے مطابق (یہاں نیلا) */
+      .hero-content .btn {
+        font-size: 1.2rem;
+        padding: 0.75rem 1.5rem;
+        background-color: #007bff;
         color: #fff;
+        border: none;
+        border-radius: 4px;
+        transition: background 0.3s ease, transform 0.3s ease;
       }
-
-      /* --- Existing Styles from Uploaded File Remain --- */
-      /* Horizontal Scroll for Categories, Banners, Product Tiles, etc. */
-      .horizontal-scroll { 
-        display: flex; 
-        overflow-x: auto; 
-        gap: 1rem; 
-        padding-bottom: 1rem; 
-        margin-bottom: 2rem; 
-      } 
-      .horizontal-scroll::-webkit-scrollbar { 
-        display: none; 
-      } 
-      .banner { 
-        margin: 1rem 0; 
-        border-radius: 8px; 
-        overflow: hidden; 
-        background: #fff; 
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
-        height: 150px; 
-      } 
-      .banner img { 
-        width: 100%; 
-        height: 150px; 
-        object-fit: cover; 
-      } 
-      .fullwidth-banner { position: relative; } 
-      .fullwidth-banner img { 
-        height: 150px; 
-        opacity: 0.85; 
-      } 
-      .fullwidth-banner .banner-text { 
-        position: absolute; 
-        top: 50%; 
-        left: 10%; 
-        transform: translateY(-50%); 
-        color: #fff; 
-        font-size: 1.2rem; 
-        font-weight: bold; 
-      } 
-      .accordion-banner .accordion-button { 
-        font-weight: bold; 
-        font-size: 1rem; 
-      } 
-      .three-part-banner { 
-        display: flex; 
-        align-items: center; 
-        padding: 0 1rem; 
-        height: 150px; 
-      } 
-      .three-part-banner .banner-title { 
-        flex: 1; 
-        font-size: 1.1rem; 
-        font-weight: bold; 
-      } 
-      .three-part-banner .banner-desc { 
-        flex: 2; 
-        font-size: 0.95rem; 
-      } 
-      .three-part-banner .banner-img { 
-        flex: 1; 
-        text-align: right; 
-      } 
-      .three-part-banner .banner-img img { 
-        height: 100%; 
-        object-fit: contain; 
-      } 
-      .card-img-top { 
-        width: 100%; 
-        height: 180px; 
-        object-fit: cover; 
-      } 
-      .product-price { 
-        font-weight: bold; 
-        color: #e4393c; 
-        font-size: 1.1rem; 
-      } 
-      .product-old-price { 
-        text-decoration: line-through; 
-        color: #999; 
-        margin-left: 5px; 
-      } 
-      .product-orders { 
-        color: #666; 
-        font-size: 0.9rem; 
-      } 
-      .text-success { color: #28a745 !important; }
-      
-      /* --- New Product Detail Section (Play Store Inspired) --- */
-      #product-detail-section { 
-        display: none; 
-        background: #fff; 
-        padding: 20px; 
-        border-radius: 8px; 
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
-        margin: 20px auto; 
-        max-width: 800px; 
+      .hero-content .btn:hover {
+        background-color: #0056b3;
+        transform: scale(1.05);
       }
-      #product-detail-section .back-btn { 
-        margin-bottom: 15px; 
-        cursor: pointer; 
-        color: #4285f4; 
-        font-size: 1rem; 
+      /* Horizontal Scroll for Categories */
+      .horizontal-scroll {
+        display: flex;
+        overflow-x: auto;
+        gap: 1rem;
+        padding-bottom: 1rem;
+        margin-bottom: 2rem;
       }
-      .detail-header { 
-        display: flex; 
-        gap: 20px; 
-        border-bottom: 1px solid #e0e0e0; 
-        padding-bottom: 20px; 
+      .horizontal-scroll::-webkit-scrollbar {
+        display: none;
       }
-      .detail-image { flex: 0 0 300px; }
-      .detail-image img { 
-        width: 300px; 
-        height: 300px; 
-        object-fit: cover; 
-        border-radius: 8px; 
+      /* Banner Styles */
+      .banner {
+        margin: 1rem 0;
+        border-radius: 8px;
+        overflow: hidden;
+        background: #fff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        height: 150px;
       }
-      .detail-info { flex: 1; }
-      .detail-info h1 { font-size: 2rem; margin-bottom: 10px; }
-      .detail-info .price { font-size: 1.6rem; color: #4285f4; margin-bottom: 10px; }
-      .detail-info .meta { color: #777; margin-bottom: 15px; }
-      .detail-info .description { line-height: 1.6; margin-bottom: 15px; }
-      .add-to-cart { 
-        background: #28a745; 
-        color: #fff; 
-        padding: 12px 25px; 
-        border: none; 
-        border-radius: 4px; 
-        font-size: 1rem; 
-        cursor: pointer; 
-        transition: background 0.3s; 
+      .banner img {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
       }
-      .add-to-cart:hover { background: #218838; }
-      .tab-buttons { 
-        display: flex; 
-        border-bottom: 1px solid #e0e0e0; 
-        margin-top: 20px; 
+      .fullwidth-banner {
+        position: relative;
       }
-      .tab-buttons button { 
-        flex: 1; 
-        padding: 10px; 
-        background: none; 
-        border: none; 
-        font-size: 1rem; 
-        cursor: pointer; 
-        transition: color 0.3s; 
+      .fullwidth-banner img {
+        height: 150px;
+        opacity: 0.85;
       }
-      .tab-buttons button.active { 
-        border-bottom: 3px solid #4285f4; 
-        color: #4285f4; 
-        font-weight: bold; 
+      .fullwidth-banner .banner-text {
+        position: absolute;
+        top: 50%;
+        left: 10%;
+        transform: translateY(-50%);
+        color: #fff;
+        font-size: 1.2rem;
+        font-weight: bold;
       }
-      .tab-content { margin-top: 20px; }
-      .reviews { margin-top: 20px; }
-      .reviews h2 { font-size: 1.4rem; margin-bottom: 10px; }
-      .review { 
-        background: #fafafa; 
-        padding: 10px; 
-        border-radius: 6px; 
-        margin-bottom: 10px; 
-        border: 1px solid #e0e0e0; 
+      .accordion-banner .accordion-button {
+        font-weight: bold;
+        font-size: 1rem;
       }
-      .review .reviewer { font-weight: 500; margin-bottom: 5px; }
-      .review .rating { color: #f39c12; margin-bottom: 5px; }
-      .review p { font-size: 0.95rem; }
-      .related { margin-top: 20px; }
-      .related h2 { font-size: 1.4rem; margin-bottom: 10px; }
-      .related-items { 
-        display: flex; 
-        gap: 10px; 
-        overflow-x: auto; 
-        padding-bottom: 10px; 
+      .three-part-banner {
+        display: flex;
+        align-items: center;
+        padding: 0 1rem;
+        height: 150px;
       }
-      .related-item { 
-        flex: 0 0 180px; 
-        background: #fff; 
-        border-radius: 6px; 
-        box-shadow: 0 1px 3px rgba(0,0,0,0.1); 
-        padding: 10px; 
-        text-align: center; 
-        cursor: pointer; 
-        transition: transform 0.2s; 
+      .three-part-banner .banner-title {
+        flex: 1;
+        font-size: 1.1rem;
+        font-weight: bold;
       }
-      .related-item:hover { transform: translateY(-2px); }
-      .related-item img { 
-        width: 100%; 
-        height: 120px; 
-        object-fit: cover; 
-        border-radius: 4px; 
-        margin-bottom: 5px; 
+      .three-part-banner .banner-desc {
+        flex: 2;
+        font-size: 0.95rem;
       }
-      .related-item h4 { font-size: 1rem; margin: 5px 0; }
-      
-      /* Responsive Adjustments */
-      @media (max-width: 768px) {
-        .hero-content h1 { font-size: 2.5rem; }
-        .detail-header { flex-direction: column; align-items: center; }
-        .detail-image, .detail-info { width: 100%; text-align: center; }
-        .detail-image img { width: 250px; height: 250px; }
+      .three-part-banner .banner-img {
+        flex: 1;
+        text-align: right;
+      }
+      .three-part-banner .banner-img img {
+        height: 100%;
+        object-fit: contain;
+      }
+      /* Product Tile Styles */
+      .card-img-top {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+      }
+      .product-price {
+        font-weight: bold;
+        color: #e4393c; /* سرخی مائل رنگ */
+        font-size: 1.1rem;
+      }
+      .product-old-price {
+        text-decoration: line-through;
+        color: #999;
+        margin-left: 5px;
+      }
+      .product-orders {
+        color: #666;
+        font-size: 0.9rem;
+      }
+      .text-success {
+        color: #28a745 !important;
       }
     </style>
-  </head> 
-  <body> 
-    <!-- Header Placeholder (loaded dynamically) --> 
-    <div id="header-placeholder"></div> 
-     
-    <!-- Main Ecommerce Content --> 
-    <main> 
-      <!-- Modified Hero Section --> 
-      <section class="hero"> 
-        <div class="hero-content"> 
-          <h1>Welcome to NextGen E-commerce</h1> 
-          <p>Your one-stop shop for the latest trends &amp; exclusive deals.</p> 
-          <div class="cta-buttons"> 
-            <button onclick="openPage('ecommerce.html')">Shop Now</button> 
-            <button onclick="openPage('about.html')">Learn More</button> 
-          </div> 
-        </div> 
-      </section> 
-      
-      <!-- New Categories Buttons Section --> 
-      <section class="categories">
-        <div class="container">
-          <button class="category-btn active" onclick="filterCategory('Electronics', this)">Electronics</button>
-          <button class="category-btn" onclick="filterCategory('Baby Garments', this)">Baby Garments</button>
-          <button class="category-btn" onclick="filterCategory('Home & Kitchen', this)">Home & Kitchen</button>
+  </head>
+  <body>
+    <!-- Header Placeholder (loaded dynamically as in index.html) -->
+    <div id="header-placeholder"></div>
+    <!-- Main Ecommerce Content -->
+    <main>
+      <!-- Hero Section -->
+      <section class="hero">
+        <div class="hero-content">
+          <h1>Welcome to NextGen E-commerce</h1>
+          <p>Your one-stop shop for the latest trends &amp; exclusive deals.</p>
+          <a href="#categoriesContainer" class="btn">Shop Now</a>
         </div>
       </section>
-      
-      <!-- Main Page: Categories with Banners and Horizontal Scroll (unchanged) --> 
-      <div class="container my-4" id="mainPage"> 
-        <h1 class="mb-4 text-center">Product Categories</h1> 
-        <div id="categoriesContainer"> 
-          <!-- Dynamic category sections (each with a banner above) will be rendered here --> 
-        </div> 
-      </div> 
-     
-      <!-- Category Page: Vertical Grid of Products (unchanged) --> 
-      <div class="container my-4" id="categoryPage" style="display: none;"> 
-        <button class="btn btn-secondary mb-3" onclick="backToMain()">Back to Categories</button> 
-        <h2 id="categoryTitle" class="mb-4"></h2> 
-        <div class="row" id="categoryProducts"> 
-          <!-- Products will be rendered here in a grid --> 
-        </div> 
-      </div> 
-      
-      <!-- New Product Detail Section (Play Store Inspired) --> 
-      <section id="product-detail-section"> 
-        <div class="back-btn" onclick="closeProductDetail()"> 
-          <i class="fas fa-arrow-left"></i> Back 
-        </div> 
-        <div class="detail-header"> 
-          <div class="detail-image"> 
-            <img id="detail-img" src="https://via.placeholder.com/300x300?text=Product+Image" alt="Product Image"> 
-          </div> 
-          <div class="detail-info"> 
-            <h1 id="detail-name">Product Name</h1> 
-            <div class="price" id="detail-price">$0.00</div> 
-            <div class="meta" id="detail-meta">Meta Info</div> 
-            <div class="description" id="detail-description">Detailed description of the product goes here.</div> 
-            <button class="add-to-cart" onclick="addToCart()">Add to Cart</button> 
-          </div> 
-        </div> 
-        <div class="tab-buttons"> 
-          <button class="active" onclick="showTab('overview', event)">Overview</button> 
-          <button onclick="showTab('reviews', event)">Reviews</button> 
-          <button onclick="showTab('related', event)">Related</button> 
-        </div> 
-        <div id="overview" class="tab-content"> 
-          <div class="description" id="overview-content">This section provides an overview of the product details.</div> 
-        </div> 
-        <div id="reviews" class="tab-content" style="display: none;"> 
-          <div class="reviews" id="reviews-content"> 
-            <div class="review"> 
-              <div class="reviewer">Alice</div> 
-              <div class="rating">★★★★★</div> 
-              <p>Amazing product!</p> 
-              <small>2023-09-15</small> 
-            </div> 
-            <!-- Additional reviews --> 
-          </div> 
-        </div> 
-        <div id="related" class="tab-content" style="display: none;"> 
-          <div class="related-items" id="related-content"> 
-            <div class="related-item"> 
-              <img src="https://via.placeholder.com/180x120?text=Related+1" alt="Related 1"> 
-              <h4>Related 1</h4> 
-            </div> 
-            <div class="related-item"> 
-              <img src="https://via.placeholder.com/180x120?text=Related+2" alt="Related 2"> 
-              <h4>Related 2</h4> 
-            </div> 
-            <!-- Additional related items --> 
-          </div> 
-        </div> 
-      </section> 
-    </main> 
-     
-    <!-- Footer Placeholder --> 
-    <div id="footer-placeholder"></div> 
-     
-    <!-- Scripts --> 
-    <!-- Bootstrap 5 JS Bundle --> 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script> 
-     
-    <!-- Script to load header and footer dynamically --> 
+      <!-- Main Page: Categories with Banners and Horizontal Scroll -->
+      <div class="container my-4" id="mainPage">
+        <h1 class="mb-4 text-center">Product Categories</h1>
+        <div id="categoriesContainer">
+          <!-- Dynamic category sections (each with a banner above) will be rendered here -->
+        </div>
+      </div>
+      <!-- Category Page: Vertical Grid of Products -->
+      <div class="container my-4" id="categoryPage" style="display: none;">
+        <button class="btn btn-secondary mb-3" onclick="backToMain()">Back to Categories</button>
+        <h2 id="categoryTitle" class="mb-4"></h2>
+        <div class="row" id="categoryProducts">
+          <!-- Products will be rendered here in a grid -->
+        </div>
+      </div>
+      <!-- Modal: Product Details with Add to Cart -->
+      <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="productModalLabel">Product Details</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <img id="modalProductImage" src="" class="img-fluid mb-3" alt="Product Image">
+              <h4 id="modalProductName"></h4>
+              <p id="modalProductPrice" class="text-danger h5"></p>
+              <p id="modalProductDescription"></p>
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-primary">
+                <i class="bi bi-cart-fill me-1"></i> Add to Cart
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <!-- Footer Placeholder (loaded dynamically as in index.html) -->
+    <div id="footer-placeholder"></div>
+    <!-- Scripts -->
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Script to load header and footer dynamically -->
     <script>
+      // اگر آپ کے header.html میں تین لائنوں والا بٹن موجود ہے (onclick="toggleSideMenu()"),
+      // تو یہ فنکشن اسے فعال کر دے گا۔
+      function toggleSideMenu() {
+        const sideMenu = document.getElementById("side-menu");
+        if (sideMenu) {
+          sideMenu.classList.toggle("visible");
+        }
+      }
       function loadHTML(elementId, filePath) {
         fetch(filePath)
           .then(response => {
             if (!response.ok) {
+              // Fallback: if header.html or footer.html not found, display default content.
               if (elementId === "header-placeholder") {
-                document.getElementById(elementId).innerHTML = '<header style="background:#333;color:#fff;padding:10px;text-align:center;">Header</header>';
+                document.getElementById(elementId).innerHTML =
+                  '<header style="background:#333;color:#fff;padding:10px;text-align:center;">Header</header>';
               } else if (elementId === "footer-placeholder") {
-                document.getElementById(elementId).innerHTML = '<footer style="background:#333;color:#fff;padding:10px;text-align:center;">Footer</footer>';
+                document.getElementById(elementId).innerHTML =
+                  '<footer style="background:#333;color:#fff;padding:10px;text-align:center;">Footer</footer>';
               }
               throw new Error('Error fetching ' + filePath);
             }
             return response.text();
           })
-          .then(html => { document.getElementById(elementId).innerHTML = html; })
+          .then(html => {
+            document.getElementById(elementId).innerHTML = html;
+          })
           .catch(error => console.error(error));
       }
-      
       document.addEventListener("DOMContentLoaded", function () {
         loadHTML('header-placeholder', 'header.html');
         loadHTML('footer-placeholder', 'footer.html');
       });
-    </script> 
-     
-    <!-- Ecommerce-specific JavaScript (Functionality remains unchanged) --> 
+    </script>
+    <!-- Ecommerce-specific JavaScript -->
     <script>
-      // Dummy product data per category 
-      const productData = { 
-        "Countdown Sales": [ 
-          { 
-            name: "Smartphone A", 
-            price: "PKR 894", 
-            description: "High-performance smartphone.", 
-            image: "https://via.placeholder.com/300x200?text=Smartphone+A" 
-          }, 
-          { 
-            name: "Smart TV B", 
-            price: "PKR 557", 
-            description: "4K Ultra HD Smart TV.", 
-            image: "https://via.placeholder.com/300x200?text=Smart+TV+B" 
-          }, 
-          { 
-            name: "Laptop C", 
-            price: "PKR 1,004", 
-            description: "Gaming laptop with high performance.", 
-            image: "https://via.placeholder.com/300x200?text=Laptop+C" 
-          } 
-        ], 
-        "Discount Offers": [ 
-          { 
-            name: "Headphones D", 
-            price: "PKR 600", 
-            description: "Noise cancelling headphones.", 
-            image: "https://via.placeholder.com/300x200?text=Headphones+D" 
-          }, 
-          { 
-            name: "Speaker E", 
-            price: "PKR 999", 
-            description: "Wireless speaker with deep bass.", 
-            image: "https://via.placeholder.com/300x200?text=Speaker+E" 
-          }, 
-          { 
-            name: "Camera F", 
-            price: "PKR 1,299", 
-            description: "High resolution digital camera.", 
-            image: "https://via.placeholder.com/300x200?text=Camera+F" 
-          } 
-        ], 
-        "Hot Sales": [ 
-          { 
-            name: "Smartwatch G", 
-            price: "PKR 999", 
-            description: "Feature-rich smartwatch.", 
-            image: "https://via.placeholder.com/300x200?text=Smartwatch+G" 
-          }, 
-          { 
-            name: "Tablet H", 
-            price: "PKR 1,700", 
-            description: "Latest generation tablet.", 
-            image: "https://via.placeholder.com/300x200?text=Tablet+H" 
-          }, 
-          { 
-            name: "Drone I", 
-            price: "PKR 2,999", 
-            description: "High-performance drone.", 
-            image: "https://via.placeholder.com/300x200?text=Drone+I" 
-          } 
-        ], 
-        "Seasonal Offers": [ 
-          { 
-            name: "Jacket J", 
-            price: "PKR 499", 
-            description: "Warm and stylish jacket.", 
-            image: "https://via.placeholder.com/300x200?text=Jacket+J" 
-          }, 
-          { 
-            name: "Boots K", 
-            price: "PKR 1,199", 
-            description: "Comfortable boots.", 
-            image: "https://via.placeholder.com/300x200?text=Boots+K" 
-          }, 
-          { 
-            name: "Scarf L", 
-            price: "PKR 299", 
-            description: "Cozy scarf for winter.", 
-            image: "https://via.placeholder.com/300x200?text=Scarf+L" 
-          } 
-        ], 
-        "Clearance Sale": [ 
-          { 
-            name: "Old Model Phone M", 
-            price: "PKR 199", 
-            description: "Last year's smartphone model.", 
-            image: "https://via.placeholder.com/300x200?text=Phone+M" 
-          }, 
-          { 
-            name: "Outdated TV N", 
-            price: "PKR 299", 
-            description: "Old model television.", 
-            image: "https://via.placeholder.com/300x200?text=TV+N" 
-          }, 
-          { 
-            name: "Vintage Laptop O", 
-            price: "PKR 499", 
-            description: "Vintage laptop with classic design.", 
-            image: "https://via.placeholder.com/300x200?text=Laptop+O" 
-          } 
-        ] 
-      }; 
-      
-      // Render main page with categories and banners 
-      function initMainPage() { 
-        document.getElementById("mainPage").style.display = "block"; 
-        document.getElementById("categoryPage").style.display = "none"; 
-        const container = document.getElementById("categoriesContainer"); 
-        container.innerHTML = ""; 
-        let index = 0; 
-        for (let category in productData) { 
-          let banner = createBannerForCategory(category, index); 
-          container.appendChild(banner); 
-          
-          // Section for each category 
-          let section = document.createElement("div"); 
-          section.innerHTML = ` 
-            <h2 class="mt-4">${category}</h2> 
-            <div class="horizontal-scroll" id="scroll-${category.replace(/\s/g, '')}"></div> 
-          `; 
-          container.appendChild(section); 
-          
-          // Horizontal scroll container 
-          let scrollContainer = document.getElementById(`scroll-${category.replace(/\s/g, '')}`); 
-          productData[category].forEach(product => { 
-            let card = document.createElement("div"); 
-            card.className = "card"; 
-            card.style.minWidth = "150px"; 
-            card.style.marginRight = "0.75rem"; 
-            // Clicking on the card opens that category page 
-            card.onclick = function () { 
-              openCategoryPage(category); 
-            }; 
-            
-            // Product tile layout 
-            card.innerHTML = ` 
-              <img src="${product.image}" class="card-img-top" alt="${product.name}"> 
-              <div class="card-body text-center"> 
-                <p class="product-price">${product.price} <span class="product-old-price">PKR1,487</span></p> 
-                <p class="product-orders">100K+ orders <i class="fa fa-star" style="color:#FFC107;"></i> 4.7</p> 
-                <p class="text-success mb-0">Free shipping</p> 
-              </div> 
-            `; 
-            scrollContainer.appendChild(card); 
-          }); 
-          index++; 
-        } 
-      } 
-      
-      // Open dedicated category page (vertical grid view) 
-      function openCategoryPage(category) { 
-        document.getElementById("mainPage").style.display = "none"; 
-        document.getElementById("categoryPage").style.display = "block"; 
-        document.getElementById("categoryTitle").innerText = category; 
-      
-        const grid = document.getElementById("categoryProducts"); 
-        grid.innerHTML = ""; 
-      
-        productData[category].forEach(product => { 
-          let col = document.createElement("div"); 
-          col.className = "col-6 col-md-4 mb-4"; 
-      
-          let card = document.createElement("div"); 
-          card.className = "card"; 
-          card.onclick = function () { 
-            openProductModal(product); 
-          }; 
-      
-          card.innerHTML = ` 
-            <img src="${product.image}" class="card-img-top" alt="${product.name}"> 
-            <div class="card-body text-center"> 
-              <p class="product-price">${product.price} <span class="product-old-price">PKR1,487</span></p> 
-              <p class="product-orders">100K+ orders <i class="fa fa-star" style="color:#FFC107;"></i> 4.7</p> 
-              <p class="text-success mb-0">Free shipping</p> 
-            </div> 
-          `; 
-          col.appendChild(card); 
-          grid.appendChild(col); 
-        }); 
-      } 
-      
-      // Go back to main categories view 
-      function backToMain() { 
-        document.getElementById("categoryPage").style.display = "none"; 
-        document.getElementById("mainPage").style.display = "block"; 
-      } 
-      
-      // Open product detail section (Play Store Inspired) 
-      function openProductModal(product) { 
-        document.getElementById("detail-img").src = product.image; 
-        document.getElementById("detail-name").innerText = product.name; 
-        document.getElementById("detail-price").innerText = product.price; 
-        document.getElementById("detail-description").innerText = product.description; 
-        document.getElementById("detail-meta").innerText = "Some meta info"; 
-        document.getElementById("overview-content").innerText = product.description; 
-        document.getElementById("reviews-content").innerHTML = ` 
-          <div class="review"> 
-            <div class="reviewer">Alice</div> 
-            <div class="rating">★★★★★</div> 
-            <p>Amazing product!</p> 
-            <small>2023-09-15</small> 
-          </div> 
-        `; 
-        document.getElementById("related-content").innerHTML = ` 
-          <div class="related-item"> 
-            <img src="https://via.placeholder.com/180x120?text=Related+1" alt="Related 1"> 
-            <h4>Related 1</h4> 
-          </div> 
-          <div class="related-item"> 
-            <img src="https://via.placeholder.com/180x120?text=Related+2" alt="Related 2"> 
-            <h4>Related 2</h4> 
-          </div> 
-        `; 
-      
-        document.getElementById("categoryPage").style.display = "none"; 
-        document.getElementById("product-detail-section").style.display = "block"; 
-      } 
-      
-      // Close product detail section 
-      function closeProductDetail() { 
-        document.getElementById("product-detail-section").style.display = "none"; 
-        document.getElementById("categoryPage").style.display = "block"; 
-      } 
-      
-      // Initialize main page on window load 
-      window.onload = function () { 
-        initMainPage(); 
+      // Dummy product data per category
+      const productData = {
+        "Countdown Sales": [
+          {
+            name: "Smartphone A",
+            price: "PKR 894",
+            description: "High-performance smartphone.",
+            image: "https://via.placeholder.com/300x200?text=Smartphone+A"
+          },
+          {
+            name: "Smart TV B",
+            price: "PKR 557",
+            description: "4K Ultra HD Smart TV.",
+            image: "https://via.placeholder.com/300x200?text=Smart+TV+B"
+          },
+          {
+            name: "Laptop C",
+            price: "PKR 1,004",
+            description: "Gaming laptop with high performance.",
+            image: "https://via.placeholder.com/300x200?text=Laptop+C"
+          }
+        ],
+        "Discount Offers": [
+          {
+            name: "Headphones D",
+            price: "PKR 600",
+            description: "Noise cancelling headphones.",
+            image: "https://via.placeholder.com/300x200?text=Headphones+D"
+          },
+          {
+            name: "Speaker E",
+            price: "PKR 999",
+            description: "Wireless speaker with deep bass.",
+            image: "https://via.placeholder.com/300x200?text=Speaker+E"
+          },
+          {
+            name: "Camera F",
+            price: "PKR 1,299",
+            description: "High resolution digital camera.",
+            image: "https://via.placeholder.com/300x200?text=Camera+F"
+          }
+        ],
+        "Hot Sales": [
+          {
+            name: "Smartwatch G",
+            price: "PKR 999",
+            description: "Feature-rich smartwatch.",
+            image: "https://via.placeholder.com/300x200?text=Smartwatch+G"
+          },
+          {
+            name: "Tablet H",
+            price: "PKR 1,700",
+            description: "Latest generation tablet.",
+            image: "https://via.placeholder.com/300x200?text=Tablet+H"
+          },
+          {
+            name: "Drone I",
+            price: "PKR 2,999",
+            description: "High-performance drone.",
+            image: "https://via.placeholder.com/300x200?text=Drone+I"
+          }
+        ],
+        "Seasonal Offers": [
+          {
+            name: "Jacket J",
+            price: "PKR 499",
+            description: "Warm and stylish jacket.",
+            image: "https://via.placeholder.com/300x200?text=Jacket+J"
+          },
+          {
+            name: "Boots K",
+            price: "PKR 1,199",
+            description: "Comfortable boots.",
+            image: "https://via.placeholder.com/300x200?text=Boots+K"
+          },
+          {
+            name: "Scarf L",
+            price: "PKR 299",
+            description: "Cozy scarf for winter.",
+            image: "https://via.placeholder.com/300x200?text=Scarf+L"
+          }
+        ],
+        "Clearance Sale": [
+          {
+            name: "Old Model Phone M",
+            price: "PKR 199",
+            description: "Last year's smartphone model.",
+            image: "https://via.placeholder.com/300x200?text=Phone+M"
+          },
+          {
+            name: "Outdated TV N",
+            price: "PKR 299",
+            description: "Old model television.",
+            image: "https://via.placeholder.com/300x200?text=TV+N"
+          },
+          {
+            name: "Vintage Laptop O",
+            price: "PKR 499",
+            description: "Vintage laptop with classic design.",
+            image: "https://via.placeholder.com/300x200?text=Laptop+O"
+          }
+        ]
       };
-      
-      // Additional functions to load header/footer remain unchanged 
-    </script> 
-  </body> 
+      // Create a banner element for each category based on its index
+      function createBannerForCategory(category, index) {
+        let banner = document.createElement("div");
+        banner.className = "banner";
+        switch (index) {
+          case 0:
+            // Carousel Banner for Countdown Sales
+            banner.classList.add("carousel-banner");
+            banner.innerHTML = `
+              <div id="carouselBanner${index}" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                  <button type="button" data-bs-target="#carouselBanner${index}" data-bs-slide-to="0" class="active"></button>
+                  <button type="button" data-bs-target="#carouselBanner${index}" data-bs-slide-to="1"></button>
+                  <button type="button" data-bs-target="#carouselBanner${index}" data-bs-slide-to="2"></button>
+                </div>
+                <div class="carousel-inner">
+                  <div class="carousel-item active">
+                    <img src="https://via.placeholder.com/1200x150?text=Deal+1" class="d-block w-100" alt="Deal 1">
+                  </div>
+                  <div class="carousel-item">
+                    <img src="https://via.placeholder.com/1200x150?text=Deal+2" class="d-block w-100" alt="Deal 2">
+                  </div>
+                  <div class="carousel-item">
+                    <img src="https://via.placeholder.com/1200x150?text=Deal+3" class="d-block w-100" alt="Deal 3">
+                  </div>
+                </div>
+              </div>
+            `;
+            break;
+          case 1:
+            // Fullwidth Banner for Discount Offers
+            banner.classList.add("fullwidth-banner");
+            banner.innerHTML = `
+              <img src="https://via.placeholder.com/1200x150?text=Big+Discount+Offer" alt="Big Discount">
+              <div class="banner-text">Big Discounts Available!</div>
+            `;
+            break;
+          case 2:
+            // Accordion Banner for Hot Sales
+            banner.classList.add("accordion-banner");
+            banner.innerHTML = `
+              <div class="accordion" id="accordionBanner${index}">
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="headingOne${index}">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne${index}" aria-expanded="false">
+                      Hot Sales Offer
+                    </button>
+                  </h2>
+                  <div id="collapseOne${index}" class="accordion-collapse collapse">
+                    <div class="accordion-body">
+                      Exclusive hot sale deals for a limited time!
+                    </div>
+                  </div>
+                </div>
+              </div>
+            `;
+            break;
+          case 3:
+            // Three-Part Banner for Seasonal Offers
+            banner.classList.add("three-part-banner");
+            banner.innerHTML = `
+              <div class="banner-title">Seasonal Savings</div>
+              <div class="banner-desc">Special offers for the season.</div>
+              <div class="banner-img">
+                <img src="https://via.placeholder.com/150x150?text=Seasonal" alt="Seasonal">
+              </div>
+            `;
+            break;
+          case 4:
+            // Three-Part Banner for Clearance Sale
+            banner.classList.add("three-part-banner");
+            banner.innerHTML = `
+              <div class="banner-title">Clearance Sale</div>
+              <div class="banner-desc">Last chance deals on clearance items!</div>
+              <div class="banner-img">
+                <img src="https://via.placeholder.com/150x150?text=Clearance" alt="Clearance">
+              </div>
+            `;
+            break;
+          default:
+            banner.innerHTML = `<p>Special Offer</p>`;
+        }
+        return banner;
+      }
+      // Render main page with categories and banners
+      function initMainPage() {
+        document.getElementById("mainPage").style.display = "block";
+        document.getElementById("categoryPage").style.display = "none";
+        const container = document.getElementById("categoriesContainer");
+        container.innerHTML = "";
+        let index = 0;
+        for (let category in productData) {
+          let banner = createBannerForCategory(category, index);
+          container.appendChild(banner);
+          // Section for each category
+          let section = document.createElement("div");
+          section.innerHTML = `
+            <h2 class="mt-4">${category}</h2>
+            <div class="horizontal-scroll" id="scroll-${category.replace(/\s/g, '')}"></div>
+          `;
+          container.appendChild(section);
+          // Horizontal scroll container
+          let scrollContainer = document.getElementById(`scroll-${category.replace(/\s/g, '')}`);
+          productData[category].forEach(product => {
+            let card = document.createElement("div");
+            card.className = "card";
+            card.style.minWidth = "150px";
+            card.style.marginRight = "0.75rem";
+            // Clicking on the card opens that category page
+            card.onclick = function () {
+              openCategoryPage(category);
+            };
+            // Product tile layout
+            card.innerHTML = `
+              <img src="${product.image}" class="card-img-top" alt="${product.name}">
+              <div class="card-body text-center">
+                <p class="product-price">${product.price} <span class="product-old-price">PKR1,487</span></p>
+                <p class="product-orders">100K+ orders <i class="fa fa-star" style="color:#FFC107;"></i> 4.7</p>
+                <p class="text-success mb-0">Free shipping</p>
+              </div>
+            `;
+            scrollContainer.appendChild(card);
+          });
+          index++;
+        }
+      }
+      // Open dedicated category page (vertical grid view)
+      function openCategoryPage(category) {
+        document.getElementById("mainPage").style.display = "none";
+        document.getElementById("categoryPage").style.display = "block";
+        document.getElementById("categoryTitle").innerText = category;
+        const grid = document.getElementById("categoryProducts");
+        grid.innerHTML = "";
+        productData[category].forEach(product => {
+          let col = document.createElement("div");
+          col.className = "col-6 col-md-4 mb-4";
+          let card = document.createElement("div");
+          card.className = "card";
+          card.onclick = function () {
+            openProductModal(product);
+          };
+          // اسی طرز کا ڈیزائن کیٹیگری پیج پر بھی
+          card.innerHTML = `
+            <img src="${product.image}" class="card-img-top" alt="${product.name}">
+            <div class="card-body text-center">
+              <p class="product-price">${product.price} <span class="product-old-price">PKR1,487</span></p>
+              <p class="product-orders">100K+ orders <i class="fa fa-star" style="color:#FFC107;"></i> 4.7</p>
+              <p class="text-success mb-0">Free shipping</p>
+            </div>
+          `;
+          col.appendChild(card);
+          grid.appendChild(col);
+        });
+      }
+      // Go back to main categories view
+      function backToMain() {
+        document.getElementById("categoryPage").style.display = "none";
+        document.getElementById("mainPage").style.display = "block";
+      }
+      // Open modal with product details
+      function openProductModal(product) {
+        document.getElementById("modalProductImage").src = product.image;
+        document.getElementById("modalProductName").innerText = product.name;
+        document.getElementById("modalProductPrice").innerText = product.price;
+        document.getElementById("modalProductDescription").innerText = product.description;
+        var modal = new bootstrap.Modal(document.getElementById("productModal"));
+        modal.show();
+      }
+      // Initialize main page on window load
+      window.onload = function () {
+        initMainPage();
+      };
+    </script>
+  </body>
 </html>
