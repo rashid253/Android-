@@ -2,22 +2,22 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <!-- Ensure proper scaling on mobile devices -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>NextGen E-commerce - Shop Now</title>
-    <!-- Font Awesome for icons (only used for star ratings) -->
+    <!-- Font Awesome for star icons -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="style.css" />
     <!-- Bootstrap 5 CSS -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
+    <!-- Custom CSS for a clean, modern look -->
     <style>
-      /* Global Overrides */
+      /* Global resets & responsive typography */
       body {
         font-family: 'Roboto', sans-serif;
         background-color: #f3f4f6;
@@ -28,7 +28,7 @@
       a {
         text-decoration: none;
         color: inherit;
-        transition: color 0.3s ease;
+        transition: color 0.3s;
       }
       a:hover {
         color: #ff6f61;
@@ -53,18 +53,16 @@
         padding: 0 20px;
         transform: translateY(-20px);
       }
-      .hero-content h1,
-      .hero-content p {
-        color: #fff;
-      }
       .hero-content h1 {
         font-size: 3rem;
         font-weight: bold;
         margin-bottom: 1rem;
+        color: #fff;
       }
       .hero-content p {
         font-size: 1.2rem;
         margin-bottom: 1.5rem;
+        color: #fff;
       }
       .hero-content .btn {
         font-size: 1.2rem;
@@ -73,30 +71,19 @@
         color: #fff;
         border: none;
         border-radius: 4px;
-        transition: background 0.3s ease, transform 0.3s ease;
+        transition: background 0.3s, transform 0.3s;
       }
       .hero-content .btn:hover {
         background-color: #0056b3;
         transform: scale(1.05);
       }
-      /* Horizontal Scroll for Categories */
-      .horizontal-scroll {
-        display: flex;
-        overflow-x: auto;
-        gap: 1rem;
-        padding-bottom: 1rem;
-        margin-bottom: 2rem;
-      }
-      .horizontal-scroll::-webkit-scrollbar {
-        display: none;
-      }
-      /* Banner Styles */
+      /* Banner Styles (unchanged from before) */
       .banner {
         margin: 1rem 0;
         border-radius: 8px;
         overflow: hidden;
         background: #fff;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         height: 150px;
       }
       .banner img {
@@ -104,13 +91,8 @@
         height: 150px;
         object-fit: cover;
       }
-      .fullwidth-banner {
-        position: relative;
-      }
-      .fullwidth-banner img {
-        height: 150px;
-        opacity: 0.85;
-      }
+      .fullwidth-banner { position: relative; }
+      .fullwidth-banner img { height: 150px; opacity: 0.85; }
       .fullwidth-banner .banner-text {
         position: absolute;
         top: 50%;
@@ -147,7 +129,11 @@
         height: 100%;
         object-fit: contain;
       }
-      /* Product Tile Styles */
+      /* Product Cards – using Bootstrap’s card with border-0 & shadow-none */
+      .card {
+        border: none !important;
+        box-shadow: none !important;
+      }
       .card-img-top {
         width: 100%;
         height: 180px;
@@ -163,6 +149,13 @@
         color: #999;
         margin-left: 5px;
       }
+      .star-rating i {
+        color: #FFC107;
+      }
+      .product-stats small {
+        font-size: 0.875rem;
+        color: #555;
+      }
       /* Modal Customizations */
       .modal-header {
         border-bottom: 1px solid #dee2e6;
@@ -177,12 +170,17 @@
       .tab-content {
         padding-top: 1rem;
       }
+      /* Ensure thumbnails remain within frame without an extra box */
+      .thumbnail-container {
+        overflow: hidden;
+        border-radius: 4px;
+      }
     </style>
   </head>
   <body>
-    <!-- Header Placeholder (loaded dynamically) -->
+    <!-- Header (loaded dynamically if needed) -->
     <div id="header-placeholder"></div>
-    <!-- Main Ecommerce Content -->
+    <!-- Main Content -->
     <main>
       <!-- Hero Section -->
       <section class="hero">
@@ -192,11 +190,11 @@
           <a href="#categoriesContainer" class="btn">Shop Now</a>
         </div>
       </section>
-      <!-- Main Page: Categories with Banners and Horizontal Scroll -->
+      <!-- Main Page: Categories & Horizontal Scroll -->
       <div class="container my-4" id="mainPage">
         <h1 class="mb-4 text-center">Product Categories</h1>
         <div id="categoriesContainer">
-          <!-- Dynamic category sections will be rendered here -->
+          <!-- Categories & banners rendered dynamically -->
         </div>
       </div>
       <!-- Category Page: Vertical Grid of Products -->
@@ -204,10 +202,10 @@
         <button class="btn btn-secondary mb-3" onclick="backToMain()">Back to Categories</button>
         <h2 id="categoryTitle" class="mb-4"></h2>
         <div class="row" id="categoryProducts">
-          <!-- Products will be rendered here in a grid -->
+          <!-- Grid view products rendered dynamically -->
         </div>
       </div>
-      <!-- Modal: Extended Product Details -->
+      <!-- Modal: Product Details -->
       <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered">
           <div class="modal-content">
@@ -217,24 +215,26 @@
             </div>
             <div class="modal-body">
               <div class="container-fluid">
-                <!-- Top Section: Product Image & Basic Info -->
+                <!-- Top Section: Image & Basic Info -->
                 <div class="row">
                   <div class="col-md-5">
-                    <img id="modalProductImage" src="" class="img-fluid" alt="Product Image">
+                    <div class="thumbnail-container">
+                      <img id="modalProductImage" src="" class="img-fluid" alt="Product Image" />
+                    </div>
                   </div>
                   <div class="col-md-7">
                     <h4 id="modalProductName"></h4>
                     <p id="modalProductPrice" class="text-danger h5"></p>
-                    <!-- Star Rating (first line) -->
-                    <p id="modalProductRating" class="mb-1"></p>
-                    <!-- Added & Sold Info (second line) -->
-                    <p id="modalProductStats" class="small text-muted mb-3"></p>
-                    <button class="btn btn-primary mb-3">
+                    <!-- Star rating (first line) -->
+                    <p id="modalProductRating" class="star-rating mb-1"></p>
+                    <!-- Stats (second line) -->
+                    <p id="modalProductStats" class="product-stats mb-3"></p>
+                    <button class="btn btn-primary">
                       <i class="fa fa-shopping-cart me-1"></i> Add to Cart
                     </button>
                   </div>
                 </div>
-                <hr>
+                <hr />
                 <!-- Tabbed Section: Description, Reviews, Related Items -->
                 <ul class="nav nav-tabs" id="productTab" role="tablist">
                   <li class="nav-item" role="presentation">
@@ -248,13 +248,13 @@
                   </li>
                 </ul>
                 <div class="tab-content" id="productTabContent">
-                  <!-- Description Tab with auto-related items -->
+                  <!-- Description Tab -->
                   <div class="tab-pane fade show active" id="desc" role="tabpanel" aria-labelledby="desc-tab">
                     <div class="mt-3">
                       <p id="modalProductDescription">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel mauris quam.
                       </p>
-                      <!-- Auto-populated Related Items section -->
+                      <!-- Auto-populated Related Items -->
                       <div id="autoRelatedItems" class="mt-4">
                         <h5>Related Items</h5>
                         <div class="row" id="autoRelatedItemsRow"></div>
@@ -294,19 +294,19 @@
                       <button class="btn btn-success mt-2">Submit Review</button>
                     </div>
                   </div>
-                  <!-- Related Items Tab (static content) -->
+                  <!-- Related Items Tab (static sample) -->
                   <div class="tab-pane fade" id="related" role="tabpanel" aria-labelledby="related-tab">
                     <div class="mt-3 row" id="staticRelatedItems">
                       <div class="col-4 text-center">
-                        <img src="https://via.placeholder.com/100x100?text=Item+1" class="img-fluid" alt="Related 1">
+                        <img src="https://via.placeholder.com/100x100?text=Item+1" class="img-fluid" alt="Related 1" />
                         <p class="small">Item 1</p>
                       </div>
                       <div class="col-4 text-center">
-                        <img src="https://via.placeholder.com/100x100?text=Item+2" class="img-fluid" alt="Related 2">
+                        <img src="https://via.placeholder.com/100x100?text=Item+2" class="img-fluid" alt="Related 2" />
                         <p class="small">Item 2</p>
                       </div>
                       <div class="col-4 text-center">
-                        <img src="https://via.placeholder.com/100x100?text=Item+3" class="img-fluid" alt="Related 3">
+                        <img src="https://via.placeholder.com/100x100?text=Item+3" class="img-fluid" alt="Related 3" />
                         <p class="small">Item 3</p>
                       </div>
                     </div>
@@ -319,36 +319,35 @@
         </div>
       </div>
     </main>
-    <!-- Footer Placeholder -->
+    <!-- Footer (loaded dynamically if needed) -->
     <div id="footer-placeholder"></div>
-    <!-- Scripts -->
+    <!-- Bootstrap 5 JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-      // Helper function to generate star icons based on numeric rating
+      // Helper function to generate star icons (e.g. 4.5 renders four full stars and one half star)
       function generateStars(rating) {
         let html = "";
-        let fullStars = Math.floor(rating);
-        let halfStar = (rating - fullStars) >= 0.5 ? 1 : 0;
+        const fullStars = Math.floor(rating);
+        const halfStar = rating - fullStars >= 0.5;
         for (let i = 0; i < fullStars; i++) {
-          html += '<i class="fa fa-star" style="color:#FFC107;"></i>';
+          html += '<i class="fa fa-star"></i>';
         }
         if (halfStar) {
-          html += '<i class="fa fa-star-half-alt" style="color:#FFC107;"></i>';
+          html += '<i class="fa fa-star-half-alt"></i>';
         }
         return html;
       }
-
-      // Load header and footer dynamically
+      // Dynamically load header/footer (if files exist; otherwise use placeholders)
       function loadHTML(elementId, filePath) {
         fetch(filePath)
           .then(response => {
             if (!response.ok) {
               if (elementId === "header-placeholder") {
                 document.getElementById(elementId).innerHTML =
-                  '<header style="background:#333;color:#fff;padding:10px;text-align:center;">Header</header>';
+                  '<header class="py-3 text-center bg-dark text-white">Header</header>';
               } else if (elementId === "footer-placeholder") {
                 document.getElementById(elementId).innerHTML =
-                  '<footer style="background:#333;color:#fff;padding:10px;text-align:center;">Footer</footer>';
+                  '<footer class="py-3 text-center bg-dark text-white">Footer</footer>';
               }
               throw new Error("Error fetching " + filePath);
             }
@@ -365,7 +364,7 @@
       });
     </script>
     <script>
-      // Dummy product data with additional properties: rating, added, sold
+      // Dummy product data with properties: rating, added, sold
       const productData = {
         "Countdown Sales": [
           {
@@ -514,87 +513,7 @@
         ]
       };
 
-      // Create banner element for each category (unchanged)
-      function createBannerForCategory(category, index) {
-        let banner = document.createElement("div");
-        banner.className = "banner";
-        switch (index) {
-          case 0:
-            banner.classList.add("carousel-banner");
-            banner.innerHTML = `
-              <div id="carouselBanner${index}" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-indicators">
-                  <button type="button" data-bs-target="#carouselBanner${index}" data-bs-slide-to="0" class="active"></button>
-                  <button type="button" data-bs-target="#carouselBanner${index}" data-bs-slide-to="1"></button>
-                  <button type="button" data-bs-target="#carouselBanner${index}" data-bs-slide-to="2"></button>
-                </div>
-                <div class="carousel-inner">
-                  <div class="carousel-item active">
-                    <img src="https://via.placeholder.com/1200x150?text=Deal+1" class="d-block w-100" alt="Deal 1">
-                  </div>
-                  <div class="carousel-item">
-                    <img src="https://via.placeholder.com/1200x150?text=Deal+2" class="d-block w-100" alt="Deal 2">
-                  </div>
-                  <div class="carousel-item">
-                    <img src="https://via.placeholder.com/1200x150?text=Deal+3" class="d-block w-100" alt="Deal 3">
-                  </div>
-                </div>
-              </div>
-            `;
-            break;
-          case 1:
-            banner.classList.add("fullwidth-banner");
-            banner.innerHTML = `
-              <img src="https://via.placeholder.com/1200x150?text=Big+Discount+Offer" alt="Big Discount">
-              <div class="banner-text">Big Discounts Available!</div>
-            `;
-            break;
-          case 2:
-            banner.classList.add("accordion-banner");
-            banner.innerHTML = `
-              <div class="accordion" id="accordionBanner${index}">
-                <div class="accordion-item">
-                  <h2 class="accordion-header" id="headingOne${index}">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne${index}" aria-expanded="false">
-                      Hot Sales Offer
-                    </button>
-                  </h2>
-                  <div id="collapseOne${index}" class="accordion-collapse collapse">
-                    <div class="accordion-body">
-                      Exclusive hot sale deals for a limited time!
-                    </div>
-                  </div>
-                </div>
-              </div>
-            `;
-            break;
-          case 3:
-            banner.classList.add("three-part-banner");
-            banner.innerHTML = `
-              <div class="banner-title">Seasonal Savings</div>
-              <div class="banner-desc">Special offers for the season.</div>
-              <div class="banner-img">
-                <img src="https://via.placeholder.com/150x150?text=Seasonal" alt="Seasonal">
-              </div>
-            `;
-            break;
-          case 4:
-            banner.classList.add("three-part-banner");
-            banner.innerHTML = `
-              <div class="banner-title">Clearance Sale</div>
-              <div class="banner-desc">Last chance deals on clearance items!</div>
-              <div class="banner-img">
-                <img src="https://via.placeholder.com/150x150?text=Clearance" alt="Clearance">
-              </div>
-            `;
-            break;
-          default:
-            banner.innerHTML = `<p>Special Offer</p>`;
-        }
-        return banner;
-      }
-
-      // Render main page with categories and banners
+      // Render the main page: categories, banners, and horizontal scroll product thumbnails
       function initMainPage() {
         document.getElementById("mainPage").style.display = "block";
         document.getElementById("categoryPage").style.display = "none";
@@ -602,8 +521,10 @@
         container.innerHTML = "";
         let index = 0;
         for (let category in productData) {
+          // Create and append banner for the category
           let banner = createBannerForCategory(category, index);
           container.appendChild(banner);
+          // Create a section with a horizontal scroll container for products
           let section = document.createElement("div");
           section.innerHTML = `
             <h2 class="mt-4">${category}</h2>
@@ -612,22 +533,21 @@
           container.appendChild(section);
           let scrollContainer = document.getElementById(`scroll-${category.replace(/\s/g, '')}`);
           productData[category].forEach(product => {
-            let card = document.createElement("div");
-            card.className = "card";
+            const card = document.createElement("div");
+            // Use Bootstrap's card with no border/shadow; image appears as thumbnail
+            card.className = "card border-0";
             card.style.minWidth = "150px";
             card.style.marginRight = "0.75rem";
-            // Clicking on the card opens the dedicated category page
             card.onclick = function () {
               openCategoryPage(category);
             };
-            // Product card with two lines:
-            // 1st line: Star rating
-            // 2nd line: Plain text with added & sold info
             card.innerHTML = `
-              <img src="${product.image}" class="card-img-top" alt="${product.name}">
-              <div class="card-body text-center">
-                <p class="product-price">${product.price} <span class="product-old-price">PKR1,487</span></p>
-                <div class="star-rating mb-1">
+              <div class="thumbnail-container">
+                <img src="${product.image}" class="card-img-top img-fluid" alt="${product.name}">
+              </div>
+              <div class="card-body text-center p-2">
+                <p class="product-price m-0">${product.price} <span class="product-old-price">PKR1,487</span></p>
+                <div class="star-rating mt-1 mb-1">
                   ${generateStars(product.rating)}
                 </div>
                 <div class="product-stats">
@@ -641,7 +561,7 @@
         }
       }
 
-      // Open dedicated category page (vertical grid view)
+      // Open the category page with a grid view
       function openCategoryPage(category) {
         window.currentCategory = category;
         document.getElementById("mainPage").style.display = "none";
@@ -650,19 +570,20 @@
         const grid = document.getElementById("categoryProducts");
         grid.innerHTML = "";
         productData[category].forEach(product => {
-          let col = document.createElement("div");
+          const col = document.createElement("div");
           col.className = "col-6 col-md-4 mb-4";
-          let card = document.createElement("div");
-          card.className = "card";
+          const card = document.createElement("div");
+          card.className = "card border-0";
           card.onclick = function () {
             openProductModal(product);
           };
-          // Grid view product card with same two-line info
           card.innerHTML = `
-            <img src="${product.image}" class="card-img-top" alt="${product.name}">
-            <div class="card-body text-center">
-              <p class="product-price">${product.price} <span class="product-old-price">PKR1,487</span></p>
-              <div class="star-rating mb-1">
+            <div class="thumbnail-container">
+              <img src="${product.image}" class="card-img-top img-fluid" alt="${product.name}">
+            </div>
+            <div class="card-body text-center p-2">
+              <p class="product-price m-0">${product.price} <span class="product-old-price">PKR1,487</span></p>
+              <div class="star-rating mt-1 mb-1">
                 ${generateStars(product.rating)}
               </div>
               <div class="product-stats">
@@ -675,28 +596,27 @@
         });
       }
 
-      // Return to main categories view
+      // Return to the main categories view
       function backToMain() {
         document.getElementById("categoryPage").style.display = "none";
         document.getElementById("mainPage").style.display = "block";
       }
 
-      // Open modal with product details and auto-populate related items in the Description tab
+      // Open the product details modal and populate information (also auto-populate related items)
       function openProductModal(product) {
         document.getElementById("modalProductImage").src = product.image;
         document.getElementById("modalProductName").innerText = product.name;
         document.getElementById("modalProductPrice").innerText = product.price;
         document.getElementById("modalProductDescription").innerText = product.description;
-        // Set the star rating and stats in the modal details
         document.getElementById("modalProductRating").innerHTML = generateStars(product.rating);
         document.getElementById("modalProductStats").innerText = product.added + " Added | " + product.sold + " Sold";
-        
+
         let autoRelatedContainer = document.getElementById("autoRelatedItemsRow");
         autoRelatedContainer.innerHTML = "";
         if (window.currentCategory && productData[window.currentCategory]) {
           let related = productData[window.currentCategory].filter(p => p.name !== product.name);
           related.forEach(function(relatedProduct) {
-            let col = document.createElement("div");
+            const col = document.createElement("div");
             col.className = "col-4 text-center mb-3";
             col.innerHTML = `
               <img src="${relatedProduct.image}" class="img-fluid" alt="${relatedProduct.name}">
@@ -709,7 +629,7 @@
         modal.show();
       }
 
-      // Initialize main page on window load
+      // Initialize main page on load
       window.onload = function () {
         initMainPage();
       };
