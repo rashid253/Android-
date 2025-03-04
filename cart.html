@@ -395,37 +395,15 @@
         updateTrashCount();
       }
       
-      // Updated loadHTML function to extract only the needed header or footer and its styles.
+      // Load external header/footer
       function loadHTML(elementId, filePath) {
-        fetch(filePath)
+        return fetch(filePath)
           .then(response => {
             if (!response.ok) throw new Error("Error fetching " + filePath);
             return response.text();
           })
-          .then(data => {
-            var parser = new DOMParser();
-            var doc = parser.parseFromString(data, 'text/html');
-            if (filePath.includes("header.html")) {
-              // Extract and append header styles
-              var headerStyles = doc.head.querySelectorAll("style");
-              headerStyles.forEach(style => {
-                document.head.appendChild(style);
-              });
-              // Extract only the <header> element
-              var header = doc.querySelector("header");
-              document.getElementById(elementId).innerHTML = header ? header.outerHTML : data;
-            } else if (filePath.includes("footer.html")) {
-              // Extract and append footer styles
-              var footerStyles = doc.head.querySelectorAll("style");
-              footerStyles.forEach(style => {
-                document.head.appendChild(style);
-              });
-              // Extract only the <footer> element
-              var footer = doc.querySelector("footer");
-              document.getElementById(elementId).innerHTML = footer ? footer.outerHTML : data;
-            } else {
-              document.getElementById(elementId).innerHTML = data;
-            }
+          .then(html => {
+            document.getElementById(elementId).innerHTML = html;
           })
           .catch(error => console.error(error));
       }
@@ -462,10 +440,8 @@
         document.getElementById("checkout-button").addEventListener("click", () => {
           window.location.href = "checkout.html";
         });
-        // Display available tokens if needed
-        if (document.getElementById("user-tokens")) {
-          document.getElementById("user-tokens").innerText = userTokens;
-        }
+        // Display available tokens if needed (if header/footer use tokens display)
+        document.getElementById("user-tokens") && (document.getElementById("user-tokens").innerText = userTokens);
       });
     </script>
   </body>
