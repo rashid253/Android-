@@ -320,7 +320,7 @@
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-      // Helper function to generate star icons based on a numeric rating
+      // Helper function to generate star icons based on numeric rating
       function generateStars(rating) {
         let html = "";
         let fullStars = Math.floor(rating);
@@ -361,7 +361,7 @@
       });
     </script>
     <script>
-      // Dummy product data (with additional properties for rating, added, and sold)
+      // Dummy product data with additional properties: rating, added, sold
       const productData = {
         "Countdown Sales": [
           {
@@ -616,18 +616,25 @@
             card.onclick = function () {
               openCategoryPage(category);
             };
-            // Updated product card: first line shows star rating based on product.rating,
-            // second line shows added to cart and sold out info.
+            // Updated product card:
+            // First line: star rating (Reviews)
+            // Second line: Added to Cart and Sold Out counts
             card.innerHTML = `
               <img src="${product.image}" class="card-img-top" alt="${product.name}">
               <div class="card-body text-center">
                 <p class="product-price">${product.price} <span class="product-old-price">PKR1,487</span></p>
-                <div class="d-flex justify-content-center align-items-center mb-2">
-                  ${generateStars(product.rating)}
-                </div>
-                <div class="d-flex justify-content-center align-items-center">
-                  <i class="fa fa-shopping-cart me-1"></i>
-                  <small>${product.added} Added to Cart | ${product.sold} Sold Out</small>
+                <div class="d-flex justify-content-around align-items-center">
+                  <div class="product-reviews">
+                    ${generateStars(product.rating)}
+                  </div>
+                  <div class="product-added">
+                    <i class="fa fa-shopping-cart me-1"></i>
+                    <small>${product.added} Added</small>
+                  </div>
+                  <div class="product-sold">
+                    <i class="fa fa-box-open me-1"></i>
+                    <small>${product.sold} Sold</small>
+                  </div>
                 </div>
               </div>
             `;
@@ -653,17 +660,23 @@
           card.onclick = function () {
             openProductModal(product);
           };
-          // Updated grid view product card with the same two-line icon structure
+          // Updated grid view product card with same two-line info
           card.innerHTML = `
             <img src="${product.image}" class="card-img-top" alt="${product.name}">
             <div class="card-body text-center">
               <p class="product-price">${product.price} <span class="product-old-price">PKR1,487</span></p>
-              <div class="d-flex justify-content-center align-items-center mb-2">
-                ${generateStars(product.rating)}
-              </div>
-              <div class="d-flex justify-content-center align-items-center">
-                <i class="fa fa-shopping-cart me-1"></i>
-                <small>${product.added} Added to Cart | ${product.sold} Sold Out</small>
+              <div class="d-flex justify-content-around align-items-center">
+                <div class="product-reviews">
+                  ${generateStars(product.rating)}
+                </div>
+                <div class="product-added">
+                  <i class="fa fa-shopping-cart me-1"></i>
+                  <small>${product.added} Added</small>
+                </div>
+                <div class="product-sold">
+                  <i class="fa fa-box-open me-1"></i>
+                  <small>${product.sold} Sold</small>
+                </div>
               </div>
             </div>
           `;
