@@ -4,19 +4,18 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>NextGen E-commerce - Shop Now</title>
-    <!-- Font Awesome for icons (used in header/footer) -->
+    <!-- Font Awesome for icons (only used for star ratings) -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
-    <!-- Custom CSS for overall site (header, footer, etc.) -->
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css" />
-    <!-- Bootstrap 5 CSS for ecommerce-specific layout -->
+    <!-- Bootstrap 5 CSS -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
-    <!-- Inline Styles for Hero Section, Product Tiles & Modal -->
     <style>
       /* Global Overrides */
       body {
@@ -34,15 +33,13 @@
       a:hover {
         color: #ff6f61;
       }
-      /* Ensure footer doesn’t overlap main content */
       main {
         padding-bottom: 100px;
       }
-      /* Hero Section inspired by Google Play Store */
+      /* Hero Section */
       .hero {
         position: relative;
-        height: calc(500px + 3cm); /* اضافی اونچائی */
-        /* Using a vibrant blue-to-green gradient with Google colors */
+        height: calc(500px + 3cm);
         background: linear-gradient(135deg, #4285F4, #34A853);
         display: flex;
         align-items: center;
@@ -166,13 +163,6 @@
         color: #999;
         margin-left: 5px;
       }
-      .product-orders {
-        color: #666;
-        font-size: 0.9rem;
-      }
-      .text-success {
-        color: #28a745 !important;
-      }
       /* Modal Customizations */
       .modal-header {
         border-bottom: 1px solid #dee2e6;
@@ -190,7 +180,7 @@
     </style>
   </head>
   <body>
-    <!-- Header Placeholder (loaded dynamically as in index.html) -->
+    <!-- Header Placeholder (loaded dynamically) -->
     <div id="header-placeholder"></div>
     <!-- Main Ecommerce Content -->
     <main>
@@ -217,7 +207,7 @@
           <!-- Products will be rendered here in a grid -->
         </div>
       </div>
-      <!-- Modal: Extended Product Details (Image, Info, Tabs for Description, Reviews & Related Items) -->
+      <!-- Modal: Extended Product Details -->
       <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered">
           <div class="modal-content">
@@ -235,6 +225,10 @@
                   <div class="col-md-7">
                     <h4 id="modalProductName"></h4>
                     <p id="modalProductPrice" class="text-danger h5"></p>
+                    <!-- Star Rating (first line) -->
+                    <p id="modalProductRating" class="mb-1"></p>
+                    <!-- Added & Sold Info (second line) -->
+                    <p id="modalProductStats" class="small text-muted mb-3"></p>
                     <button class="btn btn-primary mb-3">
                       <i class="fa fa-shopping-cart me-1"></i> Add to Cart
                     </button>
@@ -254,25 +248,43 @@
                   </li>
                 </ul>
                 <div class="tab-content" id="productTabContent">
-                  <!-- Description Tab -->
+                  <!-- Description Tab with auto-related items -->
                   <div class="tab-pane fade show active" id="desc" role="tabpanel" aria-labelledby="desc-tab">
                     <div class="mt-3">
                       <p id="modalProductDescription">
-                        <!-- Product description will be inserted here. You can include extended details similar to Play Store's "About this app" section. -->
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel mauris quam. Vivamus ut neque nec erat placerat accumsan. Praesent euismod, nunc a luctus suscipit, enim nisi condimentum massa, nec laoreet nulla purus ac odio.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel mauris quam.
                       </p>
+                      <!-- Auto-populated Related Items section -->
+                      <div id="autoRelatedItems" class="mt-4">
+                        <h5>Related Items</h5>
+                        <div class="row" id="autoRelatedItemsRow"></div>
+                      </div>
                     </div>
                   </div>
                   <!-- Reviews Tab -->
                   <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
                     <div class="mt-3">
-                      <!-- Placeholder for public reviews -->
                       <div class="mb-3">
-                        <p><strong>User1:</strong> Amazing quality, highly recommended! <span class="text-warning"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-alt"></i></span></p>
+                        <p><strong>User1:</strong> Amazing quality, highly recommended!
+                          <span class="text-warning">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star-half-alt"></i>
+                          </span>
+                        </p>
                         <p><small>Reviewed on July 10, 2025</small></p>
                       </div>
                       <div class="mb-3">
-                        <p><strong>User2:</strong> Good value for money. <span class="text-warning"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></span></p>
+                        <p><strong>User2:</strong> Good value for money.
+                          <span class="text-warning">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                          </span>
+                        </p>
                         <p><small>Reviewed on July 8, 2025</small></p>
                       </div>
                     </div>
@@ -282,9 +294,9 @@
                       <button class="btn btn-success mt-2">Submit Review</button>
                     </div>
                   </div>
-                  <!-- Related Items Tab -->
+                  <!-- Related Items Tab (static content) -->
                   <div class="tab-pane fade" id="related" role="tabpanel" aria-labelledby="related-tab">
-                    <div class="mt-3 row">
+                    <div class="mt-3 row" id="staticRelatedItems">
                       <div class="col-4 text-center">
                         <img src="https://via.placeholder.com/100x100?text=Item+1" class="img-fluid" alt="Related 1">
                         <p class="small">Item 1</p>
@@ -307,19 +319,26 @@
         </div>
       </div>
     </main>
-    <!-- Footer Placeholder (loaded dynamically as in index.html) -->
+    <!-- Footer Placeholder -->
     <div id="footer-placeholder"></div>
     <!-- Scripts -->
-    <!-- Bootstrap 5 JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Script to load header and footer dynamically -->
     <script>
-      function toggleSideMenu() {
-        const sideMenu = document.getElementById("side-menu");
-        if (sideMenu) {
-          sideMenu.classList.toggle("visible");
+      // Helper function to generate star icons based on numeric rating
+      function generateStars(rating) {
+        let html = "";
+        let fullStars = Math.floor(rating);
+        let halfStar = (rating - fullStars) >= 0.5 ? 1 : 0;
+        for (let i = 0; i < fullStars; i++) {
+          html += '<i class="fa fa-star" style="color:#FFC107;"></i>';
         }
+        if (halfStar) {
+          html += '<i class="fa fa-star-half-alt" style="color:#FFC107;"></i>';
+        }
+        return html;
       }
+
+      // Load header and footer dynamically
       function loadHTML(elementId, filePath) {
         fetch(filePath)
           .then(response => {
@@ -331,7 +350,7 @@
                 document.getElementById(elementId).innerHTML =
                   '<footer style="background:#333;color:#fff;padding:10px;text-align:center;">Footer</footer>';
               }
-              throw new Error('Error fetching ' + filePath);
+              throw new Error("Error fetching " + filePath);
             }
             return response.text();
           })
@@ -341,32 +360,40 @@
           .catch(error => console.error(error));
       }
       document.addEventListener("DOMContentLoaded", function () {
-        loadHTML('header-placeholder', 'header.html');
-        loadHTML('footer-placeholder', 'footer.html');
+        loadHTML("header-placeholder", "header.html");
+        loadHTML("footer-placeholder", "footer.html");
       });
     </script>
-    <!-- Ecommerce-specific JavaScript -->
     <script>
-      // Dummy product data per category
+      // Dummy product data with additional properties: rating, added, sold
       const productData = {
         "Countdown Sales": [
           {
             name: "Smartphone A",
             price: "PKR 894",
             description: "High-performance smartphone.",
-            image: "https://via.placeholder.com/300x200?text=Smartphone+A"
+            image: "https://via.placeholder.com/300x200?text=Smartphone+A",
+            rating: 4.5,
+            added: "500",
+            sold: "3k"
           },
           {
             name: "Smart TV B",
             price: "PKR 557",
             description: "4K Ultra HD Smart TV.",
-            image: "https://via.placeholder.com/300x200?text=Smart+TV+B"
+            image: "https://via.placeholder.com/300x200?text=Smart+TV+B",
+            rating: 4,
+            added: "400",
+            sold: "2.5k"
           },
           {
             name: "Laptop C",
             price: "PKR 1,004",
             description: "Gaming laptop with high performance.",
-            image: "https://via.placeholder.com/300x200?text=Laptop+C"
+            image: "https://via.placeholder.com/300x200?text=Laptop+C",
+            rating: 4.5,
+            added: "600",
+            sold: "3.2k"
           }
         ],
         "Discount Offers": [
@@ -374,19 +401,28 @@
             name: "Headphones D",
             price: "PKR 600",
             description: "Noise cancelling headphones.",
-            image: "https://via.placeholder.com/300x200?text=Headphones+D"
+            image: "https://via.placeholder.com/300x200?text=Headphones+D",
+            rating: 4,
+            added: "350",
+            sold: "2k"
           },
           {
             name: "Speaker E",
             price: "PKR 999",
             description: "Wireless speaker with deep bass.",
-            image: "https://via.placeholder.com/300x200?text=Speaker+E"
+            image: "https://via.placeholder.com/300x200?text=Speaker+E",
+            rating: 4.5,
+            added: "450",
+            sold: "2.8k"
           },
           {
             name: "Camera F",
             price: "PKR 1,299",
             description: "High resolution digital camera.",
-            image: "https://via.placeholder.com/300x200?text=Camera+F"
+            image: "https://via.placeholder.com/300x200?text=Camera+F",
+            rating: 4,
+            added: "300",
+            sold: "1.9k"
           }
         ],
         "Hot Sales": [
@@ -394,19 +430,28 @@
             name: "Smartwatch G",
             price: "PKR 999",
             description: "Feature-rich smartwatch.",
-            image: "https://via.placeholder.com/300x200?text=Smartwatch+G"
+            image: "https://via.placeholder.com/300x200?text=Smartwatch+G",
+            rating: 4.5,
+            added: "550",
+            sold: "3k"
           },
           {
             name: "Tablet H",
             price: "PKR 1,700",
             description: "Latest generation tablet.",
-            image: "https://via.placeholder.com/300x200?text=Tablet+H"
+            image: "https://via.placeholder.com/300x200?text=Tablet+H",
+            rating: 4,
+            added: "400",
+            sold: "2.7k"
           },
           {
             name: "Drone I",
             price: "PKR 2,999",
             description: "High-performance drone.",
-            image: "https://via.placeholder.com/300x200?text=Drone+I"
+            image: "https://via.placeholder.com/300x200?text=Drone+I",
+            rating: 4.5,
+            added: "320",
+            sold: "2.5k"
           }
         ],
         "Seasonal Offers": [
@@ -414,19 +459,28 @@
             name: "Jacket J",
             price: "PKR 499",
             description: "Warm and stylish jacket.",
-            image: "https://via.placeholder.com/300x200?text=Jacket+J"
+            image: "https://via.placeholder.com/300x200?text=Jacket+J",
+            rating: 4,
+            added: "280",
+            sold: "1.8k"
           },
           {
             name: "Boots K",
             price: "PKR 1,199",
             description: "Comfortable boots.",
-            image: "https://via.placeholder.com/300x200?text=Boots+K"
+            image: "https://via.placeholder.com/300x200?text=Boots+K",
+            rating: 4.5,
+            added: "330",
+            sold: "2k"
           },
           {
             name: "Scarf L",
             price: "PKR 299",
             description: "Cozy scarf for winter.",
-            image: "https://via.placeholder.com/300x200?text=Scarf+L"
+            image: "https://via.placeholder.com/300x200?text=Scarf+L",
+            rating: 4,
+            added: "250",
+            sold: "1.5k"
           }
         ],
         "Clearance Sale": [
@@ -434,29 +488,38 @@
             name: "Old Model Phone M",
             price: "PKR 199",
             description: "Last year's smartphone model.",
-            image: "https://via.placeholder.com/300x200?text=Phone+M"
+            image: "https://via.placeholder.com/300x200?text=Phone+M",
+            rating: 3.5,
+            added: "150",
+            sold: "1k"
           },
           {
             name: "Outdated TV N",
             price: "PKR 299",
             description: "Old model television.",
-            image: "https://via.placeholder.com/300x200?text=TV+N"
+            image: "https://via.placeholder.com/300x200?text=TV+N",
+            rating: 3,
+            added: "120",
+            sold: "900"
           },
           {
             name: "Vintage Laptop O",
             price: "PKR 499",
             description: "Vintage laptop with classic design.",
-            image: "https://via.placeholder.com/300x200?text=Laptop+O"
+            image: "https://via.placeholder.com/300x200?text=Laptop+O",
+            rating: 3.5,
+            added: "100",
+            sold: "800"
           }
         ]
       };
-      // Create a banner element for each category based on its index
+
+      // Create banner element for each category (unchanged)
       function createBannerForCategory(category, index) {
         let banner = document.createElement("div");
         banner.className = "banner";
         switch (index) {
           case 0:
-            // Carousel Banner for Countdown Sales
             banner.classList.add("carousel-banner");
             banner.innerHTML = `
               <div id="carouselBanner${index}" class="carousel slide" data-bs-ride="carousel">
@@ -480,7 +543,6 @@
             `;
             break;
           case 1:
-            // Fullwidth Banner for Discount Offers
             banner.classList.add("fullwidth-banner");
             banner.innerHTML = `
               <img src="https://via.placeholder.com/1200x150?text=Big+Discount+Offer" alt="Big Discount">
@@ -488,7 +550,6 @@
             `;
             break;
           case 2:
-            // Accordion Banner for Hot Sales
             banner.classList.add("accordion-banner");
             banner.innerHTML = `
               <div class="accordion" id="accordionBanner${index}">
@@ -508,7 +569,6 @@
             `;
             break;
           case 3:
-            // Three-Part Banner for Seasonal Offers
             banner.classList.add("three-part-banner");
             banner.innerHTML = `
               <div class="banner-title">Seasonal Savings</div>
@@ -519,7 +579,6 @@
             `;
             break;
           case 4:
-            // Three-Part Banner for Clearance Sale
             banner.classList.add("three-part-banner");
             banner.innerHTML = `
               <div class="banner-title">Clearance Sale</div>
@@ -534,6 +593,7 @@
         }
         return banner;
       }
+
       // Render main page with categories and banners
       function initMainPage() {
         document.getElementById("mainPage").style.display = "block";
@@ -544,31 +604,35 @@
         for (let category in productData) {
           let banner = createBannerForCategory(category, index);
           container.appendChild(banner);
-          // Section for each category
           let section = document.createElement("div");
           section.innerHTML = `
             <h2 class="mt-4">${category}</h2>
             <div class="horizontal-scroll" id="scroll-${category.replace(/\s/g, '')}"></div>
           `;
           container.appendChild(section);
-          // Horizontal scroll container
           let scrollContainer = document.getElementById(`scroll-${category.replace(/\s/g, '')}`);
           productData[category].forEach(product => {
             let card = document.createElement("div");
             card.className = "card";
             card.style.minWidth = "150px";
             card.style.marginRight = "0.75rem";
-            // Clicking on the card opens that category page
+            // Clicking on the card opens the dedicated category page
             card.onclick = function () {
               openCategoryPage(category);
             };
-            // Product tile layout
+            // Product card with two lines:
+            // 1st line: Star rating
+            // 2nd line: Plain text with added & sold info
             card.innerHTML = `
               <img src="${product.image}" class="card-img-top" alt="${product.name}">
               <div class="card-body text-center">
                 <p class="product-price">${product.price} <span class="product-old-price">PKR1,487</span></p>
-                <p class="product-orders">100K+ orders <i class="fa fa-star" style="color:#FFC107;"></i> 4.7</p>
-                <p class="text-success mb-0">Free shipping</p>
+                <div class="star-rating mb-1">
+                  ${generateStars(product.rating)}
+                </div>
+                <div class="product-stats">
+                  <small>${product.added} Added | ${product.sold} Sold</small>
+                </div>
               </div>
             `;
             scrollContainer.appendChild(card);
@@ -576,8 +640,10 @@
           index++;
         }
       }
+
       // Open dedicated category page (vertical grid view)
       function openCategoryPage(category) {
+        window.currentCategory = category;
         document.getElementById("mainPage").style.display = "none";
         document.getElementById("categoryPage").style.display = "block";
         document.getElementById("categoryTitle").innerText = category;
@@ -591,33 +657,58 @@
           card.onclick = function () {
             openProductModal(product);
           };
+          // Grid view product card with same two-line info
           card.innerHTML = `
             <img src="${product.image}" class="card-img-top" alt="${product.name}">
             <div class="card-body text-center">
               <p class="product-price">${product.price} <span class="product-old-price">PKR1,487</span></p>
-              <p class="product-orders">100K+ orders <i class="fa fa-star" style="color:#FFC107;"></i> 4.7</p>
-              <p class="text-success mb-0">Free shipping</p>
+              <div class="star-rating mb-1">
+                ${generateStars(product.rating)}
+              </div>
+              <div class="product-stats">
+                <small>${product.added} Added | ${product.sold} Sold</small>
+              </div>
             </div>
           `;
           col.appendChild(card);
           grid.appendChild(col);
         });
       }
-      // Go back to main categories view
+
+      // Return to main categories view
       function backToMain() {
         document.getElementById("categoryPage").style.display = "none";
         document.getElementById("mainPage").style.display = "block";
       }
-      // Open modal with extended product details and additional info
+
+      // Open modal with product details and auto-populate related items in the Description tab
       function openProductModal(product) {
         document.getElementById("modalProductImage").src = product.image;
         document.getElementById("modalProductName").innerText = product.name;
         document.getElementById("modalProductPrice").innerText = product.price;
-        // Insert product description into the Description tab
         document.getElementById("modalProductDescription").innerText = product.description;
+        // Set the star rating and stats in the modal details
+        document.getElementById("modalProductRating").innerHTML = generateStars(product.rating);
+        document.getElementById("modalProductStats").innerText = product.added + " Added | " + product.sold + " Sold";
+        
+        let autoRelatedContainer = document.getElementById("autoRelatedItemsRow");
+        autoRelatedContainer.innerHTML = "";
+        if (window.currentCategory && productData[window.currentCategory]) {
+          let related = productData[window.currentCategory].filter(p => p.name !== product.name);
+          related.forEach(function(relatedProduct) {
+            let col = document.createElement("div");
+            col.className = "col-4 text-center mb-3";
+            col.innerHTML = `
+              <img src="${relatedProduct.image}" class="img-fluid" alt="${relatedProduct.name}">
+              <p class="small">${relatedProduct.name}</p>
+            `;
+            autoRelatedContainer.appendChild(col);
+          });
+        }
         var modal = new bootstrap.Modal(document.getElementById("productModal"));
         modal.show();
       }
+
       // Initialize main page on window load
       window.onload = function () {
         initMainPage();
