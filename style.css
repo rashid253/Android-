@@ -8,7 +8,7 @@ body {
   font-family: 'Roboto', sans-serif;
   background-color: #f4f4f4;
   color: #333;
-  /* Reserve space for fixed header and bottom navigation */
+  /* Reserve space for fixed header and bottom nav */
   padding-top: 70px;
   padding-bottom: 70px;
 }
@@ -47,7 +47,7 @@ body {
   color: #007bff;
 }
 
-/* Desktop Navigation - Hide entirely (not required at top) */
+/* Hide desktop navigation (we do not want duplicate icons at top) */
 .nav-desktop {
   display: none;
 }
@@ -60,6 +60,7 @@ body {
   font-size: 1.8rem;
   cursor: pointer;
   display: block;
+  margin-top: 0;
 }
 
 /* Mobile Side Menu */
@@ -160,7 +161,7 @@ body {
   margin-top: 3px;
 }
 
-/* (Optional) Fixed Footer */
+/* Fixed Footer (optional) */
 .footer {
   position: fixed;
   bottom: 70px;
@@ -175,7 +176,7 @@ body {
   z-index: 1000;
 }
 
-/* Cart Icon & Badge */
+/* Cart Icon & Badge (if used in mobile nav or elsewhere) */
 .cart-icon {
   position: relative;
 }
@@ -190,14 +191,16 @@ body {
   font-size: 10px;
 }
 
-/* Responsive Adjustments for Larger Screens (if needed) */
+/* Responsive Adjustments (if any desktop-specific styling is needed) */
 @media (min-width: 600px) {
-  /* For a mobile app, you might still want to use bottom nav only.
-     Here we keep the header simple with only the brand and hamburger. */
-  .mobile-nav,
+  /* For a mobile app, we want to use the header with hamburger & bottom nav only.
+     Desktop nav and footer can remain hidden or be re-styled as needed. */
+  .menu-toggle,
   .side-menu,
+  .mobile-nav,
   .footer {
-    display: none;
+    /* For this mobile app design, we keep these visible only on mobile.
+       You can adjust this media query if needed. */
+    display: block;
   }
-  /* If desired, you can add desktop-specific styling here */
 }
