@@ -22,17 +22,22 @@
         color: #2d3748;
         margin: 0;
         padding: 0;
+        /* IMPORTANT: add top margin so the fixed header doesn't overlap content */
+        margin-top: 70px; 
         scroll-behavior: smooth;
       }
+
       a {
         text-decoration: none;
         color: inherit;
       }
-      /* Header & Footer Placeholders */
+
+      /* Header & Footer placeholders */
       #header-placeholder,
       #footer-placeholder {
         width: 100%;
       }
+
       /* Horizontal Navigation Bar */
       .section-nav {
         background: #fff;
@@ -41,8 +46,8 @@
         justify-content: space-around;
         align-items: center;
         position: sticky;
-        top: 0;
-        z-index: 1000;
+        top: 0; /* This keeps the nav bar sticky as well */
+        z-index: 999; /* slightly less than the header's z-index so it stays below */
         padding: 10px 0;
       }
       .section-nav a {
@@ -60,6 +65,7 @@
       .section-nav a:hover {
         color: #0056b3;
       }
+
       /* Product Details Section */
       .product-details {
         display: flex;
@@ -99,6 +105,7 @@
       .add-to-cart-btn {
         margin-top: 15px;
       }
+
       /* Section Styling */
       section {
         margin: 20px;
@@ -110,6 +117,7 @@
       section h3 {
         margin-bottom: 15px;
       }
+
       /* Description Section */
       #section-description .content {
         max-height: 150px;
@@ -129,6 +137,7 @@
         margin-left: auto;
         margin-right: auto;
       }
+
       /* Reviews Section */
       .review-item {
         border-bottom: 1px solid #e0e0e0;
@@ -157,6 +166,7 @@
       .star-icon.selected {
         color: #FFC107;
       }
+
       /* Related Items Section */
       .related-items {
         display: flex;
@@ -309,18 +319,22 @@
       // Function to load external HTML into an element
       function loadHTML(elementId, filePath) {
         fetch(filePath)
-          .then(response => {
+          .then((response) => {
             if (!response.ok) {
               throw new Error("Network response was not ok for " + filePath);
             }
             return response.text();
           })
-          .then(html => {
+          .then((html) => {
             document.getElementById(elementId).innerHTML = html;
           })
-          .catch(error => console.error("Error loading " + filePath + ":", error));
+          .catch((error) =>
+            console.error("Error loading " + filePath + ":", error)
+          );
       }
+
       document.addEventListener("DOMContentLoaded", function () {
+        // Attempt to load external header and footer
         loadHTML("header-placeholder", "header.html");
         loadHTML("footer-placeholder", "footer.html");
       });
@@ -334,15 +348,18 @@
           image: "https://via.placeholder.com/400x300?text=Product+Image",
           rating: 0,
           added: "0",
-          sold: "0"
+          sold: "0",
         };
 
       // Populate product details
       document.getElementById("productName").innerText = product.name;
       document.getElementById("productPrice").innerText = product.price;
-      document.getElementById("productDescription").innerText = product.description;
+      document.getElementById("productDescription").innerText =
+        product.description;
       document.getElementById("productImage").src = product.image;
-      document.getElementById("productRating").innerHTML = generateStars(product.rating);
+      document.getElementById("productRating").innerHTML = generateStars(
+        product.rating
+      );
       document.getElementById("productStats").innerText =
         product.added + " Added | " + product.sold + " Sold";
 
@@ -361,23 +378,28 @@
       }
 
       // Description "Read More" functionality
-      document.getElementById("descReadMore").addEventListener("click", function () {
-        const descContent = document.getElementById("descriptionContent");
-        if (descContent.style.maxHeight === "none") {
-          descContent.style.maxHeight = "150px";
-          this.textContent = "Read More";
-        } else {
-          descContent.style.maxHeight = "none";
-          this.textContent = "Show Less";
-        }
-      });
+      document
+        .getElementById("descReadMore")
+        .addEventListener("click", function () {
+          const descContent = document.getElementById("descriptionContent");
+          if (descContent.style.maxHeight === "none") {
+            descContent.style.maxHeight = "150px";
+            this.textContent = "Read More";
+          } else {
+            descContent.style.maxHeight = "none";
+            this.textContent = "Show Less";
+          }
+        });
 
       // Reviews "Read More" toggle for individual reviews
       document.addEventListener("click", function (e) {
         if (e.target && e.target.classList.contains("review-read-more")) {
           const fullReview = e.target.parentElement.nextElementSibling;
           if (fullReview && fullReview.classList.contains("review-full")) {
-            if (fullReview.style.display === "none" || fullReview.style.display === "") {
+            if (
+              fullReview.style.display === "none" ||
+              fullReview.style.display === ""
+            ) {
               fullReview.style.display = "block";
               e.target.textContent = " Show less";
             } else {
