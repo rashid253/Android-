@@ -320,6 +320,21 @@
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+      // Helper function to generate star icons based on a numeric rating
+      function generateStars(rating) {
+        let html = "";
+        let fullStars = Math.floor(rating);
+        let halfStar = (rating - fullStars) >= 0.5 ? 1 : 0;
+        for (let i = 0; i < fullStars; i++) {
+          html += '<i class="fa fa-star" style="color:#FFC107;"></i>';
+        }
+        if (halfStar) {
+          html += '<i class="fa fa-star-half-alt" style="color:#FFC107;"></i>';
+        }
+        return html;
+      }
+
+      // Load header and footer dynamically
       function loadHTML(elementId, filePath) {
         fetch(filePath)
           .then(response => {
@@ -331,7 +346,7 @@
                 document.getElementById(elementId).innerHTML =
                   '<footer style="background:#333;color:#fff;padding:10px;text-align:center;">Footer</footer>';
               }
-              throw new Error('Error fetching ' + filePath);
+              throw new Error("Error fetching " + filePath);
             }
             return response.text();
           })
@@ -341,30 +356,40 @@
           .catch(error => console.error(error));
       }
       document.addEventListener("DOMContentLoaded", function () {
-        loadHTML('header-placeholder', 'header.html');
-        loadHTML('footer-placeholder', 'footer.html');
+        loadHTML("header-placeholder", "header.html");
+        loadHTML("footer-placeholder", "footer.html");
       });
     </script>
     <script>
+      // Dummy product data (with additional properties for rating, added, and sold)
       const productData = {
         "Countdown Sales": [
           {
             name: "Smartphone A",
             price: "PKR 894",
             description: "High-performance smartphone.",
-            image: "https://via.placeholder.com/300x200?text=Smartphone+A"
+            image: "https://via.placeholder.com/300x200?text=Smartphone+A",
+            rating: 4.5,
+            added: "500",
+            sold: "3k"
           },
           {
             name: "Smart TV B",
             price: "PKR 557",
             description: "4K Ultra HD Smart TV.",
-            image: "https://via.placeholder.com/300x200?text=Smart+TV+B"
+            image: "https://via.placeholder.com/300x200?text=Smart+TV+B",
+            rating: 4,
+            added: "400",
+            sold: "2.5k"
           },
           {
             name: "Laptop C",
             price: "PKR 1,004",
             description: "Gaming laptop with high performance.",
-            image: "https://via.placeholder.com/300x200?text=Laptop+C"
+            image: "https://via.placeholder.com/300x200?text=Laptop+C",
+            rating: 4.5,
+            added: "600",
+            sold: "3.2k"
           }
         ],
         "Discount Offers": [
@@ -372,19 +397,28 @@
             name: "Headphones D",
             price: "PKR 600",
             description: "Noise cancelling headphones.",
-            image: "https://via.placeholder.com/300x200?text=Headphones+D"
+            image: "https://via.placeholder.com/300x200?text=Headphones+D",
+            rating: 4,
+            added: "350",
+            sold: "2k"
           },
           {
             name: "Speaker E",
             price: "PKR 999",
             description: "Wireless speaker with deep bass.",
-            image: "https://via.placeholder.com/300x200?text=Speaker+E"
+            image: "https://via.placeholder.com/300x200?text=Speaker+E",
+            rating: 4.5,
+            added: "450",
+            sold: "2.8k"
           },
           {
             name: "Camera F",
             price: "PKR 1,299",
             description: "High resolution digital camera.",
-            image: "https://via.placeholder.com/300x200?text=Camera+F"
+            image: "https://via.placeholder.com/300x200?text=Camera+F",
+            rating: 4,
+            added: "300",
+            sold: "1.9k"
           }
         ],
         "Hot Sales": [
@@ -392,19 +426,28 @@
             name: "Smartwatch G",
             price: "PKR 999",
             description: "Feature-rich smartwatch.",
-            image: "https://via.placeholder.com/300x200?text=Smartwatch+G"
+            image: "https://via.placeholder.com/300x200?text=Smartwatch+G",
+            rating: 4.5,
+            added: "550",
+            sold: "3k"
           },
           {
             name: "Tablet H",
             price: "PKR 1,700",
             description: "Latest generation tablet.",
-            image: "https://via.placeholder.com/300x200?text=Tablet+H"
+            image: "https://via.placeholder.com/300x200?text=Tablet+H",
+            rating: 4,
+            added: "400",
+            sold: "2.7k"
           },
           {
             name: "Drone I",
             price: "PKR 2,999",
             description: "High-performance drone.",
-            image: "https://via.placeholder.com/300x200?text=Drone+I"
+            image: "https://via.placeholder.com/300x200?text=Drone+I",
+            rating: 4.5,
+            added: "320",
+            sold: "2.5k"
           }
         ],
         "Seasonal Offers": [
@@ -412,19 +455,28 @@
             name: "Jacket J",
             price: "PKR 499",
             description: "Warm and stylish jacket.",
-            image: "https://via.placeholder.com/300x200?text=Jacket+J"
+            image: "https://via.placeholder.com/300x200?text=Jacket+J",
+            rating: 4,
+            added: "280",
+            sold: "1.8k"
           },
           {
             name: "Boots K",
             price: "PKR 1,199",
             description: "Comfortable boots.",
-            image: "https://via.placeholder.com/300x200?text=Boots+K"
+            image: "https://via.placeholder.com/300x200?text=Boots+K",
+            rating: 4.5,
+            added: "330",
+            sold: "2k"
           },
           {
             name: "Scarf L",
             price: "PKR 299",
             description: "Cozy scarf for winter.",
-            image: "https://via.placeholder.com/300x200?text=Scarf+L"
+            image: "https://via.placeholder.com/300x200?text=Scarf+L",
+            rating: 4,
+            added: "250",
+            sold: "1.5k"
           }
         ],
         "Clearance Sale": [
@@ -432,23 +484,33 @@
             name: "Old Model Phone M",
             price: "PKR 199",
             description: "Last year's smartphone model.",
-            image: "https://via.placeholder.com/300x200?text=Phone+M"
+            image: "https://via.placeholder.com/300x200?text=Phone+M",
+            rating: 3.5,
+            added: "150",
+            sold: "1k"
           },
           {
             name: "Outdated TV N",
             price: "PKR 299",
             description: "Old model television.",
-            image: "https://via.placeholder.com/300x200?text=TV+N"
+            image: "https://via.placeholder.com/300x200?text=TV+N",
+            rating: 3,
+            added: "120",
+            sold: "900"
           },
           {
             name: "Vintage Laptop O",
             price: "PKR 499",
             description: "Vintage laptop with classic design.",
-            image: "https://via.placeholder.com/300x200?text=Laptop+O"
+            image: "https://via.placeholder.com/300x200?text=Laptop+O",
+            rating: 3.5,
+            added: "100",
+            sold: "800"
           }
         ]
       };
 
+      // Create banner element for each category (unchanged)
       function createBannerForCategory(category, index) {
         let banner = document.createElement("div");
         banner.className = "banner";
@@ -528,6 +590,7 @@
         return banner;
       }
 
+      // Render main page with categories and banners
       function initMainPage() {
         document.getElementById("mainPage").style.display = "block";
         document.getElementById("categoryPage").style.display = "none";
@@ -549,27 +612,22 @@
             card.className = "card";
             card.style.minWidth = "150px";
             card.style.marginRight = "0.75rem";
+            // Clicking on the card opens the dedicated category page
             card.onclick = function () {
               openCategoryPage(category);
             };
-            // Updated product card with three inline icons
+            // Updated product card: first line shows star rating based on product.rating,
+            // second line shows added to cart and sold out info.
             card.innerHTML = `
               <img src="${product.image}" class="card-img-top" alt="${product.name}">
               <div class="card-body text-center">
                 <p class="product-price">${product.price} <span class="product-old-price">PKR1,487</span></p>
-                <div class="d-flex justify-content-between align-items-center">
-                  <span class="d-flex align-items-center">
-                    <i class="fa fa-star me-1" style="color:#FFC107;"></i>
-                    <small>Reviews</small>
-                  </span>
-                  <span class="d-flex align-items-center">
-                    <i class="fa fa-shopping-cart me-1"></i>
-                    <small>Add to Cart</small>
-                  </span>
-                  <span class="d-flex align-items-center">
-                    <i class="fa fa-box-open me-1"></i>
-                    <small>Sold Out</small>
-                  </span>
+                <div class="d-flex justify-content-center align-items-center mb-2">
+                  ${generateStars(product.rating)}
+                </div>
+                <div class="d-flex justify-content-center align-items-center">
+                  <i class="fa fa-shopping-cart me-1"></i>
+                  <small>${product.added} Added to Cart | ${product.sold} Sold Out</small>
                 </div>
               </div>
             `;
@@ -579,6 +637,7 @@
         }
       }
 
+      // Open dedicated category page (vertical grid view)
       function openCategoryPage(category) {
         window.currentCategory = category;
         document.getElementById("mainPage").style.display = "none";
@@ -594,24 +653,17 @@
           card.onclick = function () {
             openProductModal(product);
           };
-          // Updated grid view product card with three inline icons
+          // Updated grid view product card with the same two-line icon structure
           card.innerHTML = `
             <img src="${product.image}" class="card-img-top" alt="${product.name}">
             <div class="card-body text-center">
               <p class="product-price">${product.price} <span class="product-old-price">PKR1,487</span></p>
-              <div class="d-flex justify-content-between align-items-center">
-                <span class="d-flex align-items-center">
-                  <i class="fa fa-star me-1" style="color:#FFC107;"></i>
-                  <small>Reviews</small>
-                </span>
-                <span class="d-flex align-items-center">
-                  <i class="fa fa-shopping-cart me-1"></i>
-                  <small>Add to Cart</small>
-                </span>
-                <span class="d-flex align-items-center">
-                  <i class="fa fa-box-open me-1"></i>
-                  <small>Sold Out</small>
-                </span>
+              <div class="d-flex justify-content-center align-items-center mb-2">
+                ${generateStars(product.rating)}
+              </div>
+              <div class="d-flex justify-content-center align-items-center">
+                <i class="fa fa-shopping-cart me-1"></i>
+                <small>${product.added} Added to Cart | ${product.sold} Sold Out</small>
               </div>
             </div>
           `;
@@ -620,11 +672,13 @@
         });
       }
 
+      // Return to main categories view
       function backToMain() {
         document.getElementById("categoryPage").style.display = "none";
         document.getElementById("mainPage").style.display = "block";
       }
 
+      // Open modal with product details and auto-populate related items in the Description tab
       function openProductModal(product) {
         document.getElementById("modalProductImage").src = product.image;
         document.getElementById("modalProductName").innerText = product.name;
@@ -649,6 +703,7 @@
         modal.show();
       }
 
+      // Initialize main page on window load
       window.onload = function () {
         initMainPage();
       };
