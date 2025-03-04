@@ -1,13 +1,39 @@
 <!-- header.html -->
-<header>
-  <div class="logo">
-    <img src="images/logo.png" alt="Logo">
+<!-- Fixed Header -->
+<header class="header">
+  <div class="header-content">
+    <div class="brand">
+      <i class="fas fa-briefcase"></i> <span>MyBusiness</span>
+    </div>
+    <!-- Desktop Navigation (visible on larger screens) -->
+    <nav class="nav-desktop">
+      <a href="index.html" onclick="openPage('index.html')"><i class="fas fa-home"></i></a>
+      <a href="offers.html" onclick="openPage('offers.html')"><i class="fas fa-tags"></i></a>
+      <a href="analytics.html" onclick="openPage('analytics.html')"><i class="fas fa-chart-line"></i></a>
+      <a href="ecommerce.html" onclick="openPage('ecommerce.html')"><i class="fas fa-shopping-cart"></i></a>
+      <a href="more.html" onclick="openPage('more.html')"><i class="fas fa-ellipsis-h"></i></a>
+    </nav>
+    <!-- Hamburger for Mobile -->
+    <button class="menu-toggle" onclick="toggleSideMenu()">
+      <i class="fas fa-bars"></i>
+    </button>
   </div>
-  <nav>
-    <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="contact.html">Contact</a></li>
-    </ul>
-  </nav>
 </header>
+
+<!-- Mobile Side Menu -->
+<aside id="side-menu" class="side-menu">
+  <a href="index.html" onclick="openPage('index.html'); toggleSideMenu()">Home</a>
+  <a href="offers.html" onclick="openPage('offers.html'); toggleSideMenu()">Offers</a>
+  <a href="analytics.html" onclick="openPage('analytics.html'); toggleSideMenu()">Analytics</a>
+  <a href="ecommerce.html" onclick="openPage('ecommerce.html'); toggleSideMenu()">Shop</a>
+  <a href="more.html" onclick="openPage('more.html'); toggleSideMenu()">More</a>
+</aside>
+
+<!-- Fixed Bottom Navigation (Mobile) -->
+<nav class="mobile-nav">
+  <a href="index.html" onclick="openPage('index.html')"><i class="fas fa-home"></i><span>Home</span></a>
+  <a href="offers.html" onclick="openPage('offers.html')"><i class="fas fa-tags"></i><span>Offers</span></a>
+  <a href="analytics.html" onclick="openPage('analytics.html')"><i class="fas fa-chart-line"></i><span>Analytics</span></a>
+  <a href="ecommerce.html" onclick="openPage('ecommerce.html')"><i class="fas fa-shopping-cart"></i><span>Shop</span></a>
+  <a href="more.html" onclick="openPage('more.html')"><i class="fas fa-ellipsis-h"></i><span>More</span></a>
+</nav>
