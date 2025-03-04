@@ -16,18 +16,18 @@
     />
     <!-- Global Styles -->
     <link rel="stylesheet" href="style.css" />
-    <!-- Custom JavaScript (include header functionality) -->
+    <!-- Custom JavaScript -->
     <script src="script.js" defer></script>
     <style>
       /* Additional overrides for details.html */
 
-      /* Push page content down to accommodate fixed header (adjust if needed) */
+      /* Ensure content is pushed down by the fixed header (70px here) */
       body {
         margin-top: 70px;
         scroll-behavior: smooth;
       }
 
-      /* Sticky Section Navigation (appears below the header) */
+      /* Sticky Section Navigation (below header) */
       .section-nav {
         background: #fff;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -160,7 +160,6 @@
     <section id="section-related" class="container">
       <h3>Related Items</h3>
       <div class="related-items" id="relatedItemsContainer">
-        <!-- Dummy related items -->
         <div class="related-item">
           <img src="https://via.placeholder.com/140x100?text=Item+1" alt="Item 1" />
           <p class="small">Item 1</p>
@@ -186,7 +185,7 @@
     <!-- Bootstrap JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-      // Modified loadHTML() function that extracts styles and scripts.
+      // Basic loadHTML function that loads external HTML content.
       function loadHTML(elementId, filePath) {
         return fetch(filePath)
           .then((response) => {
@@ -199,12 +198,12 @@
             const parser = new DOMParser();
             const doc = parser.parseFromString(htmlText, "text/html");
 
-            // Append style tags to document head.
+            // Append style tags to head.
             doc.querySelectorAll("style").forEach((styleTag) => {
               document.head.appendChild(styleTag.cloneNode(true));
             });
 
-            // Append script tags to document head.
+            // Append script tags to head.
             doc.querySelectorAll("script").forEach((scriptTag) => {
               const newScript = document.createElement("script");
               if (scriptTag.src) {
@@ -225,13 +224,13 @@
           );
       }
 
-      document.addEventListener("DOMContentLoaded", function () {
-        loadHTML("header-placeholder", "header.html").then(() => {
-          // After header loads, initialize its functionality if available.
-          if (typeof initializeHeader === "function") {
-            initializeHeader();
-          } else {
-            // Fallback: attach hamburger toggle if not initialized.
+      // Use MutationObserver to detect when header is injected, then attach hamburger toggle.
+      function observeHeaderAndAttachToggle() {
+        const targetNode = document.getElementById("header-placeholder");
+        if (!targetNode) return;
+        const observer = new MutationObserver((mutationsList, observer) => {
+          if (targetNode.innerHTML.trim().length > 0) {
+            // Header content is loaded; now attach hamburger event.
             const menuToggle = document.querySelector(".menu-toggle");
             if (menuToggle) {
               menuToggle.addEventListener("click", function () {
@@ -240,13 +239,22 @@
                   sideMenu.classList.toggle("visible");
                 }
               });
+              // Once attached, disconnect observer.
+              observer.disconnect();
             }
           }
+        });
+        observer.observe(targetNode, { childList: true, subtree: true });
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        loadHTML("header-placeholder", "header.html").then(() => {
+          observeHeaderAndAttachToggle();
         });
         loadHTML("footer-placeholder", "footer.html");
       });
 
-      // Dummy product data (for now; later replace with Firebase)
+      // Dummy product data (replace with Firebase integration later)
       const product =
         JSON.parse(localStorage.getItem("selectedProduct")) || {
           name: "Default Product",
@@ -270,7 +278,7 @@
       document.getElementById("productStats").innerText =
         product.added + " Added | " + product.sold + " Sold";
 
-      // Helper to generate star rating HTML.
+      // Helper function to generate star rating HTML.
       function generateStars(rating) {
         let html = "";
         const fullStars = Math.floor(rating);
@@ -298,7 +306,7 @@
           }
         });
 
-      // Reviews "Read More" toggle.
+      // Reviews "Read More" toggle functionality.
       document.addEventListener("click", function (e) {
         if (e.target && e.target.classList.contains("review-read-more")) {
           const fullReview = e.target.parentElement.nextElementSibling;
