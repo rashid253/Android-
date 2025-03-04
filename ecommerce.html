@@ -77,7 +77,18 @@
         background-color: #0056b3;
         transform: scale(1.05);
       }
-      /* Banner Styles (unchanged from before) */
+      /* Horizontal scroll container */
+      .horizontal-scroll {
+        display: flex;
+        gap: 1rem;
+        overflow-x: auto;
+        padding-bottom: 1rem;
+        margin-bottom: 2rem;
+      }
+      .horizontal-scroll::-webkit-scrollbar {
+        display: none;
+      }
+      /* Banner styles (for demonstration; adjust as needed) */
       .banner {
         margin: 1rem 0;
         border-radius: 8px;
@@ -91,53 +102,23 @@
         height: 150px;
         object-fit: cover;
       }
-      .fullwidth-banner { position: relative; }
-      .fullwidth-banner img { height: 150px; opacity: 0.85; }
-      .fullwidth-banner .banner-text {
-        position: absolute;
-        top: 50%;
-        left: 10%;
-        transform: translateY(-50%);
-        color: #fff;
-        font-size: 1.2rem;
-        font-weight: bold;
-      }
-      .accordion-banner .accordion-button {
-        font-weight: bold;
-        font-size: 1rem;
-      }
-      .three-part-banner {
-        display: flex;
-        align-items: center;
-        padding: 0 1rem;
-        height: 150px;
-      }
-      .three-part-banner .banner-title {
-        flex: 1;
-        font-size: 1.1rem;
-        font-weight: bold;
-      }
-      .three-part-banner .banner-desc {
-        flex: 2;
-        font-size: 0.95rem;
-      }
-      .three-part-banner .banner-img {
-        flex: 1;
-        text-align: right;
-      }
-      .three-part-banner .banner-img img {
-        height: 100%;
-        object-fit: contain;
-      }
-      /* Product Cards – using Bootstrap’s card with border-0 & shadow-none */
+      /* Product Card – remove borders/shadows for a clean thumbnail look */
       .card {
         border: none !important;
         box-shadow: none !important;
+      }
+      /* Fixed thumbnail container to keep images inside a defined frame */
+      .thumbnail-container {
+        overflow: hidden;
+        border-radius: 4px;
       }
       .card-img-top {
         width: 100%;
         height: 180px;
         object-fit: cover;
+      }
+      .card-body {
+        padding: 0.5rem 0.75rem;
       }
       .product-price {
         font-weight: bold;
@@ -149,9 +130,11 @@
         color: #999;
         margin-left: 5px;
       }
+      /* Star rating styling */
       .star-rating i {
         color: #FFC107;
       }
+      /* Stats styling */
       .product-stats small {
         font-size: 0.875rem;
         color: #555;
@@ -170,16 +153,12 @@
       .tab-content {
         padding-top: 1rem;
       }
-      /* Ensure thumbnails remain within frame without an extra box */
-      .thumbnail-container {
-        overflow: hidden;
-        border-radius: 4px;
-      }
     </style>
   </head>
   <body>
-    <!-- Header (loaded dynamically if needed) -->
+    <!-- Header (optional dynamic load) -->
     <div id="header-placeholder"></div>
+
     <!-- Main Content -->
     <main>
       <!-- Hero Section -->
@@ -190,21 +169,24 @@
           <a href="#categoriesContainer" class="btn">Shop Now</a>
         </div>
       </section>
-      <!-- Main Page: Categories & Horizontal Scroll -->
+
+      <!-- Main Page: Categories & Horizontal Scroll of Products -->
       <div class="container my-4" id="mainPage">
         <h1 class="mb-4 text-center">Product Categories</h1>
         <div id="categoriesContainer">
-          <!-- Categories & banners rendered dynamically -->
+          <!-- Categories, banners, and product thumbnails will be rendered here -->
         </div>
       </div>
-      <!-- Category Page: Vertical Grid of Products -->
+
+      <!-- Category Page: Grid View -->
       <div class="container my-4" id="categoryPage" style="display: none;">
         <button class="btn btn-secondary mb-3" onclick="backToMain()">Back to Categories</button>
         <h2 id="categoryTitle" class="mb-4"></h2>
         <div class="row" id="categoryProducts">
-          <!-- Grid view products rendered dynamically -->
+          <!-- Grid view products will be rendered here -->
         </div>
       </div>
+
       <!-- Modal: Product Details -->
       <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered">
@@ -215,7 +197,7 @@
             </div>
             <div class="modal-body">
               <div class="container-fluid">
-                <!-- Top Section: Image & Basic Info -->
+                <!-- Top Section: Product Image & Basic Info -->
                 <div class="row">
                   <div class="col-md-5">
                     <div class="thumbnail-container">
@@ -225,9 +207,9 @@
                   <div class="col-md-7">
                     <h4 id="modalProductName"></h4>
                     <p id="modalProductPrice" class="text-danger h5"></p>
-                    <!-- Star rating (first line) -->
+                    <!-- First line: Star Rating -->
                     <p id="modalProductRating" class="star-rating mb-1"></p>
-                    <!-- Stats (second line) -->
+                    <!-- Second line: Plain stats text -->
                     <p id="modalProductStats" class="product-stats mb-3"></p>
                     <button class="btn btn-primary">
                       <i class="fa fa-shopping-cart me-1"></i> Add to Cart
@@ -319,25 +301,14 @@
         </div>
       </div>
     </main>
-    <!-- Footer (loaded dynamically if needed) -->
+
+    <!-- Footer (optional dynamic load) -->
     <div id="footer-placeholder"></div>
+
     <!-- Bootstrap 5 JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Optional: Dynamic header/footer loading -->
     <script>
-      // Helper function to generate star icons (e.g. 4.5 renders four full stars and one half star)
-      function generateStars(rating) {
-        let html = "";
-        const fullStars = Math.floor(rating);
-        const halfStar = rating - fullStars >= 0.5;
-        for (let i = 0; i < fullStars; i++) {
-          html += '<i class="fa fa-star"></i>';
-        }
-        if (halfStar) {
-          html += '<i class="fa fa-star-half-alt"></i>';
-        }
-        return html;
-      }
-      // Dynamically load header/footer (if files exist; otherwise use placeholders)
       function loadHTML(elementId, filePath) {
         fetch(filePath)
           .then(response => {
@@ -363,8 +334,23 @@
         loadHTML("footer-placeholder", "footer.html");
       });
     </script>
+    <!-- JavaScript for generating stars and dynamic content -->
     <script>
-      // Dummy product data with properties: rating, added, sold
+      // Helper function: generate star icons based on a numeric rating
+      function generateStars(rating) {
+        let html = "";
+        const fullStars = Math.floor(rating);
+        const halfStar = rating - fullStars >= 0.5;
+        for (let i = 0; i < fullStars; i++) {
+          html += '<i class="fa fa-star"></i>';
+        }
+        if (halfStar) {
+          html += '<i class="fa fa-star-half-alt"></i>';
+        }
+        return html;
+      }
+
+      // Dummy product data (normally from your database)
       const productData = {
         "Countdown Sales": [
           {
@@ -513,7 +499,7 @@
         ]
       };
 
-      // Render the main page: categories, banners, and horizontal scroll product thumbnails
+      // Render the main page with categories and horizontal-scroll product cards
       function initMainPage() {
         document.getElementById("mainPage").style.display = "block";
         document.getElementById("categoryPage").style.display = "none";
@@ -521,10 +507,10 @@
         container.innerHTML = "";
         let index = 0;
         for (let category in productData) {
-          // Create and append banner for the category
+          // Create and append a banner for the category
           let banner = createBannerForCategory(category, index);
           container.appendChild(banner);
-          // Create a section with a horizontal scroll container for products
+          // Create a section header and horizontal-scroll container for products
           let section = document.createElement("div");
           section.innerHTML = `
             <h2 class="mt-4">${category}</h2>
@@ -534,8 +520,7 @@
           let scrollContainer = document.getElementById(`scroll-${category.replace(/\s/g, '')}`);
           productData[category].forEach(product => {
             const card = document.createElement("div");
-            // Use Bootstrap's card with no border/shadow; image appears as thumbnail
-            card.className = "card border-0";
+            card.className = "card";
             card.style.minWidth = "150px";
             card.style.marginRight = "0.75rem";
             card.onclick = function () {
@@ -561,7 +546,7 @@
         }
       }
 
-      // Open the category page with a grid view
+      // Open a category page (grid view)
       function openCategoryPage(category) {
         window.currentCategory = category;
         document.getElementById("mainPage").style.display = "none";
@@ -573,7 +558,7 @@
           const col = document.createElement("div");
           col.className = "col-6 col-md-4 mb-4";
           const card = document.createElement("div");
-          card.className = "card border-0";
+          card.className = "card";
           card.onclick = function () {
             openProductModal(product);
           };
@@ -596,13 +581,13 @@
         });
       }
 
-      // Return to the main categories view
+      // Go back to the main categories view
       function backToMain() {
         document.getElementById("categoryPage").style.display = "none";
         document.getElementById("mainPage").style.display = "block";
       }
 
-      // Open the product details modal and populate information (also auto-populate related items)
+      // Open the product details modal and populate the information
       function openProductModal(product) {
         document.getElementById("modalProductImage").src = product.image;
         document.getElementById("modalProductName").innerText = product.name;
@@ -629,7 +614,7 @@
         modal.show();
       }
 
-      // Initialize main page on load
+      // Initialize main page on window load
       window.onload = function () {
         initMainPage();
       };
