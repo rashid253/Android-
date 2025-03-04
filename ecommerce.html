@@ -5,17 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>NextGen E-commerce - Shop Now</title>
     <!-- Font Awesome for icons (used for star ratings) -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css" />
     <!-- Bootstrap 5 CSS -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
     <style>
       /* Global Overrides */
       body {
@@ -36,7 +30,7 @@
       main {
         padding-bottom: 100px;
       }
-      /* Hero Section (restored original font sizes) */
+      /* Hero Section */
       .hero {
         position: relative;
         height: calc(500px + 3cm);
@@ -163,35 +157,17 @@
         color: #999;
         margin-left: 5px;
       }
-      /* Modal Customizations */
-      .modal-header {
-        border-bottom: 1px solid #dee2e6;
-      }
-      .tab-content {
-        padding-top: 1rem;
-      }
-      /* Updated Star Rating Style */
       .star-rating i {
-        font-size: 1rem; /* Modern star size */
+        font-size: 1rem;
         transition: transform 0.2s ease, color 0.2s ease;
       }
       .star-rating i:hover {
         transform: scale(1.1);
       }
-      .product-stats small,
-      #modalProductStats {
-        font-size: 0.75rem; /* Smaller font for added & sold info */
+      .product-stats small {
+        font-size: 0.75rem;
       }
-      /* Reviews container styling */
-      .reviews-container {
-        position: relative;
-        max-height: 150px;
-        overflow: hidden;
-      }
-      .review-item .full-review {
-        margin-top: 0.5rem;
-      }
-      /* Responsive adjustments for mobile devices (excluding hero section sizes) */
+      /* Responsive adjustments for mobile devices */
       @media (max-width: 576px) {
         .card {
           font-size: 0.9rem;
@@ -203,7 +179,7 @@
     </style>
   </head>
   <body>
-    <!-- Header Placeholder (loaded dynamically) -->
+    <!-- Header Placeholder -->
     <div id="header-placeholder"></div>
     <!-- Main Ecommerce Content -->
     <main>
@@ -228,158 +204,6 @@
         <h2 id="categoryTitle" class="mb-4"></h2>
         <div class="row" id="categoryProducts">
           <!-- Products will be rendered here in a grid -->
-        </div>
-      </div>
-      <!-- Modal: Extended Product Details -->
-      <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="productModalLabel">Product Details</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <div class="container-fluid">
-                <!-- Top Section: Product Image & Basic Info -->
-                <div class="row">
-                  <div class="col-md-5">
-                    <img id="modalProductImage" src="" class="img-fluid" alt="Product Image">
-                  </div>
-                  <div class="col-md-7">
-                    <h4 id="modalProductName"></h4>
-                    <p id="modalProductPrice" class="text-danger h5"></p>
-                    <!-- Star Rating -->
-                    <p id="modalProductRating" class="mb-1"></p>
-                    <!-- Added & Sold Info -->
-                    <p id="modalProductStats" class="small text-muted mb-3"></p>
-                    <button class="btn btn-primary mb-3">
-                      <i class="fa fa-shopping-cart me-1"></i> Add to Cart
-                    </button>
-                  </div>
-                </div>
-                <hr>
-                <!-- Horizontal Tab Bar with Icons -->
-                <ul class="nav nav-tabs" id="productTab" role="tablist">
-                  <li class="nav-item" role="presentation">
-                    <button
-                      class="nav-link active"
-                      id="desc-tab"
-                      data-bs-toggle="tab"
-                      data-bs-target="#desc"
-                      type="button"
-                      role="tab"
-                      aria-controls="desc"
-                      aria-selected="true"
-                    >
-                      <i class="fa fa-file-text"></i> Description
-                    </button>
-                  </li>
-                  <li class="nav-item" role="presentation">
-                    <button
-                      class="nav-link"
-                      id="reviews-tab"
-                      data-bs-toggle="tab"
-                      data-bs-target="#reviews"
-                      type="button"
-                      role="tab"
-                      aria-controls="reviews"
-                      aria-selected="false"
-                    >
-                      <i class="fa fa-star"></i> Reviews
-                    </button>
-                  </li>
-                  <li class="nav-item" role="presentation">
-                    <button
-                      class="nav-link"
-                      id="related-tab"
-                      data-bs-toggle="tab"
-                      data-bs-target="#related"
-                      type="button"
-                      role="tab"
-                      aria-controls="related"
-                      aria-selected="false"
-                    >
-                      <i class="fa fa-th"></i> Related Items
-                    </button>
-                  </li>
-                </ul>
-                <div class="tab-content" id="productTabContent">
-                  <!-- Description Tab -->
-                  <div class="tab-pane fade show active" id="desc" role="tabpanel" aria-labelledby="desc-tab">
-                    <div class="mt-3">
-                      <p id="modalProductDescription">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel mauris quam.
-                      </p>
-                    </div>
-                  </div>
-                  <!-- Reviews & Rating Tab -->
-                  <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
-                    <div class="mt-3">
-                      <!-- Reviews Section with fixed height and view more option -->
-                      <div class="reviews-container" id="reviewsContainer">
-                        <div class="review-item mb-3">
-                          <p>
-                            <strong>User1:</strong> Amazing quality, highly recommended!
-                            <span class="text-warning">
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star-half-alt"></i>
-                            </span>
-                            <span class="read-more" style="color: blue; cursor: pointer;">...Read more</span>
-                          </p>
-                          <p><small>Reviewed on July 10, 2025</small></p>
-                          <p class="full-review" style="display: none;">
-                            Full review text for User1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                          </p>
-                        </div>
-                        <div class="review-item mb-3">
-                          <p>
-                            <strong>User2:</strong> Good value for money.
-                            <span class="text-warning">
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star"></i>
-                            </span>
-                            <span class="read-more" style="color: blue; cursor: pointer;">...Read more</span>
-                          </p>
-                          <p><small>Reviewed on July 8, 2025</small></p>
-                          <p class="full-review" style="display: none;">
-                            Full review text for User2. Additional details about the product experience go here.
-                          </p>
-                        </div>
-                      </div>
-                      <button id="viewMoreReviews" class="btn btn-link">View More Reviews</button>
-                      <!-- Write a Review Section with star rating input -->
-                      <div class="mt-3">
-                        <h6>Write a Review</h6>
-                        <div id="ratingStars" class="mb-2">
-                          <i class="fa fa-star star-icon" data-value="1" style="cursor:pointer;"></i>
-                          <i class="fa fa-star star-icon" data-value="2" style="cursor:pointer;"></i>
-                          <i class="fa fa-star star-icon" data-value="3" style="cursor:pointer;"></i>
-                          <i class="fa fa-star star-icon" data-value="4" style="cursor:pointer;"></i>
-                          <i class="fa fa-star star-icon" data-value="5" style="cursor:pointer;"></i>
-                        </div>
-                        <textarea class="form-control" rows="3" placeholder="Share your experience after purchasing"></textarea>
-                        <button class="btn btn-success mt-2">Submit Review</button>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- Related Items Tab -->
-                  <div class="tab-pane fade" id="related" role="tabpanel" aria-labelledby="related-tab">
-                    <div class="mt-3">
-                      <div class="horizontal-scroll" id="autoRelatedItemsRow">
-                        <!-- Related items inserted dynamically -->
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <!-- End of Tab Content -->
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </main>
@@ -423,12 +247,12 @@
           })
           .catch(error => console.error(error));
       }
+      
       document.addEventListener("DOMContentLoaded", function () {
         loadHTML("header-placeholder", "header.html");
         loadHTML("footer-placeholder", "footer.html");
       });
-    </script>
-    <script>
+      
       // Dummy product data with additional properties: rating, added, sold
       const productData = {
         "Countdown Sales": [
@@ -679,6 +503,7 @@
             card.style.minWidth = "150px";
             card.style.marginRight = "0.75rem";
             card.onclick = function () {
+              // In the main page horizontal scroll, clicking opens the category page
               openCategoryPage(category);
             };
             card.innerHTML = `
@@ -712,7 +537,7 @@
           let card = document.createElement("div");
           card.className = "card";
           card.onclick = function () {
-            openProductModal(product);
+            openProductDetails(product);
           };
           card.innerHTML = `
             <img src="${product.image}" class="card-img-top" alt="${product.name}">
@@ -736,78 +561,15 @@
         document.getElementById("mainPage").style.display = "block";
       }
 
-      function openProductModal(product) {
-        document.getElementById("modalProductImage").src = product.image;
-        document.getElementById("modalProductName").innerText = product.name;
-        document.getElementById("modalProductPrice").innerText = product.price;
-        document.getElementById("modalProductDescription").innerText = product.description;
-        document.getElementById("modalProductRating").innerHTML = generateStars(product.rating);
-        document.getElementById("modalProductStats").innerText = product.added + " Added | " + product.sold + " Sold";
-        let autoRelatedContainer = document.getElementById("autoRelatedItemsRow");
-        autoRelatedContainer.innerHTML = "";
-        if (window.currentCategory && productData[window.currentCategory]) {
-          let related = productData[window.currentCategory].filter(p => p.name !== product.name);
-          related.forEach(function(relatedProduct) {
-            let col = document.createElement("div");
-            col.className = "col-4 text-center mb-3";
-            col.innerHTML = `
-              <img src="${relatedProduct.image}" class="img-fluid" alt="${relatedProduct.name}">
-              <p class="small">${relatedProduct.name}</p>
-            `;
-            autoRelatedContainer.appendChild(col);
-          });
-        }
-        var modal = new bootstrap.Modal(document.getElementById("productModal"));
-        modal.show();
+      function openProductDetails(product) {
+        // Save the selected product details in localStorage then navigate to details.html
+        localStorage.setItem("selectedProduct", JSON.stringify(product));
+        window.location.href = "details.html";
       }
 
       window.onload = function () {
         initMainPage();
       };
-
-      // --- Additional JavaScript for new modal features ---
-      // Toggle individual review "Read more" for each review item
-      document.addEventListener('click', function(e) {
-        if (e.target && e.target.classList.contains('read-more')) {
-          let fullReview = e.target.parentElement.nextElementSibling;
-          if (fullReview && fullReview.classList.contains('full-review')) {
-            if (fullReview.style.display === 'none' || fullReview.style.display === '') {
-              fullReview.style.display = 'block';
-              e.target.textContent = ' Show less';
-            } else {
-              fullReview.style.display = 'none';
-              e.target.textContent = '...Read more';
-            }
-          }
-        }
-      });
-
-      // Toggle the reviews container height on "View More Reviews"
-      document.getElementById('viewMoreReviews').addEventListener('click', function() {
-        var reviewsContainer = document.getElementById('reviewsContainer');
-        if (reviewsContainer.style.maxHeight === 'none') {
-          reviewsContainer.style.maxHeight = '150px';
-          this.textContent = 'View More Reviews';
-        } else {
-          reviewsContainer.style.maxHeight = 'none';
-          this.textContent = 'View Less Reviews';
-        }
-      });
-
-      // Rating stars behavior in the Write a Review section
-      const stars = document.querySelectorAll('#ratingStars .star-icon');
-      stars.forEach(star => {
-        star.addEventListener('click', function() {
-          let rating = this.getAttribute('data-value');
-          stars.forEach(s => {
-            if(s.getAttribute('data-value') <= rating) {
-              s.style.color = '#FFC107';
-            } else {
-              s.style.color = '';
-            }
-          });
-        });
-      });
     </script>
   </body>
 </html>
