@@ -9,13 +9,24 @@
   <!-- Google Fonts -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" />
   <style>
-    /* Global Reset */
+    /* Global Reset and Base Styles */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: 'Roboto', sans-serif; background: #f7f7f7; color: #333; }
+    a { text-decoration: none; color: inherit; }
+    
+    /* Container */
     .container { width: 90%; max-width: 1200px; margin: 20px auto; }
-    header, footer { background: #fff; padding: 15px 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-bottom: 20px; }
+    
+    /* Header and Footer */
+    header, footer {
+      background: #fff; 
+      padding: 15px 20px; 
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
     header .brand { font-size: 1.8rem; font-weight: 700; }
-
+    footer { text-align: center; font-size: 0.9rem; color: #777; }
+    
     /* Category Filter Bar */
     .category-bar { display: flex; gap: 10px; margin-bottom: 20px; }
     .category-bar button {
@@ -33,64 +44,151 @@
       border-color: #4285f4;
       color: #fff;
     }
-
+    
     /* Product Listing Grid */
-    #product-listing { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 20px; }
+    #product-listing { 
+      display: grid; 
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
+      gap: 20px; 
+    }
     .product-card {
       background: #fff;
       border-radius: 8px;
+      overflow: hidden;
       box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-      padding: 10px;
       cursor: pointer;
-      transition: transform 0.2s;
+      transition: transform 0.2s, box-shadow 0.2s;
     }
-    .product-card:hover { transform: translateY(-3px); }
-    .product-card img { width: 100%; height: 140px; object-fit: cover; border-radius: 4px; }
-    .product-card h3 { font-size: 1rem; margin: 10px 0 5px; }
+    .product-card:hover { 
+      transform: translateY(-3px); 
+      box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+    }
+    .product-card img { 
+      width: 100%; 
+      height: 150px; 
+      object-fit: cover; 
+      display: block;
+    }
+    .product-card .card-content {
+      padding: 10px;
+    }
+    .product-card h3 { font-size: 1.1rem; margin-bottom: 5px; }
     .product-card .price { color: #4285f4; font-weight: 500; }
-
+    
     /* Product Detail View */
-    #product-detail { display: none; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-    #product-detail .back-btn { margin-bottom: 15px; cursor: pointer; color: #4285f4; }
-    .detail-header { display: flex; gap: 20px; border-bottom: 1px solid #ddd; padding-bottom: 20px; }
-    .detail-image { flex: 0 0 200px; }
-    .detail-image img { width: 200px; height: 200px; object-fit: cover; border-radius: 8px; }
-    .detail-info { flex: 1; }
-    .detail-info h1 { font-size: 1.8rem; margin-bottom: 10px; }
-    .detail-info .price { font-size: 1.4rem; color: #4285f4; margin-bottom: 10px; }
+    #product-detail { 
+      display: none; 
+      background: #fff; 
+      border-radius: 8px; 
+      padding: 20px; 
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    #product-detail .back-btn { 
+      margin-bottom: 15px; 
+      cursor: pointer; 
+      color: #4285f4; 
+      font-size: 1rem;
+    }
+    .detail-header { 
+      display: flex; 
+      gap: 20px; 
+      border-bottom: 1px solid #e0e0e0; 
+      padding-bottom: 20px;
+    }
+    .detail-image { 
+      flex: 0 0 300px; 
+    }
+    .detail-image img { 
+      width: 300px; 
+      height: 300px; 
+      object-fit: cover; 
+      border-radius: 8px;
+    }
+    .detail-info { 
+      flex: 1; 
+    }
+    .detail-info h1 { font-size: 2rem; margin-bottom: 10px; }
+    .detail-info .price { font-size: 1.6rem; color: #4285f4; margin-bottom: 10px; }
+    .detail-info .meta { color: #777; margin-bottom: 15px; }
     .detail-info .description { line-height: 1.6; margin-bottom: 15px; }
-    .add-to-cart { background: #28a745; color: #fff; padding: 10px 20px; border: none; border-radius: 4px; font-size: 1rem; cursor: pointer; transition: background 0.3s; }
+    .add-to-cart {
+      background: #28a745; 
+      color: #fff; 
+      padding: 12px 25px; 
+      border: none; 
+      border-radius: 4px; 
+      font-size: 1rem; 
+      cursor: pointer; 
+      transition: background 0.3s;
+    }
     .add-to-cart:hover { background: #218838; }
-
+    
+    /* Tabs for Detail View */
+    .tab-buttons { display: flex; border-bottom: 1px solid #e0e0e0; margin-top: 20px; }
+    .tab-buttons button { 
+      flex: 1; 
+      padding: 10px; 
+      background: none; 
+      border: none; 
+      font-size: 1rem; 
+      cursor: pointer; 
+      transition: color 0.3s;
+    }
+    .tab-buttons button.active { 
+      border-bottom: 3px solid #4285f4; 
+      color: #4285f4; 
+      font-weight: bold;
+    }
+    .tab-content { margin-top: 20px; }
+    
     /* Reviews Section */
     .reviews { margin-top: 20px; }
     .reviews h2 { font-size: 1.4rem; margin-bottom: 10px; }
-    .review { background: #fafafa; padding: 10px; border-radius: 4px; margin-bottom: 10px; }
+    .review { 
+      background: #fafafa; 
+      padding: 10px; 
+      border-radius: 6px; 
+      margin-bottom: 10px;
+      border: 1px solid #e0e0e0;
+    }
     .review .reviewer { font-weight: 500; margin-bottom: 5px; }
     .review .rating { color: #f39c12; margin-bottom: 5px; }
     .review p { font-size: 0.95rem; }
-
-    /* Related Items */
+    
+    /* Related Items Section */
     .related { margin-top: 20px; }
     .related h2 { font-size: 1.4rem; margin-bottom: 10px; }
-    .related-items { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 10px; }
+    .related-items { 
+      display: flex; 
+      gap: 10px; 
+      overflow-x: auto; 
+      padding-bottom: 10px; 
+    }
     .related-item {
-      flex: 0 0 140px;
+      flex: 0 0 180px;
       background: #fff;
-      border-radius: 4px;
+      border-radius: 6px;
       box-shadow: 0 1px 3px rgba(0,0,0,0.1);
       padding: 10px;
       text-align: center;
       cursor: pointer;
+      transition: transform 0.2s;
     }
-    .related-item img { width: 100%; height: 100px; object-fit: cover; border-radius: 4px; }
-    .related-item h4 { font-size: 0.9rem; margin-top: 5px; }
-
+    .related-item:hover { transform: translateY(-2px); }
+    .related-item img { 
+      width: 100%; 
+      height: 120px; 
+      object-fit: cover; 
+      border-radius: 4px; 
+      margin-bottom: 5px;
+    }
+    .related-item h4 { font-size: 1rem; margin: 5px 0; }
+    
     /* Responsive Adjustments */
-    @media (max-width: 600px) {
+    @media (max-width: 768px) {
       .detail-header { flex-direction: column; align-items: center; }
       .detail-image, .detail-info { width: 100%; text-align: center; }
-      .detail-image img { width: 150px; height: 150px; }
+      .detail-image img { width: 250px; height: 250px; }
     }
   </style>
 </head>
@@ -99,11 +197,11 @@
   <header>
     <div class="brand">MyBusiness</div>
   </header>
-
+  
   <!-- Main Container -->
   <div class="container">
     <!-- Product Listing View -->
-    <div id="product-listing-view">
+    <div id="listing-view">
       <div class="category-bar" id="category-bar">
         <button class="active" onclick="filterCategory('All', this)">All</button>
         <button onclick="filterCategory('Electronics', this)">Electronics</button>
@@ -112,11 +210,11 @@
       </div>
       <div id="product-listing"></div>
     </div>
-
+    
     <!-- Product Detail View -->
-    <div id="product-detail">
+    <div id="detail-view" style="display:none;">
       <div class="back-btn" onclick="backToListing()">
-        <i class="fas fa-arrow-left"></i> Back to products
+        <i class="fas fa-arrow-left"></i> Back to Products
       </div>
       <div class="detail-header">
         <div class="detail-image">
@@ -125,31 +223,40 @@
         <div class="detail-info">
           <h1 id="detail-name"></h1>
           <div class="price" id="detail-price"></div>
+          <div class="meta" id="detail-meta"></div>
           <div class="description" id="detail-description"></div>
           <button class="add-to-cart" onclick="addToCart()">Add to Cart</button>
         </div>
       </div>
-      <!-- Reviews Section -->
-      <div class="reviews" id="detail-reviews">
-        <h2>User Reviews</h2>
-        <div id="reviews-container"></div>
+      
+      <!-- Tab Buttons -->
+      <div class="tab-buttons">
+        <button class="active" onclick="showTab('overview', event)">Overview</button>
+        <button onclick="showTab('reviews', event)">Reviews</button>
+        <button onclick="showTab('related', event)">Related</button>
       </div>
-      <!-- Related Items Section -->
-      <div class="related" id="detail-related">
-        <h2>Related Items</h2>
+      
+      <!-- Tab Contents -->
+      <div id="overview" class="tab-content">
+        <div class="description" id="overview-description"></div>
+      </div>
+      <div id="reviews" class="tab-content" style="display:none;">
+        <div class="reviews" id="reviews-container"></div>
+      </div>
+      <div id="related" class="tab-content" style="display:none;">
         <div class="related-items" id="related-items-container"></div>
       </div>
     </div>
   </div>
-
+  
   <!-- Footer -->
   <footer>
     &copy; 2023 MyBusiness. All Rights Reserved.
   </footer>
-
+  
   <!-- JavaScript Section -->
   <script>
-    // Dummy product data array
+    // Dummy Product Data Array
     const products = [
       {
         id: 1,
@@ -157,7 +264,8 @@
         category: "Electronics",
         image: "https://via.placeholder.com/300x200?text=Smartphone+X",
         price: "$699",
-        description: "A high-end smartphone with advanced features and sleek design.",
+        meta: "50M+ installs • Updated Sep 2023",
+        description: "A high-end smartphone with advanced features and a sleek design. Experience unmatched performance and long battery life.",
         reviews: [
           { reviewer: "Alice", rating: 5, text: "Amazing performance and battery life!", date: "2023-09-15" },
           { reviewer: "Bob", rating: 4, text: "Great phone, but a bit pricey.", date: "2023-09-10" }
@@ -169,7 +277,8 @@
         category: "Electronics",
         image: "https://via.placeholder.com/300x200?text=Headphones",
         price: "$199",
-        description: "Experience superior sound quality with these wireless headphones.",
+        meta: "20K+ installs • Updated Aug 2023",
+        description: "Experience superior sound quality with these wireless headphones featuring noise cancellation and long battery life.",
         reviews: [
           { reviewer: "Charlie", rating: 4, text: "Comfortable and clear sound.", date: "2023-08-20" }
         ]
@@ -180,7 +289,8 @@
         category: "Baby Garments",
         image: "https://via.placeholder.com/300x200?text=Baby+Onesie",
         price: "$29",
-        description: "Soft, organic cotton onesie for your baby with adorable prints.",
+        meta: "5K+ sold • Updated Sep 2023",
+        description: "Soft, organic cotton onesie for your baby with adorable prints. Perfect for everyday wear.",
         reviews: [
           { reviewer: "Diana", rating: 5, text: "Perfect for my little one!", date: "2023-09-05" }
         ]
@@ -191,7 +301,8 @@
         category: "Home & Kitchen",
         image: "https://via.placeholder.com/300x200?text=Blender+Pro",
         price: "$89",
-        description: "A high-power blender perfect for smoothies, soups, and more.",
+        meta: "10K+ sold • Updated Sep 2023",
+        description: "A high-power blender perfect for smoothies, soups, and more. Easy to clean and built to last.",
         reviews: [
           { reviewer: "Evan", rating: 4, text: "Very efficient and easy to clean.", date: "2023-09-12" }
         ]
@@ -202,7 +313,8 @@
         category: "Electronics",
         image: "https://via.placeholder.com/300x200?text=LED+TV+50",
         price: "$499",
-        description: "Enjoy your favorite shows on this crisp, vibrant 50-inch LED TV.",
+        meta: "30K+ installs • Updated Aug 2023",
+        description: "Enjoy your favorite shows on this crisp, vibrant 50-inch LED TV with smart features and excellent sound quality.",
         reviews: [
           { reviewer: "Fiona", rating: 5, text: "Fantastic picture quality!", date: "2023-08-30" }
         ]
@@ -213,14 +325,15 @@
         category: "Baby Garments",
         image: "https://via.placeholder.com/300x200?text=Baby+Romper",
         price: "$35",
-        description: "Comfortable and stylish romper available in various colors.",
+        meta: "3K+ sold • Updated Sep 2023",
+        description: "Comfortable and stylish romper available in various colors. Perfect for playtime and outings.",
         reviews: [
           { reviewer: "George", rating: 4, text: "Very cute and soft.", date: "2023-09-08" }
         ]
       }
     ];
-
-    // Function to render product listing based on a category filter
+    
+    // Render Product Listing based on Category Filter
     function renderProductListing(filter = "All") {
       const container = document.getElementById("product-listing");
       container.innerHTML = "";
@@ -231,31 +344,36 @@
         card.onclick = () => openProductDetail(product.id);
         card.innerHTML = `
           <img src="${product.image}" alt="${product.name}">
-          <h3>${product.name}</h3>
-          <div class="price">${product.price}</div>
+          <div class="card-content">
+            <h3>${product.name}</h3>
+            <div class="price">${product.price}</div>
+          </div>
         `;
         container.appendChild(card);
       });
     }
-
-    // Category filter function
+    
+    // Filter Category Handler
     function filterCategory(category, btn) {
       document.querySelectorAll(".category-bar button").forEach(b => b.classList.remove("active"));
       btn.classList.add("active");
       renderProductListing(category);
     }
-
-    // Function to open the product detail view
+    
+    // Open Product Detail View
     function openProductDetail(productId) {
       const product = products.find(p => p.id === productId);
       if (!product) return;
-      // Populate product details
+      // Populate Detail View
       document.getElementById("detail-img").src = product.image;
       document.getElementById("detail-name").innerText = product.name;
       document.getElementById("detail-price").innerText = product.price;
+      document.getElementById("detail-meta").innerText = product.meta;
       document.getElementById("detail-description").innerText = product.description;
+      // Overview Tab
+      document.getElementById("overview-description").innerText = product.description;
       
-      // Render reviews
+      // Render Reviews
       const reviewsContainer = document.getElementById("reviews-container");
       reviewsContainer.innerHTML = "";
       product.reviews.forEach(review => {
@@ -270,7 +388,7 @@
         reviewsContainer.appendChild(reviewDiv);
       });
       
-      // Render related items (other products in same category)
+      // Render Related Items (Other products in the same category)
       const relatedContainer = document.getElementById("related-items-container");
       relatedContainer.innerHTML = "";
       products.filter(p => p.category === product.category && p.id !== product.id)
@@ -285,23 +403,31 @@
         relatedContainer.appendChild(relatedDiv);
       });
       
-      // Toggle views
-      document.getElementById("product-listing-view").style.display = "none";
-      document.getElementById("product-detail").style.display = "block";
+      // Toggle Views
+      document.getElementById("listing-view").style.display = "none";
+      document.getElementById("detail-view").style.display = "block";
     }
-
-    // Function to go back to product listing
+    
+    // Back to Listing
     function backToListing() {
-      document.getElementById("product-detail").style.display = "none";
-      document.getElementById("product-listing-view").style.display = "block";
+      document.getElementById("detail-view").style.display = "none";
+      document.getElementById("listing-view").style.display = "block";
     }
-
-    // Function for Add to Cart (for demo, simply alerts)
+    
+    // Simple Add to Cart Function (Demo)
     function addToCart() {
       alert("Product added to cart!");
     }
-
-    // Initial render
+    
+    // Tab Switching in Detail View
+    function showTab(tabId, event) {
+      document.querySelectorAll(".tab-content").forEach(tab => tab.style.display = "none");
+      document.getElementById(tabId).style.display = "block";
+      document.querySelectorAll(".tab-buttons button").forEach(btn => btn.classList.remove("active"));
+      event.currentTarget.classList.add("active");
+    }
+    
+    // Initial Render
     renderProductListing("All");
   </script>
 </body>
