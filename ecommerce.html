@@ -36,7 +36,7 @@
       main {
         padding-bottom: 100px;
       }
-      /* Hero Section */
+      /* Hero Section (restored original font sizes) */
       .hero {
         position: relative;
         height: calc(500px + 3cm);
@@ -177,26 +177,20 @@
       .tab-content {
         padding-top: 1rem;
       }
-      /* Adjustments for neater mobile look and cleaner font sizes */
+      /* Updated Star Rating Style */
       .star-rating i {
-        font-size: 0.9rem; /* Reduced star icon size */
+        font-size: 1rem; /* Increased size for a more modern look */
+        transition: transform 0.2s ease, color 0.2s ease;
+      }
+      .star-rating i:hover {
+        transform: scale(1.1);
       }
       .product-stats small,
       #modalProductStats {
         font-size: 0.75rem; /* Smaller font for added & sold info */
       }
-      /* Responsive adjustments for mobile devices */
+      /* Responsive adjustments for mobile devices (excluding hero section sizes) */
       @media (max-width: 576px) {
-        .hero-content h1 {
-          font-size: 2rem;
-        }
-        .hero-content p {
-          font-size: 1rem;
-        }
-        .hero-content .btn {
-          font-size: 1rem;
-          padding: 0.5rem 1rem;
-        }
         .card {
           font-size: 0.9rem;
         }
