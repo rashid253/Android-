@@ -1,188 +1,294 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">   
+<html lang="en"> 
+  <head> 
+    <meta charset="UTF-8" />   
     <meta name="viewport" content="width=device-width, initial-scale=1.0">   
     <title>NextGen E-commerce - Shop Now</title>   
-    <!-- Font Awesome for icons --> 
+    <!-- Font Awesome for icons (used in header/footer) --> 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"> 
-    <!-- Custom CSS (if any external CSS exists, it will still load) -->
+    <!-- Custom CSS for overall site (header, footer, etc.) --> 
+    <link rel="stylesheet" href="style.css"> 
+    <!-- Bootstrap 5 CSS for ecommerce-specific layout --> 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"> 
+    <!-- Inline Styles for modifications -->
     <style>
-      /* --- Base & Reset --- */
-      * { margin: 0; padding: 0; box-sizing: border-box; }
-      body { font-family: 'Roboto', sans-serif; background-color: #f3f4f6; color: #2d3748; }
-      a { text-decoration: none; color: inherit; transition: color 0.3s ease; }
+      /* Global Overrides */
+      body { 
+        font-family: 'Roboto', sans-serif; 
+        background-color: #f3f4f6; 
+        color: #2d3748; 
+        margin: 0; 
+        padding: 0; 
+      } 
+      a { 
+        text-decoration: none; 
+        color: inherit; 
+        transition: color 0.3s ease; 
+      } 
       main { padding-bottom: 100px; }
-      
-      /* --- New Hero Section Theme --- */
-      .hero {
-        position: relative;
-        height: 60vh;
-        background: linear-gradient(135deg, #4285f4, #34a853);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        overflow: hidden;
-        color: #fff;
-        padding: 0 20px;
-      }
-      .hero-content h1 {
-        font-size: 3rem;
-        font-weight: bold;
-        margin-bottom: 1rem;
-      }
-      .hero-content p {
-        font-size: 1.2rem;
-        margin-bottom: 1.5rem;
-      }
-      .cta-buttons button {
-        font-size: 1.2rem;
-        padding: 0.75rem 1.5rem;
-        background-color: #fff;
-        color: #4285f4;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        transition: background 0.3s ease, transform 0.3s ease;
-        margin: 0 5px;
-      }
-      .cta-buttons button:hover {
-        background-color: #e0e0e0;
-        transform: scale(1.05);
-      }
-      
-      /* --- New Categories Buttons (beneath hero) --- */
+
+      /* --- Modified Hero Section: Play Store Inspired Gradient --- */
+      .hero { 
+        position: relative; 
+        height: calc(500px + 3cm); 
+        background: linear-gradient(135deg, #4285f4, #34a853); /* New gradient */
+        display: flex; 
+        align-items: center; 
+        justify-content: center; 
+        text-align: center; 
+        overflow: hidden; 
+      } 
+      .hero-content { 
+        position: relative; 
+        z-index: 2; 
+        padding: 0 20px; 
+        transform: translateY(-20px); 
+      } 
+      .hero-content h1, .hero-content p { 
+        color: #fff; 
+      } 
+      .hero-content h1 { 
+        font-size: 3rem; 
+        font-weight: bold; 
+        margin-bottom: 1rem; 
+      } 
+      .hero-content p { 
+        font-size: 1.2rem; 
+        margin-bottom: 1.5rem; 
+      } 
+      .hero-content .btn { 
+        font-size: 1.2rem; 
+        padding: 0.75rem 1.5rem; 
+        background-color: #fff; 
+        color: #4285f4; 
+        border: none; 
+        border-radius: 4px; 
+        transition: background 0.3s ease, transform 0.3s ease; 
+      } 
+      .hero-content .btn:hover { 
+        background-color: #e0e0e0; 
+        transform: scale(1.05); 
+      } 
+
+      /* --- New Categories Buttons Section (beneath hero) --- */
       .categories {
-        background: #fff;
-        padding: 10px 0;
+        background: #fff; 
+        padding: 15px 0; 
+        text-align: center;
       }
       .categories .container {
-        display: flex;
-        justify-content: center;
+        display: flex; 
+        justify-content: center; 
         gap: 10px;
       }
       .category-btn {
-        padding: 10px 15px;
+        padding: 10px 20px;
         border: 1px solid #ddd;
         border-radius: 4px;
         background: #fff;
+        font-size: 1rem;
         cursor: pointer;
         transition: background 0.3s, border-color 0.3s;
-        font-size: 1rem;
       }
-      .category-btn.active, 
-      .category-btn:hover {
+      .category-btn:hover, .category-btn.active {
         background: #4285f4;
         border-color: #4285f4;
         color: #fff;
       }
-      
-      /* --- The remainder of your original styles (for features, banners, etc.) remain unchanged --- */
-      .features { padding: 40px 15px; background: #ffffff; }
-      .features h2 { text-align: center; font-size: 2rem; margin-bottom: 30px; color: #007bff; }
-      .features-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
-      .feature-item { background: #f9f9f9; padding: 20px; border-radius: 8px; width: 280px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1); transition: transform 0.3s; }
-      .feature-item:hover { transform: translateY(-5px); }
-      .feature-item i { font-size: 2rem; margin-bottom: 15px; color: #007bff; }
-      .feature-item h3 { font-size: 1.3rem; margin-bottom: 10px; color: #333; }
-      .feature-item p { font-size: 1rem; color: #666; }
+
+      /* --- Existing Styles from Uploaded File Remain --- */
+      /* Horizontal Scroll for Categories, Banners, Product Tiles, etc. */
+      .horizontal-scroll { 
+        display: flex; 
+        overflow-x: auto; 
+        gap: 1rem; 
+        padding-bottom: 1rem; 
+        margin-bottom: 2rem; 
+      } 
+      .horizontal-scroll::-webkit-scrollbar { 
+        display: none; 
+      } 
+      .banner { 
+        margin: 1rem 0; 
+        border-radius: 8px; 
+        overflow: hidden; 
+        background: #fff; 
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+        height: 150px; 
+      } 
+      .banner img { 
+        width: 100%; 
+        height: 150px; 
+        object-fit: cover; 
+      } 
+      .fullwidth-banner { position: relative; } 
+      .fullwidth-banner img { 
+        height: 150px; 
+        opacity: 0.85; 
+      } 
+      .fullwidth-banner .banner-text { 
+        position: absolute; 
+        top: 50%; 
+        left: 10%; 
+        transform: translateY(-50%); 
+        color: #fff; 
+        font-size: 1.2rem; 
+        font-weight: bold; 
+      } 
+      .accordion-banner .accordion-button { 
+        font-weight: bold; 
+        font-size: 1rem; 
+      } 
+      .three-part-banner { 
+        display: flex; 
+        align-items: center; 
+        padding: 0 1rem; 
+        height: 150px; 
+      } 
+      .three-part-banner .banner-title { 
+        flex: 1; 
+        font-size: 1.1rem; 
+        font-weight: bold; 
+      } 
+      .three-part-banner .banner-desc { 
+        flex: 2; 
+        font-size: 0.95rem; 
+      } 
+      .three-part-banner .banner-img { 
+        flex: 1; 
+        text-align: right; 
+      } 
+      .three-part-banner .banner-img img { 
+        height: 100%; 
+        object-fit: contain; 
+      } 
+      .card-img-top { 
+        width: 100%; 
+        height: 180px; 
+        object-fit: cover; 
+      } 
+      .product-price { 
+        font-weight: bold; 
+        color: #e4393c; 
+        font-size: 1.1rem; 
+      } 
+      .product-old-price { 
+        text-decoration: line-through; 
+        color: #999; 
+        margin-left: 5px; 
+      } 
+      .product-orders { 
+        color: #666; 
+        font-size: 0.9rem; 
+      } 
+      .text-success { color: #28a745 !important; }
       
       /* --- New Product Detail Section (Play Store Inspired) --- */
-      #product-detail {
-        display: none; /* Hidden until a product is clicked */
-        background: #fff;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        margin: 20px auto;
-        max-width: 800px;
+      #product-detail-section { 
+        display: none; 
+        background: #fff; 
+        padding: 20px; 
+        border-radius: 8px; 
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
+        margin: 20px auto; 
+        max-width: 800px; 
       }
-      #product-detail .back-btn {
-        margin-bottom: 15px;
-        cursor: pointer;
-        color: #4285f4;
-        font-size: 1rem;
+      #product-detail-section .back-btn { 
+        margin-bottom: 15px; 
+        cursor: pointer; 
+        color: #4285f4; 
+        font-size: 1rem; 
       }
-      .detail-header {
-        display: flex;
-        gap: 20px;
-        border-bottom: 1px solid #e0e0e0;
-        padding-bottom: 20px;
+      .detail-header { 
+        display: flex; 
+        gap: 20px; 
+        border-bottom: 1px solid #e0e0e0; 
+        padding-bottom: 20px; 
       }
       .detail-image { flex: 0 0 300px; }
-      .detail-image img { width: 300px; height: 300px; object-fit: cover; border-radius: 8px; }
+      .detail-image img { 
+        width: 300px; 
+        height: 300px; 
+        object-fit: cover; 
+        border-radius: 8px; 
+      }
       .detail-info { flex: 1; }
       .detail-info h1 { font-size: 2rem; margin-bottom: 10px; }
       .detail-info .price { font-size: 1.6rem; color: #4285f4; margin-bottom: 10px; }
       .detail-info .meta { color: #777; margin-bottom: 15px; }
       .detail-info .description { line-height: 1.6; margin-bottom: 15px; }
-      .add-to-cart {
-        background: #28a745;
-        color: #fff;
-        padding: 12px 25px;
-        border: none;
-        border-radius: 4px;
-        font-size: 1rem;
-        cursor: pointer;
-        transition: background 0.3s;
+      .add-to-cart { 
+        background: #28a745; 
+        color: #fff; 
+        padding: 12px 25px; 
+        border: none; 
+        border-radius: 4px; 
+        font-size: 1rem; 
+        cursor: pointer; 
+        transition: background 0.3s; 
       }
       .add-to-cart:hover { background: #218838; }
-      .tab-buttons {
-        display: flex;
-        border-bottom: 1px solid #e0e0e0;
-        margin-top: 20px;
+      .tab-buttons { 
+        display: flex; 
+        border-bottom: 1px solid #e0e0e0; 
+        margin-top: 20px; 
       }
-      .tab-buttons button {
-        flex: 1;
-        padding: 10px;
-        background: none;
-        border: none;
-        font-size: 1rem;
-        cursor: pointer;
-        transition: color 0.3s;
+      .tab-buttons button { 
+        flex: 1; 
+        padding: 10px; 
+        background: none; 
+        border: none; 
+        font-size: 1rem; 
+        cursor: pointer; 
+        transition: color 0.3s; 
       }
-      .tab-buttons button.active {
-        border-bottom: 3px solid #4285f4;
-        color: #4285f4;
-        font-weight: bold;
+      .tab-buttons button.active { 
+        border-bottom: 3px solid #4285f4; 
+        color: #4285f4; 
+        font-weight: bold; 
       }
       .tab-content { margin-top: 20px; }
       .reviews { margin-top: 20px; }
       .reviews h2 { font-size: 1.4rem; margin-bottom: 10px; }
-      .review {
-        background: #fafafa;
-        padding: 10px;
-        border-radius: 6px;
-        margin-bottom: 10px;
-        border: 1px solid #e0e0e0;
+      .review { 
+        background: #fafafa; 
+        padding: 10px; 
+        border-radius: 6px; 
+        margin-bottom: 10px; 
+        border: 1px solid #e0e0e0; 
       }
       .review .reviewer { font-weight: 500; margin-bottom: 5px; }
       .review .rating { color: #f39c12; margin-bottom: 5px; }
       .review p { font-size: 0.95rem; }
       .related { margin-top: 20px; }
       .related h2 { font-size: 1.4rem; margin-bottom: 10px; }
-      .related-items {
-        display: flex;
-        gap: 10px;
-        overflow-x: auto;
-        padding-bottom: 10px;
+      .related-items { 
+        display: flex; 
+        gap: 10px; 
+        overflow-x: auto; 
+        padding-bottom: 10px; 
       }
-      .related-item {
-        flex: 0 0 180px;
-        background: #fff;
-        border-radius: 6px;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        padding: 10px;
-        text-align: center;
-        cursor: pointer;
-        transition: transform 0.2s;
+      .related-item { 
+        flex: 0 0 180px; 
+        background: #fff; 
+        border-radius: 6px; 
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1); 
+        padding: 10px; 
+        text-align: center; 
+        cursor: pointer; 
+        transition: transform 0.2s; 
       }
       .related-item:hover { transform: translateY(-2px); }
-      .related-item img { width: 100%; height: 120px; object-fit: cover; border-radius: 4px; margin-bottom: 5px; }
+      .related-item img { 
+        width: 100%; 
+        height: 120px; 
+        object-fit: cover; 
+        border-radius: 4px; 
+        margin-bottom: 5px; 
+      }
       .related-item h4 { font-size: 1rem; margin: 5px 0; }
       
-      /* --- Responsive Adjustments --- */
+      /* Responsive Adjustments */
       @media (max-width: 768px) {
         .hero-content h1 { font-size: 2.5rem; }
         .detail-header { flex-direction: column; align-items: center; }
@@ -190,167 +296,368 @@
         .detail-image img { width: 250px; height: 250px; }
       }
     </style>
-  </head>
-  <body>
-    <!-- Header Placeholder (loaded externally) -->
-    <div id="header-placeholder"></div>
-    
-    <!-- Main Content -->
-    <main>
-      <!-- Modified Hero Section -->
-      <section class="hero">
-        <div class="hero-content">
-          <h1>Welcome to NextGen E-commerce</h1>
-          <p>Your one-stop shop for quality products and premium business solutions.</p>
-          <div class="cta-buttons">
-            <button class="btn" onclick="openCategoryView()">Shop Now</button>
-            <button class="btn" onclick="openPage('about.html')">Learn More</button>
-          </div>
-        </div>
-      </section>
+  </head> 
+  <body> 
+    <!-- Header Placeholder (loaded dynamically) --> 
+    <div id="header-placeholder"></div> 
+     
+    <!-- Main Ecommerce Content --> 
+    <main> 
+      <!-- Modified Hero Section --> 
+      <section class="hero"> 
+        <div class="hero-content"> 
+          <h1>Welcome to NextGen E-commerce</h1> 
+          <p>Your one-stop shop for the latest trends &amp; exclusive deals.</p> 
+          <div class="cta-buttons"> 
+            <button onclick="openPage('ecommerce.html')">Shop Now</button> 
+            <button onclick="openPage('about.html')">Learn More</button> 
+          </div> 
+        </div> 
+      </section> 
       
-      <!-- New Categories Buttons Section -->
+      <!-- New Categories Buttons Section --> 
       <section class="categories">
         <div class="container">
-          <button class="category-btn active" onclick="filterProducts('Electronics', this)">Electronics</button>
-          <button class="category-btn" onclick="filterProducts('Baby Garments', this)">Baby Garments</button>
-          <button class="category-btn" onclick="filterProducts('Home & Kitchen', this)">Home & Kitchen</button>
+          <button class="category-btn active" onclick="filterCategory('Electronics', this)">Electronics</button>
+          <button class="category-btn" onclick="filterCategory('Baby Garments', this)">Baby Garments</button>
+          <button class="category-btn" onclick="filterCategory('Home & Kitchen', this)">Home & Kitchen</button>
         </div>
       </section>
       
-      <!-- (Existing Content from your file: banners, features, product tiles, etc. remain unchanged) -->
-      <main>
-        <!-- Example Features Section (unchanged) -->
-        <section class="features">
-          <div class="container">
-            <h2>Our Exclusive Features</h2>
-            <div class="features-grid">
-              <div class="feature-item">
-                <i class="fas fa-lock"></i>
-                <h3>Secure Payments</h3>
-                <p>State-of-the-art security for your transactions.</p>
-              </div>
-              <div class="feature-item">
-                <i class="fas fa-truck"></i>
-                <h3>Fast Delivery</h3>
-                <p>Reliable, door-to-door delivery service.</p>
-              </div>
-              <div class="feature-item">
-                <i class="fas fa-tags"></i>
-                <h3>Exclusive Deals</h3>
-                <p>Premium discounts and seasonal offers.</p>
-              </div>
-            </div>
-          </div>
-        </section>
-        <!-- Other sections (banners, posters) as in your original file... -->
-      </main>
+      <!-- Main Page: Categories with Banners and Horizontal Scroll (unchanged) --> 
+      <div class="container my-4" id="mainPage"> 
+        <h1 class="mb-4 text-center">Product Categories</h1> 
+        <div id="categoriesContainer"> 
+          <!-- Dynamic category sections (each with a banner above) will be rendered here --> 
+        </div> 
+      </div> 
+     
+      <!-- Category Page: Vertical Grid of Products (unchanged) --> 
+      <div class="container my-4" id="categoryPage" style="display: none;"> 
+        <button class="btn btn-secondary mb-3" onclick="backToMain()">Back to Categories</button> 
+        <h2 id="categoryTitle" class="mb-4"></h2> 
+        <div class="row" id="categoryProducts"> 
+          <!-- Products will be rendered here in a grid --> 
+        </div> 
+      </div> 
       
-      <!-- New Product Detail Section (hidden by default) -->
-      <section id="product-detail">
-        <div class="back-btn" onclick="closeProductDetail()">
-          <i class="fas fa-arrow-left"></i> Back
-        </div>
-        <div class="detail-header">
-          <div class="detail-image">
-            <img id="detail-img" src="https://via.placeholder.com/300x300?text=Product+Image" alt="Product Image">
-          </div>
-          <div class="detail-info">
-            <h1 id="detail-name">Product Name</h1>
-            <div class="price" id="detail-price">$0.00</div>
-            <div class="meta" id="detail-meta">Meta Info</div>
-            <div class="description" id="detail-description">
-              Detailed description of the product goes here.
-            </div>
-            <button class="add-to-cart" onclick="addToCart()">Add to Cart</button>
-          </div>
-        </div>
-        <div class="tab-buttons">
-          <button class="active" onclick="showTab('overview', event)">Overview</button>
-          <button onclick="showTab('reviews', event)">Reviews</button>
-          <button onclick="showTab('related', event)">Related</button>
-        </div>
-        <div id="overview" class="tab-content">
-          <div class="description" id="overview-content">
-            This section provides an overview of the product details.
-          </div>
-        </div>
-        <div id="reviews" class="tab-content" style="display: none;">
-          <div class="reviews" id="reviews-content">
-            <div class="review">
-              <div class="reviewer">Alice</div>
-              <div class="rating">★★★★★</div>
-              <p>Amazing product!</p>
-              <small>2023-09-15</small>
-            </div>
-            <!-- Additional reviews -->
-          </div>
-        </div>
-        <div id="related" class="tab-content" style="display: none;">
-          <div class="related-items" id="related-content">
-            <div class="related-item">
-              <img src="https://via.placeholder.com/180x120?text=Related+1" alt="Related 1">
-              <h4>Related 1</h4>
-            </div>
-            <div class="related-item">
-              <img src="https://via.placeholder.com/180x120?text=Related+2" alt="Related 2">
-              <h4>Related 2</h4>
-            </div>
-            <!-- Additional related items -->
-          </div>
-        </div>
-      </section>
-    </main>
-    
-    <!-- Footer Placeholder (loaded externally) -->
-    <div id="footer-placeholder"></div>
-    
-    <!-- Scripts to load header and footer, and for view switching -->
+      <!-- New Product Detail Section (Play Store Inspired) --> 
+      <section id="product-detail-section"> 
+        <div class="back-btn" onclick="closeProductDetail()"> 
+          <i class="fas fa-arrow-left"></i> Back 
+        </div> 
+        <div class="detail-header"> 
+          <div class="detail-image"> 
+            <img id="detail-img" src="https://via.placeholder.com/300x300?text=Product+Image" alt="Product Image"> 
+          </div> 
+          <div class="detail-info"> 
+            <h1 id="detail-name">Product Name</h1> 
+            <div class="price" id="detail-price">$0.00</div> 
+            <div class="meta" id="detail-meta">Meta Info</div> 
+            <div class="description" id="detail-description">Detailed description of the product goes here.</div> 
+            <button class="add-to-cart" onclick="addToCart()">Add to Cart</button> 
+          </div> 
+        </div> 
+        <div class="tab-buttons"> 
+          <button class="active" onclick="showTab('overview', event)">Overview</button> 
+          <button onclick="showTab('reviews', event)">Reviews</button> 
+          <button onclick="showTab('related', event)">Related</button> 
+        </div> 
+        <div id="overview" class="tab-content"> 
+          <div class="description" id="overview-content">This section provides an overview of the product details.</div> 
+        </div> 
+        <div id="reviews" class="tab-content" style="display: none;"> 
+          <div class="reviews" id="reviews-content"> 
+            <div class="review"> 
+              <div class="reviewer">Alice</div> 
+              <div class="rating">★★★★★</div> 
+              <p>Amazing product!</p> 
+              <small>2023-09-15</small> 
+            </div> 
+            <!-- Additional reviews --> 
+          </div> 
+        </div> 
+        <div id="related" class="tab-content" style="display: none;"> 
+          <div class="related-items" id="related-content"> 
+            <div class="related-item"> 
+              <img src="https://via.placeholder.com/180x120?text=Related+1" alt="Related 1"> 
+              <h4>Related 1</h4> 
+            </div> 
+            <div class="related-item"> 
+              <img src="https://via.placeholder.com/180x120?text=Related+2" alt="Related 2"> 
+              <h4>Related 2</h4> 
+            </div> 
+            <!-- Additional related items --> 
+          </div> 
+        </div> 
+      </section> 
+    </main> 
+     
+    <!-- Footer Placeholder --> 
+    <div id="footer-placeholder"></div> 
+     
+    <!-- Scripts --> 
+    <!-- Bootstrap 5 JS Bundle --> 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script> 
+     
+    <!-- Script to load header and footer dynamically --> 
     <script>
-      // Load header and footer dynamically
       function loadHTML(elementId, filePath) {
         fetch(filePath)
-          .then(response => { if (!response.ok) throw new Error('Error fetching ' + filePath); return response.text(); })
+          .then(response => {
+            if (!response.ok) {
+              if (elementId === "header-placeholder") {
+                document.getElementById(elementId).innerHTML = '<header style="background:#333;color:#fff;padding:10px;text-align:center;">Header</header>';
+              } else if (elementId === "footer-placeholder") {
+                document.getElementById(elementId).innerHTML = '<footer style="background:#333;color:#fff;padding:10px;text-align:center;">Footer</footer>';
+              }
+              throw new Error('Error fetching ' + filePath);
+            }
+            return response.text();
+          })
           .then(html => { document.getElementById(elementId).innerHTML = html; })
           .catch(error => console.error(error));
       }
-      document.addEventListener("DOMContentLoaded", function() {
+      
+      document.addEventListener("DOMContentLoaded", function () {
         loadHTML('header-placeholder', 'header.html');
         loadHTML('footer-placeholder', 'footer.html');
       });
+    </script> 
+     
+    <!-- Ecommerce-specific JavaScript (Functionality remains unchanged) --> 
+    <script>
+      // Dummy product data per category 
+      const productData = { 
+        "Countdown Sales": [ 
+          { 
+            name: "Smartphone A", 
+            price: "PKR 894", 
+            description: "High-performance smartphone.", 
+            image: "https://via.placeholder.com/300x200?text=Smartphone+A" 
+          }, 
+          { 
+            name: "Smart TV B", 
+            price: "PKR 557", 
+            description: "4K Ultra HD Smart TV.", 
+            image: "https://via.placeholder.com/300x200?text=Smart+TV+B" 
+          }, 
+          { 
+            name: "Laptop C", 
+            price: "PKR 1,004", 
+            description: "Gaming laptop with high performance.", 
+            image: "https://via.placeholder.com/300x200?text=Laptop+C" 
+          } 
+        ], 
+        "Discount Offers": [ 
+          { 
+            name: "Headphones D", 
+            price: "PKR 600", 
+            description: "Noise cancelling headphones.", 
+            image: "https://via.placeholder.com/300x200?text=Headphones+D" 
+          }, 
+          { 
+            name: "Speaker E", 
+            price: "PKR 999", 
+            description: "Wireless speaker with deep bass.", 
+            image: "https://via.placeholder.com/300x200?text=Speaker+E" 
+          }, 
+          { 
+            name: "Camera F", 
+            price: "PKR 1,299", 
+            description: "High resolution digital camera.", 
+            image: "https://via.placeholder.com/300x200?text=Camera+F" 
+          } 
+        ], 
+        "Hot Sales": [ 
+          { 
+            name: "Smartwatch G", 
+            price: "PKR 999", 
+            description: "Feature-rich smartwatch.", 
+            image: "https://via.placeholder.com/300x200?text=Smartwatch+G" 
+          }, 
+          { 
+            name: "Tablet H", 
+            price: "PKR 1,700", 
+            description: "Latest generation tablet.", 
+            image: "https://via.placeholder.com/300x200?text=Tablet+H" 
+          }, 
+          { 
+            name: "Drone I", 
+            price: "PKR 2,999", 
+            description: "High-performance drone.", 
+            image: "https://via.placeholder.com/300x200?text=Drone+I" 
+          } 
+        ], 
+        "Seasonal Offers": [ 
+          { 
+            name: "Jacket J", 
+            price: "PKR 499", 
+            description: "Warm and stylish jacket.", 
+            image: "https://via.placeholder.com/300x200?text=Jacket+J" 
+          }, 
+          { 
+            name: "Boots K", 
+            price: "PKR 1,199", 
+            description: "Comfortable boots.", 
+            image: "https://via.placeholder.com/300x200?text=Boots+K" 
+          }, 
+          { 
+            name: "Scarf L", 
+            price: "PKR 299", 
+            description: "Cozy scarf for winter.", 
+            image: "https://via.placeholder.com/300x200?text=Scarf+L" 
+          } 
+        ], 
+        "Clearance Sale": [ 
+          { 
+            name: "Old Model Phone M", 
+            price: "PKR 199", 
+            description: "Last year's smartphone model.", 
+            image: "https://via.placeholder.com/300x200?text=Phone+M" 
+          }, 
+          { 
+            name: "Outdated TV N", 
+            price: "PKR 299", 
+            description: "Old model television.", 
+            image: "https://via.placeholder.com/300x200?text=TV+N" 
+          }, 
+          { 
+            name: "Vintage Laptop O", 
+            price: "PKR 499", 
+            description: "Vintage laptop with classic design.", 
+            image: "https://via.placeholder.com/300x200?text=Laptop+O" 
+          } 
+        ] 
+      }; 
       
-      // Dummy functions for categories and product detail view
-      function openCategoryView() {
-        // For demonstration, scroll to the features section (or implement as needed)
-        document.querySelector(".features").scrollIntoView({ behavior: "smooth" });
-      }
+      // Render main page with categories and banners 
+      function initMainPage() { 
+        document.getElementById("mainPage").style.display = "block"; 
+        document.getElementById("categoryPage").style.display = "none"; 
+        const container = document.getElementById("categoriesContainer"); 
+        container.innerHTML = ""; 
+        let index = 0; 
+        for (let category in productData) { 
+          let banner = createBannerForCategory(category, index); 
+          container.appendChild(banner); 
+          
+          // Section for each category 
+          let section = document.createElement("div"); 
+          section.innerHTML = ` 
+            <h2 class="mt-4">${category}</h2> 
+            <div class="horizontal-scroll" id="scroll-${category.replace(/\s/g, '')}"></div> 
+          `; 
+          container.appendChild(section); 
+          
+          // Horizontal scroll container 
+          let scrollContainer = document.getElementById(`scroll-${category.replace(/\s/g, '')}`); 
+          productData[category].forEach(product => { 
+            let card = document.createElement("div"); 
+            card.className = "card"; 
+            card.style.minWidth = "150px"; 
+            card.style.marginRight = "0.75rem"; 
+            // Clicking on the card opens that category page 
+            card.onclick = function () { 
+              openCategoryPage(category); 
+            }; 
+            
+            // Product tile layout 
+            card.innerHTML = ` 
+              <img src="${product.image}" class="card-img-top" alt="${product.name}"> 
+              <div class="card-body text-center"> 
+                <p class="product-price">${product.price} <span class="product-old-price">PKR1,487</span></p> 
+                <p class="product-orders">100K+ orders <i class="fa fa-star" style="color:#FFC107;"></i> 4.7</p> 
+                <p class="text-success mb-0">Free shipping</p> 
+              </div> 
+            `; 
+            scrollContainer.appendChild(card); 
+          }); 
+          index++; 
+        } 
+      } 
       
-      function filterProducts(category, btn) {
-        // For demo, simply alert the selected category.
-        alert("Filtering products for: " + category);
-      }
+      // Open dedicated category page (vertical grid view) 
+      function openCategoryPage(category) { 
+        document.getElementById("mainPage").style.display = "none"; 
+        document.getElementById("categoryPage").style.display = "block"; 
+        document.getElementById("categoryTitle").innerText = category; 
       
-      function openPage(page) {
-        // Redirect to a page (as in your original file)
-        window.location.href = page;
-      }
+        const grid = document.getElementById("categoryProducts"); 
+        grid.innerHTML = ""; 
       
-      // Product Detail view functions
-      function openProductDetail() {
-        document.getElementById("product-detail").style.display = "block";
-      }
-      function closeProductDetail() {
-        document.getElementById("product-detail").style.display = "none";
-      }
-      function showTab(tabId, event) {
-        document.querySelectorAll(".tab-content").forEach(tab => tab.style.display = "none");
-        document.getElementById(tabId).style.display = "block";
-        document.querySelectorAll(".tab-buttons button").forEach(btn => btn.classList.remove("active"));
-        event.currentTarget.classList.add("active");
-      }
-      function addToCart() {
-        alert("Product added to cart!");
-      }
-    </script>
-  </body>
+        productData[category].forEach(product => { 
+          let col = document.createElement("div"); 
+          col.className = "col-6 col-md-4 mb-4"; 
+      
+          let card = document.createElement("div"); 
+          card.className = "card"; 
+          card.onclick = function () { 
+            openProductModal(product); 
+          }; 
+      
+          card.innerHTML = ` 
+            <img src="${product.image}" class="card-img-top" alt="${product.name}"> 
+            <div class="card-body text-center"> 
+              <p class="product-price">${product.price} <span class="product-old-price">PKR1,487</span></p> 
+              <p class="product-orders">100K+ orders <i class="fa fa-star" style="color:#FFC107;"></i> 4.7</p> 
+              <p class="text-success mb-0">Free shipping</p> 
+            </div> 
+          `; 
+          col.appendChild(card); 
+          grid.appendChild(col); 
+        }); 
+      } 
+      
+      // Go back to main categories view 
+      function backToMain() { 
+        document.getElementById("categoryPage").style.display = "none"; 
+        document.getElementById("mainPage").style.display = "block"; 
+      } 
+      
+      // Open product detail section (Play Store Inspired) 
+      function openProductModal(product) { 
+        document.getElementById("detail-img").src = product.image; 
+        document.getElementById("detail-name").innerText = product.name; 
+        document.getElementById("detail-price").innerText = product.price; 
+        document.getElementById("detail-description").innerText = product.description; 
+        document.getElementById("detail-meta").innerText = "Some meta info"; 
+        document.getElementById("overview-content").innerText = product.description; 
+        document.getElementById("reviews-content").innerHTML = ` 
+          <div class="review"> 
+            <div class="reviewer">Alice</div> 
+            <div class="rating">★★★★★</div> 
+            <p>Amazing product!</p> 
+            <small>2023-09-15</small> 
+          </div> 
+        `; 
+        document.getElementById("related-content").innerHTML = ` 
+          <div class="related-item"> 
+            <img src="https://via.placeholder.com/180x120?text=Related+1" alt="Related 1"> 
+            <h4>Related 1</h4> 
+          </div> 
+          <div class="related-item"> 
+            <img src="https://via.placeholder.com/180x120?text=Related+2" alt="Related 2"> 
+            <h4>Related 2</h4> 
+          </div> 
+        `; 
+      
+        document.getElementById("categoryPage").style.display = "none"; 
+        document.getElementById("product-detail-section").style.display = "block"; 
+      } 
+      
+      // Close product detail section 
+      function closeProductDetail() { 
+        document.getElementById("product-detail-section").style.display = "none"; 
+        document.getElementById("categoryPage").style.display = "block"; 
+      } 
+      
+      // Initialize main page on window load 
+      window.onload = function () { 
+        initMainPage(); 
+      };
+      
+      // Additional functions to load header/footer remain unchanged 
+    </script> 
+  </body> 
 </html>
