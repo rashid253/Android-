@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>NextGen E-commerce - Shop Now</title>
-    <!-- Font Awesome for icons -->
+    <!-- Font Awesome for icons (only used for star ratings) -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -180,7 +180,7 @@
     </style>
   </head>
   <body>
-    <!-- Header Placeholder -->
+    <!-- Header Placeholder (loaded dynamically) -->
     <div id="header-placeholder"></div>
     <!-- Main Ecommerce Content -->
     <main>
@@ -225,6 +225,10 @@
                   <div class="col-md-7">
                     <h4 id="modalProductName"></h4>
                     <p id="modalProductPrice" class="text-danger h5"></p>
+                    <!-- Star Rating (first line) -->
+                    <p id="modalProductRating" class="mb-1"></p>
+                    <!-- Added & Sold Info (second line) -->
+                    <p id="modalProductStats" class="small text-muted mb-3"></p>
                     <button class="btn btn-primary mb-3">
                       <i class="fa fa-shopping-cart me-1"></i> Add to Cart
                     </button>
@@ -616,25 +620,18 @@
             card.onclick = function () {
               openCategoryPage(category);
             };
-            // Updated product card:
-            // First line: star rating (Reviews)
-            // Second line: Added to Cart and Sold Out counts
+            // Product card with two lines:
+            // 1st line: Star rating
+            // 2nd line: Plain text with added & sold info
             card.innerHTML = `
               <img src="${product.image}" class="card-img-top" alt="${product.name}">
               <div class="card-body text-center">
                 <p class="product-price">${product.price} <span class="product-old-price">PKR1,487</span></p>
-                <div class="d-flex justify-content-around align-items-center">
-                  <div class="product-reviews">
-                    ${generateStars(product.rating)}
-                  </div>
-                  <div class="product-added">
-                    <i class="fa fa-shopping-cart me-1"></i>
-                    <small>${product.added} Added</small>
-                  </div>
-                  <div class="product-sold">
-                    <i class="fa fa-box-open me-1"></i>
-                    <small>${product.sold} Sold</small>
-                  </div>
+                <div class="star-rating mb-1">
+                  ${generateStars(product.rating)}
+                </div>
+                <div class="product-stats">
+                  <small>${product.added} Added | ${product.sold} Sold</small>
                 </div>
               </div>
             `;
@@ -660,23 +657,16 @@
           card.onclick = function () {
             openProductModal(product);
           };
-          // Updated grid view product card with same two-line info
+          // Grid view product card with same two-line info
           card.innerHTML = `
             <img src="${product.image}" class="card-img-top" alt="${product.name}">
             <div class="card-body text-center">
               <p class="product-price">${product.price} <span class="product-old-price">PKR1,487</span></p>
-              <div class="d-flex justify-content-around align-items-center">
-                <div class="product-reviews">
-                  ${generateStars(product.rating)}
-                </div>
-                <div class="product-added">
-                  <i class="fa fa-shopping-cart me-1"></i>
-                  <small>${product.added} Added</small>
-                </div>
-                <div class="product-sold">
-                  <i class="fa fa-box-open me-1"></i>
-                  <small>${product.sold} Sold</small>
-                </div>
+              <div class="star-rating mb-1">
+                ${generateStars(product.rating)}
+              </div>
+              <div class="product-stats">
+                <small>${product.added} Added | ${product.sold} Sold</small>
               </div>
             </div>
           `;
@@ -697,6 +687,9 @@
         document.getElementById("modalProductName").innerText = product.name;
         document.getElementById("modalProductPrice").innerText = product.price;
         document.getElementById("modalProductDescription").innerText = product.description;
+        // Set the star rating and stats in the modal details
+        document.getElementById("modalProductRating").innerHTML = generateStars(product.rating);
+        document.getElementById("modalProductStats").innerText = product.added + " Added | " + product.sold + " Sold";
         
         let autoRelatedContainer = document.getElementById("autoRelatedItemsRow");
         autoRelatedContainer.innerHTML = "";
