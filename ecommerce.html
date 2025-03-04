@@ -3,51 +3,95 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NextGen E-commerce - App Detail</title>
+  <title>E-Commerce Showcase</title>
   <!-- Font Awesome for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <!-- Custom CSS -->
+  <!-- Google Fonts -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" />
   <style>
-    /* Global reset and basic styling */
+    /* Global Reset */
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: Arial, sans-serif; background: #f2f2f2; color: #333; }
-    .container { width: 90%; max-width: 1200px; margin: 0 auto; padding: 20px 0; }
-    header, footer { background: #fff; padding: 10px 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-bottom: 20px; }
-    header .brand { font-size: 1.5rem; font-weight: bold; }
+    body { font-family: 'Roboto', sans-serif; background: #f7f7f7; color: #333; }
+    .container { width: 90%; max-width: 1200px; margin: 20px auto; }
+    header, footer { background: #fff; padding: 15px 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-bottom: 20px; }
+    header .brand { font-size: 1.8rem; font-weight: 700; }
 
-    /* App Detail Card (inspired by Play Store app page) */
-    .app-detail { background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-    .app-header { display: flex; }
-    .app-icon { flex: 0 0 100px; }
-    .app-icon img { width: 100px; height: 100px; border-radius: 20%; }
-    .app-info { margin-left: 20px; flex: 1; }
-    .app-info h1 { font-size: 1.8rem; margin-bottom: 10px; }
-    .app-info .developer { color: #555; margin-bottom: 10px; }
-    .rating { color: #f39c12; }
-    .app-meta { margin-top: 10px; color: #777; }
-    
-    /* Tabs for Overview / Reviews / Related */
-    .tab-buttons { display: flex; border-bottom: 1px solid #e0e0e0; margin-top: 20px; }
-    .tab-buttons button { flex: 1; padding: 10px; background: none; border: none; font-size: 1rem; cursor: pointer; }
-    .tab-buttons button.active { border-bottom: 2px solid #007bff; color: #007bff; font-weight: bold; }
-    .tab-content { margin-top: 20px; }
+    /* Category Filter Bar */
+    .category-bar { display: flex; gap: 10px; margin-bottom: 20px; }
+    .category-bar button {
+      background: #fff;
+      border: 1px solid #ddd;
+      padding: 8px 12px;
+      cursor: pointer;
+      border-radius: 4px;
+      font-weight: 500;
+      transition: background 0.3s, border-color 0.3s;
+    }
+    .category-bar button.active,
+    .category-bar button:hover {
+      background: #4285f4;
+      border-color: #4285f4;
+      color: #fff;
+    }
 
-    /* Section styling */
-    .section { margin-top: 30px; }
-    .section h2 { font-size: 1.5rem; margin-bottom: 10px; border-bottom: 1px solid #e0e0e0; padding-bottom: 5px; }
-    .description { line-height: 1.6; margin-top: 10px; }
-    .screenshots { display: flex; overflow-x: auto; gap: 10px; padding-bottom: 10px; }
-    .screenshots img { width: 200px; height: auto; border-radius: 8px; }
-    
-    /* Reviews styling */
-    .review { background: #fafafa; padding: 10px; border-radius: 6px; margin-bottom: 10px; }
-    .review .reviewer { font-weight: bold; margin-bottom: 5px; }
-    .review .review-date { font-size: 0.85rem; color: #999; margin-bottom: 5px; }
-    
-    /* Related apps styling */
-    .related { display: flex; overflow-x: auto; gap: 10px; }
-    .related .related-item { background: #fff; padding: 10px; border-radius: 8px; text-align: center; width: 120px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
-    .related .related-item img { width: 80px; height: 80px; border-radius: 20%; margin-bottom: 5px; }
+    /* Product Listing Grid */
+    #product-listing { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 20px; }
+    .product-card {
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      padding: 10px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .product-card:hover { transform: translateY(-3px); }
+    .product-card img { width: 100%; height: 140px; object-fit: cover; border-radius: 4px; }
+    .product-card h3 { font-size: 1rem; margin: 10px 0 5px; }
+    .product-card .price { color: #4285f4; font-weight: 500; }
+
+    /* Product Detail View */
+    #product-detail { display: none; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+    #product-detail .back-btn { margin-bottom: 15px; cursor: pointer; color: #4285f4; }
+    .detail-header { display: flex; gap: 20px; border-bottom: 1px solid #ddd; padding-bottom: 20px; }
+    .detail-image { flex: 0 0 200px; }
+    .detail-image img { width: 200px; height: 200px; object-fit: cover; border-radius: 8px; }
+    .detail-info { flex: 1; }
+    .detail-info h1 { font-size: 1.8rem; margin-bottom: 10px; }
+    .detail-info .price { font-size: 1.4rem; color: #4285f4; margin-bottom: 10px; }
+    .detail-info .description { line-height: 1.6; margin-bottom: 15px; }
+    .add-to-cart { background: #28a745; color: #fff; padding: 10px 20px; border: none; border-radius: 4px; font-size: 1rem; cursor: pointer; transition: background 0.3s; }
+    .add-to-cart:hover { background: #218838; }
+
+    /* Reviews Section */
+    .reviews { margin-top: 20px; }
+    .reviews h2 { font-size: 1.4rem; margin-bottom: 10px; }
+    .review { background: #fafafa; padding: 10px; border-radius: 4px; margin-bottom: 10px; }
+    .review .reviewer { font-weight: 500; margin-bottom: 5px; }
+    .review .rating { color: #f39c12; margin-bottom: 5px; }
+    .review p { font-size: 0.95rem; }
+
+    /* Related Items */
+    .related { margin-top: 20px; }
+    .related h2 { font-size: 1.4rem; margin-bottom: 10px; }
+    .related-items { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 10px; }
+    .related-item {
+      flex: 0 0 140px;
+      background: #fff;
+      border-radius: 4px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      padding: 10px;
+      text-align: center;
+      cursor: pointer;
+    }
+    .related-item img { width: 100%; height: 100px; object-fit: cover; border-radius: 4px; }
+    .related-item h4 { font-size: 0.9rem; margin-top: 5px; }
+
+    /* Responsive Adjustments */
+    @media (max-width: 600px) {
+      .detail-header { flex-direction: column; align-items: center; }
+      .detail-image, .detail-info { width: 100%; text-align: center; }
+      .detail-image img { width: 150px; height: 150px; }
+    }
   </style>
 </head>
 <body>
@@ -55,123 +99,210 @@
   <header>
     <div class="brand">MyBusiness</div>
   </header>
-  
+
   <!-- Main Container -->
   <div class="container">
-    <!-- App Detail Card -->
-    <div class="app-detail">
-      <div class="app-header">
-        <div class="app-icon">
-          <img src="https://via.placeholder.com/100" alt="App Icon">
+    <!-- Product Listing View -->
+    <div id="product-listing-view">
+      <div class="category-bar" id="category-bar">
+        <button class="active" onclick="filterCategory('All', this)">All</button>
+        <button onclick="filterCategory('Electronics', this)">Electronics</button>
+        <button onclick="filterCategory('Baby Garments', this)">Baby Garments</button>
+        <button onclick="filterCategory('Home & Kitchen', this)">Home & Kitchen</button>
+      </div>
+      <div id="product-listing"></div>
+    </div>
+
+    <!-- Product Detail View -->
+    <div id="product-detail">
+      <div class="back-btn" onclick="backToListing()">
+        <i class="fas fa-arrow-left"></i> Back to products
+      </div>
+      <div class="detail-header">
+        <div class="detail-image">
+          <img id="detail-img" src="" alt="Product Image">
         </div>
-        <div class="app-info">
-          <h1>NextGen App</h1>
-          <div class="developer">by NextGen Inc.</div>
-          <div class="rating">
-            <i class="fas fa-star"></i> 4.5 &nbsp; (1.2K reviews)
-          </div>
-          <div class="app-meta">
-            Free &bull; 50M+ installs &bull; Updated Sep 2023
-          </div>
+        <div class="detail-info">
+          <h1 id="detail-name"></h1>
+          <div class="price" id="detail-price"></div>
+          <div class="description" id="detail-description"></div>
+          <button class="add-to-cart" onclick="addToCart()">Add to Cart</button>
         </div>
       </div>
-      
-      <!-- Tab Buttons -->
-      <div class="tab-buttons">
-        <button class="active" onclick="showTab('overview', event)">Overview</button>
-        <button onclick="showTab('reviews', event)">Reviews</button>
-        <button onclick="showTab('related', event)">Related</button>
+      <!-- Reviews Section -->
+      <div class="reviews" id="detail-reviews">
+        <h2>User Reviews</h2>
+        <div id="reviews-container"></div>
       </div>
-      
-      <!-- Tab Contents -->
-      <div id="overview" class="tab-content">
-        <div class="section">
-          <h2>Description</h2>
-          <div class="description">
-            NextGen App is your ultimate solution for managing everything on the go. Experience seamless integration, intuitive design, and robust features that simplify your daily tasks. Enjoy regular updates and new features as we continuously improve your experience.
-          </div>
-        </div>
-        <div class="section">
-          <h2>Screenshots</h2>
-          <div class="screenshots">
-            <img src="https://via.placeholder.com/200x400?text=Screenshot+1" alt="Screenshot 1">
-            <img src="https://via.placeholder.com/200x400?text=Screenshot+2" alt="Screenshot 2">
-            <img src="https://via.placeholder.com/200x400?text=Screenshot+3" alt="Screenshot 3">
-            <img src="https://via.placeholder.com/200x400?text=Screenshot+4" alt="Screenshot 4">
-          </div>
-        </div>
-        <div class="section">
-          <h2>What's New</h2>
-          <div class="description">
-            Version 2.0 brings a refreshed interface, performance improvements, and several bug fixes. Enjoy the new features and improved user experience.
-          </div>
-        </div>
-      </div>
-      
-      <div id="reviews" class="tab-content" style="display:none;">
-        <div class="section">
-          <h2>User Reviews</h2>
-          <div class="review">
-            <div class="reviewer">Alice</div>
-            <div class="review-date">Sep 15, 2023</div>
-            <div class="rating"><i class="fas fa-star"></i> 5.0</div>
-            <div class="description">Absolutely love this app! It has changed the way I manage my tasks.</div>
-          </div>
-          <div class="review">
-            <div class="reviewer">Bob</div>
-            <div class="review-date">Sep 10, 2023</div>
-            <div class="rating"><i class="fas fa-star"></i> 4.0</div>
-            <div class="description">Great features and easy to use. Some minor issues, but overall very good.</div>
-          </div>
-          <!-- More reviews as needed -->
-        </div>
-      </div>
-      
-      <div id="related" class="tab-content" style="display:none;">
-        <div class="section">
-          <h2>Related Apps</h2>
-          <div class="related">
-            <div class="related-item">
-              <img src="https://via.placeholder.com/80" alt="Related App 1">
-              <div>App One</div>
-            </div>
-            <div class="related-item">
-              <img src="https://via.placeholder.com/80" alt="Related App 2">
-              <div>App Two</div>
-            </div>
-            <div class="related-item">
-              <img src="https://via.placeholder.com/80" alt="Related App 3">
-              <div>App Three</div>
-            </div>
-            <div class="related-item">
-              <img src="https://via.placeholder.com/80" alt="Related App 4">
-              <div>App Four</div>
-            </div>
-          </div>
-        </div>
+      <!-- Related Items Section -->
+      <div class="related" id="detail-related">
+        <h2>Related Items</h2>
+        <div class="related-items" id="related-items-container"></div>
       </div>
     </div>
   </div>
-  
+
   <!-- Footer -->
   <footer>
-    &copy; 2023 MyBusiness
+    &copy; 2023 MyBusiness. All Rights Reserved.
   </footer>
-  
-  <!-- Simple Tab Script -->
+
+  <!-- JavaScript Section -->
   <script>
-    function showTab(tabId, event) {
-      // Hide all tab contents
-      var tabs = document.querySelectorAll('.tab-content');
-      tabs.forEach(function(tab) { tab.style.display = 'none'; });
-      // Show the selected tab
-      document.getElementById(tabId).style.display = 'block';
-      
-      // Remove active class from all buttons
-      var buttons = document.querySelectorAll('.tab-buttons button');
-      buttons.forEach(function(btn) { btn.classList.remove('active'); });
-      event.currentTarget.classList.add('active');
+    // Dummy product data array
+    const products = [
+      {
+        id: 1,
+        name: "Smartphone X",
+        category: "Electronics",
+        image: "https://via.placeholder.com/300x200?text=Smartphone+X",
+        price: "$699",
+        description: "A high-end smartphone with advanced features and sleek design.",
+        reviews: [
+          { reviewer: "Alice", rating: 5, text: "Amazing performance and battery life!", date: "2023-09-15" },
+          { reviewer: "Bob", rating: 4, text: "Great phone, but a bit pricey.", date: "2023-09-10" }
+        ]
+      },
+      {
+        id: 2,
+        name: "Wireless Headphones",
+        category: "Electronics",
+        image: "https://via.placeholder.com/300x200?text=Headphones",
+        price: "$199",
+        description: "Experience superior sound quality with these wireless headphones.",
+        reviews: [
+          { reviewer: "Charlie", rating: 4, text: "Comfortable and clear sound.", date: "2023-08-20" }
+        ]
+      },
+      {
+        id: 3,
+        name: "Baby Onesie",
+        category: "Baby Garments",
+        image: "https://via.placeholder.com/300x200?text=Baby+Onesie",
+        price: "$29",
+        description: "Soft, organic cotton onesie for your baby with adorable prints.",
+        reviews: [
+          { reviewer: "Diana", rating: 5, text: "Perfect for my little one!", date: "2023-09-05" }
+        ]
+      },
+      {
+        id: 4,
+        name: "Blender Pro",
+        category: "Home & Kitchen",
+        image: "https://via.placeholder.com/300x200?text=Blender+Pro",
+        price: "$89",
+        description: "A high-power blender perfect for smoothies, soups, and more.",
+        reviews: [
+          { reviewer: "Evan", rating: 4, text: "Very efficient and easy to clean.", date: "2023-09-12" }
+        ]
+      },
+      {
+        id: 5,
+        name: "LED TV 50\"",
+        category: "Electronics",
+        image: "https://via.placeholder.com/300x200?text=LED+TV+50",
+        price: "$499",
+        description: "Enjoy your favorite shows on this crisp, vibrant 50-inch LED TV.",
+        reviews: [
+          { reviewer: "Fiona", rating: 5, text: "Fantastic picture quality!", date: "2023-08-30" }
+        ]
+      },
+      {
+        id: 6,
+        name: "Baby Romper",
+        category: "Baby Garments",
+        image: "https://via.placeholder.com/300x200?text=Baby+Romper",
+        price: "$35",
+        description: "Comfortable and stylish romper available in various colors.",
+        reviews: [
+          { reviewer: "George", rating: 4, text: "Very cute and soft.", date: "2023-09-08" }
+        ]
+      }
+    ];
+
+    // Function to render product listing based on a category filter
+    function renderProductListing(filter = "All") {
+      const container = document.getElementById("product-listing");
+      container.innerHTML = "";
+      const filteredProducts = filter === "All" ? products : products.filter(p => p.category === filter);
+      filteredProducts.forEach(product => {
+        const card = document.createElement("div");
+        card.className = "product-card";
+        card.onclick = () => openProductDetail(product.id);
+        card.innerHTML = `
+          <img src="${product.image}" alt="${product.name}">
+          <h3>${product.name}</h3>
+          <div class="price">${product.price}</div>
+        `;
+        container.appendChild(card);
+      });
     }
+
+    // Category filter function
+    function filterCategory(category, btn) {
+      document.querySelectorAll(".category-bar button").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      renderProductListing(category);
+    }
+
+    // Function to open the product detail view
+    function openProductDetail(productId) {
+      const product = products.find(p => p.id === productId);
+      if (!product) return;
+      // Populate product details
+      document.getElementById("detail-img").src = product.image;
+      document.getElementById("detail-name").innerText = product.name;
+      document.getElementById("detail-price").innerText = product.price;
+      document.getElementById("detail-description").innerText = product.description;
+      
+      // Render reviews
+      const reviewsContainer = document.getElementById("reviews-container");
+      reviewsContainer.innerHTML = "";
+      product.reviews.forEach(review => {
+        const reviewDiv = document.createElement("div");
+        reviewDiv.className = "review";
+        reviewDiv.innerHTML = `
+          <div class="reviewer">${review.reviewer}</div>
+          <div class="rating">${"★".repeat(review.rating)}</div>
+          <p>${review.text}</p>
+          <small>${review.date}</small>
+        `;
+        reviewsContainer.appendChild(reviewDiv);
+      });
+      
+      // Render related items (other products in same category)
+      const relatedContainer = document.getElementById("related-items-container");
+      relatedContainer.innerHTML = "";
+      products.filter(p => p.category === product.category && p.id !== product.id)
+              .forEach(p => {
+        const relatedDiv = document.createElement("div");
+        relatedDiv.className = "related-item";
+        relatedDiv.onclick = () => openProductDetail(p.id);
+        relatedDiv.innerHTML = `
+          <img src="${p.image}" alt="${p.name}">
+          <h4>${p.name}</h4>
+        `;
+        relatedContainer.appendChild(relatedDiv);
+      });
+      
+      // Toggle views
+      document.getElementById("product-listing-view").style.display = "none";
+      document.getElementById("product-detail").style.display = "block";
+    }
+
+    // Function to go back to product listing
+    function backToListing() {
+      document.getElementById("product-detail").style.display = "none";
+      document.getElementById("product-listing-view").style.display = "block";
+    }
+
+    // Function for Add to Cart (for demo, simply alerts)
+    function addToCart() {
+      alert("Product added to cart!");
+    }
+
+    // Initial render
+    renderProductListing("All");
   </script>
 </body>
 </html>
