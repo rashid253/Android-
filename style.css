@@ -8,23 +8,24 @@ body {
   font-family: 'Roboto', sans-serif;
   background-color: #f4f4f4;
   color: #333;
-  /* Reserve space for fixed header and bottom nav */
-  padding-top: 70px;
-  padding-bottom: 70px;
+  padding-top: 70px;   /* For fixed header */
+  padding-bottom: 70px; /* For fixed bottom nav */
 }
+
+/* Container */
 .container {
   width: 90%;
   max-width: 1200px;
   margin: 0 auto;
 }
 
-/* Header */
+/* Fixed Header */
 .header {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  background: #fff;
+  background: #ffffff;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   z-index: 1000;
 }
@@ -37,7 +38,7 @@ body {
 .brand {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #007bff;
+  color: #007bff; /* Professional blue accent */
   display: flex;
   align-items: center;
 }
@@ -46,13 +47,6 @@ body {
   font-size: 1.8rem;
   color: #007bff;
 }
-
-/* Hide desktop navigation (we do not want duplicate icons at top) */
-.nav-desktop {
-  display: none;
-}
-
-/* Hamburger Menu Toggle (visible on mobile) */
 .menu-toggle {
   background: none;
   border: none;
@@ -60,16 +54,32 @@ body {
   font-size: 1.8rem;
   cursor: pointer;
   display: block;
-  margin-top: 0;
+}
+.nav-desktop {
+  display: none;
+}
+@media (min-width: 600px) {
+  .menu-toggle { display: none; }
+  .nav-desktop {
+    display: flex;
+    gap: 20px;
+  }
+  .nav-desktop a {
+    text-decoration: none;
+    color: #333;
+    font-size: 1.2rem;
+    transition: color 0.3s;
+  }
+  .nav-desktop a:hover { color: #007bff; }
 }
 
 /* Mobile Side Menu */
 .side-menu {
   position: fixed;
-  top: 70px; /* directly below header */
+  top: 70px;
   right: 0;
-  width: 160px;
-  background: #fff;
+  width: 220px;
+  background: #ffffff;
   box-shadow: -2px 0 4px rgba(0,0,0,0.1);
   padding: 20px;
   display: none;
@@ -83,14 +93,13 @@ body {
   border-bottom: 1px solid #e0e0e0;
   font-size: 1rem;
 }
-.side-menu a:last-child {
-  border-bottom: none;
-}
+.side-menu a:last-child { border-bottom: none; }
+.side-menu.visible { display: flex; }
 
 /* Hero Section */
 .hero {
-  height: calc(100vh - 140px); /* subtract header & bottom nav heights */
-  background-color: #2196F3;  /* Bright blue background */
+  height: calc(100vh - 140px); /* Full viewport minus header & bottom nav */
+  background: #007bff; /* bright blue */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -114,14 +123,8 @@ body {
 }
 
 /* CTA Buttons */
-.cta-buttons {
-  display: flex;
-  gap: 15px;
-  flex-wrap: wrap;
-  justify-content: center;
-}
 .cta-buttons button {
-  background: #4CAF50; /* Green */
+  background: #28a745; /* green */
   border: none;
   padding: 12px 25px;
   font-size: 1rem;
@@ -131,7 +134,49 @@ body {
   transition: background-color 0.3s;
 }
 .cta-buttons button:hover {
-  background: #388E3C;
+  background: #218838; /* darker green on hover */
+}
+
+/* Features Section */
+.features {
+  padding: 40px 15px;
+  background: #ffffff;
+}
+.features h2 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 30px;
+  color: #007bff;
+}
+.features-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+.feature-item {
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  width: 280px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: transform 0.3s;
+}
+.feature-item:hover { transform: translateY(-5px); }
+.feature-item i {
+  font-size: 2rem;
+  margin-bottom: 15px;
+  color: #007bff;
+}
+.feature-item h3 {
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+  color: #333;
+}
+.feature-item p {
+  font-size: 1rem;
+  color: #666;
 }
 
 /* Mobile Bottom Navigation */
@@ -140,7 +185,7 @@ body {
   bottom: 0;
   left: 0;
   width: 100%;
-  background: #fff;
+  background: #ffffff;
   border-top: 1px solid #e0e0e0;
   display: flex;
   justify-content: space-around;
@@ -154,20 +199,19 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: relative;
 }
 .mobile-nav a span {
   font-size: 0.65rem;
   margin-top: 3px;
 }
 
-/* Fixed Footer (optional) */
+/* Fixed Footer (Optional Additional Info) */
 .footer {
   position: fixed;
-  bottom: 70px;
+  bottom: 70px; /* above mobile nav */
   left: 0;
   width: 100%;
-  background: #fff;
+  background: #ffffff;
   text-align: center;
   padding: 8px 0;
   box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
@@ -176,31 +220,10 @@ body {
   z-index: 1000;
 }
 
-/* Cart Icon & Badge (if used in mobile nav or elsewhere) */
-.cart-icon {
-  position: relative;
-}
-.cart-icon .badge {
-  position: absolute;
-  top: -10px;
-  right: -10px;
-  background-color: red;
-  color: #fff;
-  border-radius: 50%;
-  padding: 2px 5px;
-  font-size: 10px;
-}
-
-/* Responsive Adjustments (if any desktop-specific styling is needed) */
+/* Responsive Adjustments */
 @media (min-width: 600px) {
-  /* For a mobile app, we want to use the header with hamburger & bottom nav only.
-     Desktop nav and footer can remain hidden or be re-styled as needed. */
-  .menu-toggle,
-  .side-menu,
-  .mobile-nav,
-  .footer {
-    /* For this mobile app design, we keep these visible only on mobile.
-       You can adjust this media query if needed. */
-    display: block;
-  }
+  .mobile-nav { display: none; }
+  .footer { display: none; }
+  .side-menu { display: none !important; }
+  .hero { height: calc(100vh - 60px); }
 }
