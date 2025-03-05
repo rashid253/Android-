@@ -8,14 +8,9 @@
   <link rel="stylesheet" href="style.css">
   <!-- Font Awesome for Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <!-- Page-Specific Styles -->
   <style>
     /* Reset & Base Styles */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'Roboto', sans-serif;
       background: #fff;
@@ -25,32 +20,19 @@
     }
     main {
       max-width: 1000px;
-      margin: 40px auto 40px;  /* Reduced top margin for a tighter layout */
+      margin: 0 auto 40px;
       padding: 20px;
     }
     h1, h2 {
       text-align: center;
       margin-bottom: 20px;
     }
-    h1 {
-      font-size: 2rem;
-    }
-    h2 {
-      font-size: 1.5rem;
-      color: #4caf50;
-    }
+    h1 { font-size: 2rem; }
+    h2 { font-size: 1.5rem; color: #4caf50; }
     /* About Section */
-    .about {
-      margin-bottom: 40px;
-      text-align: center;
-    }
-    .about p {
-      max-width: 800px;
-      margin: 0 auto;
-      font-size: 1rem;
-      color: #666;
-    }
-    /* Contact Information Section */
+    .about { margin-bottom: 40px; text-align: center; }
+    .about p { max-width: 800px; margin: 0 auto; font-size: 1rem; color: #666; }
+    /* Contact Info Section */
     .contact-info {
       margin-bottom: 40px;
       display: flex;
@@ -71,10 +53,7 @@
       font-size: 1rem;
       color: #555;
     }
-    .info-item a {
-      color: inherit;
-      text-decoration: none;
-    }
+    .info-item a { color: inherit; text-decoration: none; }
     /* Contact Form Section */
     .contact-form {
       background: #f7f7f7;
@@ -89,10 +68,7 @@
       flex-direction: column;
       gap: 15px;
     }
-    .contact-form label {
-      font-weight: 600;
-      color: #555;
-    }
+    .contact-form label { font-weight: 600; color: #555; }
     .contact-form input,
     .contact-form textarea {
       padding: 12px;
@@ -102,10 +78,7 @@
       width: 100%;
     }
     .contact-form input:focus,
-    .contact-form textarea:focus {
-      outline: none;
-      border-color: #4caf50;
-    }
+    .contact-form textarea:focus { outline: none; border-color: #4caf50; }
     .contact-form button {
       padding: 12px;
       font-size: 1.1rem;
@@ -116,44 +89,27 @@
       cursor: pointer;
       transition: background 0.3s;
     }
-    .contact-form button:hover {
-      background: #45a049;
-    }
+    .contact-form button:hover { background: #45a049; }
     /* Responsive Design */
     @media (max-width: 768px) {
-      main {
-        margin-top: 20px;
-        padding: 15px;
-      }
-      .map {
-        height: 250px;
-      }
+      main { padding: 15px; }
+      .map { height: 250px; }
     }
   </style>
 </head>
 <body>
-  <!-- Load External Header -->
-  <script>
-    fetch("header.html")
-      .then(response => response.text())
-      .then(data => {
-        document.body.insertAdjacentHTML("afterbegin", data);
-      })
-      .catch(error => console.error("Header load error:", error));
-  </script>
-
+  <!-- Containers for external header and footer -->
+  <div id="header-placeholder"></div>
+  
   <main>
     <h1>Contact Us</h1>
-
     <!-- About Section -->
     <section class="about">
       <h2>About YourBrand</h2>
       <p>YourBrand is dedicated to delivering innovative solutions with passion and professionalism. Our team is here to help answer your queries and build lasting relationships with our clients and partners.</p>
     </section>
-
-    <!-- Contact Information Section -->
+    <!-- Contact Info Section -->
     <section class="contact-info">
-      <!-- Embedded Map -->
       <iframe class="map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3651.901314824395!2d90.3892023153622!3d23.750903494563154!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b8586d0e3a39%3A0x4d725845f6eb702b!2sDhaka!5e0!3m2!1sen!2sbd!4v1583489459389!5m2!1sen!2sbd" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
       <div class="info-item">
         <i class="fas fa-phone-alt"></i>
@@ -172,37 +128,58 @@
         <span>123 Innovation Blvd, Tech City, Country</span>
       </div>
     </section>
-
     <!-- Contact Form Section -->
     <section class="contact-form">
       <h2>Get In Touch</h2>
       <form id="contactForm" novalidate>
         <label for="name">Name <span style="color:red;">*</span></label>
         <input type="text" id="name" name="name" placeholder="Your Name" required>
-
         <label for="email">Email <span style="color:red;">*</span></label>
         <input type="email" id="email" name="email" placeholder="Your Email" required>
-
         <label for="phone">Phone</label>
         <input type="tel" id="phone" name="phone" placeholder="Your Phone Number">
-
         <label for="subject">Subject</label>
         <input type="text" id="subject" name="subject" placeholder="Subject">
-
         <label for="message">Message <span style="color:red;">*</span></label>
         <textarea id="message" name="message" rows="5" placeholder="Your Message" required></textarea>
-
         <button type="submit">Send Message</button>
       </form>
     </section>
   </main>
-
-  <!-- Load External Footer -->
+  
+  <div id="footer-placeholder"></div>
+  
+  <!-- Custom Loader Function to Insert HTML and Execute Scripts -->
   <script>
-    fetch("footer.html")
-      .then(response => response.text())
-      .then(data => document.body.insertAdjacentHTML("beforeend", data))
-      .catch(error => console.error("Footer load error:", error));
+    function loadHTML(url, containerId, callback) {
+      fetch(url)
+        .then(response => response.text())
+        .then(html => {
+          const container = document.getElementById(containerId);
+          container.innerHTML = html;
+          // Extract and run scripts inside the loaded HTML:
+          const scripts = container.querySelectorAll("script");
+          scripts.forEach(oldScript => {
+            const newScript = document.createElement("script");
+            if(oldScript.src) {
+              newScript.src = oldScript.src;
+            } else {
+              newScript.textContent = oldScript.textContent;
+            }
+            document.head.appendChild(newScript);
+          });
+          if (callback) callback();
+        })
+        .catch(err => console.error("Failed to load " + url, err));
+    }
+    // Load header and then initialize hamburger functionality
+    loadHTML("header.html", "header-placeholder", function(){
+      if (typeof initHamburger === "function") {
+        initHamburger();
+      }
+    });
+    // Load footer
+    loadHTML("footer.html", "footer-placeholder");
   </script>
 </body>
 </html>
