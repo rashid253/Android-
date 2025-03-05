@@ -69,17 +69,23 @@
         background-color: #e68a00;
         transform: scale(1.05);
       }
-      /* CATEGORY NAVIGATION (Below Hero) */
+      /* CATEGORY NAVIGATION (Below Hero) - Draggable slider */
       #categoriesNav {
         margin: 20px 0;
       }
       #categoriesNavContainer {
         display: flex;
-        justify-content: center;
+        overflow-x: auto;
         gap: 15px;
-        flex-wrap: wrap;
+        padding-bottom: 10px;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        cursor: grab;
       }
+      /* Each category button will snap to center */
       .category-button {
+        flex: 0 0 auto;
+        scroll-snap-align: center;
         background: #fff;
         border: 1px solid #ddd;
         border-radius: 4px;
@@ -101,7 +107,7 @@
         color: #007bff;
         margin-bottom: 5px;
       }
-      /* HORIZONTAL SCROLL for product tiles */
+      /* HORIZONTAL SCROLL for product tiles (remains unchanged) */
       .horizontal-scroll {
         display: flex;
         overflow-x: auto;
@@ -233,7 +239,7 @@
     <script src="script.js" defer></script>
   </head>
   <body>
-    <!-- External Header (loaded from header.html) -->
+    <!-- External Header -->
     <div id="header-placeholder"></div>
 
     <!-- MAIN CONTENT -->
@@ -270,15 +276,15 @@
       </div>
     </main>
 
-    <!-- External Footer (loaded from footer.html) -->
+    <!-- External Footer -->
     <div id="footer-placeholder"></div>
 
     <!-- Bootstrap Bundle JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- DYNAMIC LOADING OF EXTERNAL HEADER & FOOTER, INITIALIZATION, AND NAVIGATION FUNCTIONS -->
+    <!-- DYNAMIC LOADING & INITIALIZATION SCRIPT -->
     <script>
-      // Function to load external HTML into a placeholder element
+      // Function to load external HTML (header/footer)
       function loadHTML(elementId, filePath) {
         fetch(filePath)
           .then(response => {
@@ -304,7 +310,37 @@
         loadHTML("footer-placeholder", "footer.html");
         initCategoriesNav();
         initMainPage();
+        enableDragScroll();
       });
+
+      // Enable drag-to-scroll functionality for category navigation
+      function enableDragScroll() {
+        const slider = document.getElementById('categoriesNavContainer');
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+        slider.addEventListener('mousedown', (e) => {
+          isDown = true;
+          slider.classList.add('active');
+          startX = e.pageX - slider.offsetLeft;
+          scrollLeft = slider.scrollLeft;
+        });
+        slider.addEventListener('mouseleave', () => {
+          isDown = false;
+          slider.classList.remove('active');
+        });
+        slider.addEventListener('mouseup', () => {
+          isDown = false;
+          slider.classList.remove('active');
+        });
+        slider.addEventListener('mousemove', (e) => {
+          if (!isDown) return;
+          e.preventDefault();
+          const x = e.pageX - slider.offsetLeft;
+          const walk = (x - startX) * 2; // Adjust multiplier for desired speed
+          slider.scrollLeft = scrollLeft - walk;
+        });
+      }
 
       // Dummy product data
       const productData = {
@@ -455,7 +491,7 @@
         ]
       };
 
-      // Initialize category navigation (including an "All Categories" tile)
+      // Initialize category navigation (with an "All Categories" tile)
       function initCategoriesNav() {
         const navContainer = document.getElementById("categoriesNavContainer");
         navContainer.innerHTML = "";
@@ -469,7 +505,7 @@
           setActiveCategory("All");
         };
         navContainer.appendChild(allTile);
-        // One tile per category
+        // Create one tile per category
         for (let category in productData) {
           let btn = document.createElement("div");
           btn.className = "category-button";
@@ -496,7 +532,7 @@
         }
       }
 
-      // Set the active category style on navigation tile
+      // Set active style on navigation tile
       function setActiveCategory(category) {
         let buttons = document.querySelectorAll(".category-button");
         buttons.forEach(btn => btn.classList.remove("active-category"));
@@ -521,7 +557,7 @@
         return html;
       }
 
-      // Render main page: banners and horizontal product tiles
+      // Render main page content: banners and horizontal product tiles
       function initMainPage() {
         document.getElementById("mainPage").style.display = "block";
         document.getElementById("categoryPage").style.display = "none";
@@ -529,7 +565,7 @@
         container.innerHTML = "";
         let index = 0;
         for (let category in productData) {
-          // Append banner for this category (with section id for navigation)
+          // Append banner for this category with identifiable section id
           let banner = createBannerForCategory(category, index);
           container.appendChild(banner);
           let section = document.createElement("div");
@@ -559,7 +595,7 @@
           });
           index++;
         }
-        // Initialize dynamic carousels
+        // Initialize any dynamic carousels
         document.querySelectorAll('.carousel').forEach(function(carouselElement) {
           new bootstrap.Carousel(carouselElement, {
             interval: 3000,
@@ -568,7 +604,7 @@
         });
       }
 
-      // Open category page: vertical grid of products
+      // Open vertical category page
       function openCategoryPage(category) {
         window.currentCategory = category;
         document.getElementById("mainPage").style.display = "none";
