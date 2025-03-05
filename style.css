@@ -1,20 +1,26 @@
+/* CSS Variables for Consistency */
+:root {
+  --primary-color: #007bff;
+  --secondary-color: #28a745;
+  --dark-overlay: rgba(0, 0, 0, 0.4);
+  --bg-light: #f4f4f4;
+  --text-dark: #333;
+  --max-side-menu-width: 300px;
+}
+
 /* Reset & Base Styles */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
-
 body {
   font-family: "Roboto", sans-serif;
-  background-color: #f4f4f4;
-  color: #333;
-  /* Ensure fixed header & bottom nav don't overlap content */
-  padding-top: 70px; /* For fixed header */
-  padding-bottom: 70px; /* For fixed bottom nav */
+  background-color: var(--bg-light);
+  color: var(--text-dark);
+  padding-top: 70px;   /* Space for fixed header */
+  padding-bottom: 70px; /* Space for fixed mobile nav */
 }
-
-/* Container */
 .container {
   width: 90%;
   max-width: 1200px;
@@ -27,7 +33,7 @@ body {
   top: 0;
   left: 0;
   width: 100%;
-  background: #ffffff;
+  background: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   z-index: 1000;
 }
@@ -40,14 +46,13 @@ body {
 .brand {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #007bff;
+  color: var(--primary-color);
   display: flex;
   align-items: center;
 }
 .brand i {
   margin-right: 8px;
   font-size: 1.8rem;
-  color: #007bff;
 }
 
 /* Animated Hamburger Icon */
@@ -59,15 +64,14 @@ body {
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  width: 44px;   /* 44x44px target for accessibility */
-  height: 44px;
+  width: 44px;
+  height: 44px; /* 44x44px target for accessibility */
   padding: 0;
 }
 .menu-toggle span {
-  display: block;
-  width: 60%;           /* Relative width for a neat look */
+  width: 60%;
   height: 3px;
-  background: #007bff;
+  background: var(--primary-color);
   border-radius: 2px;
   transition: all 0.3s ease;
   margin: 3px 0;
@@ -96,37 +100,37 @@ body {
   }
   .nav-desktop a {
     text-decoration: none;
-    color: #333;
+    color: var(--text-dark);
     font-size: 1.2rem;
     transition: color 0.3s;
   }
   .nav-desktop a:hover {
-    color: #007bff;
+    color: var(--primary-color);
   }
 }
 
 /* Mobile Side Menu */
 .side-menu {
   position: fixed;
-  top: 70px; /* Below fixed header */
+  top: 70px; /* Below the fixed header */
   right: 0;
-  width: 80%;          /* Responsive width */
-  max-width: 300px;    /* Maximum width on larger screens */
-  background: #ffffff;
+  width: 80%;
+  max-width: var(--max-side-menu-width);
+  background: #fff;
   box-shadow: -2px 0 4px rgba(0, 0, 0, 0.1);
   padding: 20px;
   display: flex;
   flex-direction: column;
-  transform: translateX(100%); /* Hidden off-screen initially */
+  transform: translateX(100%); /* Hidden initially */
   transition: transform 0.3s ease;
   z-index: 1001;
 }
 .side-menu.visible {
-  transform: translateX(0);   /* Slide into view */
+  transform: translateX(0);
 }
 .side-menu a {
   text-decoration: none;
-  color: #333;
+  color: var(--text-dark);
   padding: 10px 0;
   border-bottom: 1px solid #e0e0e0;
   font-size: 1rem;
@@ -138,7 +142,7 @@ body {
 /* Hero Section */
 .hero {
   position: relative;
-  height: calc(100vh - 70px - 70px); /* Full viewport minus header and bottom nav */
+  height: calc(100vh - 140px); /* Adjust for header & mobile nav */
   background: url("hero-bg.jpg") center center/cover no-repeat;
   display: flex;
   align-items: center;
@@ -153,7 +157,7 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.4); /* Dark overlay for readability */
+  background: var(--dark-overlay);
   z-index: 1;
 }
 .hero-content {
@@ -175,7 +179,7 @@ body {
 
 /* CTA Buttons */
 .cta-buttons button {
-  background: #28a745;
+  background: var(--secondary-color);
   border: none;
   padding: 12px 25px;
   font-size: 1rem;
@@ -192,13 +196,13 @@ body {
 /* Products Section */
 .products {
   padding: 40px 15px;
-  background: #ffffff;
+  background: #fff;
 }
 .products h2 {
   text-align: center;
   font-size: 2rem;
   margin-bottom: 30px;
-  color: #007bff;
+  color: var(--primary-color);
 }
 .products-grid {
   display: flex;
@@ -227,7 +231,7 @@ body {
 .product-card h3 {
   font-size: 1.3rem;
   margin-bottom: 10px;
-  color: #333;
+  color: var(--text-dark);
 }
 .product-card .price {
   font-size: 1rem;
@@ -235,7 +239,7 @@ body {
   margin-bottom: 15px;
 }
 .product-card button {
-  background: #007bff;
+  background: var(--primary-color);
   border: none;
   padding: 10px 20px;
   color: #fff;
@@ -253,7 +257,7 @@ body {
   bottom: 0;
   left: 0;
   width: 100%;
-  background: #ffffff;
+  background: #fff;
   border-top: 1px solid #e0e0e0;
   display: flex;
   justify-content: space-around;
@@ -262,7 +266,7 @@ body {
 }
 .mobile-nav a {
   text-decoration: none;
-  color: #333;
+  color: var(--text-dark);
   font-size: 1.2rem;
   display: flex;
   flex-direction: column;
@@ -279,12 +283,12 @@ body {
   bottom: 70px; /* Above mobile nav */
   left: 0;
   width: 100%;
-  background: #ffffff;
+  background: #fff;
   text-align: center;
   padding: 8px 0;
   box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
   font-size: 0.85rem;
-  color: #333;
+  color: var(--text-dark);
   z-index: 1000;
 }
 
