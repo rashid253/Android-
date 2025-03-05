@@ -8,13 +8,19 @@
     <!-- External CSS -->
     <link rel="stylesheet" href="style.css" />
     <!-- Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
     <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
 
     <!-- Page-Specific Inline CSS -->
     <style>
-      /* Global settings – external style.css handles header/footer padding */
+      /* Global body settings (external style.css already sets header/footer padding) */
       body {
         font-family: 'Roboto', sans-serif;
         background-color: #f3f4f6;
@@ -63,19 +69,17 @@
         background-color: #e68a00;
         transform: scale(1.05);
       }
-      /* CATEGORY NAVIGATION – Gaming-style reordering */
+      /* CATEGORY NAVIGATION (Below Hero) */
       #categoriesNav {
         margin: 20px 0;
       }
       #categoriesNavContainer {
         display: flex;
+        justify-content: center;
         gap: 15px;
-        flex-wrap: nowrap;
-        /* We'll animate opacity during reordering */
-        transition: opacity 0.5s;
+        flex-wrap: wrap;
       }
       .category-button {
-        flex: 0 0 auto;
         background: #fff;
         border: 1px solid #ddd;
         border-radius: 4px;
@@ -97,7 +101,7 @@
         color: #007bff;
         margin-bottom: 5px;
       }
-      /* HORIZONTAL SCROLL for product tiles remains unchanged */
+      /* HORIZONTAL SCROLL for product tiles */
       .horizontal-scroll {
         display: flex;
         overflow-x: auto;
@@ -114,7 +118,7 @@
         border-radius: 8px;
         overflow: hidden;
         background: #fff;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         height: 150px;
       }
       .banner img {
@@ -229,7 +233,7 @@
     <script src="script.js" defer></script>
   </head>
   <body>
-    <!-- External Header -->
+    <!-- External Header (loaded from header.html) -->
     <div id="header-placeholder"></div>
 
     <!-- MAIN CONTENT -->
@@ -243,7 +247,7 @@
         </div>
       </section>
 
-      <!-- CATEGORY NAVIGATION (Gaming-style reordering) -->
+      <!-- CATEGORY NAVIGATION (Below Hero) -->
       <section id="categoriesNav" class="container my-4">
         <div id="categoriesNavContainer"></div>
       </section>
@@ -266,15 +270,15 @@
       </div>
     </main>
 
-    <!-- External Footer -->
+    <!-- External Footer (loaded from footer.html) -->
     <div id="footer-placeholder"></div>
 
     <!-- Bootstrap Bundle JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- DYNAMIC LOADING & INITIALIZATION SCRIPT -->
+    <!-- DYNAMIC LOADING OF EXTERNAL HEADER & FOOTER, INITIALIZATION, AND NAVIGATION FUNCTIONS -->
     <script>
-      // Load external header and footer
+      // Function to load external HTML into a placeholder element
       function loadHTML(elementId, filePath) {
         fetch(filePath)
           .then(response => {
@@ -451,7 +455,7 @@
         ]
       };
 
-      // Initialize category navigation with a draggable gaming-style effect (reordering the blocks)
+      // Initialize category navigation (including an "All Categories" tile)
       function initCategoriesNav() {
         const navContainer = document.getElementById("categoriesNavContainer");
         navContainer.innerHTML = "";
@@ -461,9 +465,8 @@
         allTile.id = "category-All";
         allTile.innerHTML = `<div class="category-icon"><i class="fas fa-th"></i></div><div class="category-name">All Categories</div>`;
         allTile.onclick = function() {
-          rotateCategoriesTo("All");
-          setActiveCategory("All");
           document.getElementById("mainPage").scrollIntoView({ behavior: "smooth", block: "start" });
+          setActiveCategory("All");
         };
         navContainer.appendChild(allTile);
         // One tile per category
@@ -482,38 +485,18 @@
           }
           btn.innerHTML = `<div class="category-icon"><i class="fas ${icon}"></i></div><div class="category-name">${category}</div>`;
           btn.onclick = function() {
-            rotateCategoriesTo(category);
-            setActiveCategory(category);
             let sectionId = "section-" + category.replace(/\s/g, '');
             let target = document.getElementById(sectionId);
             if (target) {
               target.scrollIntoView({ behavior: "smooth", block: "start" });
             }
+            setActiveCategory(category);
           };
           navContainer.appendChild(btn);
         }
       }
 
-      // Rotate the category blocks so that the clicked one moves to the front
-      function rotateCategoriesTo(category) {
-        const navContainer = document.getElementById("categoriesNavContainer");
-        const children = Array.from(navContainer.children);
-        let id = category === "All" ? "category-All" : "category-" + category.replace(/\s/g, '');
-        const clickedTile = document.getElementById(id);
-        const index = children.indexOf(clickedTile);
-        if (index > 0) {
-          // Fade out, reorder, then fade in
-          navContainer.style.opacity = 0;
-          setTimeout(() => {
-            const rotated = children.slice(index).concat(children.slice(0, index));
-            navContainer.innerHTML = "";
-            rotated.forEach(el => navContainer.appendChild(el));
-            navContainer.style.opacity = 1;
-          }, 500);
-        }
-      }
-
-      // Set active style on navigation tile
+      // Set the active category style on navigation tile
       function setActiveCategory(category) {
         let buttons = document.querySelectorAll(".category-button");
         buttons.forEach(btn => btn.classList.remove("active-category"));
@@ -546,7 +529,7 @@
         container.innerHTML = "";
         let index = 0;
         for (let category in productData) {
-          // Append banner for this category (with a section id for navigation)
+          // Append banner for this category (with section id for navigation)
           let banner = createBannerForCategory(category, index);
           container.appendChild(banner);
           let section = document.createElement("div");
@@ -556,7 +539,7 @@
             <div class="horizontal-scroll" id="scroll-${category.replace(/\s/g, '')}"></div>
           `;
           container.appendChild(section);
-          // Render product tiles inside the horizontal scroll container
+          // Render product tiles in horizontal scroll container
           let scrollContainer = document.getElementById(`scroll-${category.replace(/\s/g, '')}`);
           productData[category].forEach(product => {
             let tile = document.createElement("div");
@@ -576,7 +559,7 @@
           });
           index++;
         }
-        // Initialize any dynamic carousels
+        // Initialize dynamic carousels
         document.querySelectorAll('.carousel').forEach(function(carouselElement) {
           new bootstrap.Carousel(carouselElement, {
             interval: 3000,
@@ -585,7 +568,7 @@
         });
       }
 
-      // Open vertical category page (grid view)
+      // Open category page: vertical grid of products
       function openCategoryPage(category) {
         window.currentCategory = category;
         document.getElementById("mainPage").style.display = "none";
