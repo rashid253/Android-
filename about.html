@@ -3,169 +3,85 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Learn More - NextGen Experience</title>
+  <title>Contact Us - NextGen Experience</title>
   <!-- External CSS -->
   <link rel="stylesheet" href="style.css">
   <!-- Font Awesome for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <!-- Page-Specific Inline CSS -->
   <style>
-    /* Hero Section with Animated Gradient Background */
-    .hero-gradient {
-      position: relative;
-      height: 100vh;
-      background: linear-gradient(135deg, #FF6B6B, #FFD93D, #6BCB77);
-      background-size: 400% 400%;
-      animation: gradientAnimation 15s ease infinite;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      color: #fff;
-      margin: 0;
-    }
-    @keyframes gradientAnimation {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-    .hero-gradient h1 {
-      font-size: 4rem;
-      margin-bottom: 20px;
-    }
-    .hero-gradient p {
-      font-size: 1.5rem;
+    /* Basic styling for the Contact Us page */
+    .contact-container {
       max-width: 800px;
-      margin: 0 auto 30px;
-    }
-    .hero-gradient .btn {
-      padding: 15px 40px;
-      font-size: 1.2rem;
-      background: #fff;
-      border: none;
-      border-radius: 50px;
-      color: #333;
-      cursor: pointer;
-      transition: background 0.3s, transform 0.3s;
-    }
-    .hero-gradient .btn:hover {
-      background: #f0f0f0;
-      transform: scale(1.05);
-    }
-    /* Animated Content Sections */
-    .section {
-      padding: 80px 20px;
-      background: #fff;
-      text-align: center;
-      opacity: 0;
-      transform: translateY(50px);
-      animation: slideIn 1s forwards;
-    }
-    .section:nth-child(odd) {
+      margin: 100px auto;
+      padding: 20px;
       background: #f7f7f7;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
-    @keyframes slideIn {
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .section h2 {
+    .contact-container h1 {
+      text-align: center;
       font-size: 2.5rem;
       margin-bottom: 20px;
       color: #333;
     }
-    .section p {
-      font-size: 1.1rem;
-      max-width: 800px;
-      margin: 0 auto;
-      line-height: 1.6;
-      color: #666;
+    .contact-container form {
+      display: flex;
+      flex-direction: column;
     }
-    /* Information Box for Technical Details */
-    .info-box {
-      background: #e8f0fe;
-      padding: 40px;
-      border-radius: 10px;
-      margin: 40px auto;
-      max-width: 800px;
-      text-align: left;
+    .contact-container label {
       font-size: 1rem;
-      line-height: 1.6;
+      margin-bottom: 5px;
+      color: #555;
     }
-    .info-box code {
-      background: #c5d4f1;
-      padding: 2px 6px;
-      border-radius: 4px;
-      font-family: monospace;
+    .contact-container input, 
+    .contact-container textarea {
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1rem;
     }
-    /* Call-to-Action Banner */
-    .cta-banner {
+    .contact-container button {
+      padding: 15px;
+      font-size: 1.1rem;
       background: #4caf50;
+      border: none;
       color: #fff;
-      padding: 60px 20px;
-      text-align: center;
-    }
-    .cta-banner h2 {
-      font-size: 2.5rem;
-      margin-bottom: 20px;
-    }
-    .cta-banner a {
-      display: inline-block;
-      padding: 15px 40px;
-      font-size: 1.2rem;
-      background: #ff9800;
-      color: #fff;
-      border-radius: 50px;
-      text-decoration: none;
+      border-radius: 5px;
+      cursor: pointer;
       transition: background 0.3s;
     }
-    .cta-banner a:hover {
-      background: #f57c00;
+    .contact-container button:hover {
+      background: #45a049;
     }
   </style>
-  <!-- External Global JS (if needed) -->
-  <script src="script.js" defer></script>
 </head>
 <body>
   <!-- External Header -->
   <div id="header-placeholder"></div>
-  
-  <!-- Hero Section -->
-  <section class="hero-gradient">
-    <div class="content">
-      <h1>Step into the Future of E-Commerce</h1>
-      <p>Experience a platform that evolves with innovative design, dynamic functionality, and secure, real‑time data management – powered by next‑generation technology.</p>
-      <button class="btn" onclick="window.location.href='ecommerce.html'">Visit Shop</button>
-    </div>
-  </section>
-  
-  <!-- Section: Technology & Innovation -->
-  <section class="section" style="animation-delay: 0.3s;">
-    <h2>Powered by Innovation</h2>
-    <p>Currently, our platform uses dummy data to simulate a high‑end experience. Soon, Firebase Firestore will power dynamic, secure data management, elevating your shopping journey.</p>
-  </section>
-  
-  <!-- Section: Premium Experience -->
-  <section class="section" style="animation-delay: 0.5s;">
-    <h2>Premium, Next‑Generation Experience</h2>
-    <p>From the sleek design to secure transactions, every detail is crafted to provide an immersive, professional experience that redefines online shopping.</p>
-  </section>
-  
-  <!-- Information Box: Technical Details -->
-  <section class="section" style="animation-delay: 0.7s;">
-    <div class="info-box">
-      <p><strong>Technical Note:</strong> This frontend code is built using dummy data and is structured for seamless integration with a Firebase backend. The <code>fetchProducts()</code> function currently simulates data fetching and will soon be replaced by Firebase Firestore API calls. Future enhancements include Firebase-based authentication and secure data persistence.</p>
-    </div>
-  </section>
-  
-  <!-- Call-to-Action Banner -->
-  <section class="cta-banner">
-    <h2>Embrace the Future Today</h2>
-    <a href="contact.html">Contact Us to Get Started</a>
-  </section>
-  
+
+  <!-- Contact Form Content -->
+  <div class="contact-container">
+    <h1>Contact Us</h1>
+    <form id="contactForm">
+      <label for="name">Name</label>
+      <input type="text" id="name" name="name" placeholder="Your Name" required>
+
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" placeholder="Your Email" required>
+
+      <label for="message">Message</label>
+      <textarea id="message" name="message" rows="5" placeholder="Your Message" required></textarea>
+
+      <button type="submit">Send Message</button>
+    </form>
+  </div>
+
   <!-- External Footer -->
   <div id="footer-placeholder"></div>
-  
-  <!-- Inline Script to Load Header and Footer -->
+
+  <!-- Inline Script to Load External Header and Footer -->
   <script>
     function loadHTML(elementId, filePath) {
       fetch(filePath)
@@ -180,7 +96,7 @@
         })
         .catch(error => console.error(error));
     }
-    
+
     document.addEventListener("DOMContentLoaded", function() {
       loadHTML("header-placeholder", "header.html");
       loadHTML("footer-placeholder", "footer.html");
