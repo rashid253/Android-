@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <!-- Page-Specific Inline CSS -->
   <style>
-    /* Hero Section with Unique Gradient Background */
+    /* Hero Section with Animated Gradient Background */
     .hero-gradient {
       position: relative;
       height: 100vh;
@@ -22,6 +22,7 @@
       justify-content: center;
       text-align: center;
       color: #fff;
+      margin: 0;
     }
     @keyframes gradientAnimation {
       0% { background-position: 0% 50%; }
@@ -120,7 +121,7 @@
       background: #f57c00;
     }
   </style>
-  <!-- External Global JS -->
+  <!-- External Global JS (if needed) -->
   <script src="script.js" defer></script>
 </head>
 <body>
@@ -164,8 +165,22 @@
   <!-- External Footer -->
   <div id="footer-placeholder"></div>
   
-  <!-- Inline Script to Load External Components -->
+  <!-- Inline Script to Load Header and Footer -->
   <script>
+    function loadHTML(elementId, filePath) {
+      fetch(filePath)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error("Error fetching " + filePath);
+          }
+          return response.text();
+        })
+        .then(html => {
+          document.getElementById(elementId).innerHTML = html;
+        })
+        .catch(error => console.error(error));
+    }
+    
     document.addEventListener("DOMContentLoaded", function() {
       loadHTML("header-placeholder", "header.html");
       loadHTML("footer-placeholder", "footer.html");
