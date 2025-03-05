@@ -3,16 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contact Us - AP Company</title>
+  <title>Contact Us - YourBrand</title>
   <!-- External CSS -->
   <link rel="stylesheet" href="style.css">
-  <!-- Font Awesome for icons -->
+  <!-- Font Awesome for Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <!-- Page-Specific Styles -->
   <style>
-    /* Base Styles */
-    body {
+    /* Reset & Base */
+    * {
       margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
       font-family: 'Roboto', sans-serif;
       background: #fff;
       color: #333;
@@ -21,123 +25,114 @@
     }
     main {
       max-width: 1000px;
-      margin: 80px auto 40px;
+      margin: 100px auto 40px;
       padding: 20px;
-      box-sizing: border-box;
     }
     h1, h2 {
       text-align: center;
+      margin-bottom: 20px;
     }
     h1 {
       font-size: 2rem;
-      margin-bottom: 20px;
     }
     h2 {
       font-size: 1.5rem;
-      margin-bottom: 15px;
+      color: #4caf50;
     }
-    /* Company Details Section */
-    .company-details {
+    /* About Section */
+    .about {
       margin-bottom: 40px;
-      text-align: justify;
-      padding: 0 15px;
+      text-align: center;
+    }
+    .about p {
+      max-width: 800px;
+      margin: 0 auto;
+      font-size: 1rem;
+      color: #666;
     }
     /* Contact Information Section */
-    .contact-information {
-      margin-bottom: 40px;
-      padding: 0 15px;
-    }
-    .map-container {
-      width: 100%;
-      height: 300px;
-      margin-bottom: 20px;
-    }
-    .map-container iframe {
-      width: 100%;
-      height: 100%;
-      border: 0;
-    }
     .contact-info {
+      margin-bottom: 40px;
       display: flex;
       flex-direction: column;
       gap: 20px;
-      margin-bottom: 20px;
+      align-items: center;
+      text-align: center;
     }
-    .contact-info-item {
+    .map {
+      width: 100%;
+      height: 300px;
+      border: 0;
+    }
+    .info-item {
       display: flex;
       align-items: center;
+      gap: 10px;
       font-size: 1rem;
       color: #555;
     }
-    .contact-info-item i {
-      margin-right: 10px;
-      color: #4caf50;
-      font-size: 1.2rem;
-    }
-    .contact-info-item a {
+    .info-item a {
       color: inherit;
       text-decoration: none;
     }
     /* Contact Form Section */
     .contact-form {
       background: #f7f7f7;
-      padding: 20px;
+      padding: 30px 20px;
       border-radius: 8px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      margin-bottom: 20px;
-      padding: 0 15px;
+      max-width: 600px;
+      margin: 0 auto;
     }
     .contact-form form {
       display: flex;
       flex-direction: column;
+      gap: 15px;
     }
     .contact-form label {
-      margin-bottom: 5px;
-      font-weight: bold;
+      font-weight: 600;
       color: #555;
     }
     .contact-form input,
     .contact-form textarea {
-      padding: 10px;
-      margin-bottom: 15px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
+      padding: 12px;
       font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
       width: 100%;
-      box-sizing: border-box;
+    }
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+      outline: none;
+      border-color: #4caf50;
     }
     .contact-form button {
-      padding: 15px;
+      padding: 12px;
       font-size: 1.1rem;
       background: #4caf50;
-      border: none;
       color: #fff;
-      border-radius: 5px;
+      border: none;
+      border-radius: 4px;
       cursor: pointer;
       transition: background 0.3s;
     }
     .contact-form button:hover {
       background: #45a049;
     }
-    /* Responsive adjustments */
-    @media (min-width: 768px) {
-      .contact-info {
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: space-between;
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+      main {
+        margin-top: 80px;
+        padding: 15px;
       }
-      .contact-info-item {
-        flex: 1 1 45%;
-      }
-      .contact-form {
-        max-width: 600px;
-        margin: 0 auto 20px;
+      .map {
+        height: 250px;
       }
     }
   </style>
 </head>
 <body>
-  <!-- Load External Header -->
+  <!-- External Header -->
   <script>
     fetch("header.html")
       .then(response => response.text())
@@ -147,69 +142,60 @@
 
   <main>
     <h1>Contact Us</h1>
-    
-    <!-- Company Details Section -->
-    <section class="company-details">
-      <h2>About AP Company</h2>
-      <p>
-        AP Company is a leading innovator in the tech industry, committed to delivering high-quality, cutting-edge solutions that empower businesses and transform customer experiences. With a focus on sustainability and excellence, we leverage advanced technologies to drive growth and success in a rapidly changing digital landscape. Our dedicated team of professionals works tirelessly to exceed customer expectations, ensuring every project is executed with precision, creativity, and the highest standards of quality.
-      </p>
+
+    <!-- About Section -->
+    <section class="about">
+      <h2>About YourBrand</h2>
+      <p>YourBrand is dedicated to delivering innovative solutions with passion and professionalism. Our team is here to help you, answer your queries, and build lasting relationships with our clients and partners.</p>
     </section>
-    
+
     <!-- Contact Information Section -->
-    <section class="contact-information">
-      <h2>Our Contact Information</h2>
-      <div class="map-container">
-        <!-- Embedded Google Map (Placeholder location) -->
-        <iframe 
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3651.901314824395!2d90.3892023153622!3d23.750903494563154!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b8586d0e3a39%3A0x4d725845f6eb702b!2sDhaka!5e0!3m2!1sen!2sbd!4v1583489459389!5m2!1sen!2sbd" 
-          allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+    <section class="contact-info">
+      <!-- Embedded Map -->
+      <iframe class="map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3651.901314824395!2d90.3892023153622!3d23.750903494563154!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b8586d0e3a39%3A0x4d725845f6eb702b!2sDhaka!5e0!3m2!1sen!2sbd!4v1583489459389!5m2!1sen!2sbd" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+      <div class="info-item">
+        <i class="fas fa-phone-alt"></i>
+        <span>+92 300 1234567</span>
       </div>
-      <div class="contact-info">
-        <div class="contact-info-item">
-          <i class="fas fa-phone-alt"></i>
-          <span>+92 300 1234567</span>
-        </div>
-        <div class="contact-info-item">
-          <i class="fab fa-whatsapp"></i>
-          <span><a href="https://wa.me/923001234567" target="_blank">WhatsApp: +92 300 1234567</a></span>
-        </div>
-        <div class="contact-info-item">
-          <i class="fas fa-envelope"></i>
-          <span><a href="mailto:support@apcompany.com">support@apcompany.com</a></span>
-        </div>
-        <div class="contact-info-item">
-          <i class="fas fa-map-marker-alt"></i>
-          <span>123 Innovation Blvd, Tech City, Country</span>
-        </div>
+      <div class="info-item">
+        <i class="fab fa-whatsapp"></i>
+        <a href="https://wa.me/923001234567" target="_blank">WhatsApp: +92 300 1234567</a>
+      </div>
+      <div class="info-item">
+        <i class="fas fa-envelope"></i>
+        <a href="mailto:info@yourbrand.com">info@yourbrand.com</a>
+      </div>
+      <div class="info-item">
+        <i class="fas fa-map-marker-alt"></i>
+        <span>123 Innovation Blvd, Tech City, Country</span>
       </div>
     </section>
-    
+
     <!-- Contact Form Section -->
     <section class="contact-form">
       <h2>Get In Touch</h2>
       <form id="contactForm" novalidate>
         <label for="name">Name <span style="color:red;">*</span></label>
         <input type="text" id="name" name="name" placeholder="Your Name" required>
-        
+
         <label for="email">Email <span style="color:red;">*</span></label>
         <input type="email" id="email" name="email" placeholder="Your Email" required>
-        
+
         <label for="phone">Phone</label>
         <input type="tel" id="phone" name="phone" placeholder="Your Phone Number">
-        
+
         <label for="subject">Subject</label>
         <input type="text" id="subject" name="subject" placeholder="Subject">
-        
+
         <label for="message">Message <span style="color:red;">*</span></label>
         <textarea id="message" name="message" rows="5" placeholder="Your Message" required></textarea>
-        
+
         <button type="submit">Send Message</button>
       </form>
     </section>
   </main>
 
-  <!-- Load External Footer -->
+  <!-- External Footer -->
   <script>
     fetch("footer.html")
       .then(response => response.text())
