@@ -1,77 +1,235 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Offers - MyBusiness Premium</title>
-  <link rel="stylesheet" href="style.css" />
-  <!-- FontAwesome for icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" 
-        integrity="sha512-dNcPzTvY1T6Zhk1D2Bl72e+ik2Q/9rj2NjJ34cJN6JExZhZ+5fLxB+XKWWkZoLNRtIdFiYGh8U3vZpQRfa6NRw==" 
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <script src="script.js" defer></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Curated Selections - NextGen E-commerce</title>
+  <!-- External CSS -->
+  <link rel="stylesheet" href="style.css">
+  <!-- Font Awesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Page-Specific Styles -->
+  <style>
+    /* Reset & Base */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Roboto', sans-serif; background: #f0f2f5; color: #444; }
+    main { max-width: 1200px; margin: 0 auto 80px; padding: 20px; }
+    /* HERO SECTION */
+    .hero {
+      position: relative;
+      height: 50vh;
+      background: url('https://source.unsplash.com/1600x900/?curated,collection') no-repeat center center/cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: #fff;
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.3);
+    }
+    .hero .content {
+      position: relative;
+      z-index: 1;
+      padding: 20px;
+    }
+    .hero h1 { font-size: 3rem; margin-bottom: 10px; font-weight: 700; }
+    .hero p { font-size: 1.2rem; max-width: 800px; margin: 0 auto 20px; }
+    .hero .btn {
+      padding: 14px 35px;
+      font-size: 1rem;
+      background: linear-gradient(45deg, #6a11cb, #2575fc);
+      border: none;
+      border-radius: 50px;
+      color: #fff;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.3s;
+    }
+    .hero .btn:hover { background: linear-gradient(45deg, #2575fc, #6a11cb); transform: scale(1.05); }
+    /* OFFERS GRID SECTION */
+    .offers-section {
+      margin-top: 40px;
+    }
+    .offers-section h2 {
+      text-align: center;
+      font-size: 2.5rem;
+      color: #2575fc;
+      margin-bottom: 30px;
+    }
+    .offers-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+    .offer-card {
+      background: #fff;
+      width: 300px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+    }
+    .offer-card:hover { transform: translateY(-5px); box-shadow: 0 8px 16px rgba(0,0,0,0.15); }
+    .offer-image {
+      width: 100%;
+      height: 200px;
+      background-size: cover;
+      background-position: center;
+    }
+    .offer-content {
+      padding: 20px;
+    }
+    .offer-content h3 {
+      font-size: 1.6rem;
+      margin-bottom: 10px;
+      color: #333;
+    }
+    .offer-content p {
+      font-size: 1rem;
+      color: #666;
+      line-height: 1.5;
+    }
+    /* DUMMY DATA NOTE */
+    .dummy-note {
+      text-align: center;
+      font-size: 0.85rem;
+      color: #888;
+      margin-top: 40px;
+      padding: 0 20px;
+    }
+    /* Responsive */
+    @media (max-width: 768px) {
+      .offers-grid { flex-direction: column; align-items: center; }
+      .offer-card { width: 90%; }
+      .hero { height: 40vh; }
+    }
+  </style>
 </head>
 <body>
-  <!-- External Header -->
-  <div id="header"></div>
+  <!-- Load External Header -->
+  <script>
+    function loadHTML(url, containerId, callback) {
+      fetch(url)
+        .then(response => response.text())
+        .then(html => {
+          document.getElementById(containerId).innerHTML = html;
+          // Re-execute scripts if needed
+          const scripts = document.getElementById(containerId).querySelectorAll('script');
+          scripts.forEach(oldScript => {
+            const newScript = document.createElement("script");
+            if(oldScript.src) {
+              newScript.src = oldScript.src;
+            } else {
+              newScript.textContent = oldScript.textContent;
+            }
+            document.head.appendChild(newScript);
+          });
+          if(callback) callback();
+        })
+        .catch(err => console.error("Error loading " + url, err));
+    }
+    loadHTML("header.html", "header-placeholder");
+  </script>
+  <div id="header-placeholder"></div>
 
-  <!-- Main Content -->
-  <main class="container">
-    <h1>Exclusive Offers</h1>
-    <p>Discover our latest deals and promotions. These offers are updated regularly and are available for a limited time only.</p>
-    <section id="offers-container">
-      <!-- Offers will be dynamically injected here -->
+  <main>
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="content">
+        <h1>Curated Selections</h1>
+        <p>Discover exclusive offers and hand-picked deals from our vast collection. Elevate your shopping experience with NextGen E-commerce.</p>
+        <button class="btn" onclick="window.location.href='ecommerce.html'">Explore All Offers</button>
+      </div>
     </section>
+
+    <!-- Offers Grid Section -->
+    <section class="offers-section">
+      <h2>Featured Offers</h2>
+      <div class="offers-grid" id="offersGrid">
+        <!-- Offer cards will be inserted here dynamically -->
+      </div>
+    </section>
+
+    <!-- Dummy Data Note -->
+    <div class="dummy-note">
+      <p>This page is integrated with our main E-commerce platform. Click on any offer to jump directly to the detailed section on our main site.</p>
+    </div>
   </main>
 
-  <!-- External Footer -->
-  <div id="footer"></div>
-
+  <!-- Load External Footer -->
   <script>
-    // Load the external header and footer files dynamically
-    document.addEventListener("DOMContentLoaded", function() {
-      fetch("header.html")
-        .then(response => response.text())
-        .then(data => {
-          document.getElementById("header").innerHTML = data;
-        });
-      fetch("footer.html")
-        .then(response => response.text())
-        .then(data => {
-          document.getElementById("footer").innerHTML = data;
-        });
+    loadHTML("footer.html", "footer-placeholder");
+  </script>
+  <div id="footer-placeholder"></div>
 
-      // Dummy function to simulate fetching offer data.
-      // Later, replace this with Firebase Firestore API calls.
-      function fetchOffers() {
-        return [
-          { id: 1, title: "50% Off on Electronics", description: "Get half price on selected electronic items." },
-          { id: 2, title: "Buy 1 Get 1 Free", description: "Special offer on clothing and accessories." },
-          { id: 3, title: "Free Shipping", description: "Enjoy free shipping on orders over $50." }
-        ];
+  <!-- Dynamic Offers Script -->
+  <script>
+    // Define the offer categories to match those in your ecommerce file
+    const offers = [
+      {
+        title: "Countdown Sales",
+        description: "Limited time deals on top products. Hurry before they're gone!",
+        query: "Countdown,Sales"
+      },
+      {
+        title: "Discount Offers",
+        description: "Unbeatable discounts on your favorite items.",
+        query: "Discount,Offers"
+      },
+      {
+        title: "Hot Sales",
+        description: "Trending products at irresistible prices.",
+        query: "Hot,Sales"
+      },
+      {
+        title: "Seasonal Offers",
+        description: "Season-specific collections curated for you.",
+        query: "Seasonal,Offers"
+      },
+      {
+        title: "Clearance Sale",
+        description: "Last chance deals on clearance items.",
+        query: "Clearance,Sale"
       }
+    ];
 
-      // Function to display the offers on the page
-      function displayOffers() {
-        const offers = fetchOffers();
-        const container = document.getElementById("offers-container");
-        if (!offers || offers.length === 0) {
-          container.innerHTML = "<p>No offers available at the moment. Please check back later!</p>";
-          return;
-        }
-        let html = "";
-        offers.forEach(offer => {
-          html += `
-            <div class="offer-item" id="offer-${offer.id}">
-              <h2>${offer.title}</h2>
-              <p>${offer.description}</p>
-            </div>
-          `;
-        });
-        container.innerHTML = html;
-      }
+    const offersGrid = document.getElementById('offersGrid');
 
-      displayOffers();
+    offers.forEach(offer => {
+      const card = document.createElement('div');
+      card.className = 'offer-card';
+      card.onclick = () => {
+        // Navigate to ecommerce page with anchor linking to the category section
+        const sectionId = "section-" + offer.title.replace(/\s/g, '');
+        window.location.href = "ecommerce.html#" + sectionId;
+      };
+
+      // Create the image div using Unsplash based on the offer query
+      const imageDiv = document.createElement('div');
+      imageDiv.className = 'offer-image';
+      imageDiv.style.backgroundImage = `url('https://source.unsplash.com/300x200/?${offer.query}')`;
+
+      // Create the content div
+      const contentDiv = document.createElement('div');
+      contentDiv.className = 'offer-content';
+      const title = document.createElement('h3');
+      title.textContent = offer.title;
+      const desc = document.createElement('p');
+      desc.textContent = offer.description;
+
+      contentDiv.appendChild(title);
+      contentDiv.appendChild(desc);
+
+      card.appendChild(imageDiv);
+      card.appendChild(contentDiv);
+
+      offersGrid.appendChild(card);
     });
   </script>
 </body>
