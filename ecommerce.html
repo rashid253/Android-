@@ -93,8 +93,8 @@
         background: #f0f0f0;
       }
       .active-category {
-        background: #e0f7fa;
-        border-color: #00acc1;
+        background: #e0f7fa !important;
+        border-color: #00acc1 !important;
       }
       .category-icon {
         font-size: 1.5rem;
@@ -278,7 +278,7 @@
 
     <!-- DYNAMIC LOADING & INITIALIZATION SCRIPT -->
     <script>
-      // Function to load external HTML (header/footer)
+      // Function to load external HTML into a placeholder element
       function loadHTML(elementId, filePath) {
         fetch(filePath)
           .then(response => {
@@ -455,7 +455,7 @@
         ]
       };
 
-      // Initialize category navigation – now clicking a tile (other than "All") opens the vertical grid
+      // Initialize category navigation (including an "All Categories" tile)
       function initCategoriesNav() {
         const navContainer = document.getElementById("categoriesNavContainer");
         navContainer.innerHTML = "";
@@ -530,7 +530,7 @@
           container.appendChild(banner);
           let section = document.createElement("div");
           section.id = "section-" + category.replace(/\s/g, '');
-          // Category heading styled in blue
+          // Category heading in blue
           section.innerHTML = `
             <h2 class="mt-4" style="color: blue;">${category}</h2>
             <div class="horizontal-scroll" id="scroll-${category.replace(/\s/g, '')}"></div>
