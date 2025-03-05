@@ -4,37 +4,36 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>NextGen E-commerce - Shop Now</title>
-    <!-- Font Awesome for icons (used for star ratings) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-    <!-- External Custom CSS -->
+
+    <!-- External CSS -->
     <link rel="stylesheet" href="style.css" />
+    <!-- Font Awesome for icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
     <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <!-- Inline CSS Overrides (if any specific to this page) -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Inline CSS Overrides for Page-Specific Styles -->
     <style>
-      /* Global Overrides */
+      /* Ensure body padding from external style.css is not overridden */
       body {
+        /* external style.css sets: padding-top: 70px; padding-bottom: 70px; */
         font-family: 'Roboto', sans-serif;
         background-color: #f3f4f6;
         color: #2d3748;
-        margin: 0;
-        padding: 0;
-      }
-      a {
-        text-decoration: none;
-        color: inherit;
-        transition: color 0.3s ease;
-      }
-      a:hover {
-        color: #ff6f61;
       }
       main {
-        padding-bottom: 100px;
+        padding-bottom: 100px; /* extra space if needed */
       }
       /* Hero Section */
       .hero {
         position: relative;
-        height: calc(500px + 3cm);
+        min-height: 500px; /* Use a minimum height for better responsiveness */
         background: linear-gradient(135deg, #4285F4, #34A853);
         display: flex;
         align-items: center;
@@ -85,7 +84,7 @@
       .horizontal-scroll::-webkit-scrollbar {
         display: none;
       }
-      /* Banner Styles */
+      /* Banner & Product Card Styles (consistent with your professional design) */
       .banner {
         margin: 1rem 0;
         border-radius: 8px;
@@ -142,7 +141,6 @@
         height: 100%;
         object-fit: contain;
       }
-      /* Product Tile Styles */
       .card-img-top {
         width: 100%;
         height: 180px;
@@ -168,7 +166,6 @@
       .product-stats small {
         font-size: 0.75rem;
       }
-      /* Responsive adjustments for mobile devices */
       @media (max-width: 576px) {
         .card {
           font-size: 0.9rem;
@@ -178,11 +175,12 @@
         }
       }
     </style>
+
     <!-- External Global JavaScript -->
     <script src="script.js" defer></script>
   </head>
   <body>
-    <!-- External Header loaded from header.html -->
+    <!-- External Header (loaded from header.html) -->
     <div id="header-placeholder"></div>
     
     <!-- Main Ecommerce Content -->
@@ -212,7 +210,7 @@
       </div>
     </main>
     
-    <!-- External Footer loaded from footer.html -->
+    <!-- External Footer (loaded from footer.html) -->
     <div id="footer-placeholder"></div>
     
     <!-- Bootstrap Bundle JS -->
@@ -220,7 +218,6 @@
     
     <!-- Dynamic Loading of External Header & Footer -->
     <script>
-      // Function to load external HTML into a placeholder element
       function loadHTML(elementId, filePath) {
         fetch(filePath)
           .then(response => {
@@ -262,7 +259,7 @@
         return html;
       }
       
-      // Dummy product data with additional properties: rating, added, sold
+      // Dummy product data with additional properties
       const productData = {
         "Countdown Sales": [
           {
@@ -507,7 +504,7 @@
             <div class="horizontal-scroll" id="scroll-${category.replace(/\s/g, '')}"></div>
           `;
           container.appendChild(section);
-          // Populate the horizontal scroll with product cards
+          // Populate horizontal scroll with product cards
           let scrollContainer = document.getElementById(`scroll-${category.replace(/\s/g, '')}`);
           productData[category].forEach(product => {
             let card = document.createElement("div");
@@ -515,7 +512,6 @@
             card.style.minWidth = "150px";
             card.style.marginRight = "0.75rem";
             card.onclick = function () {
-              // Clicking a product card opens the category page
               openCategoryPage(category);
             };
             card.innerHTML = `
@@ -574,7 +570,6 @@
       }
       
       function openProductDetails(product) {
-        // Save selected product details in localStorage then navigate to details.html
         localStorage.setItem("selectedProduct", JSON.stringify(product));
         window.location.href = "details.html";
       }
