@@ -3,102 +3,129 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Learn More - NextGen E-commerce</title>
+  <title>Learn More - NextGen Experience</title>
   <!-- External CSS -->
   <link rel="stylesheet" href="style.css">
   <!-- Font Awesome for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <!-- Page-Specific Inline CSS -->
   <style>
-    /* Hero Section for Learn More Page */
-    .hero-learn {
-      background: linear-gradient(135deg, #1a73e8, #4285f4);
+    /* Fullscreen video background hero */
+    .hero-video {
+      position: relative;
+      height: 100vh;
+      overflow: hidden;
       color: #fff;
       text-align: center;
-      padding: 100px 20px;
-      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
-    .hero-learn h1 {
-      font-size: 3.5rem;
+    .hero-video video {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      min-width: 100%;
+      min-height: 100%;
+      width: auto;
+      height: auto;
+      z-index: -1;
+      transform: translate(-50%, -50%);
+      filter: brightness(0.6);
+    }
+    .hero-video .content {
+      position: relative;
+      z-index: 2;
+    }
+    .hero-video h1 {
+      font-size: 4rem;
       margin-bottom: 20px;
     }
-    .hero-learn p {
-      font-size: 1.2rem;
+    .hero-video p {
+      font-size: 1.5rem;
       max-width: 800px;
       margin: 0 auto 30px;
     }
-    .hero-learn .btn {
-      display: inline-block;
-      padding: 15px 30px;
-      font-size: 1.1rem;
-      background: #28a745;
+    .hero-video .btn {
+      padding: 15px 40px;
+      font-size: 1.2rem;
+      background: #ff5722;
+      border: none;
+      border-radius: 50px;
       color: #fff;
-      border-radius: 30px;
-      text-decoration: none;
+      cursor: pointer;
       transition: background 0.3s;
     }
-    .hero-learn .btn:hover {
-      background: #218838;
+    .hero-video .btn:hover {
+      background: #e64a19;
     }
-    /* Info Sections */
-    .info-section {
-      padding: 60px 20px;
+    /* Animated Content Sections */
+    .section {
+      padding: 80px 20px;
       background: #fff;
       text-align: center;
+      opacity: 0;
+      transform: translateY(50px);
+      animation: slideIn 1s forwards;
     }
-    .info-section h2 {
+    .section:nth-child(odd) {
+      background: #f7f7f7;
+    }
+    @keyframes slideIn {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .section h2 {
       font-size: 2.5rem;
       margin-bottom: 20px;
-      color: #007bff;
+      color: #333;
     }
-    .info-section p {
+    .section p {
       font-size: 1.1rem;
       max-width: 800px;
       margin: 0 auto;
       line-height: 1.6;
-      color: #555;
+      color: #666;
     }
-    /* Technology Information Block */
-    .tech-info {
-      background: #f0f4ff;
-      padding: 40px 20px;
+    /* Information Box for Firebase Details */
+    .info-box {
+      background: #e8f0fe;
+      padding: 40px;
+      border-radius: 10px;
       margin: 40px auto;
-      border-radius: 8px;
-      text-align: left;
       max-width: 800px;
+      text-align: left;
       font-size: 1rem;
       line-height: 1.6;
-      color: #333;
     }
-    .tech-info code {
-      background: #e8f0fe;
-      padding: 2px 4px;
+    .info-box code {
+      background: #c5d4f1;
+      padding: 2px 6px;
       border-radius: 4px;
       font-family: monospace;
     }
-    /* Call-to-Action Section */
-    .cta-section {
+    /* Call-to-Action Banner */
+    .cta-banner {
+      background: #4caf50;
+      color: #fff;
       padding: 60px 20px;
-      background: #e9f1f7;
       text-align: center;
     }
-    .cta-section h2 {
-      font-size: 2rem;
+    .cta-banner h2 {
+      font-size: 2.5rem;
       margin-bottom: 20px;
-      color: #005a9e;
     }
-    .cta-section a {
+    .cta-banner a {
       display: inline-block;
-      padding: 15px 30px;
-      font-size: 1.1rem;
-      background: #28a745;
+      padding: 15px 40px;
+      font-size: 1.2rem;
+      background: #ff9800;
       color: #fff;
-      border-radius: 30px;
+      border-radius: 50px;
       text-decoration: none;
       transition: background 0.3s;
     }
-    .cta-section a:hover {
-      background: #218838;
+    .cta-banner a:hover {
+      background: #f57c00;
     }
   </style>
   <!-- External Global JS -->
@@ -107,41 +134,49 @@
 <body>
   <!-- External Header -->
   <div id="header-placeholder"></div>
-
-  <!-- Hero Section -->
-  <section class="hero-learn">
-    <h1>Discover the Future of E-Commerce</h1>
-    <p>Experience a cutting-edge platform built with next‑generation technology, innovative design, and a commitment to secure, seamless online shopping.</p>
-    <a href="ecommerce.html" class="btn">Explore Shop Now</a>
+  
+  <!-- Hero Section with Video Background -->
+  <section class="hero-video">
+    <video autoplay muted loop>
+      <source src="https://www.w3schools.com/howto/rain.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <div class="content">
+      <h1>Embrace the Future of E-Commerce</h1>
+      <p>Our platform is not just another shop – it's an immersive experience powered by cutting-edge design and technology.</p>
+      <button class="btn" onclick="window.location.href='ecommerce.html'">Visit Shop</button>
+    </div>
   </section>
-
-  <!-- Info Section: Innovative Technology -->
-  <section class="info-section">
-    <h2>Innovative Technology</h2>
-    <p>Our platform is designed for tomorrow. Built using dummy data today, it’s structured to integrate effortlessly with a Firebase backend soon. The <code>fetchProducts()</code> function currently simulates data fetching – soon to be replaced by real-time Firebase Firestore API calls for dynamic, secure data management.</p>
+  
+  <!-- Section: Technology & Innovation -->
+  <section class="section" style="animation-delay: 0.3s;">
+    <h2>Powered by Innovation</h2>
+    <p>Currently, our system uses dummy data to drive the experience. Soon, we will integrate seamlessly with Firebase Firestore, enabling real-time, secure data management and dynamic content delivery.</p>
   </section>
-
-  <!-- Info Section: Premium Experience -->
-  <section class="info-section">
-    <h2>Premium User Experience</h2>
-    <p>Every element reflects a high‑end, professional design. From secure transactions and intuitive navigation to visually engaging interfaces, our platform delivers a seamless and immersive shopping experience for discerning users.</p>
+  
+  <!-- Section: Premium Experience -->
+  <section class="section" style="animation-delay: 0.5s;">
+    <h2>Premium, Next‑Generation Experience</h2>
+    <p>Every interaction is crafted to be engaging and professional. Enjoy intuitive navigation and visually striking design that sets a new standard in online shopping.</p>
   </section>
-
-  <!-- Technology Information Block -->
-  <section class="tech-info">
-    <p><strong>Note:</strong> This frontend code is built using dummy data and is structured to be easily integrated with a Firebase backend in the future. The <code>fetchProducts()</code> function currently simulates data fetching, and will later be replaced by Firebase Firestore API calls. Authentication and data persistence will be handled via Firebase, allowing for dynamic and secure data management.</p>
+  
+  <!-- Information Box: Technical Details -->
+  <section class="section" style="animation-delay: 0.7s;">
+    <div class="info-box">
+      <p><strong>Technical Note:</strong> This frontend code is built using dummy data and is structured for easy integration with a Firebase backend. The <code>fetchProducts()</code> function currently simulates data fetching and will soon be replaced by Firebase Firestore API calls. Future enhancements include Firebase-based authentication and secure data persistence.</p>
+    </div>
   </section>
-
-  <!-- Call-to-Action Section -->
-  <section class="cta-section">
-    <h2>Ready to Experience Next‑Gen E-Commerce?</h2>
-    <a href="contact.html">Get Started</a>
+  
+  <!-- Call-to-Action Banner -->
+  <section class="cta-banner">
+    <h2>Step into the Future Today</h2>
+    <a href="contact.html">Contact Us to Get Started</a>
   </section>
-
+  
   <!-- External Footer -->
   <div id="footer-placeholder"></div>
-
-  <!-- Inline Script to Load Header and Footer -->
+  
+  <!-- Inline Script to load header and footer -->
   <script>
     document.addEventListener("DOMContentLoaded", function() {
       loadHTML("header-placeholder", "header.html");
