@@ -18,9 +18,9 @@
       overflow-x: hidden;
     }
     main {
-      padding-bottom: 100px; /* Extra bottom padding to prevent footer clash */
+      padding-bottom: 100px; /* Extra bottom padding to avoid footer clash */
     }
-    /* Hero Section – 50vh for mobile */
+    /* Hero Section – 50vh */
     .hero {
       position: relative;
       height: 50vh;
@@ -67,7 +67,7 @@
       background: #f0f0f0;
       transform: scale(1.05);
     }
-    /* Block Sections */
+    /* Block Sections – mimic index.html blocks */
     .block {
       padding: 40px 15px;
       text-align: center;
@@ -91,7 +91,7 @@
       line-height: 1.5;
       color: #666;
     }
-    /* Features Block – grid layout */
+    /* Features Grid – same as index.html */
     .features-grid {
       display: flex;
       flex-wrap: wrap;
@@ -125,7 +125,7 @@
       font-size: 0.9rem;
       color: #666;
     }
-    /* Testimonials Carousel */
+    /* Testimonials Carousel (Public Reviews) */
     .testimonials {
       overflow: hidden;
       position: relative;
@@ -149,24 +149,6 @@
     .testimonial .author {
       font-size: 0.8rem;
       color: #888;
-    }
-    /* Technical Note Block */
-    .tech-note {
-      background: #e8f0fe;
-      padding: 20px;
-      border-radius: 8px;
-      max-width: 90%;
-      margin: 20px auto;
-      text-align: left;
-      font-size: 0.9rem;
-      line-height: 1.5;
-      color: #333;
-    }
-    .tech-note code {
-      background: #c5d4f1;
-      padding: 2px 4px;
-      border-radius: 4px;
-      font-family: monospace;
     }
     /* Call-to-Action Block */
     .cta {
@@ -210,30 +192,24 @@
     <section class="hero">
       <div class="content">
         <h1>Discover the Future</h1>
-        <p>Engage with an experience that redefines online shopping through innovative design and dynamic technology.</p>
+        <p>Experience the same innovative features and dynamic design as our homepage—reimagined for deeper insights.</p>
         <button class="btn" onclick="window.location.href='ecommerce.html'">Visit Shop</button>
       </div>
     </section>
     
-    <!-- About Our Platform Block -->
+    <!-- Features Block (Same as index.html) -->
     <section class="block" style="animation-delay: 0.3s;">
-      <h2>About Our Platform</h2>
-      <p>Our platform combines cutting-edge technology with sleek design to deliver an immersive and intuitive shopping experience. Explore unique features, exclusive deals, and dynamic updates designed to keep you ahead of the curve.</p>
-    </section>
-    
-    <!-- Features Block -->
-    <section class="block" style="animation-delay: 0.5s;">
-      <h2>Key Features</h2>
+      <h2>Our Exclusive Features</h2>
       <div class="features-grid">
         <div class="feature-item">
           <i class="fas fa-lock"></i>
           <h3>Secure Payments</h3>
-          <p>State-of-the-art security for safe transactions.</p>
+          <p>State-of-the-art security for your transactions.</p>
         </div>
         <div class="feature-item">
           <i class="fas fa-truck"></i>
           <h3>Fast Delivery</h3>
-          <p>Efficient delivery ensuring timely arrival.</p>
+          <p>Reliable and quick delivery services.</p>
         </div>
         <div class="feature-item">
           <i class="fas fa-tags"></i>
@@ -243,36 +219,29 @@
       </div>
     </section>
     
-    <!-- Testimonials Block -->
-    <section class="block" style="animation-delay: 0.7s;">
-      <h2>What Our Users Say</h2>
+    <!-- Public Reviews Block (Testimonials) -->
+    <section class="block" style="animation-delay: 0.5s;">
+      <h2>Public Reviews</h2>
       <div class="testimonials">
         <div class="slides">
           <div class="testimonial">
-            <p>"The experience is addictive—I feel like I'm living in the future every time I shop!"</p>
+            <p>"This platform is revolutionary. I keep coming back for more!"</p>
             <div class="author">- Ayesha, Karachi</div>
           </div>
           <div class="testimonial">
-            <p>"Innovative and engaging! The design is truly revolutionary."</p>
+            <p>"Innovative, engaging, and truly user-friendly."</p>
             <div class="author">- Bilal, Lahore</div>
           </div>
           <div class="testimonial">
-            <p>"Every detail is crafted perfectly. Shopping here is captivating!"</p>
+            <p>"A seamless experience that redefines online shopping."</p>
             <div class="author">- Fatima, Islamabad</div>
           </div>
         </div>
       </div>
     </section>
     
-    <!-- Technical Note Block -->
-    <section class="block" style="animation-delay: 0.9s;">
-      <div class="tech-note">
-        <p><strong>Technical Note:</strong> This platform currently uses dummy data and is structured for seamless integration with Firebase Firestore. The <code>fetchProducts()</code> function will soon be replaced by live API calls for real‑time updates, secure authentication, and dynamic content.</p>
-      </div>
-    </section>
-    
     <!-- Call-to-Action Block -->
-    <section class="cta" style="animation-delay: 1.1s;">
+    <section class="cta" style="animation-delay: 0.7s;">
       <h2>Ready to Experience the Future?</h2>
       <a href="contact.html" target="_blank">Get in Touch</a>
     </section>
