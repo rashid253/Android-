@@ -1,244 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Contact Us - MyBusiness Premium</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us - NextGen Experience</title>
+  <!-- External CSS -->
+  <link rel="stylesheet" href="style.css">
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    /* Base styles */
-    * {
+    /* Mobile-Optimized Contact Us Page */
+    body {
       margin: 0;
-      padding: 0;
+      font-family: 'Roboto', sans-serif;
+      background: #fff;
+      overflow-x: hidden;
+    }
+    .contact-container {
+      width: 100%;
+      padding: 20px;
+      margin: 80px 10px 20px;
       box-sizing: border-box;
     }
-    body {
-      font-family: 'Arial', sans-serif;
-      background: #f9f9f9;
+    .contact-container h1 {
+      text-align: center;
+      font-size: 1.8rem;
+      margin-bottom: 20px;
       color: #333;
     }
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
-    /* Header (Hero Section) - Reduced Height */
-    header {
-      position: relative;
-      height: 40vh; /* Reduced from 60vh */
-      background: url('https://via.placeholder.com/1920x600?text=Contact+Us+Header') no-repeat center center/cover;
+    .contact-container form {
       display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      color: #fff;
+      flex-direction: column;
     }
-    header::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0, 0, 0, 0.6);
-    }
-    .header-content {
-      position: relative;
-      z-index: 1;
-    }
-    .header-content h1 {
-      font-size: 2.5rem;
-      margin-bottom: 0.5rem;
-    }
-    .header-content p {
+    .contact-container label {
       font-size: 1rem;
-      white-space: normal;
-      word-wrap: break-word;
-      max-width: 90%;
-      margin: 0 auto;
+      margin-bottom: 5px;
+      color: #555;
     }
-    /* Contact Section */
-    .contact-container {
-      display: flex;
-      flex-wrap: wrap;
-      max-width: 1200px;
-      margin: 4rem auto;
-      gap: 2rem;
-      padding: 0 2rem;
-    }
-    .contact-info, .contact-form {
-      flex: 1 1 500px;
-    }
-    .contact-info h2 {
-      font-size: 2rem;
-      margin-bottom: 1rem;
-    }
-    .contact-info p {
-      font-size: 1.1rem;
-      margin-bottom: 1rem;
-    }
-    .contact-info .details {
-      margin-top: 1rem;
-    }
-    .contact-info .details p {
-      margin: 0.5rem 0;
-      font-size: 1rem;
-    }
-    .contact-info .details i {
-      color: #ff6600;
-      margin-right: 10px;
-    }
-    /* Contact Form */
-    .contact-form {
-      background: #fff;
-      padding: 2rem;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    }
-    .contact-form h2 {
-      font-size: 2rem;
-      margin-bottom: 1rem;
-    }
-    .contact-form label {
-      font-size: 1.1rem;
-      font-weight: bold;
-      display: block;
-      margin-top: 1rem;
-    }
-    .contact-form input,
-    .contact-form textarea {
-      width: 100%;
-      padding: 0.8rem;
-      margin-top: 5px;
+    .contact-container input,
+    .contact-container textarea {
+      padding: 10px;
+      margin-bottom: 15px;
       border: 1px solid #ccc;
       border-radius: 5px;
       font-size: 1rem;
+      width: 100%;
+      box-sizing: border-box;
     }
-    .contact-form textarea {
-      height: 150px;
-    }
-    .contact-form button {
-      margin-top: 1.5rem;
-      padding: 0.8rem;
-      background: #ff6600;
-      color: #fff;
-      font-size: 1.2rem;
-      font-weight: bold;
+    .contact-container button {
+      padding: 15px;
+      font-size: 1.1rem;
+      background: #4caf50;
       border: none;
+      color: #fff;
       border-radius: 5px;
       cursor: pointer;
-      width: 100%;
+      transition: background 0.3s;
     }
-    .contact-form button:hover {
-      background: #e65c00;
-    }
-    /* Google Maps Placeholder */
-    .map {
-      width: 100%;
-      height: 300px;
-      background: url('https://via.placeholder.com/1200x300?text=Google+Maps+Location') no-repeat center center/cover;
-      border-radius: 10px;
-      margin: 2rem auto;
-    }
-    /* Social Media Links Section */
-    .social-links {
-      text-align: center;
-      padding: 1rem 0;
-      background: #222;
-      color: #fff;
-    }
-    .social-links a {
-      margin: 0 10px;
-      font-size: 1.5rem;
-      display: inline-block;
-      transition: transform 0.3s ease;
-    }
-    .social-links a:hover {
-      transform: scale(1.1);
-    }
-    /* Footer */
-    footer {
-      text-align: center;
-      padding: 1rem;
-      background: #111;
-      color: #ccc;
-      font-size: 0.9rem;
-    }
-    /* Responsive */
-    @media (max-width: 768px) {
-      header .header-content h1 {
-        font-size: 2rem;
-      }
-      .contact-container {
-        flex-direction: column;
-        text-align: center;
-      }
-      .contact-info {
-        text-align: left;
-      }
+    .contact-container button:hover {
+      background: #45a049;
     }
   </style>
 </head>
 <body>
-
-  <!-- Header (Hero Section) -->
-  <header>
-    <div class="header-content">
-      <h1>Contact Us</h1>
-      <p>We'd love to hear from you. Reach out to us for any inquiries or support.</p>
-    </div>
-  </header>
-
-  <!-- Contact Section -->
-  <section class="contact-container">
-    <!-- Contact Information -->
-    <div class="contact-info">
-      <h2>Get In Touch</h2>
-      <p>We're here to help. Whether you have questions about our services or need assistance, our team is ready to assist you.</p>
-      <div class="details">
-        <p><i>📍</i> 123 Business Street, New York, USA</p>
-        <p><i>📞</i> +1 234 567 890</p>
-        <p><i>✉️</i> support@mybusiness.com</p>
-        <p><i>⏰</i> Mon - Fri: 9:00 AM - 6:00 PM</p>
-      </div>
-    </div>
-
-    <!-- Contact Form -->
-    <div class="contact-form">
-      <h2>Send Us A Message</h2>
-      <form id="contactForm">
-        <label for="name">Your Name</label>
-        <input type="text" id="name" placeholder="Enter your name" required>
-
-        <label for="email">Your Email</label>
-        <input type="email" id="email" placeholder="Enter your email" required>
-
-        <label for="message">Your Message</label>
-        <textarea id="message" placeholder="Write your message" required></textarea>
-
-        <button type="submit">Send Message</button>
-      </form>
-    </div>
-  </section>
-
-  <!-- Google Maps Placeholder -->
-  <div class="map"></div>
-
-  <!-- Social Media Links Section -->
-  <div class="social-links">
-    <a href="https://facebook.com" target="_blank" title="Facebook">📘</a>
-    <a href="https://twitter.com" target="_blank" title="Twitter">🐦</a>
-    <a href="https://linkedin.com" target="_blank" title="LinkedIn">🔗</a>
-    <a href="https://instagram.com" target="_blank" title="Instagram">📸</a>
-  </div>
-
-  <!-- Footer -->
-  <footer>
-    <p>© 2025 MyBusiness Premium. All rights reserved.</p>
-  </footer>
-
-  <!-- JavaScript to handle form submission -->
+  <!-- Load External Header -->
   <script>
-    document.getElementById('contactForm').addEventListener('submit', function(event) {
-      event.preventDefault();
-      alert('Your message has been sent! (This will later be linked to Firebase)');
-    });
+    fetch("header.html")
+      .then(response => response.text())
+      .then(data => {
+        document.body.insertAdjacentHTML("afterbegin", data);
+      })
+      .catch(error => console.error("Error loading header:", error));
   </script>
-
+  
+  <div class="contact-container">
+    <h1>Contact Us</h1>
+    <form id="contactForm">
+      <label for="name">Name</label>
+      <input type="text" id="name" name="name" placeholder="Your Name" required>
+      
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" placeholder="Your Email" required>
+      
+      <label for="message">Message</label>
+      <textarea id="message" name="message" rows="4" placeholder="Your Message" required></textarea>
+      
+      <button type="submit">Send Message</button>
+    </form>
+  </div>
+  
+  <!-- Load External Footer -->
+  <script>
+    fetch("footer.html")
+      .then(response => response.text())
+      .then(data => {
+        document.body.insertAdjacentHTML("beforeend", data);
+      })
+      .catch(error => console.error("Error loading footer:", error));
+  </script>
 </body>
 </html>
