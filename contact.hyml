@@ -10,7 +10,12 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <!-- Page-Specific Styles -->
   <style>
-    /* Reset & Base Styles */
+    /* Override header spacing if possible */
+    header {
+      margin-bottom: 0 !important;
+      padding-bottom: 0 !important;
+    }
+    /* Base Styles */
     * {
       margin: 0;
       padding: 0;
@@ -23,10 +28,11 @@
       line-height: 1.6;
       overflow-x: hidden;
     }
+    /* Main container with minimal top margin */
     main {
       max-width: 1000px;
-      margin: 40px auto 40px;  /* Reduced top margin for a tighter layout */
-      padding: 20px;
+      margin: 0 auto 40px; /* Top margin set to 0 */
+      padding: 10px 20px;
     }
     h1, h2 {
       text-align: center;
@@ -122,8 +128,7 @@
     /* Responsive Design */
     @media (max-width: 768px) {
       main {
-        margin-top: 20px;
-        padding: 15px;
+        padding: 10px;
       }
       .map {
         height: 250px;
@@ -136,15 +141,13 @@
   <script>
     fetch("header.html")
       .then(response => response.text())
-      .then(data => {
-        document.body.insertAdjacentHTML("afterbegin", data);
-      })
+      .then(data => document.body.insertAdjacentHTML("afterbegin", data))
       .catch(error => console.error("Header load error:", error));
   </script>
 
   <main>
     <h1>Contact Us</h1>
-
+    
     <!-- About Section -->
     <section class="about">
       <h2>About YourBrand</h2>
@@ -153,7 +156,6 @@
 
     <!-- Contact Information Section -->
     <section class="contact-info">
-      <!-- Embedded Map -->
       <iframe class="map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3651.901314824395!2d90.3892023153622!3d23.750903494563154!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b8586d0e3a39%3A0x4d725845f6eb702b!2sDhaka!5e0!3m2!1sen!2sbd!4v1583489459389!5m2!1sen!2sbd" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
       <div class="info-item">
         <i class="fas fa-phone-alt"></i>
