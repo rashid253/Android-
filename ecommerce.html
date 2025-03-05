@@ -58,17 +58,17 @@
       .hero-content .btn {
         font-size: 1.1rem;
         padding: 0.75rem 1.5rem;
-        background-color: #2a9d8f;
+        background-color: #ff9900;
         border: none;
         border-radius: 4px;
         color: #fff;
         transition: background 0.3s, transform 0.3s;
       }
       .hero-content .btn:hover {
-        background-color: #23867a;
+        background-color: #e68a00;
         transform: scale(1.05);
       }
-      /* CATEGORY NAVIGATION (Below Hero) */
+      /* CATEGORY NAVIGATION BELOW HERO */
       #categoriesNav {
         margin: 20px 0;
       }
@@ -85,7 +85,6 @@
         padding: 10px 15px;
         cursor: pointer;
         text-align: center;
-        flex: 1;
         max-width: 150px;
         transition: background 0.3s;
       }
@@ -229,7 +228,7 @@
     <script src="script.js" defer></script>
   </head>
   <body>
-    <!-- External Header -->
+    <!-- External Header (loaded from header.html) -->
     <div id="header-placeholder"></div>
 
     <!-- MAIN CONTENT -->
@@ -243,7 +242,7 @@
         </div>
       </section>
 
-      <!-- CATEGORY NAVIGATION: Horizontal blocks with icons -->
+      <!-- CATEGORY NAVIGATION (Below Hero) -->
       <section id="categoriesNav" class="container my-4">
         <div id="categoriesNavContainer"></div>
       </section>
@@ -266,14 +265,15 @@
       </div>
     </main>
 
-    <!-- External Footer -->
+    <!-- External Footer (loaded from footer.html) -->
     <div id="footer-placeholder"></div>
 
     <!-- Bootstrap Bundle JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- DYNAMIC LOADING OF EXTERNAL HEADER & FOOTER AND INIT FUNCTIONS -->
+    <!-- DYNAMIC LOADING OF EXTERNAL HEADER & FOOTER AND INITIALIZATION -->
     <script>
+      // Load external HTML for header and footer
       function loadHTML(elementId, filePath) {
         fetch(filePath)
           .then(response => {
@@ -302,43 +302,7 @@
         initMainPage();
       });
 
-      // Initialize category navigation buttons
-      function initCategoriesNav() {
-        const navContainer = document.getElementById("categoriesNavContainer");
-        navContainer.innerHTML = "";
-        for (let category in productData) {
-          let btn = document.createElement("div");
-          btn.className = "category-button";
-          btn.onclick = function() { openCategoryPage(category); };
-          let icon;
-          switch(category) {
-            case "Countdown Sales": icon = "fa-bolt"; break;
-            case "Discount Offers": icon = "fa-tags"; break;
-            case "Hot Sales": icon = "fa-fire"; break;
-            case "Seasonal Offers": icon = "fa-leaf"; break;
-            case "Clearance Sale": icon = "fa-exclamation-triangle"; break;
-            default: icon = "fa-box"; break;
-          }
-          btn.innerHTML = `<div class="category-icon"><i class="fas ${icon}"></i></div><div class="category-name">${category}</div>`;
-          navContainer.appendChild(btn);
-        }
-      }
-
-      // Helper: Generate star icons based on rating
-      function generateStars(rating) {
-        let html = "";
-        let fullStars = Math.floor(rating);
-        let halfStar = (rating - fullStars) >= 0.5 ? 1 : 0;
-        for (let i = 0; i < fullStars; i++) {
-          html += '<i class="fa fa-star"></i>';
-        }
-        if (halfStar) {
-          html += '<i class="fa fa-star-half-alt"></i>';
-        }
-        return html;
-      }
-
-      // Dummy product data
+      // Dummy product data (ensure this is defined before navigation initialization)
       const productData = {
         "Countdown Sales": [
           {
@@ -487,12 +451,134 @@
         ]
       };
 
+      // Initialize category navigation buttons below the hero
+      function initCategoriesNav() {
+        const navContainer = document.getElementById("categoriesNavContainer");
+        navContainer.innerHTML = "";
+        for (let category in productData) {
+          let btn = document.createElement("div");
+          btn.className = "category-button";
+          btn.onclick = function() { openCategoryPage(category); };
+          let icon;
+          switch (category) {
+            case "Countdown Sales": icon = "fa-bolt"; break;
+            case "Discount Offers": icon = "fa-tags"; break;
+            case "Hot Sales": icon = "fa-fire"; break;
+            case "Seasonal Offers": icon = "fa-leaf"; break;
+            case "Clearance Sale": icon = "fa-exclamation-triangle"; break;
+            default: icon = "fa-box"; break;
+          }
+          btn.innerHTML = `<div class="category-icon"><i class="fas ${icon}"></i></div><div class="category-name">${category}</div>`;
+          navContainer.appendChild(btn);
+        }
+      }
+
+      // Helper: Generate star icons
+      function generateStars(rating) {
+        let html = "";
+        let fullStars = Math.floor(rating);
+        let halfStar = (rating - fullStars) >= 0.5 ? 1 : 0;
+        for (let i = 0; i < fullStars; i++) {
+          html += '<i class="fa fa-star"></i>';
+        }
+        if (halfStar) {
+          html += '<i class="fa fa-star-half-alt"></i>';
+        }
+        return html;
+      }
+
+      // Render main page (banners and horizontal product tiles)
+      function initMainPage() {
+        document.getElementById("mainPage").style.display = "block";
+        document.getElementById("categoryPage").style.display = "none";
+        const container = document.getElementById("categoriesContainer");
+        container.innerHTML = "";
+        let index = 0;
+        for (let category in productData) {
+          // Append banner for the category
+          let banner = createBannerForCategory(category, index);
+          container.appendChild(banner);
+          // Create section heading and horizontal scroll container
+          let section = document.createElement("div");
+          section.innerHTML = `
+            <h2 class="mt-4">${category}</h2>
+            <div class="horizontal-scroll" id="scroll-${category.replace(/\s/g, '')}"></div>
+          `;
+          container.appendChild(section);
+          // Render product tiles
+          let scrollContainer = document.getElementById(`scroll-${category.replace(/\s/g, '')}`);
+          productData[category].forEach(product => {
+            let tile = document.createElement("div");
+            tile.className = "product-tile";
+            tile.onclick = function () { openCategoryPage(category); };
+            tile.innerHTML = `
+              <div class="card">
+                <img src="${product.image}" alt="${product.name}">
+              </div>
+              <div class="product-details">
+                <p class="product-price">${product.price} <span class="product-old-price">PKR1,487</span></p>
+                <div class="star-rating">${generateStars(product.rating)}</div>
+                <div class="product-stats"><small>${product.added} Added | ${product.sold} Sold</small></div>
+              </div>
+            `;
+            scrollContainer.appendChild(tile);
+          });
+          index++;
+        }
+        // Initialize any dynamic carousels
+        document.querySelectorAll('.carousel').forEach(function(carouselElement) {
+          new bootstrap.Carousel(carouselElement, {
+            interval: 3000,
+            ride: 'carousel'
+          });
+        });
+      }
+
+      // Open category page: display vertical product grid
+      function openCategoryPage(category) {
+        window.currentCategory = category;
+        document.getElementById("mainPage").style.display = "none";
+        document.getElementById("categoryPage").style.display = "block";
+        document.getElementById("categoryTitle").innerText = category;
+        const grid = document.getElementById("categoryProducts");
+        grid.innerHTML = "";
+        productData[category].forEach(product => {
+          let col = document.createElement("div");
+          col.className = "col-6 col-md-4 mb-4";
+          let tile = document.createElement("div");
+          tile.className = "product-tile";
+          tile.onclick = function () { openProductDetails(product); };
+          tile.innerHTML = `
+            <div class="card">
+              <img src="${product.image}" alt="${product.name}">
+            </div>
+            <div class="product-details">
+              <p class="product-price">${product.price} <span class="product-old-price">PKR1,487</span></p>
+              <div class="star-rating">${generateStars(product.rating)}</div>
+              <div class="product-stats"><small>${product.added} Added | ${product.sold} Sold</small></div>
+            </div>
+          `;
+          col.appendChild(tile);
+          grid.appendChild(col);
+        });
+      }
+
+      function backToMain() {
+        document.getElementById("categoryPage").style.display = "none";
+        document.getElementById("mainPage").style.display = "block";
+      }
+
+      function openProductDetails(product) {
+        localStorage.setItem("selectedProduct", JSON.stringify(product));
+        window.location.href = "details.html";
+      }
+
+      // Function to create banners dynamically
       function createBannerForCategory(category, index) {
         let banner = document.createElement("div");
         banner.className = "banner";
         switch (index) {
           case 0:
-            // Carousel banner with auto-slide and indicators
             banner.classList.add("carousel-banner");
             banner.innerHTML = `
               <div id="carouselBanner${index}" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
@@ -566,98 +652,6 @@
         }
         return banner;
       }
-
-      function initMainPage() {
-        document.getElementById("mainPage").style.display = "block";
-        document.getElementById("categoryPage").style.display = "none";
-        const container = document.getElementById("categoriesContainer");
-        container.innerHTML = "";
-        let index = 0;
-        for (let category in productData) {
-          // Append banner for this category
-          let banner = createBannerForCategory(category, index);
-          container.appendChild(banner);
-          // Create section heading and horizontal scroll container
-          let section = document.createElement("div");
-          section.innerHTML = `
-            <h2 class="mt-4">${category}</h2>
-            <div class="horizontal-scroll" id="scroll-${category.replace(/\s/g, '')}"></div>
-          `;
-          container.appendChild(section);
-          // Render product tiles inside horizontal scroll
-          let scrollContainer = document.getElementById(`scroll-${category.replace(/\s/g, '')}`);
-          productData[category].forEach(product => {
-            let tile = document.createElement("div");
-            tile.className = "product-tile";
-            tile.onclick = function () {
-              openCategoryPage(category);
-            };
-            tile.innerHTML = `
-              <div class="card">
-                <img src="${product.image}" alt="${product.name}">
-              </div>
-              <div class="product-details">
-                <p class="product-price">${product.price} <span class="product-old-price">PKR1,487</span></p>
-                <div class="star-rating">${generateStars(product.rating)}</div>
-                <div class="product-stats"><small>${product.added} Added | ${product.sold} Sold</small></div>
-              </div>
-            `;
-            scrollContainer.appendChild(tile);
-          });
-          index++;
-        }
-        // Manually initialize any dynamically added carousels
-        document.querySelectorAll('.carousel').forEach(function(carouselElement) {
-          new bootstrap.Carousel(carouselElement, {
-            interval: 3000,
-            ride: 'carousel'
-          });
-        });
-      }
-
-      function openCategoryPage(category) {
-        window.currentCategory = category;
-        document.getElementById("mainPage").style.display = "none";
-        document.getElementById("categoryPage").style.display = "block";
-        document.getElementById("categoryTitle").innerText = category;
-        const grid = document.getElementById("categoryProducts");
-        grid.innerHTML = "";
-        productData[category].forEach(product => {
-          let col = document.createElement("div");
-          col.className = "col-6 col-md-4 mb-4";
-          let tile = document.createElement("div");
-          tile.className = "product-tile";
-          tile.onclick = function () {
-            openProductDetails(product);
-          };
-          tile.innerHTML = `
-            <div class="card">
-              <img src="${product.image}" alt="${product.name}">
-            </div>
-            <div class="product-details">
-              <p class="product-price">${product.price} <span class="product-old-price">PKR1,487</span></p>
-              <div class="star-rating">${generateStars(product.rating)}</div>
-              <div class="product-stats"><small>${product.added} Added | ${product.sold} Sold</small></div>
-            </div>
-          `;
-          col.appendChild(tile);
-          grid.appendChild(col);
-        });
-      }
-
-      function backToMain() {
-        document.getElementById("categoryPage").style.display = "none";
-        document.getElementById("mainPage").style.display = "block";
-      }
-
-      function openProductDetails(product) {
-        localStorage.setItem("selectedProduct", JSON.stringify(product));
-        window.location.href = "details.html";
-      }
-
-      window.onload = function () {
-        initMainPage();
-      };
     </script>
   </body>
 </html>
