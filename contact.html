@@ -8,37 +8,46 @@
   <link rel="stylesheet" href="style.css">
   <!-- Font Awesome for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Page-Specific Styles -->
   <style>
-    /* Mobile-Optimized Contact Us Page */
     body {
       margin: 0;
       font-family: 'Roboto', sans-serif;
       background: #fff;
       overflow-x: hidden;
-    }
-    .contact-container {
-      width: 100%;
-      padding: 20px;
-      margin: 80px 10px 20px;
-      box-sizing: border-box;
-    }
-    .contact-container h1 {
-      text-align: center;
-      font-size: 1.8rem;
-      margin-bottom: 20px;
+      line-height: 1.6;
       color: #333;
     }
-    .contact-container form {
+    main {
+      padding: 20px;
+      max-width: 1000px;
+      margin: 80px auto 40px;
+      box-sizing: border-box;
+    }
+    h1 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+    /* Contact Form Section */
+    .contact-form {
+      background: #f7f7f7;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      margin-bottom: 30px;
+    }
+    .contact-form form {
       display: flex;
       flex-direction: column;
     }
-    .contact-container label {
-      font-size: 1rem;
+    .contact-form label {
       margin-bottom: 5px;
+      font-weight: bold;
       color: #555;
     }
-    .contact-container input,
-    .contact-container textarea {
+    .contact-form input,
+    .contact-form textarea {
       padding: 10px;
       margin-bottom: 15px;
       border: 1px solid #ccc;
@@ -47,7 +56,7 @@
       width: 100%;
       box-sizing: border-box;
     }
-    .contact-container button {
+    .contact-form button {
       padding: 15px;
       font-size: 1.1rem;
       background: #4caf50;
@@ -57,8 +66,59 @@
       cursor: pointer;
       transition: background 0.3s;
     }
-    .contact-container button:hover {
+    .contact-form button:hover {
       background: #45a049;
+    }
+    /* Company Contact Info Section */
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      background: #eef6fc;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    .contact-info h2 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+    }
+    .info-item {
+      display: flex;
+      align-items: center;
+      font-size: 1rem;
+      color: #555;
+    }
+    .info-item i {
+      margin-right: 10px;
+      color: #4caf50;
+      font-size: 1.2rem;
+    }
+    /* Social Media Links */
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 20px;
+    }
+    .social-links a {
+      color: #4caf50;
+      font-size: 1.5rem;
+      transition: color 0.3s;
+      text-decoration: none;
+    }
+    .social-links a:hover {
+      color: #388e3c;
+    }
+    /* Responsive adjustments */
+    @media (min-width: 768px) {
+      .contact-sections {
+        display: flex;
+        gap: 20px;
+      }
+      .contact-form, .contact-info {
+        flex: 1;
+      }
     }
   </style>
 </head>
@@ -70,25 +130,65 @@
       .then(data => {
         document.body.insertAdjacentHTML("afterbegin", data);
       })
-      .catch(error => console.error("Error loading header:", error));
+      .catch(error => console.error("Header load error:", error));
   </script>
-  
-  <div class="contact-container">
+
+  <!-- Main Content -->
+  <main>
     <h1>Contact Us</h1>
-    <form id="contactForm">
-      <label for="name">Name</label>
-      <input type="text" id="name" name="name" placeholder="Your Name" required>
+    <div class="contact-sections">
+      <!-- Contact Form -->
+      <section class="contact-form">
+        <form id="contactForm" novalidate>
+          <label for="name">Name <span style="color:red;">*</span></label>
+          <input type="text" id="name" name="name" placeholder="Your Name" required>
+
+          <label for="email">Email <span style="color:red;">*</span></label>
+          <input type="email" id="email" name="email" placeholder="Your Email" required>
+
+          <label for="phone">Phone</label>
+          <input type="tel" id="phone" name="phone" placeholder="Your Phone Number">
+
+          <label for="subject">Subject</label>
+          <input type="text" id="subject" name="subject" placeholder="Subject">
+
+          <label for="message">Message <span style="color:red;">*</span></label>
+          <textarea id="message" name="message" rows="5" placeholder="Your Message" required></textarea>
+
+          <button type="submit">Send Message</button>
+        </form>
+      </section>
       
-      <label for="email">Email</label>
-      <input type="email" id="email" name="email" placeholder="Your Email" required>
-      
-      <label for="message">Message</label>
-      <textarea id="message" name="message" rows="4" placeholder="Your Message" required></textarea>
-      
-      <button type="submit">Send Message</button>
-    </form>
-  </div>
-  
+      <!-- Contact Information -->
+      <section class="contact-info">
+        <h2>Our Contact Information</h2>
+        <div class="info-item">
+          <i class="fas fa-map-marker-alt"></i>
+          <span>123 Innovation Blvd, Tech City, Country</span>
+        </div>
+        <div class="info-item">
+          <i class="fas fa-phone-alt"></i>
+          <span>+92 300 1234567</span>
+        </div>
+        <div class="info-item">
+          <i class="fas fa-envelope"></i>
+          <span>support@nextgenexperience.com</span>
+        </div>
+        <div class="info-item">
+          <i class="fas fa-clock"></i>
+          <span>Mon - Fri: 9:00 AM - 6:00 PM</span>
+        </div>
+        <!-- Social Media Links -->
+        <div class="social-links">
+          <a href="#" title="Facebook"><i class="fab fa-facebook"></i></a>
+          <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </section>
+    </div>
+  </main>
+
   <!-- Load External Footer -->
   <script>
     fetch("footer.html")
@@ -96,7 +196,7 @@
       .then(data => {
         document.body.insertAdjacentHTML("beforeend", data);
       })
-      .catch(error => console.error("Error loading footer:", error));
+      .catch(error => console.error("Footer load error:", error));
   </script>
 </body>
 </html>
