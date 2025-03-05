@@ -18,9 +18,8 @@
       rel="stylesheet"
     />
 
-    <!-- Page-Specific Inline CSS Overrides -->
+    <!-- Page-Specific Inline CSS -->
     <style>
-      /* Ensure body uses external padding (from style.css) and proper font/colors */
       body {
         font-family: 'Roboto', sans-serif;
         background-color: #f3f4f6;
@@ -33,7 +32,7 @@
       .hero {
         position: relative;
         min-height: 500px;
-        background: linear-gradient(135deg, #4285F4, #34A853);
+        background: linear-gradient(135deg, #2a2a72, #009ffd);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -56,21 +55,49 @@
         margin-bottom: 1.5rem;
         color: #fff;
       }
-      /* Make the Shop Now button more prominent */
       .hero-content .btn {
-        font-size: 1.4rem;
-        padding: 1rem 2rem;
-        background-color: #ff6f61;
+        font-size: 1.1rem;
+        padding: 0.75rem 1.5rem;
+        background-color: #2a9d8f;
         border: none;
         border-radius: 4px;
         color: #fff;
         transition: background 0.3s, transform 0.3s;
       }
       .hero-content .btn:hover {
-        background-color: #e65a50;
+        background-color: #23867a;
         transform: scale(1.05);
       }
-      /* HORIZONTAL SCROLL for category listings */
+      /* CATEGORY NAVIGATION (Below Hero) */
+      #categoriesNav {
+        margin: 20px 0;
+      }
+      #categoriesNavContainer {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        flex-wrap: wrap;
+      }
+      .category-button {
+        background: #fff;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 10px 15px;
+        cursor: pointer;
+        text-align: center;
+        flex: 1;
+        max-width: 150px;
+        transition: background 0.3s;
+      }
+      .category-button:hover {
+        background: #f0f0f0;
+      }
+      .category-icon {
+        font-size: 1.5rem;
+        color: #007bff;
+        margin-bottom: 5px;
+      }
+      /* HORIZONTAL SCROLL for product tiles */
       .horizontal-scroll {
         display: flex;
         overflow-x: auto;
@@ -87,7 +114,7 @@
         border-radius: 8px;
         overflow: hidden;
         background: #fff;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         height: 150px;
       }
       .banner img {
@@ -115,7 +142,7 @@
         font-weight: bold;
         font-size: 1rem;
       }
-      /* THREE-PART BANNER: Divided into title, description, and image */
+      /* THREE-PART BANNER */
       .three-part-banner {
         display: flex;
         align-items: center;
@@ -140,7 +167,7 @@
         height: 100%;
         object-fit: contain;
       }
-      /* PRODUCT TILE STYLES: Only image inside card; details fixed below */
+      /* PRODUCT TILE STYLES */
       .product-tile {
         min-width: 150px;
         margin-right: 0.75rem;
@@ -159,18 +186,22 @@
       }
       .product-details {
         text-align: center;
-        margin-top: 8px;
+        margin-top: 4px;
       }
       .product-price {
         font-weight: bold;
         color: #e4393c;
         font-size: 1.1rem;
+        margin: 0;
       }
       .product-old-price {
         text-decoration: line-through;
         color: #999;
         margin-left: 5px;
         font-size: 0.9rem;
+      }
+      .star-rating {
+        margin: 2px 0;
       }
       .star-rating i {
         font-size: 1rem;
@@ -188,19 +219,19 @@
         .product-tile {
           min-width: 130px;
         }
-        .card img {
+        .product-tile .card img {
           height: 150px;
         }
       }
     </style>
 
-    <!-- External Global JavaScript -->
+    <!-- External Global JS -->
     <script src="script.js" defer></script>
   </head>
   <body>
-    <!-- External Header (loaded from header.html) -->
+    <!-- External Header -->
     <div id="header-placeholder"></div>
-    
+
     <!-- MAIN CONTENT -->
     <main>
       <!-- HERO SECTION -->
@@ -211,15 +242,20 @@
           <a href="#categoriesContainer" class="btn">Shop Now</a>
         </div>
       </section>
-      
-      <!-- MAIN PAGE: Categories, Banners, and Horizontal Scroll of Product Tiles -->
+
+      <!-- CATEGORY NAVIGATION: Horizontal blocks with icons -->
+      <section id="categoriesNav" class="container my-4">
+        <div id="categoriesNavContainer"></div>
+      </section>
+
+      <!-- MAIN PAGE: Banners and Horizontal Scroll of Product Tiles -->
       <div class="container my-4" id="mainPage">
         <h1 class="mb-4 text-center">Product Categories</h1>
         <div id="categoriesContainer">
           <!-- Dynamic category sections will be rendered here -->
         </div>
       </div>
-      
+
       <!-- CATEGORY PAGE: Vertical Grid of Products -->
       <div class="container my-4" id="categoryPage" style="display: none;">
         <button class="btn btn-secondary mb-3" onclick="backToMain()">Back to Categories</button>
@@ -229,14 +265,14 @@
         </div>
       </div>
     </main>
-    
-    <!-- External Footer (loaded from footer.html) -->
+
+    <!-- External Footer -->
     <div id="footer-placeholder"></div>
-    
+
     <!-- Bootstrap Bundle JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <!-- DYNAMIC LOADING OF EXTERNAL HEADER & FOOTER -->
+
+    <!-- DYNAMIC LOADING OF EXTERNAL HEADER & FOOTER AND INIT FUNCTIONS -->
     <script>
       function loadHTML(elementId, filePath) {
         fetch(filePath)
@@ -258,12 +294,37 @@
           })
           .catch(error => console.error(error));
       }
+
       document.addEventListener("DOMContentLoaded", function () {
         loadHTML("header-placeholder", "header.html");
         loadHTML("footer-placeholder", "footer.html");
+        initCategoriesNav();
+        initMainPage();
       });
-      
-      // Helper: Generate star icons based on numeric rating
+
+      // Initialize category navigation buttons
+      function initCategoriesNav() {
+        const navContainer = document.getElementById("categoriesNavContainer");
+        navContainer.innerHTML = "";
+        for (let category in productData) {
+          let btn = document.createElement("div");
+          btn.className = "category-button";
+          btn.onclick = function() { openCategoryPage(category); };
+          let icon;
+          switch(category) {
+            case "Countdown Sales": icon = "fa-bolt"; break;
+            case "Discount Offers": icon = "fa-tags"; break;
+            case "Hot Sales": icon = "fa-fire"; break;
+            case "Seasonal Offers": icon = "fa-leaf"; break;
+            case "Clearance Sale": icon = "fa-exclamation-triangle"; break;
+            default: icon = "fa-box"; break;
+          }
+          btn.innerHTML = `<div class="category-icon"><i class="fas ${icon}"></i></div><div class="category-name">${category}</div>`;
+          navContainer.appendChild(btn);
+        }
+      }
+
+      // Helper: Generate star icons based on rating
       function generateStars(rating) {
         let html = "";
         let fullStars = Math.floor(rating);
@@ -276,7 +337,7 @@
         }
         return html;
       }
-      
+
       // Dummy product data
       const productData = {
         "Countdown Sales": [
@@ -425,21 +486,20 @@
           }
         ]
       };
-      
-      // Create banner for a given category and index
+
       function createBannerForCategory(category, index) {
         let banner = document.createElement("div");
         banner.className = "banner";
         switch (index) {
           case 0:
-            // Carousel banner with 3 slides, auto slide every 3 seconds and visible dots
+            // Carousel banner with auto-slide and indicators
             banner.classList.add("carousel-banner");
             banner.innerHTML = `
               <div id="carouselBanner${index}" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
                 <div class="carousel-indicators">
-                  <button type="button" data-bs-target="#carouselBanner${index}" data-bs-slide-to="0" class="active"></button>
-                  <button type="button" data-bs-target="#carouselBanner${index}" data-bs-slide-to="1"></button>
-                  <button type="button" data-bs-target="#carouselBanner${index}" data-bs-slide-to="2"></button>
+                  <button type="button" data-bs-target="#carouselBanner${index}" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                  <button type="button" data-bs-target="#carouselBanner${index}" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                  <button type="button" data-bs-target="#carouselBanner${index}" data-bs-slide-to="2" aria-label="Slide 3"></button>
                 </div>
                 <div class="carousel-inner">
                   <div class="carousel-item active">
@@ -482,7 +542,6 @@
             `;
             break;
           case 3:
-            // Three-part banner: title, description, and image
             banner.classList.add("three-part-banner");
             banner.innerHTML = `
               <div class="banner-title">Seasonal Savings</div>
@@ -507,8 +566,7 @@
         }
         return banner;
       }
-      
-      // Initialize main page: Render banners and product tiles for each category
+
       function initMainPage() {
         document.getElementById("mainPage").style.display = "block";
         document.getElementById("categoryPage").style.display = "none";
@@ -548,9 +606,15 @@
           });
           index++;
         }
+        // Manually initialize any dynamically added carousels
+        document.querySelectorAll('.carousel').forEach(function(carouselElement) {
+          new bootstrap.Carousel(carouselElement, {
+            interval: 3000,
+            ride: 'carousel'
+          });
+        });
       }
-      
-      // Open category page: Render a vertical grid of products
+
       function openCategoryPage(category) {
         window.currentCategory = category;
         document.getElementById("mainPage").style.display = "none";
@@ -580,17 +644,17 @@
           grid.appendChild(col);
         });
       }
-      
+
       function backToMain() {
         document.getElementById("categoryPage").style.display = "none";
         document.getElementById("mainPage").style.display = "block";
       }
-      
+
       function openProductDetails(product) {
         localStorage.setItem("selectedProduct", JSON.stringify(product));
         window.location.href = "details.html";
       }
-      
+
       window.onload = function () {
         initMainPage();
       };
