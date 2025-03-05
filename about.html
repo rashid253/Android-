@@ -10,187 +10,201 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <!-- Page-Specific Inline CSS -->
   <style>
-    /* Hero Section with Animated Gradient Background, Smaller Height */
-    .hero-gradient {
+    /* Base Styles */
+    body { margin: 0; padding: 0; font-family: 'Roboto', sans-serif; background: #fff; }
+    
+    /* Hero Section: Smaller and Engaging */
+    .hero {
       position: relative;
-      height: 60vh;
-      overflow: hidden;
+      height: 50vh;
       background: linear-gradient(135deg, #FF6B6B, #FFD93D, #6BCB77);
       background-size: 400% 400%;
-      animation: gradientAnimation 15s ease infinite;
+      animation: gradientAnimation 20s ease infinite;
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
       color: #fff;
-      margin: 0;
       padding: 0;
+      margin: 0;
     }
     @keyframes gradientAnimation {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
-    .hero-gradient .content {
+    .hero .content {
       z-index: 2;
       padding: 20px;
     }
-    .hero-gradient h1 {
-      font-size: 2.5rem;
-      margin-bottom: 10px;
+    .hero h1 { font-size: 2.5rem; margin-bottom: 10px; }
+    .hero p { font-size: 1.2rem; max-width: 800px; margin: 0 auto 20px; }
+    .hero .btn {
+      padding: 10px 30px; font-size: 1rem;
+      background: #fff; border: none; border-radius: 50px;
+      color: #333; cursor: pointer; transition: background 0.3s, transform 0.3s;
     }
-    .hero-gradient p {
-      font-size: 1.2rem;
-      max-width: 800px;
-      margin: 0 auto 20px;
-    }
-    .hero-gradient .btn {
-      padding: 10px 30px;
-      font-size: 1rem;
-      background: #fff;
-      border: none;
-      border-radius: 50px;
-      color: #333;
-      cursor: pointer;
-      transition: background 0.3s, transform 0.3s;
-    }
-    .hero-gradient .btn:hover {
-      background: #f0f0f0;
-      transform: scale(1.05);
-    }
-    /* Animated Content Sections */
+    .hero .btn:hover { background: #f0f0f0; transform: scale(1.05); }
+    
+    /* Section Styling with Smooth Fade-In */
     .section {
-      padding: 80px 20px;
-      background: #fff;
+      padding: 60px 20px;
       text-align: center;
       opacity: 0;
-      transform: translateY(50px);
-      animation: slideIn 1s forwards;
+      transform: translateY(30px);
+      animation: fadeInUp 1s forwards;
     }
-    .section:nth-child(odd) {
-      background: #f7f7f7;
-    }
-    @keyframes slideIn {
+    .section:nth-child(even) { background: #f9f9f9; }
+    @keyframes fadeInUp {
       to { opacity: 1; transform: translateY(0); }
     }
-    .section h2 {
-      font-size: 2.5rem;
-      margin-bottom: 20px;
-      color: #333;
-    }
-    .section p {
-      font-size: 1.1rem;
+    .section h2 { font-size: 2.5rem; margin-bottom: 20px; color: #333; }
+    .section p { font-size: 1.1rem; max-width: 800px; margin: 0 auto 20px; line-height: 1.6; color: #666; }
+    
+    /* Testimonial Carousel */
+    .testimonials {
+      position: relative;
       max-width: 800px;
-      margin: 0 auto;
-      line-height: 1.6;
-      color: #666;
-    }
-    /* Information Box for Technical Details */
-    .info-box {
-      background: #e8f0fe;
-      padding: 40px;
-      border-radius: 10px;
       margin: 40px auto;
+      overflow: hidden;
+    }
+    .testimonials .slides {
+      display: flex;
+      transition: transform 0.5s ease;
+    }
+    .testimonial {
+      min-width: 100%;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+    .testimonial p { font-size: 1.1rem; color: #555; margin-bottom: 10px; }
+    .testimonial .author { font-size: 0.9rem; color: #888; }
+    
+    /* Technical Note Box */
+    .tech-note {
+      background: #e8f0fe;
+      padding: 30px;
+      border-radius: 8px;
       max-width: 800px;
+      margin: 40px auto;
       text-align: left;
       font-size: 1rem;
       line-height: 1.6;
+      color: #333;
     }
-    .info-box code {
+    .tech-note code {
       background: #c5d4f1;
-      padding: 2px 6px;
+      padding: 2px 4px;
       border-radius: 4px;
       font-family: monospace;
     }
-    /* Call-to-Action Banner */
-    .cta-banner {
+    
+    /* Call-to-Action Section */
+    .cta {
       background: #4caf50;
       color: #fff;
-      padding: 60px 20px;
+      padding: 40px 20px;
       text-align: center;
     }
-    .cta-banner h2 {
-      font-size: 2.5rem;
-      margin-bottom: 20px;
-    }
-    .cta-banner a {
+    .cta h2 { font-size: 2rem; margin-bottom: 20px; }
+    .cta a {
       display: inline-block;
-      padding: 15px 40px;
-      font-size: 1.2rem;
+      padding: 12px 30px;
+      font-size: 1.1rem;
       background: #ff9800;
       color: #fff;
       border-radius: 50px;
       text-decoration: none;
       transition: background 0.3s;
     }
-    .cta-banner a:hover {
-      background: #f57c00;
-    }
+    .cta a:hover { background: #f57c00; }
   </style>
-  <!-- External Global JS -->
-  <script src="script.js" defer></script>
+  <script defer>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Load external header and footer
+      fetch("header.html")
+        .then(response => response.text())
+        .then(data => document.body.insertAdjacentHTML("afterbegin", data))
+        .catch(error => console.error("Header load error:", error));
+      
+      fetch("footer.html")
+        .then(response => response.text())
+        .then(data => document.body.insertAdjacentHTML("beforeend", data))
+        .catch(error => console.error("Footer load error:", error));
+      
+      // Testimonial Carousel Logic
+      let slideIndex = 0;
+      const slides = document.querySelector('.slides');
+      const totalSlides = document.querySelectorAll('.testimonial').length;
+      
+      function showNextSlide() {
+        slideIndex = (slideIndex + 1) % totalSlides;
+        slides.style.transform = 'translateX(' + (-slideIndex * 100) + '%)';
+      }
+      
+      setInterval(showNextSlide, 4000); // change slide every 4 seconds
+    });
+  </script>
 </head>
 <body>
-  <!-- External Header -->
-  <div id="header-placeholder"></div>
+  <!-- External Header is loaded dynamically -->
   
   <!-- Hero Section -->
-  <section class="hero-gradient">
+  <section class="hero">
     <div class="content">
-      <h1>Step into the Future of E-Commerce</h1>
-      <p>Experience a platform that evolves with innovative design, dynamic functionality, and secure, real‑time data management – powered by next‑generation technology.</p>
+      <h1>Discover the NextGen Experience</h1>
+      <p>Engage with a platform that redefines online shopping through cutting‑edge technology and addictive, premium design.</p>
       <button class="btn" onclick="window.location.href='ecommerce.html'">Visit Shop</button>
     </div>
   </section>
   
-  <!-- Section: Technology & Innovation -->
-  <section class="section" style="animation-delay: 0.3s;">
-    <h2>Powered by Innovation</h2>
-    <p>Currently, our platform uses dummy data to simulate a high‑end experience. Soon, Firebase Firestore will power dynamic, secure data management, elevating your shopping journey.</p>
+  <!-- Innovative Technology Section -->
+  <section class="section">
+    <h2>Innovative Technology</h2>
+    <p>Our platform is built on dummy data today, paving the way for a robust Firebase integration tomorrow—bringing real‑time updates and secure data management to every interaction.</p>
   </section>
   
-  <!-- Section: Premium Experience -->
-  <section class="section" style="animation-delay: 0.5s;">
-    <h2>Premium, Next‑Generation Experience</h2>
-    <p>From the sleek design to secure transactions, every detail is crafted to provide an immersive, professional experience that redefines online shopping.</p>
-  </section>
-  
-  <!-- Information Box: Technical Details -->
-  <section class="section" style="animation-delay: 0.7s;">
-    <div class="info-box">
-      <p><strong>Technical Note:</strong> This frontend code is built using dummy data and is structured for seamless integration with a Firebase backend. The <code>fetchProducts()</code> function currently simulates data fetching and will soon be replaced by Firebase Firestore API calls. Future enhancements include Firebase-based authentication and secure data persistence.</p>
+  <!-- Customer Testimonials Section -->
+  <section class="section">
+    <h2>What Our Customers Say</h2>
+    <div class="testimonials">
+      <div class="slides">
+        <div class="testimonial">
+          <p>"This platform is truly addictive—the seamless experience and cutting‑edge features keep me coming back!"</p>
+          <div class="author">- Ayesha, Karachi</div>
+        </div>
+        <div class="testimonial">
+          <p>"Innovative and engaging! I feel like I'm part of the future every time I shop here."</p>
+          <div class="author">- Bilal, Lahore</div>
+        </div>
+        <div class="testimonial">
+          <p>"The design and technology are simply addictive—shopping has never felt this exciting."</p>
+          <div class="author">- Fatima, Islamabad</div>
+        </div>
+      </div>
     </div>
   </section>
   
-  <!-- Call-to-Action Banner -->
-  <section class="cta-banner">
-    <h2>Embrace the Future Today</h2>
-    <a href="contact.html">Contact Us to Get Started</a>
+  <!-- Vision & Mission Section -->
+  <section class="section">
+    <h2>Our Vision &amp; Mission</h2>
+    <p>We strive to create an experience so engaging it becomes a part of your lifestyle. Our mission is to blend next‑generation technology with innovative design, making every interaction on our platform a captivating experience.</p>
   </section>
   
-  <!-- External Footer -->
-  <div id="footer-placeholder"></div>
+  <!-- Technical Note Section -->
+  <section class="section">
+    <div class="tech-note">
+      <p><strong>Technical Note:</strong> This frontend is currently powered by dummy data, structured for seamless integration with Firebase Firestore. Soon, <code>fetchProducts()</code> will be replaced by live API calls, ensuring real‑time data, secure authentication, and dynamic updates.</p>
+    </div>
+  </section>
   
-  <!-- Inline Script to Load External Header and Footer -->
-  <script>
-    function loadHTML(elementId, filePath) {
-      fetch(filePath)
-        .then(response => {
-          if (!response.ok) {
-            throw new Error("Error fetching " + filePath);
-          }
-          return response.text();
-        })
-        .then(html => {
-          document.getElementById(elementId).innerHTML = html;
-        })
-        .catch(error => console.error(error));
-    }
-    
-    document.addEventListener("DOMContentLoaded", function() {
-      loadHTML("header-placeholder", "header.html");
-      loadHTML("footer-placeholder", "footer.html");
-    });
-  </script>
+  <!-- Call-to-Action Section -->
+  <section class="cta">
+    <h2>Ready to Experience the Future?</h2>
+    <a href="contact.html">Get in Touch</a>
+  </section>
+  
+  <!-- External Footer is loaded dynamically -->
+  
 </body>
 </html>
