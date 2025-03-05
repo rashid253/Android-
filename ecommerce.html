@@ -2,17 +2,34 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>NextGen E-commerce - Shop Now</title>
+    
     <!-- Font Awesome for icons (used for star ratings) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
     <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <!-- Inline CSS Overrides -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    
+    <!-- Google Fonts (optional) -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Custom CSS -->
     <style>
-      /* Global Overrides */
+      /* 
+        ================================
+        GLOBAL STYLES
+        ================================
+      */
       body {
         font-family: 'Roboto', sans-serif;
         background-color: #f3f4f6;
@@ -20,6 +37,7 @@
         margin: 0;
         padding: 0;
       }
+
       a {
         text-decoration: none;
         color: inherit;
@@ -28,13 +46,24 @@
       a:hover {
         color: #ff6f61;
       }
-      main {
-        padding-bottom: 100px;
+
+      h1, h2, h3, h4, h5, h6 {
+        font-weight: 600;
       }
-      /* Hero Section */
+
+      main {
+        padding-bottom: 80px;
+      }
+
+      /* 
+        ================================
+        HERO SECTION
+        ================================
+      */
       .hero {
         position: relative;
-        height: calc(500px + 3cm);
+        /* Instead of a fixed large height, use min-height for better responsiveness */
+        min-height: 450px;
         background: linear-gradient(135deg, #4285F4, #34A853);
         display: flex;
         align-items: center;
@@ -43,10 +72,8 @@
         overflow: hidden;
       }
       .hero-content {
-        position: relative;
         z-index: 2;
         padding: 0 20px;
-        transform: translateY(-20px);
       }
       .hero-content h1,
       .hero-content p {
@@ -58,11 +85,11 @@
         margin-bottom: 1rem;
       }
       .hero-content p {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
         margin-bottom: 1.5rem;
       }
       .hero-content .btn {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
         padding: 0.75rem 1.5rem;
         background-color: #007bff;
         color: #fff;
@@ -74,7 +101,76 @@
         background-color: #0056b3;
         transform: scale(1.05);
       }
-      /* Horizontal Scroll for Categories */
+
+      /* 
+        ================================
+        BANNERS & SPECIAL SECTIONS
+        ================================
+      */
+      .banner {
+        margin: 1rem 0;
+        border-radius: 8px;
+        overflow: hidden;
+        background: #fff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        height: 150px;
+        position: relative;
+      }
+      .banner img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      /* Fullwidth banner example */
+      .fullwidth-banner img {
+        opacity: 0.85;
+      }
+      .fullwidth-banner .banner-text {
+        position: absolute;
+        top: 50%;
+        left: 10%;
+        transform: translateY(-50%);
+        color: #fff;
+        font-size: 1.3rem;
+        font-weight: bold;
+      }
+      /* Accordion banner example */
+      .accordion-banner .accordion-button {
+        font-weight: 600;
+        font-size: 1rem;
+      }
+      /* Three-part banner example */
+      .three-part-banner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 1rem;
+        height: 150px;
+      }
+      .three-part-banner .banner-title {
+        font-size: 1.2rem;
+        font-weight: bold;
+      }
+      .three-part-banner .banner-desc {
+        font-size: 1rem;
+        flex: 1;
+        margin: 0 1rem;
+      }
+      .three-part-banner .banner-img {
+        width: 150px;
+        text-align: right;
+      }
+      .three-part-banner .banner-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+
+      /* 
+        ================================
+        HORIZONTAL SCROLL FOR CATEGORIES
+        ================================
+      */
       .horizontal-scroll {
         display: flex;
         overflow-x: auto;
@@ -85,105 +181,77 @@
       .horizontal-scroll::-webkit-scrollbar {
         display: none;
       }
-      /* Banner Styles */
-      .banner {
-        margin: 1rem 0;
+
+      /* 
+        ================================
+        PRODUCT CARDS
+        ================================
+      */
+      .card {
+        border: none;
         border-radius: 8px;
-        overflow: hidden;
-        background: #fff;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        height: 150px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
       }
-      .banner img {
-        width: 100%;
-        height: 150px;
-        object-fit: cover;
+      .card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        cursor: pointer;
       }
-      .fullwidth-banner {
-        position: relative;
-      }
-      .fullwidth-banner img {
-        height: 150px;
-        opacity: 0.85;
-      }
-      .fullwidth-banner .banner-text {
-        position: absolute;
-        top: 50%;
-        left: 10%;
-        transform: translateY(-50%);
-        color: #fff;
-        font-size: 1.2rem;
-        font-weight: bold;
-      }
-      .accordion-banner .accordion-button {
-        font-weight: bold;
-        font-size: 1rem;
-      }
-      .three-part-banner {
-        display: flex;
-        align-items: center;
-        padding: 0 1rem;
-        height: 150px;
-      }
-      .three-part-banner .banner-title {
-        flex: 1;
-        font-size: 1.1rem;
-        font-weight: bold;
-      }
-      .three-part-banner .banner-desc {
-        flex: 2;
-        font-size: 0.95rem;
-      }
-      .three-part-banner .banner-img {
-        flex: 1;
-        text-align: right;
-      }
-      .three-part-banner .banner-img img {
-        height: 100%;
-        object-fit: contain;
-      }
-      /* Product Tile Styles */
       .card-img-top {
         width: 100%;
         height: 180px;
         object-fit: cover;
+        border-radius: 8px 8px 0 0;
+      }
+      .card-body {
+        padding: 0.75rem;
       }
       .product-price {
         font-weight: bold;
         color: #e4393c;
-        font-size: 1.1rem;
+        font-size: 1rem;
       }
       .product-old-price {
         text-decoration: line-through;
         color: #999;
         margin-left: 5px;
+        font-size: 0.85rem;
       }
       .star-rating i {
         font-size: 1rem;
-        transition: transform 0.2s ease, color 0.2s ease;
+        color: #ffc107;
       }
-      .star-rating i:hover {
-        transform: scale(1.1);
-      }
-      .product-stats small {
+      .product-stats {
         font-size: 0.75rem;
+        color: #666;
       }
-      /* Responsive adjustments for mobile devices */
+
+      /* 
+        ================================
+        RESPONSIVE MEDIA QUERIES
+        ================================
+      */
       @media (max-width: 576px) {
-        .card {
-          font-size: 0.9rem;
+        .hero-content h1 {
+          font-size: 2rem;
+        }
+        .hero-content p {
+          font-size: 1rem;
         }
         .card-img-top {
           height: 150px;
         }
       }
     </style>
-    <!-- Include external JavaScript for global functions (e.g. toggleSideMenu) -->
+
+    <!-- Include external JavaScript for global functions (e.g., toggleSideMenu) -->
     <script src="script.js" defer></script>
   </head>
   <body>
     <!-- Header Placeholder -->
     <div id="header-placeholder"></div>
+
     <!-- Main Ecommerce Content -->
     <main>
       <!-- Hero Section -->
@@ -194,6 +262,7 @@
           <a href="#categoriesContainer" class="btn">Shop Now</a>
         </div>
       </section>
+
       <!-- Main Page: Categories with Banners and Horizontal Scroll -->
       <div class="container my-4" id="mainPage">
         <h1 class="mb-4 text-center">Product Categories</h1>
@@ -201,6 +270,7 @@
           <!-- Dynamic category sections will be rendered here -->
         </div>
       </div>
+
       <!-- Category Page: Vertical Grid of Products -->
       <div class="container my-4" id="categoryPage" style="display: none;">
         <button class="btn btn-secondary mb-3" onclick="backToMain()">Back to Categories</button>
@@ -210,30 +280,39 @@
         </div>
       </div>
     </main>
+
     <!-- Footer Placeholder -->
     <div id="footer-placeholder"></div>
-    <!-- Scripts -->
+
+    <!-- Bootstrap Bundle JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
     <script>
-      // Helper function to generate star icons based on numeric rating
+      /*
+        ================================
+        HELPER FUNCTIONS & DATA
+        ================================
+      */
+      // Generate star icons based on numeric rating
       function generateStars(rating) {
         let html = "";
         let fullStars = Math.floor(rating);
         let halfStar = (rating - fullStars) >= 0.5 ? 1 : 0;
         for (let i = 0; i < fullStars; i++) {
-          html += '<i class="fa fa-star" style="color:#FFC107;"></i>';
+          html += '<i class="fa fa-star"></i>';
         }
         if (halfStar) {
-          html += '<i class="fa fa-star-half-alt" style="color:#FFC107;"></i>';
+          html += '<i class="fa fa-star-half-alt"></i>';
         }
         return html;
       }
-      
+
       // Load header and footer dynamically
       function loadHTML(elementId, filePath) {
         fetch(filePath)
           .then(response => {
             if (!response.ok) {
+              // Fallback content if header/footer fetch fails
               if (elementId === "header-placeholder") {
                 document.getElementById(elementId).innerHTML =
                   '<header style="background:#333;color:#fff;padding:10px;text-align:center;">Header</header>';
@@ -250,13 +329,13 @@
           })
           .catch(error => console.error(error));
       }
-      
+
       document.addEventListener("DOMContentLoaded", function () {
         loadHTML("header-placeholder", "header.html");
         loadHTML("footer-placeholder", "footer.html");
       });
-      
-      // Dummy product data with additional properties: rating, added, sold
+
+      // Dummy product data
       const productData = {
         "Countdown Sales": [
           {
@@ -404,7 +483,12 @@
           }
         ]
       };
-      
+
+      /*
+        ================================
+        BANNER GENERATION
+        ================================
+      */
       function createBannerForCategory(category, index) {
         let banner = document.createElement("div");
         banner.className = "banner";
@@ -483,36 +567,48 @@
         }
         return banner;
       }
-      
+
+      /*
+        ================================
+        MAIN PAGE INITIALIZATION
+        ================================
+      */
       function initMainPage() {
         document.getElementById("mainPage").style.display = "block";
         document.getElementById("categoryPage").style.display = "none";
         const container = document.getElementById("categoriesContainer");
         container.innerHTML = "";
+
         let index = 0;
         for (let category in productData) {
+          // Create banner
           let banner = createBannerForCategory(category, index);
           container.appendChild(banner);
+
+          // Create section heading + horizontal scroll
           let section = document.createElement("div");
           section.innerHTML = `
             <h2 class="mt-4">${category}</h2>
             <div class="horizontal-scroll" id="scroll-${category.replace(/\s/g, '')}"></div>
           `;
           container.appendChild(section);
+
+          // Populate horizontal scroll with product cards
           let scrollContainer = document.getElementById(`scroll-${category.replace(/\s/g, '')}`);
           productData[category].forEach(product => {
             let card = document.createElement("div");
             card.className = "card";
-            card.style.minWidth = "150px";
+            card.style.minWidth = "160px";
             card.style.marginRight = "0.75rem";
             card.onclick = function () {
-              // In the main page horizontal scroll, clicking opens the category page
               openCategoryPage(category);
             };
             card.innerHTML = `
               <img src="${product.image}" class="card-img-top" alt="${product.name}">
               <div class="card-body text-center">
-                <p class="product-price">${product.price} <span class="product-old-price">PKR1,487</span></p>
+                <p class="product-price">${product.price} 
+                  <span class="product-old-price">PKR 1,487</span>
+                </p>
                 <div class="star-rating mb-1">
                   ${generateStars(product.rating)}
                 </div>
@@ -526,17 +622,25 @@
           index++;
         }
       }
-      
+
+      /*
+        ================================
+        CATEGORY PAGE & NAVIGATION
+        ================================
+      */
       function openCategoryPage(category) {
         window.currentCategory = category;
         document.getElementById("mainPage").style.display = "none";
         document.getElementById("categoryPage").style.display = "block";
         document.getElementById("categoryTitle").innerText = category;
+
         const grid = document.getElementById("categoryProducts");
         grid.innerHTML = "";
+
         productData[category].forEach(product => {
           let col = document.createElement("div");
           col.className = "col-6 col-md-4 mb-4";
+
           let card = document.createElement("div");
           card.className = "card";
           card.onclick = function () {
@@ -545,7 +649,9 @@
           card.innerHTML = `
             <img src="${product.image}" class="card-img-top" alt="${product.name}">
             <div class="card-body text-center">
-              <p class="product-price">${product.price} <span class="product-old-price">PKR1,487</span></p>
+              <p class="product-price">${product.price}
+                <span class="product-old-price">PKR 1,487</span>
+              </p>
               <div class="star-rating mb-1">
                 ${generateStars(product.rating)}
               </div>
@@ -558,18 +664,23 @@
           grid.appendChild(col);
         });
       }
-      
+
       function backToMain() {
         document.getElementById("categoryPage").style.display = "none";
         document.getElementById("mainPage").style.display = "block";
       }
-      
+
       function openProductDetails(product) {
         // Save the selected product details in localStorage then navigate to details.html
         localStorage.setItem("selectedProduct", JSON.stringify(product));
         window.location.href = "details.html";
       }
-      
+
+      /*
+        ================================
+        ON WINDOW LOAD
+        ================================
+      */
       window.onload = function () {
         initMainPage();
       };
