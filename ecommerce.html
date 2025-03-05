@@ -20,6 +20,7 @@
 
     <!-- Page-Specific Inline CSS -->
     <style>
+      /* Global body settings (external style.css already sets header/footer padding) */
       body {
         font-family: 'Roboto', sans-serif;
         background-color: #f3f4f6;
@@ -277,7 +278,7 @@
 
     <!-- DYNAMIC LOADING OF EXTERNAL HEADER & FOOTER, INITIALIZATION, AND NAVIGATION FUNCTIONS -->
     <script>
-      // Load external HTML for header and footer
+      // Function to load external HTML into a placeholder element
       function loadHTML(elementId, filePath) {
         fetch(filePath)
           .then(response => {
@@ -454,23 +455,21 @@
         ]
       };
 
-      // Initialize category navigation including an "All" tile
+      // Initialize category navigation (including an "All Categories" tile)
       function initCategoriesNav() {
         const navContainer = document.getElementById("categoriesNavContainer");
         navContainer.innerHTML = "";
-
         // "All Categories" tile
         let allTile = document.createElement("div");
         allTile.className = "category-button";
         allTile.id = "category-All";
-        allTile.innerHTML = `<div class="category-icon"><i class="fas fa-th"></i></div><div class="category-name">All</div>`;
+        allTile.innerHTML = `<div class="category-icon"><i class="fas fa-th"></i></div><div class="category-name">All Categories</div>`;
         allTile.onclick = function() {
           document.getElementById("mainPage").scrollIntoView({ behavior: "smooth", block: "start" });
           setActiveCategory("All");
         };
         navContainer.appendChild(allTile);
-
-        // Create a tile for each category from productData
+        // One tile per category
         for (let category in productData) {
           let btn = document.createElement("div");
           btn.className = "category-button";
@@ -497,7 +496,7 @@
         }
       }
 
-      // Set the active category style on the navigation tile
+      // Set the active category style on navigation tile
       function setActiveCategory(category) {
         let buttons = document.querySelectorAll(".category-button");
         buttons.forEach(btn => btn.classList.remove("active-category"));
@@ -508,7 +507,21 @@
         }
       }
 
-      // Render main page content: banners and horizontal product tiles
+      // Helper: Generate star icons
+      function generateStars(rating) {
+        let html = "";
+        let fullStars = Math.floor(rating);
+        let halfStar = (rating - fullStars) >= 0.5 ? 1 : 0;
+        for (let i = 0; i < fullStars; i++) {
+          html += '<i class="fa fa-star"></i>';
+        }
+        if (halfStar) {
+          html += '<i class="fa fa-star-half-alt"></i>';
+        }
+        return html;
+      }
+
+      // Render main page: banners and horizontal product tiles
       function initMainPage() {
         document.getElementById("mainPage").style.display = "block";
         document.getElementById("categoryPage").style.display = "none";
@@ -516,7 +529,7 @@
         container.innerHTML = "";
         let index = 0;
         for (let category in productData) {
-          // Append banner for this category with an identifiable section id
+          // Append banner for this category (with section id for navigation)
           let banner = createBannerForCategory(category, index);
           container.appendChild(banner);
           let section = document.createElement("div");
@@ -546,7 +559,7 @@
           });
           index++;
         }
-        // Initialize any dynamic carousels
+        // Initialize dynamic carousels
         document.querySelectorAll('.carousel').forEach(function(carouselElement) {
           new bootstrap.Carousel(carouselElement, {
             interval: 3000,
@@ -555,7 +568,7 @@
         });
       }
 
-      // Open a category page (vertical product grid view)
+      // Open category page: vertical grid of products
       function openCategoryPage(category) {
         window.currentCategory = category;
         document.getElementById("mainPage").style.display = "none";
@@ -594,7 +607,7 @@
         window.location.href = "details.html";
       }
 
-      // Function to create banners dynamically based on index
+      // Create banners dynamically based on index
       function createBannerForCategory(category, index) {
         let banner = document.createElement("div");
         banner.className = "banner";
