@@ -18,22 +18,21 @@
       rel="stylesheet"
     />
 
-    <!-- Inline CSS Overrides for Page-Specific Styles -->
+    <!-- Page-Specific Inline CSS Overrides -->
     <style>
-      /* Ensure body padding from external style.css is not overridden */
+      /* Ensure body uses external padding (from style.css) and proper font/colors */
       body {
-        /* external style.css sets: padding-top: 70px; padding-bottom: 70px; */
         font-family: 'Roboto', sans-serif;
         background-color: #f3f4f6;
         color: #2d3748;
       }
       main {
-        padding-bottom: 100px; /* extra space if needed */
+        padding-bottom: 100px;
       }
-      /* Hero Section */
+      /* HERO SECTION */
       .hero {
         position: relative;
-        min-height: 500px; /* Use a minimum height for better responsiveness */
+        min-height: 500px;
         background: linear-gradient(135deg, #4285F4, #34A853);
         display: flex;
         align-items: center;
@@ -45,35 +44,33 @@
         position: relative;
         z-index: 2;
         padding: 0 20px;
-        transform: translateY(-20px);
-      }
-      .hero-content h1,
-      .hero-content p {
-        color: #fff;
       }
       .hero-content h1 {
         font-size: 3rem;
         font-weight: bold;
         margin-bottom: 1rem;
+        color: #fff;
       }
       .hero-content p {
         font-size: 1.2rem;
         margin-bottom: 1.5rem;
-      }
-      .hero-content .btn {
-        font-size: 1.2rem;
-        padding: 0.75rem 1.5rem;
-        background-color: #007bff;
         color: #fff;
+      }
+      /* Make the Shop Now button more prominent */
+      .hero-content .btn {
+        font-size: 1.4rem;
+        padding: 1rem 2rem;
+        background-color: #ff6f61;
         border: none;
         border-radius: 4px;
-        transition: background 0.3s ease, transform 0.3s ease;
+        color: #fff;
+        transition: background 0.3s, transform 0.3s;
       }
       .hero-content .btn:hover {
-        background-color: #0056b3;
+        background-color: #e65a50;
         transform: scale(1.05);
       }
-      /* Horizontal Scroll for Categories */
+      /* HORIZONTAL SCROLL for category listings */
       .horizontal-scroll {
         display: flex;
         overflow-x: auto;
@@ -84,7 +81,7 @@
       .horizontal-scroll::-webkit-scrollbar {
         display: none;
       }
-      /* Banner & Product Card Styles (consistent with your professional design) */
+      /* BANNER STYLES */
       .banner {
         margin: 1rem 0;
         border-radius: 8px;
@@ -118,20 +115,22 @@
         font-weight: bold;
         font-size: 1rem;
       }
+      /* THREE-PART BANNER: Divided into title, description, and image */
       .three-part-banner {
         display: flex;
         align-items: center;
-        padding: 0 1rem;
+        justify-content: space-between;
         height: 150px;
+        padding: 0 1rem;
       }
       .three-part-banner .banner-title {
         flex: 1;
-        font-size: 1.1rem;
+        font-size: 1.2rem;
         font-weight: bold;
       }
       .three-part-banner .banner-desc {
         flex: 2;
-        font-size: 0.95rem;
+        font-size: 1rem;
       }
       .three-part-banner .banner-img {
         flex: 1;
@@ -141,10 +140,26 @@
         height: 100%;
         object-fit: contain;
       }
-      .card-img-top {
+      /* PRODUCT TILE STYLES: Only image inside card; details fixed below */
+      .product-tile {
+        min-width: 150px;
+        margin-right: 0.75rem;
+        cursor: pointer;
+      }
+      .product-tile .card {
+        border: none;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+      }
+      .product-tile .card img {
         width: 100%;
         height: 180px;
         object-fit: cover;
+      }
+      .product-details {
+        text-align: center;
+        margin-top: 8px;
       }
       .product-price {
         font-weight: bold;
@@ -155,22 +170,25 @@
         text-decoration: line-through;
         color: #999;
         margin-left: 5px;
+        font-size: 0.9rem;
       }
       .star-rating i {
         font-size: 1rem;
-        transition: transform 0.2s ease, color 0.2s ease;
+        color: #ffc107;
+        transition: transform 0.2s ease;
       }
       .star-rating i:hover {
         transform: scale(1.1);
       }
       .product-stats small {
         font-size: 0.75rem;
+        color: #666;
       }
       @media (max-width: 576px) {
-        .card {
-          font-size: 0.9rem;
+        .product-tile {
+          min-width: 130px;
         }
-        .card-img-top {
+        .card img {
           height: 150px;
         }
       }
@@ -183,29 +201,31 @@
     <!-- External Header (loaded from header.html) -->
     <div id="header-placeholder"></div>
     
-    <!-- Main Ecommerce Content -->
+    <!-- MAIN CONTENT -->
     <main>
-      <!-- Hero Section -->
+      <!-- HERO SECTION -->
       <section class="hero">
         <div class="hero-content">
           <h1>Welcome to NextGen E-commerce</h1>
-          <p>Your one-stop shop for the latest trends &amp; exclusive deals.</p>
+          <p>Your one‑stop shop for the latest trends &amp; exclusive deals.</p>
           <a href="#categoriesContainer" class="btn">Shop Now</a>
         </div>
       </section>
-      <!-- Main Page: Categories with Banners and Horizontal Scroll -->
+      
+      <!-- MAIN PAGE: Categories, Banners, and Horizontal Scroll of Product Tiles -->
       <div class="container my-4" id="mainPage">
         <h1 class="mb-4 text-center">Product Categories</h1>
         <div id="categoriesContainer">
           <!-- Dynamic category sections will be rendered here -->
         </div>
       </div>
-      <!-- Category Page: Vertical Grid of Products -->
+      
+      <!-- CATEGORY PAGE: Vertical Grid of Products -->
       <div class="container my-4" id="categoryPage" style="display: none;">
         <button class="btn btn-secondary mb-3" onclick="backToMain()">Back to Categories</button>
         <h2 id="categoryTitle" class="mb-4"></h2>
         <div class="row" id="categoryProducts">
-          <!-- Products will be rendered here in a grid -->
+          <!-- Product grid will be rendered here -->
         </div>
       </div>
     </main>
@@ -216,13 +236,12 @@
     <!-- Bootstrap Bundle JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
-    <!-- Dynamic Loading of External Header & Footer -->
+    <!-- DYNAMIC LOADING OF EXTERNAL HEADER & FOOTER -->
     <script>
       function loadHTML(elementId, filePath) {
         fetch(filePath)
           .then(response => {
             if (!response.ok) {
-              // Fallback content if file cannot be loaded
               if (elementId === "header-placeholder") {
                 document.getElementById(elementId).innerHTML =
                   '<header style="background:#333;color:#fff;padding:10px;text-align:center;">Header</header>';
@@ -239,7 +258,6 @@
           })
           .catch(error => console.error(error));
       }
-      
       document.addEventListener("DOMContentLoaded", function () {
         loadHTML("header-placeholder", "header.html");
         loadHTML("footer-placeholder", "footer.html");
@@ -251,15 +269,15 @@
         let fullStars = Math.floor(rating);
         let halfStar = (rating - fullStars) >= 0.5 ? 1 : 0;
         for (let i = 0; i < fullStars; i++) {
-          html += '<i class="fa fa-star" style="color:#FFC107;"></i>';
+          html += '<i class="fa fa-star"></i>';
         }
         if (halfStar) {
-          html += '<i class="fa fa-star-half-alt" style="color:#FFC107;"></i>';
+          html += '<i class="fa fa-star-half-alt"></i>';
         }
         return html;
       }
       
-      // Dummy product data with additional properties
+      // Dummy product data
       const productData = {
         "Countdown Sales": [
           {
@@ -408,14 +426,16 @@
         ]
       };
       
+      // Create banner for a given category and index
       function createBannerForCategory(category, index) {
         let banner = document.createElement("div");
         banner.className = "banner";
         switch (index) {
           case 0:
+            // Carousel banner with 3 slides, auto slide every 3 seconds and visible dots
             banner.classList.add("carousel-banner");
             banner.innerHTML = `
-              <div id="carouselBanner${index}" class="carousel slide" data-bs-ride="carousel">
+              <div id="carouselBanner${index}" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
                 <div class="carousel-indicators">
                   <button type="button" data-bs-target="#carouselBanner${index}" data-bs-slide-to="0" class="active"></button>
                   <button type="button" data-bs-target="#carouselBanner${index}" data-bs-slide-to="1"></button>
@@ -462,6 +482,7 @@
             `;
             break;
           case 3:
+            // Three-part banner: title, description, and image
             banner.classList.add("three-part-banner");
             banner.innerHTML = `
               <div class="banner-title">Seasonal Savings</div>
@@ -487,6 +508,7 @@
         return banner;
       }
       
+      // Initialize main page: Render banners and product tiles for each category
       function initMainPage() {
         document.getElementById("mainPage").style.display = "block";
         document.getElementById("categoryPage").style.display = "none";
@@ -494,7 +516,7 @@
         container.innerHTML = "";
         let index = 0;
         for (let category in productData) {
-          // Create banner for the category
+          // Append banner for this category
           let banner = createBannerForCategory(category, index);
           container.appendChild(banner);
           // Create section heading and horizontal scroll container
@@ -504,34 +526,31 @@
             <div class="horizontal-scroll" id="scroll-${category.replace(/\s/g, '')}"></div>
           `;
           container.appendChild(section);
-          // Populate horizontal scroll with product cards
+          // Render product tiles inside horizontal scroll
           let scrollContainer = document.getElementById(`scroll-${category.replace(/\s/g, '')}`);
           productData[category].forEach(product => {
-            let card = document.createElement("div");
-            card.className = "card";
-            card.style.minWidth = "150px";
-            card.style.marginRight = "0.75rem";
-            card.onclick = function () {
+            let tile = document.createElement("div");
+            tile.className = "product-tile";
+            tile.onclick = function () {
               openCategoryPage(category);
             };
-            card.innerHTML = `
-              <img src="${product.image}" class="card-img-top" alt="${product.name}">
-              <div class="card-body text-center">
+            tile.innerHTML = `
+              <div class="card">
+                <img src="${product.image}" alt="${product.name}">
+              </div>
+              <div class="product-details">
                 <p class="product-price">${product.price} <span class="product-old-price">PKR1,487</span></p>
-                <div class="star-rating mb-1">
-                  ${generateStars(product.rating)}
-                </div>
-                <div class="product-stats">
-                  <small>${product.added} Added | ${product.sold} Sold</small>
-                </div>
+                <div class="star-rating">${generateStars(product.rating)}</div>
+                <div class="product-stats"><small>${product.added} Added | ${product.sold} Sold</small></div>
               </div>
             `;
-            scrollContainer.appendChild(card);
+            scrollContainer.appendChild(tile);
           });
           index++;
         }
       }
       
+      // Open category page: Render a vertical grid of products
       function openCategoryPage(category) {
         window.currentCategory = category;
         document.getElementById("mainPage").style.display = "none";
@@ -542,24 +561,22 @@
         productData[category].forEach(product => {
           let col = document.createElement("div");
           col.className = "col-6 col-md-4 mb-4";
-          let card = document.createElement("div");
-          card.className = "card";
-          card.onclick = function () {
+          let tile = document.createElement("div");
+          tile.className = "product-tile";
+          tile.onclick = function () {
             openProductDetails(product);
           };
-          card.innerHTML = `
-            <img src="${product.image}" class="card-img-top" alt="${product.name}">
-            <div class="card-body text-center">
+          tile.innerHTML = `
+            <div class="card">
+              <img src="${product.image}" alt="${product.name}">
+            </div>
+            <div class="product-details">
               <p class="product-price">${product.price} <span class="product-old-price">PKR1,487</span></p>
-              <div class="star-rating mb-1">
-                ${generateStars(product.rating)}
-              </div>
-              <div class="product-stats">
-                <small>${product.added} Added | ${product.sold} Sold</small>
-              </div>
+              <div class="star-rating">${generateStars(product.rating)}</div>
+              <div class="product-stats"><small>${product.added} Added | ${product.sold} Sold</small></div>
             </div>
           `;
-          col.appendChild(card);
+          col.appendChild(tile);
           grid.appendChild(col);
         });
       }
