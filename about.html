@@ -10,54 +10,46 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <!-- Page-Specific Inline CSS -->
   <style>
-    /* Fullscreen video background hero */
-    .hero-video {
+    /* Hero Section with Unique Gradient Background */
+    .hero-gradient {
       position: relative;
       height: 100vh;
-      overflow: hidden;
-      color: #fff;
-      text-align: center;
+      background: linear-gradient(135deg, #FF6B6B, #FFD93D, #6BCB77);
+      background-size: 400% 400%;
+      animation: gradientAnimation 15s ease infinite;
       display: flex;
       align-items: center;
       justify-content: center;
+      text-align: center;
+      color: #fff;
     }
-    .hero-video video {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      min-width: 100%;
-      min-height: 100%;
-      width: auto;
-      height: auto;
-      z-index: -1;
-      transform: translate(-50%, -50%);
-      filter: brightness(0.6);
+    @keyframes gradientAnimation {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
-    .hero-video .content {
-      position: relative;
-      z-index: 2;
-    }
-    .hero-video h1 {
+    .hero-gradient h1 {
       font-size: 4rem;
       margin-bottom: 20px;
     }
-    .hero-video p {
+    .hero-gradient p {
       font-size: 1.5rem;
       max-width: 800px;
       margin: 0 auto 30px;
     }
-    .hero-video .btn {
+    .hero-gradient .btn {
       padding: 15px 40px;
       font-size: 1.2rem;
-      background: #ff5722;
+      background: #fff;
       border: none;
       border-radius: 50px;
-      color: #fff;
+      color: #333;
       cursor: pointer;
-      transition: background 0.3s;
+      transition: background 0.3s, transform 0.3s;
     }
-    .hero-video .btn:hover {
-      background: #e64a19;
+    .hero-gradient .btn:hover {
+      background: #f0f0f0;
+      transform: scale(1.05);
     }
     /* Animated Content Sections */
     .section {
@@ -86,7 +78,7 @@
       line-height: 1.6;
       color: #666;
     }
-    /* Information Box for Firebase Details */
+    /* Information Box for Technical Details */
     .info-box {
       background: #e8f0fe;
       padding: 40px;
@@ -135,15 +127,11 @@
   <!-- External Header -->
   <div id="header-placeholder"></div>
   
-  <!-- Hero Section with Video Background -->
-  <section class="hero-video">
-    <video autoplay muted loop>
-      <source src="https://www.w3schools.com/howto/rain.mp4" type="video/mp4">
-      Your browser does not support the video tag.
-    </video>
+  <!-- Hero Section -->
+  <section class="hero-gradient">
     <div class="content">
-      <h1>Embrace the Future of E-Commerce</h1>
-      <p>Our platform is not just another shop – it's an immersive experience powered by cutting-edge design and technology.</p>
+      <h1>Step into the Future of E-Commerce</h1>
+      <p>Experience a platform that evolves with innovative design, dynamic functionality, and secure, real‑time data management – powered by next‑generation technology.</p>
       <button class="btn" onclick="window.location.href='ecommerce.html'">Visit Shop</button>
     </div>
   </section>
@@ -151,32 +139,32 @@
   <!-- Section: Technology & Innovation -->
   <section class="section" style="animation-delay: 0.3s;">
     <h2>Powered by Innovation</h2>
-    <p>Currently, our system uses dummy data to drive the experience. Soon, we will integrate seamlessly with Firebase Firestore, enabling real-time, secure data management and dynamic content delivery.</p>
+    <p>Currently, our platform uses dummy data to simulate a high‑end experience. Soon, Firebase Firestore will power dynamic, secure data management, elevating your shopping journey.</p>
   </section>
   
   <!-- Section: Premium Experience -->
   <section class="section" style="animation-delay: 0.5s;">
     <h2>Premium, Next‑Generation Experience</h2>
-    <p>Every interaction is crafted to be engaging and professional. Enjoy intuitive navigation and visually striking design that sets a new standard in online shopping.</p>
+    <p>From the sleek design to secure transactions, every detail is crafted to provide an immersive, professional experience that redefines online shopping.</p>
   </section>
   
   <!-- Information Box: Technical Details -->
   <section class="section" style="animation-delay: 0.7s;">
     <div class="info-box">
-      <p><strong>Technical Note:</strong> This frontend code is built using dummy data and is structured for easy integration with a Firebase backend. The <code>fetchProducts()</code> function currently simulates data fetching and will soon be replaced by Firebase Firestore API calls. Future enhancements include Firebase-based authentication and secure data persistence.</p>
+      <p><strong>Technical Note:</strong> This frontend code is built using dummy data and is structured for seamless integration with a Firebase backend. The <code>fetchProducts()</code> function currently simulates data fetching and will soon be replaced by Firebase Firestore API calls. Future enhancements include Firebase-based authentication and secure data persistence.</p>
     </div>
   </section>
   
   <!-- Call-to-Action Banner -->
   <section class="cta-banner">
-    <h2>Step into the Future Today</h2>
+    <h2>Embrace the Future Today</h2>
     <a href="contact.html">Contact Us to Get Started</a>
   </section>
   
   <!-- External Footer -->
   <div id="footer-placeholder"></div>
   
-  <!-- Inline Script to load header and footer -->
+  <!-- Inline Script to Load External Components -->
   <script>
     document.addEventListener("DOMContentLoaded", function() {
       loadHTML("header-placeholder", "header.html");
