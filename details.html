@@ -16,8 +16,10 @@
     />
     <!-- Global Styles -->
     <link rel="stylesheet" href="style.css" />
+
     <!-- Custom JavaScript -->
     <script src="script.js" defer></script>
+
     <style>
       /* Additional overrides for details.html */
 
@@ -31,28 +33,51 @@
       .section-nav {
         background: #fff;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
         position: sticky;
         top: 0;
         z-index: 999;
-        padding: 10px 0;
       }
-      .section-nav a {
+      .section-nav .nav-link {
+        color: #007bff;
+        font-weight: bold;
         display: flex;
         flex-direction: column;
         align-items: center;
-        width: 100px;
-        color: #007bff;
-        font-weight: bold;
+        padding: 10px 0;
       }
-      .section-nav a i {
+      .section-nav .nav-link i {
         font-size: 1.5rem;
         margin-bottom: 5px;
       }
-      .section-nav a:hover {
+      .section-nav .nav-link:hover {
         color: #0056b3;
+      }
+
+      /* Description read-more transitions */
+      .description-content {
+        max-height: 150px;
+        overflow: hidden;
+        transition: max-height 0.4s ease;
+      }
+      .description-content.expanded {
+        max-height: 1000px; /* large enough so content is fully shown */
+      }
+
+      /* Review full text hidden by default */
+      .review-full {
+        display: none;
+      }
+      .review-full.expanded {
+        display: block;
+      }
+
+      /* Star icons for rating input */
+      .star-icon {
+        cursor: pointer;
+        color: #ccc;
+      }
+      .star-icon.selected {
+        color: #f5c518;
       }
     </style>
   </head>
@@ -61,120 +86,177 @@
     <div id="header-placeholder"></div>
 
     <!-- Product Details Section -->
-    <div class="product-details container">
-      <div class="product-image">
-        <img
-          id="productImage"
-          src="https://via.placeholder.com/400x300?text=Product+Image"
-          alt="Product Image"
-        />
-      </div>
-      <div class="product-info">
-        <h2 id="productName">Product Name</h2>
-        <p class="price" id="productPrice">PKR 0</p>
-        <div id="productRating" class="star-rating"></div>
-        <p id="productStats" class="text-muted">0 Added | 0 Sold</p>
-        <button class="btn btn-primary add-to-cart-btn">
-          <i class="fa fa-shopping-cart"></i> Add to Cart
-        </button>
+    <div class="container mt-3">
+      <div class="row">
+        <!-- Product Image -->
+        <div class="col-md-5 text-center mb-3">
+          <img
+            id="productImage"
+            src="https://via.placeholder.com/400x300?text=Product+Image"
+            alt="Product Image"
+            class="img-fluid rounded"
+          />
+        </div>
+        <!-- Product Info -->
+        <div class="col-md-7">
+          <h2 id="productName">Product Name</h2>
+          <p class="h5 text-primary" id="productPrice">PKR 0</p>
+          <div id="productRating" class="star-rating mb-2"></div>
+          <p id="productStats" class="text-muted mb-3">0 Added | 0 Sold</p>
+          <button class="btn btn-primary add-to-cart-btn">
+            <i class="fa fa-shopping-cart"></i> Add to Cart
+          </button>
+        </div>
       </div>
     </div>
 
     <!-- Section Navigation Bar -->
-    <nav class="section-nav container">
-      <a href="#section-description">
-        <i class="fa fa-file-text"></i>
-        <span>Description</span>
-      </a>
-      <a href="#section-reviews">
-        <i class="fa fa-comments"></i>
-        <span>Reviews</span>
-      </a>
-      <a href="#section-related">
-        <i class="fa fa-th"></i>
-        <span>Related Items</span>
-      </a>
+    <nav class="section-nav">
+      <div class="container d-flex justify-content-around">
+        <a class="nav-link" href="#section-description">
+          <i class="fa fa-file-text"></i>
+          <span>Description</span>
+        </a>
+        <a class="nav-link" href="#section-reviews">
+          <i class="fa fa-comments"></i>
+          <span>Reviews</span>
+        </a>
+        <a class="nav-link" href="#section-related">
+          <i class="fa fa-th"></i>
+          <span>Related Items</span>
+        </a>
+      </div>
     </nav>
 
     <!-- Description Section -->
-    <section id="section-description" class="container">
+    <section id="section-description" class="container mt-4 mb-5">
       <h3>Description</h3>
-      <div class="content" id="descriptionContent">
+      <div class="description-content" id="descriptionContent">
         <p id="productDescription">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel mauris
-          quam. Praesent sed nisi eleifend, varius nulla eu, auctor urna. Vestibulum
-          ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae;
-          Suspendisse potenti. Proin ut tincidunt mauris, vel dapibus nulla. Nulla
-          facilisi. Sed nec nulla vitae eros aliquet fermentum.
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+          mauris quam. Praesent sed nisi eleifend, varius nulla eu, auctor urna.
+          Vestibulum ante ipsum primis in faucibus orci luctus et ultrices
+          posuere cubilia curae; Suspendisse potenti. Proin ut tincidunt mauris,
+          vel dapibus nulla. Nulla facilisi. Sed nec nulla vitae eros aliquet
+          fermentum.
         </p>
       </div>
-      <div class="read-more-btn" id="descReadMore">Read More</div>
+      <button class="btn btn-link p-0" id="descReadMore">Read More</button>
     </section>
 
     <!-- Reviews Section -->
-    <section id="section-reviews" class="container">
+    <section id="section-reviews" class="container mb-5">
       <h3>Reviews</h3>
       <div id="reviewsContainer">
-        <div class="review-item">
-          <p>
-            <strong>User1:</strong> Amazing quality, highly recommended!
-            <span class="review-read-more">...Read more</span>
-          </p>
-          <p><small>Reviewed on July 10, 2025</small></p>
-          <p class="review-full">
-            Full review text for User1. Lorem ipsum dolor sit amet, consectetur adipiscing
-            elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-          </p>
+        <!-- Example review item 1 -->
+        <div class="card mb-3">
+          <div class="card-body">
+            <p>
+              <strong>User1:</strong> Amazing quality, highly recommended!
+              <span class="review-read-more text-primary" style="cursor: pointer"
+                >...Read more</span
+              >
+            </p>
+            <p class="text-muted"><small>Reviewed on July 10, 2025</small></p>
+            <p class="review-full" style="margin-bottom: 0">
+              Full review text for User1. Lorem ipsum dolor sit amet,
+              consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut
+              labore et dolore magna aliqua.
+            </p>
+          </div>
         </div>
-        <div class="review-item">
-          <p>
-            <strong>User2:</strong> Good value for money.
-            <span class="review-read-more">...Read more</span>
-          </p>
-          <p><small>Reviewed on July 8, 2025</small></p>
-          <p class="review-full">
-            Full review text for User2. Additional details about the product experience go
-            here.
-          </p>
+        <!-- Example review item 2 -->
+        <div class="card mb-3">
+          <div class="card-body">
+            <p>
+              <strong>User2:</strong> Good value for money.
+              <span class="review-read-more text-primary" style="cursor: pointer"
+                >...Read more</span
+              >
+            </p>
+            <p class="text-muted"><small>Reviewed on July 8, 2025</small></p>
+            <p class="review-full" style="margin-bottom: 0">
+              Full review text for User2. Additional details about the product
+              experience go here.
+            </p>
+          </div>
         </div>
       </div>
-      <div class="write-review">
-        <h5>Write a Review</h5>
-        <div id="ratingStars" class="mb-2">
-          <i class="fa fa-star star-icon" data-value="1"></i>
-          <i class="fa fa-star star-icon" data-value="2"></i>
-          <i class="fa fa-star star-icon" data-value="3"></i>
-          <i class="fa fa-star star-icon" data-value="4"></i>
-          <i class="fa fa-star star-icon" data-value="5"></i>
+
+      <!-- Write a Review -->
+      <div class="card">
+        <div class="card-body">
+          <h5>Write a Review</h5>
+          <div id="ratingStars" class="mb-2">
+            <i class="fa fa-star star-icon" data-value="1"></i>
+            <i class="fa fa-star star-icon" data-value="2"></i>
+            <i class="fa fa-star star-icon" data-value="3"></i>
+            <i class="fa fa-star star-icon" data-value="4"></i>
+            <i class="fa fa-star star-icon" data-value="5"></i>
+          </div>
+          <textarea
+            class="form-control mb-2"
+            rows="3"
+            placeholder="Share your experience after purchasing"
+          ></textarea>
+          <button class="btn btn-success">Submit Review</button>
         </div>
-        <textarea
-          class="form-control"
-          rows="3"
-          placeholder="Share your experience after purchasing"
-        ></textarea>
-        <button class="btn btn-success mt-2">Submit Review</button>
       </div>
     </section>
 
     <!-- Related Items Section -->
-    <section id="section-related" class="container">
+    <section id="section-related" class="container mb-5">
       <h3>Related Items</h3>
-      <div class="related-items" id="relatedItemsContainer">
-        <div class="related-item">
-          <img src="https://via.placeholder.com/140x100?text=Item+1" alt="Item 1" />
-          <p class="small">Item 1</p>
+      <div class="row" id="relatedItemsContainer">
+        <!-- Example of a related item card -->
+        <div class="col-6 col-md-3 mb-3">
+          <div class="card text-center">
+            <img
+              src="https://via.placeholder.com/140x100?text=Item+1"
+              alt="Item 1"
+              class="card-img-top"
+            />
+            <div class="card-body p-2">
+              <p class="small mb-0">Item 1</p>
+            </div>
+          </div>
         </div>
-        <div class="related-item">
-          <img src="https://via.placeholder.com/140x100?text=Item+2" alt="Item 2" />
-          <p class="small">Item 2</p>
+        <!-- Repeat for more items -->
+        <div class="col-6 col-md-3 mb-3">
+          <div class="card text-center">
+            <img
+              src="https://via.placeholder.com/140x100?text=Item+2"
+              alt="Item 2"
+              class="card-img-top"
+            />
+            <div class="card-body p-2">
+              <p class="small mb-0">Item 2</p>
+            </div>
+          </div>
         </div>
-        <div class="related-item">
-          <img src="https://via.placeholder.com/140x100?text=Item+3" alt="Item 3" />
-          <p class="small">Item 3</p>
+        <div class="col-6 col-md-3 mb-3">
+          <div class="card text-center">
+            <img
+              src="https://via.placeholder.com/140x100?text=Item+3"
+              alt="Item 3"
+              class="card-img-top"
+            />
+            <div class="card-body p-2">
+              <p class="small mb-0">Item 3</p>
+            </div>
+          </div>
         </div>
-        <div class="related-item">
-          <img src="https://via.placeholder.com/140x100?text=Item+4" alt="Item 4" />
-          <p class="small">Item 4</p>
+        <div class="col-6 col-md-3 mb-3">
+          <div class="card text-center">
+            <img
+              src="https://via.placeholder.com/140x100?text=Item+4"
+              alt="Item 4"
+              class="card-img-top"
+            />
+            <div class="card-body p-2">
+              <p class="small mb-0">Item 4</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -183,7 +265,9 @@
     <div id="footer-placeholder"></div>
 
     <!-- Bootstrap JS Bundle -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+    ></script>
     <script>
       // Basic loadHTML function that loads external HTML content.
       function loadHTML(elementId, filePath) {
@@ -217,6 +301,7 @@
 
             // Remove script and style tags from fetched HTML.
             doc.querySelectorAll("script, style").forEach((el) => el.remove());
+
             document.getElementById(elementId).innerHTML = doc.body.innerHTML;
           })
           .catch((error) =>
@@ -284,40 +369,38 @@
         const fullStars = Math.floor(rating);
         const halfStar = rating - fullStars >= 0.5 ? 1 : 0;
         for (let i = 0; i < fullStars; i++) {
-          html += '<i class="fa fa-star"></i>';
+          html += '<i class="fa fa-star text-warning"></i>';
         }
         if (halfStar) {
-          html += '<i class="fa fa-star-half-alt"></i>';
+          html += '<i class="fa fa-star-half-alt text-warning"></i>';
         }
         return html;
       }
 
       // "Read More" functionality for Description.
-      document
-        .getElementById("descReadMore")
-        .addEventListener("click", function () {
-          const descContent = document.getElementById("descriptionContent");
-          if (descContent.style.maxHeight === "none") {
-            descContent.style.maxHeight = "150px";
-            this.textContent = "Read More";
-          } else {
-            descContent.style.maxHeight = "none";
-            this.textContent = "Show Less";
-          }
-        });
+      const descReadMoreBtn = document.getElementById("descReadMore");
+      const descContent = document.getElementById("descriptionContent");
+      descReadMoreBtn.addEventListener("click", function () {
+        descContent.classList.toggle("expanded");
+        if (descContent.classList.contains("expanded")) {
+          this.textContent = "Show Less";
+        } else {
+          this.textContent = "Read More";
+        }
+      });
 
       // Reviews "Read More" toggle functionality.
       document.addEventListener("click", function (e) {
         if (e.target && e.target.classList.contains("review-read-more")) {
-          const fullReview = e.target.parentElement.nextElementSibling;
-          if (fullReview && fullReview.classList.contains("review-full")) {
-            if (fullReview.style.display === "none" || fullReview.style.display === "") {
-              fullReview.style.display = "block";
-              e.target.textContent = " Show less";
-            } else {
-              fullReview.style.display = "none";
-              e.target.textContent = "...Read more";
-            }
+          const fullReview = e.target
+            .closest(".card-body")
+            .querySelector(".review-full");
+          if (fullReview) {
+            fullReview.classList.toggle("expanded");
+            e.target.textContent =
+              fullReview.classList.contains("expanded")
+                ? " Show less"
+                : "...Read more";
           }
         }
       });
