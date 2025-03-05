@@ -3,111 +3,245 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contact Us - NextGen App</title>
+  <title>Learn More - NextGen Experience</title>
   <!-- External CSS -->
   <link rel="stylesheet" href="style.css">
   <!-- Font Awesome for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <!-- Page-Specific CSS -->
   <style>
-    /* Ensure the body fills the viewport without unwanted overflow */
+    /* Base Styles */
     body {
       margin: 0;
       font-family: 'Roboto', sans-serif;
       background: #fff;
       overflow-x: hidden;
     }
-    /* Contact Container optimized for mobile */
-    .contact-container {
-      width: 100%;
-      max-width: 100%;
-      padding: 20px;
-      margin: 80px 10px 20px; /* Top margin gives space below header; bottom margin above footer */
-      box-sizing: border-box;
-    }
-    .contact-container h1 {
+    /* Hero Section – smaller for mobile (50vh) */
+    .hero {
+      position: relative;
+      height: 50vh;
+      background: linear-gradient(135deg, #FF6B6B, #FFD93D, #6BCB77);
+      background-size: 400% 400%;
+      animation: gradientAnimation 20s ease infinite;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       text-align: center;
+      color: #fff;
+      margin: 0;
+      padding: 0;
+    }
+    @keyframes gradientAnimation {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .hero .content {
+      padding: 10px;
+      z-index: 2;
+    }
+    .hero h1 {
       font-size: 1.8rem;
-      margin-bottom: 20px;
+      margin-bottom: 10px;
+    }
+    .hero p {
+      font-size: 1rem;
+      max-width: 90%;
+      margin: 0 auto 15px;
+    }
+    .hero .btn {
+      padding: 10px 20px;
+      font-size: 0.9rem;
+      background: #fff;
+      border: none;
+      border-radius: 50px;
+      color: #333;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.3s;
+    }
+    .hero .btn:hover {
+      background: #f0f0f0;
+      transform: scale(1.05);
+    }
+    /* Section Styling */
+    .section {
+      padding: 40px 15px;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 1s forwards;
+    }
+    @keyframes fadeInUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .section h2 {
+      font-size: 1.8rem;
+      margin-bottom: 15px;
       color: #333;
     }
-    .contact-container form {
+    .section p {
+      font-size: 1rem;
+      max-width: 90%;
+      margin: 0 auto 15px;
+      line-height: 1.5;
+      color: #666;
+    }
+    /* Testimonials Carousel */
+    .testimonials {
+      overflow: hidden;
+      position: relative;
+      max-width: 90%;
+      margin: 20px auto;
+    }
+    .testimonials .slides {
       display: flex;
-      flex-direction: column;
+      transition: transform 0.5s ease;
     }
-    .contact-container label {
-      font-size: 1rem;
-      margin-bottom: 5px;
-      color: #555;
-    }
-    .contact-container input, 
-    .contact-container textarea {
+    .testimonial {
+      min-width: 100%;
       padding: 10px;
-      margin-bottom: 15px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      font-size: 1rem;
-      width: 100%;
       box-sizing: border-box;
     }
-    .contact-container button {
-      padding: 15px;
-      font-size: 1.1rem;
+    .testimonial p {
+      font-size: 0.9rem;
+      color: #555;
+      margin-bottom: 5px;
+    }
+    .testimonial .author {
+      font-size: 0.8rem;
+      color: #888;
+    }
+    /* Technical Note Box */
+    .tech-note {
+      background: #e8f0fe;
+      padding: 20px;
+      border-radius: 8px;
+      max-width: 90%;
+      margin: 20px auto;
+      text-align: left;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      color: #333;
+    }
+    .tech-note code {
+      background: #c5d4f1;
+      padding: 2px 4px;
+      border-radius: 4px;
+      font-family: monospace;
+    }
+    /* Call-to-Action Section */
+    .cta {
       background: #4caf50;
-      border: none;
       color: #fff;
-      border-radius: 5px;
-      cursor: pointer;
+      padding: 30px 15px;
+      text-align: center;
+    }
+    .cta h2 {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+    }
+    .cta a {
+      display: inline-block;
+      padding: 10px 20px;
+      font-size: 1rem;
+      background: #ff9800;
+      color: #fff;
+      border-radius: 50px;
+      text-decoration: none;
       transition: background 0.3s;
     }
-    .contact-container button:hover {
-      background: #45a049;
-    }
-    /* Ensure the footer does not cause overflow on mobile */
-    footer {
-      width: 100%;
-      box-sizing: border-box;
+    .cta a:hover {
+      background: #f57c00;
     }
   </style>
 </head>
 <body>
-  <!-- Load external header -->
+  <!-- Load External Header -->
   <script>
     fetch("header.html")
       .then(response => response.text())
       .then(data => {
-         // Insert header at the top of the body
          document.body.insertAdjacentHTML("afterbegin", data);
       })
-      .catch(error => console.error("Error loading header:", error));
+      .catch(error => console.error("Header load error:", error));
   </script>
   
-  <!-- Contact Form Container -->
-  <div class="contact-container">
-    <h1>Contact Us</h1>
-    <form id="contactForm">
-      <label for="name">Name</label>
-      <input type="text" id="name" name="name" placeholder="Your Name" required>
-      
-      <label for="email">Email</label>
-      <input type="email" id="email" name="email" placeholder="Your Email" required>
-      
-      <label for="message">Message</label>
-      <textarea id="message" name="message" rows="4" placeholder="Your Message" required></textarea>
-      
-      <button type="submit">Send Message</button>
-    </form>
-  </div>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="content">
+      <h1>Discover the Future</h1>
+      <p>Engage with an experience that redefines online shopping through innovative design and dynamic technology.</p>
+      <button class="btn" onclick="window.location.href='ecommerce.html'">Visit Shop</button>
+    </div>
+  </section>
   
-  <!-- Load external footer -->
+  <!-- Innovative Technology Section -->
+  <section class="section">
+    <h2>Innovative Technology</h2>
+    <p>Our platform currently uses dummy data—designed for a seamless shift to Firebase Firestore, which will bring real-time updates and secure management.</p>
+  </section>
+  
+  <!-- Customer Testimonials Section -->
+  <section class="section">
+    <h2>What Our Users Say</h2>
+    <div class="testimonials">
+      <div class="slides">
+        <div class="testimonial">
+          <p>"The experience is so addictive—I feel like I'm living in the future every time I use the app!"</p>
+          <div class="author">- Ayesha, Karachi</div>
+        </div>
+        <div class="testimonial">
+          <p>"Innovative and engaging! The design and functionality are truly revolutionary."</p>
+          <div class="author">- Bilal, Lahore</div>
+        </div>
+        <div class="testimonial">
+          <p>"Every detail is crafted perfectly. Shopping here is a captivating experience!"</p>
+          <div class="author">- Fatima, Islamabad</div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Vision & Mission Section -->
+  <section class="section">
+    <h2>Our Vision & Mission</h2>
+    <p>We aim to create an experience so engaging it becomes part of your lifestyle—merging next-generation technology with innovative design.</p>
+  </section>
+  
+  <!-- Technical Note Section -->
+  <section class="section">
+    <div class="tech-note">
+      <p><strong>Technical Note:</strong> This frontend is built using dummy data and is structured for a smooth integration with Firebase Firestore. The <code>fetchProducts()</code> function will soon be replaced by live API calls to enable real-time data, secure authentication, and dynamic updates.</p>
+    </div>
+  </section>
+  
+  <!-- Call-to-Action Section -->
+  <section class="cta">
+    <h2>Ready to Experience the Future?</h2>
+    <a href="contact.html">Get in Touch</a>
+  </section>
+  
+  <!-- Load External Footer -->
   <script>
     fetch("footer.html")
       .then(response => response.text())
       .then(data => {
-         // Insert footer at the end of the body
          document.body.insertAdjacentHTML("beforeend", data);
       })
-      .catch(error => console.error("Error loading footer:", error));
+      .catch(error => console.error("Footer load error:", error));
+    
+    // Testimonial Carousel Logic for Mobile
+    document.addEventListener("DOMContentLoaded", () => {
+      let slideIndex = 0;
+      const slides = document.querySelector('.slides');
+      const totalSlides = document.querySelectorAll('.testimonial').length;
+      function showNextSlide() {
+        slideIndex = (slideIndex + 1) % totalSlides;
+        slides.style.transform = 'translateX(' + (-slideIndex * 100) + '%)';
+      }
+      setInterval(showNextSlide, 4000);
+    });
   </script>
 </body>
 </html>
