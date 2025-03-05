@@ -16,10 +16,8 @@
     />
     <!-- Global Styles -->
     <link rel="stylesheet" href="style.css" />
-
     <!-- Custom JavaScript -->
     <script src="script.js" defer></script>
-
     <style>
       /* Additional overrides for details.html */
 
@@ -60,7 +58,7 @@
         transition: max-height 0.4s ease;
       }
       .description-content.expanded {
-        max-height: 1000px; /* large enough so content is fully shown */
+        max-height: 1000px; /* Adjust if needed */
       }
 
       /* Review full text hidden by default */
@@ -85,8 +83,8 @@
     <!-- External Header will be loaded here -->
     <div id="header-placeholder"></div>
 
-    <!-- Product Details Section -->
-    <div class="container mt-3">
+    <!-- Product Details Section with extra top spacing -->
+    <div class="container mt-5">
       <div class="row">
         <!-- Product Image -->
         <div class="col-md-5 text-center mb-3">
@@ -103,7 +101,7 @@
           <p class="h5 text-primary" id="productPrice">PKR 0</p>
           <div id="productRating" class="star-rating mb-2"></div>
           <p id="productStats" class="text-muted mb-3">0 Added | 0 Sold</p>
-          <button class="btn btn-primary add-to-cart-btn">
+          <button class="btn btn-primary add-to-cart-btn mt-3">
             <i class="fa fa-shopping-cart"></i> Add to Cart
           </button>
         </div>
@@ -128,7 +126,7 @@
       </div>
     </nav>
 
-    <!-- Description Section -->
+    <!-- Description Section with modified Read More style -->
     <section id="section-description" class="container mt-4 mb-5">
       <h3>Description</h3>
       <div class="description-content" id="descriptionContent">
@@ -141,36 +139,40 @@
           fermentum.
         </p>
       </div>
-      <button class="btn btn-link p-0" id="descReadMore">Read More</button>
+      <button class="btn btn-sm btn-outline-primary mt-2" id="descReadMore">
+        Read More
+      </button>
     </section>
 
     <!-- Reviews Section -->
     <section id="section-reviews" class="container mb-5">
       <h3>Reviews</h3>
       <div id="reviewsContainer">
-        <!-- Example review item 1 -->
         <div class="card mb-3">
           <div class="card-body">
             <p>
               <strong>User1:</strong> Amazing quality, highly recommended!
-              <span class="review-read-more text-primary" style="cursor: pointer"
+              <span
+                class="review-read-more text-primary"
+                style="cursor: pointer"
                 >...Read more</span
               >
             </p>
             <p class="text-muted"><small>Reviewed on July 10, 2025</small></p>
             <p class="review-full" style="margin-bottom: 0">
-              Full review text for User1. Lorem ipsum dolor sit amet,
-              consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut
-              labore et dolore magna aliqua.
+              Full review text for User1. Lorem ipsum dolor sit amet, consectetur
+              adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore
+              magna aliqua.
             </p>
           </div>
         </div>
-        <!-- Example review item 2 -->
         <div class="card mb-3">
           <div class="card-body">
             <p>
               <strong>User2:</strong> Good value for money.
-              <span class="review-read-more text-primary" style="cursor: pointer"
+              <span
+                class="review-read-more text-primary"
+                style="cursor: pointer"
                 >...Read more</span
               >
             </p>
@@ -208,7 +210,6 @@
     <section id="section-related" class="container mb-5">
       <h3>Related Items</h3>
       <div class="row" id="relatedItemsContainer">
-        <!-- Example of a related item card -->
         <div class="col-6 col-md-3 mb-3">
           <div class="card text-center">
             <img
@@ -221,7 +222,6 @@
             </div>
           </div>
         </div>
-        <!-- Repeat for more items -->
         <div class="col-6 col-md-3 mb-3">
           <div class="card text-center">
             <img
@@ -265,11 +265,9 @@
     <div id="footer-placeholder"></div>
 
     <!-- Bootstrap JS Bundle -->
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-      // Basic loadHTML function that loads external HTML content.
+      // Basic loadHTML function to load external HTML content.
       function loadHTML(elementId, filePath) {
         return fetch(filePath)
           .then((response) => {
@@ -281,12 +279,10 @@
           .then((htmlText) => {
             const parser = new DOMParser();
             const doc = parser.parseFromString(htmlText, "text/html");
-
             // Append style tags to head.
             doc.querySelectorAll("style").forEach((styleTag) => {
               document.head.appendChild(styleTag.cloneNode(true));
             });
-
             // Append script tags to head.
             doc.querySelectorAll("script").forEach((scriptTag) => {
               const newScript = document.createElement("script");
@@ -298,24 +294,19 @@
               }
               document.head.appendChild(newScript);
             });
-
             // Remove script and style tags from fetched HTML.
             doc.querySelectorAll("script, style").forEach((el) => el.remove());
-
             document.getElementById(elementId).innerHTML = doc.body.innerHTML;
           })
-          .catch((error) =>
-            console.error("Error loading " + filePath + ":", error)
-          );
+          .catch((error) => console.error("Error loading " + filePath + ":", error));
       }
 
-      // Use MutationObserver to detect when header is injected, then attach hamburger toggle.
+      // Observe header placeholder to attach menu toggle if available.
       function observeHeaderAndAttachToggle() {
         const targetNode = document.getElementById("header-placeholder");
         if (!targetNode) return;
         const observer = new MutationObserver((mutationsList, observer) => {
           if (targetNode.innerHTML.trim().length > 0) {
-            // Header content is loaded; now attach hamburger event.
             const menuToggle = document.querySelector(".menu-toggle");
             if (menuToggle) {
               menuToggle.addEventListener("click", function () {
@@ -324,7 +315,6 @@
                   sideMenu.classList.toggle("visible");
                 }
               });
-              // Once attached, disconnect observer.
               observer.disconnect();
             }
           }
@@ -354,12 +344,9 @@
       // Populate product details.
       document.getElementById("productName").innerText = product.name;
       document.getElementById("productPrice").innerText = product.price;
-      document.getElementById("productDescription").innerText =
-        product.description;
+      document.getElementById("productDescription").innerText = product.description;
       document.getElementById("productImage").src = product.image;
-      document.getElementById("productRating").innerHTML = generateStars(
-        product.rating
-      );
+      document.getElementById("productRating").innerHTML = generateStars(product.rating);
       document.getElementById("productStats").innerText =
         product.added + " Added | " + product.sold + " Sold";
 
@@ -392,15 +379,11 @@
       // Reviews "Read More" toggle functionality.
       document.addEventListener("click", function (e) {
         if (e.target && e.target.classList.contains("review-read-more")) {
-          const fullReview = e.target
-            .closest(".card-body")
-            .querySelector(".review-full");
+          const fullReview = e.target.closest(".card-body").querySelector(".review-full");
           if (fullReview) {
             fullReview.classList.toggle("expanded");
             e.target.textContent =
-              fullReview.classList.contains("expanded")
-                ? " Show less"
-                : "...Read more";
+              fullReview.classList.contains("expanded") ? " Show less" : "...Read more";
           }
         }
       });
