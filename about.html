@@ -17,7 +17,7 @@
       background: #fff;
       overflow-x: hidden;
     }
-    /* Hero Section – smaller for mobile (50vh) */
+    /* Hero Section – 50vh for mobile */
     .hero {
       position: relative;
       height: 50vh;
@@ -64,7 +64,7 @@
       background: #f0f0f0;
       transform: scale(1.05);
     }
-    /* Section Styling */
+    /* Content Sections */
     .section {
       padding: 40px 15px;
       text-align: center;
@@ -86,49 +86,6 @@
       margin: 0 auto 15px;
       line-height: 1.5;
       color: #666;
-    }
-    /* Testimonials Carousel */
-    .testimonials {
-      overflow: hidden;
-      position: relative;
-      max-width: 90%;
-      margin: 20px auto;
-    }
-    .testimonials .slides {
-      display: flex;
-      transition: transform 0.5s ease;
-    }
-    .testimonial {
-      min-width: 100%;
-      padding: 10px;
-      box-sizing: border-box;
-    }
-    .testimonial p {
-      font-size: 0.9rem;
-      color: #555;
-      margin-bottom: 5px;
-    }
-    .testimonial .author {
-      font-size: 0.8rem;
-      color: #888;
-    }
-    /* Technical Note Box */
-    .tech-note {
-      background: #e8f0fe;
-      padding: 20px;
-      border-radius: 8px;
-      max-width: 90%;
-      margin: 20px auto;
-      text-align: left;
-      font-size: 0.9rem;
-      line-height: 1.5;
-      color: #333;
-    }
-    .tech-note code {
-      background: #c5d4f1;
-      padding: 2px 4px;
-      border-radius: 4px;
-      font-family: monospace;
     }
     /* Call-to-Action Section */
     .cta {
@@ -162,7 +119,7 @@
     fetch("header.html")
       .then(response => response.text())
       .then(data => {
-         document.body.insertAdjacentHTML("afterbegin", data);
+        document.body.insertAdjacentHTML("afterbegin", data);
       })
       .catch(error => console.error("Header load error:", error));
   </script>
@@ -176,50 +133,27 @@
     </div>
   </section>
   
-  <!-- Innovative Technology Section -->
+  <!-- Information Section -->
   <section class="section">
     <h2>Innovative Technology</h2>
-    <p>Our platform currently uses dummy data—designed for a seamless shift to Firebase Firestore, which will bring real-time updates and secure management.</p>
-  </section>
-  
-  <!-- Customer Testimonials Section -->
-  <section class="section">
-    <h2>What Our Users Say</h2>
-    <div class="testimonials">
-      <div class="slides">
-        <div class="testimonial">
-          <p>"The experience is so addictive—I feel like I'm living in the future every time I use the app!"</p>
-          <div class="author">- Ayesha, Karachi</div>
-        </div>
-        <div class="testimonial">
-          <p>"Innovative and engaging! The design and functionality are truly revolutionary."</p>
-          <div class="author">- Bilal, Lahore</div>
-        </div>
-        <div class="testimonial">
-          <p>"Every detail is crafted perfectly. Shopping here is a captivating experience!"</p>
-          <div class="author">- Fatima, Islamabad</div>
-        </div>
-      </div>
-    </div>
+    <p>Our platform currently uses dummy data—designed for a seamless shift to Firebase Firestore for real‑time, secure updates.</p>
   </section>
   
   <!-- Vision & Mission Section -->
   <section class="section">
-    <h2>Our Vision & Mission</h2>
-    <p>We aim to create an experience so engaging it becomes part of your lifestyle—merging next-generation technology with innovative design.</p>
+    <h2>Our Vision &amp; Mission</h2>
+    <p>We aim to create an addictive, engaging experience that becomes a part of your lifestyle through next‑generation technology.</p>
   </section>
   
   <!-- Technical Note Section -->
   <section class="section">
-    <div class="tech-note">
-      <p><strong>Technical Note:</strong> This frontend is built using dummy data and is structured for a smooth integration with Firebase Firestore. The <code>fetchProducts()</code> function will soon be replaced by live API calls to enable real-time data, secure authentication, and dynamic updates.</p>
-    </div>
+    <p><strong>Technical Note:</strong> This frontend is built using dummy data and is structured for seamless integration with Firebase Firestore. The <code>fetchProducts()</code> function will soon be replaced by live API calls for real‑time updates and secure authentication.</p>
   </section>
   
   <!-- Call-to-Action Section -->
   <section class="cta">
     <h2>Ready to Experience the Future?</h2>
-    <a href="contact.html">Get in Touch</a>
+    <a href="contact.html" target="_blank">Get in Touch</a>
   </section>
   
   <!-- Load External Footer -->
@@ -227,21 +161,9 @@
     fetch("footer.html")
       .then(response => response.text())
       .then(data => {
-         document.body.insertAdjacentHTML("beforeend", data);
+        document.body.insertAdjacentHTML("beforeend", data);
       })
       .catch(error => console.error("Footer load error:", error));
-    
-    // Testimonial Carousel Logic for Mobile
-    document.addEventListener("DOMContentLoaded", () => {
-      let slideIndex = 0;
-      const slides = document.querySelector('.slides');
-      const totalSlides = document.querySelectorAll('.testimonial').length;
-      function showNextSlide() {
-        slideIndex = (slideIndex + 1) % totalSlides;
-        slides.style.transform = 'translateX(' + (-slideIndex * 100) + '%)';
-      }
-      setInterval(showNextSlide, 4000);
-    });
   </script>
 </body>
 </html>
