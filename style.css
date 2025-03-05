@@ -1,3 +1,55 @@
+/* Reset & Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
+  /* Ensure fixed header & bottom nav don't overlap content */
+  padding-top: 70px; /* For fixed header */
+  padding-bottom: 70px; /* For fixed bottom nav */
+}
+
+/* Container */
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Fixed Header */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+}
+.brand {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #007bff;
+  display: flex;
+  align-items: center;
+}
+.brand i {
+  margin-right: 8px;
+  font-size: 1.8rem;
+  color: #007bff;
+}
+
 /* Animated Hamburger Icon */
 .menu-toggle {
   background: none;
@@ -7,21 +59,19 @@
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  width: 44px;   /* Increased for a comfortable touch target */
-  height: 44px;  /* Ensures a minimum 44x44px area per accessibility guidelines */
+  width: 44px;   /* 44x44px target for accessibility */
+  height: 44px;
   padding: 0;
 }
-
 .menu-toggle span {
   display: block;
-  width: 60%;           /* Adjust width of each bar relative to the button */
+  width: 60%;           /* Relative width for a neat look */
   height: 3px;
   background: #007bff;
   border-radius: 2px;
   transition: all 0.3s ease;
   margin: 3px 0;
 }
-
 .menu-toggle.active span:nth-child(1) {
   transform: rotate(45deg) translate(4px, 4px);
 }
@@ -32,23 +82,224 @@
   transform: rotate(-45deg) translate(4px, -4px);
 }
 
+/* Desktop Navigation */
+.nav-desktop {
+  display: none;
+}
+@media (min-width: 600px) {
+  .menu-toggle {
+    display: none;
+  }
+  .nav-desktop {
+    display: flex;
+    gap: 20px;
+  }
+  .nav-desktop a {
+    text-decoration: none;
+    color: #333;
+    font-size: 1.2rem;
+    transition: color 0.3s;
+  }
+  .nav-desktop a:hover {
+    color: #007bff;
+  }
+}
+
 /* Mobile Side Menu */
 .side-menu {
   position: fixed;
-  top: 70px; /* Positioned below the header */
+  top: 70px; /* Below fixed header */
   right: 0;
   width: 80%;          /* Responsive width */
-  max-width: 300px;    /* Maximum width for larger devices */
+  max-width: 300px;    /* Maximum width on larger screens */
   background: #ffffff;
   box-shadow: -2px 0 4px rgba(0, 0, 0, 0.1);
   padding: 20px;
   display: flex;
   flex-direction: column;
-  transform: translateX(100%); /* Initially hidden (off-screen) */
+  transform: translateX(100%); /* Hidden off-screen initially */
   transition: transform 0.3s ease;
   z-index: 1001;
 }
-
 .side-menu.visible {
-  transform: translateX(0);   /* Slides into view */
+  transform: translateX(0);   /* Slide into view */
+}
+.side-menu a {
+  text-decoration: none;
+  color: #333;
+  padding: 10px 0;
+  border-bottom: 1px solid #e0e0e0;
+  font-size: 1rem;
+}
+.side-menu a:last-child {
+  border-bottom: none;
+}
+
+/* Hero Section */
+.hero {
+  position: relative;
+  height: calc(100vh - 70px - 70px); /* Full viewport minus header and bottom nav */
+  background: url("hero-bg.jpg") center center/cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #fff;
+  overflow: hidden;
+}
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4); /* Dark overlay for readability */
+  z-index: 1;
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 600px;
+  padding: 0 15px;
+}
+.hero h1 {
+  font-size: 2.8rem;
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+.hero p {
+  font-size: 1.1rem;
+  margin-bottom: 30px;
+  line-height: 1.5;
+}
+
+/* CTA Buttons */
+.cta-buttons button {
+  background: #28a745;
+  border: none;
+  padding: 12px 25px;
+  font-size: 1rem;
+  color: #fff;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin: 5px;
+}
+.cta-buttons button:hover {
+  background: #218838;
+}
+
+/* Products Section */
+.products {
+  padding: 40px 15px;
+  background: #ffffff;
+}
+.products h2 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 30px;
+  color: #007bff;
+}
+.products-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+.product-card {
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  width: 280px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+}
+.product-card:hover {
+  transform: translateY(-5px);
+}
+.product-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+  margin-bottom: 15px;
+}
+.product-card h3 {
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+  color: #333;
+}
+.product-card .price {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 15px;
+}
+.product-card button {
+  background: #007bff;
+  border: none;
+  padding: 10px 20px;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.product-card button:hover {
+  background: #0056b3;
+}
+
+/* Mobile Bottom Navigation */
+.mobile-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #ffffff;
+  border-top: 1px solid #e0e0e0;
+  display: flex;
+  justify-content: space-around;
+  padding: 8px 0;
+  z-index: 1000;
+}
+.mobile-nav a {
+  text-decoration: none;
+  color: #333;
+  font-size: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.mobile-nav a span {
+  font-size: 0.65rem;
+  margin-top: 3px;
+}
+
+/* Fixed Footer */
+.footer {
+  position: fixed;
+  bottom: 70px; /* Above mobile nav */
+  left: 0;
+  width: 100%;
+  background: #ffffff;
+  text-align: center;
+  padding: 8px 0;
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+  font-size: 0.85rem;
+  color: #333;
+  z-index: 1000;
+}
+
+/* Responsive Adjustments */
+@media (min-width: 600px) {
+  .mobile-nav {
+    display: none;
+  }
+  .footer {
+    display: none;
+  }
+  .side-menu {
+    display: none !important;
+  }
+  .hero {
+    height: calc(100vh - 60px);
+  }
 }
