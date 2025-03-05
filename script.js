@@ -30,7 +30,6 @@ document.addEventListener("DOMContentLoaded", function () {
       !menuToggle.contains(event.target)
     ) {
       sideMenu.classList.remove("visible");
-      // Also remove active state from hamburger icon if present
       if (menuToggle && menuToggle.classList.contains("active")) {
         menuToggle.classList.remove("active");
         menuToggle.setAttribute("aria-expanded", "false");
@@ -104,8 +103,6 @@ document.addEventListener("DOMContentLoaded", function () {
       .catch((error) => console.error(error));
   }
 
-  document.addEventListener("DOMContentLoaded", function () {
-    loadHTML("header-placeholder", "header.html");
-    loadHTML("footer-placeholder", "footer.html");
-  });
+  loadHTML("header-placeholder", "header.html");
+  loadHTML("footer-placeholder", "footer.html");
 });
