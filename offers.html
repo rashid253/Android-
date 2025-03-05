@@ -1,193 +1,193 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Offers - MyBusiness Premium</title>
+  <title>Exclusive Offers - NextGen E-commerce</title>
+  <!-- External CSS -->
+  <link rel="stylesheet" href="style.css">
+  <!-- Font Awesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Page-Specific Styles -->
   <style>
-    /* Reset and Base Styles */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    body {
-      font-family: 'Helvetica Neue', sans-serif;
-      background-color: #fafafa;
-      color: #333;
-      line-height: 1.6;
+    /* Reset & Base */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Roboto', sans-serif; background: #f8f9fa; color: #333; }
+    main { max-width: 1200px; margin: 0 auto 80px; padding: 20px; }
+    /* HERO SECTION */
+    .hero {
+      position: relative;
+      height: 45vh;
+      background: url('https://source.unsplash.com/1600x900/?sale,discount') no-repeat center center/cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       text-align: center;
-    }
-    a {
-      text-decoration: none;
-      color: inherit;
-      transition: all 0.3s ease;
-    }
-    a:hover {
-      color: #ff6600;
-    }
-    /* Header Section */
-    header {
-      background: linear-gradient(135deg, #ff6600, #ff9900);
-      padding: 2rem;
       color: #fff;
-      text-align: center;
     }
-    header h1 {
-      font-size: 2.5rem;
-      margin-bottom: 0.5rem;
+    .hero::after {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.5);
     }
-    header p {
-      font-size: 1.1rem;
+    .hero .content {
+      position: relative;
+      z-index: 1;
+      padding: 20px;
     }
-    /* Offers Section */
+    .hero h1 { font-size: 2.5rem; margin-bottom: 10px; }
+    .hero p { font-size: 1.1rem; max-width: 800px; margin: 0 auto 20px; }
+    .hero .btn {
+      padding: 12px 30px;
+      font-size: 1rem;
+      background: #ff9800;
+      border: none;
+      border-radius: 50px;
+      color: #fff;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .hero .btn:hover { background: #f57c00; }
+    /* OFFERS GRID */
     .offers-section {
-      max-width: 1200px;
-      margin: 3rem auto;
-      padding: 0 1rem;
+      margin-top: 40px;
     }
-    .offers-title {
-      font-size: 2rem;
-      margin-bottom: 1.5rem;
-      color: #222;
+    .offers-section h2 {
       text-align: center;
+      font-size: 2rem;
+      color: #4caf50;
+      margin-bottom: 30px;
     }
-    .offers-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1.5rem;
+    .offers-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
     }
     .offer-card {
       background: #fff;
+      width: 300px;
       border-radius: 8px;
-      padding: 1.5rem;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .offer-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    }
-    .offer-card h2 {
-      font-size: 1.5rem;
-      margin-bottom: 0.75rem;
-      color: #ff6600;
-    }
-    .offer-card p {
-      font-size: 1rem;
-      color: #555;
-    }
-    /* Call-to-Action Section */
-    .cta-section {
-      margin: 3rem 0;
-    }
-    .cta-button {
-      padding: 1rem 2rem;
-      background: #ff6600;
-      color: #fff;
-      font-size: 1.2rem;
-      font-weight: bold;
-      border: none;
-      border-radius: 50px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      overflow: hidden;
+      transition: transform 0.3s;
       cursor: pointer;
-      transition: background 0.3s ease, transform 0.3s ease;
     }
-    .cta-button:hover {
-      background: #e65c00;
-      transform: scale(1.05);
+    .offer-card:hover { transform: translateY(-5px); }
+    .offer-image {
+      width: 100%;
+      height: 200px;
+      background-size: cover;
+      background-position: center;
     }
-    /* Footer */
-    footer {
-      background: #333;
-      color: #ccc;
-      padding: 1rem;
-      font-size: 0.9rem;
+    .offer-content {
+      padding: 20px;
+    }
+    .offer-content h3 {
+      font-size: 1.3rem;
+      margin-bottom: 10px;
+      color: #333;
+    }
+    .offer-content p {
+      font-size: 0.95rem;
+      color: #666;
+    }
+    /* DUMMY DATA NOTE */
+    .dummy-note {
       text-align: center;
+      font-size: 0.85rem;
+      color: #888;
+      margin-top: 40px;
+      padding: 0 20px;
     }
-    /* Responsive Adjustments */
-    @media (max-width:768px) {
-      header h1 { font-size: 2rem; }
-      .offers-title { font-size: 1.8rem; }
-      .cta-button { font-size: 1rem; padding: 0.8rem 1.5rem; }
+    /* Responsive */
+    @media (max-width: 768px) {
+      .offers-grid { flex-direction: column; align-items: center; }
+      .offer-card { width: 90%; }
+      .hero { height: 35vh; }
     }
   </style>
 </head>
 <body>
-  <!-- Header Section -->
-  <header>
-    <h1>Exclusive Offers</h1>
-    <p>Discover our latest exclusive deals and promotions.</p>
-  </header>
-  
-  <!-- Offers Section -->
-  <section class="offers-section">
-    <div class="offers-title">Our Offers</div>
-    <div class="offers-list" id="offersList">
-      <!-- Offer cards will be dynamically injected here -->
-    </div>
-  </section>
-  
-  <!-- Call-to-Action Section -->
-  <div class="cta-section">
-    <a href="ecommerce.html" class="cta-button">Shop Now</a>
-  </div>
-  
-  <!-- Footer -->
-  <footer>
-    <p>© 2025 MyBusiness Premium. All rights reserved.</p>
-  </footer>
-  
-  <!-- Dummy JavaScript for Data Fetching (Firebase integration in future) -->
+  <!-- Load External Header -->
   <script>
-    // The fetchOffers() function simulates fetching offer data.
-    // In the future, replace this with Firebase Firestore API calls.
-    // Firebase will handle authentication and data persistence.
-    function fetchOffers() {
-      console.log("Fetching offers using dummy data...");
-      return [
-        {
-          id: 1,
-          title: "Flash Deal",
-          description: "Limited time flash deal: Save 40% on select items."
-        },
-        {
-          id: 2,
-          title: "Member Exclusive",
-          description: "Special discounts available exclusively for members."
-        },
-        {
-          id: 3,
-          title: "Buy One Get One",
-          description: "Buy one, get one free on select products."
-        },
-        {
-          id: 4,
-          title: "Seasonal Sale",
-          description: "Enjoy seasonal discounts up to 50% off on new arrivals."
-        },
-        {
-          id: 5,
-          title: "Clearance Offer",
-          description: "Huge savings on clearance items while stocks last!"
-        }
-      ];
+    function loadHTML(url, containerId, callback) {
+      fetch(url)
+        .then(response => response.text())
+        .then(html => {
+          document.getElementById(containerId).innerHTML = html;
+          // Re-execute scripts if needed
+          const scripts = document.getElementById(containerId).querySelectorAll('script');
+          scripts.forEach(oldScript => {
+            const newScript = document.createElement("script");
+            if(oldScript.src) {
+              newScript.src = oldScript.src;
+            } else {
+              newScript.textContent = oldScript.textContent;
+            }
+            document.head.appendChild(newScript);
+          });
+          if(callback) callback();
+        })
+        .catch(err => console.error("Error loading " + url, err));
     }
-    
-    function renderOffers() {
-      const offers = fetchOffers();
-      const container = document.getElementById("offersList");
-      offers.forEach(offer => {
-        const card = document.createElement("div");
-        card.className = "offer-card";
-        card.innerHTML = `
-          <h2>${offer.title}</h2>
-          <p>${offer.description}</p>
-        `;
-        container.appendChild(card);
-      });
-    }
-    
-    document.addEventListener("DOMContentLoaded", renderOffers);
+    loadHTML("header.html", "header-placeholder");
   </script>
+  <div id="header-placeholder"></div>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="content">
+        <h1>Exclusive Offers</h1>
+        <p>Experience heart-touching deals crafted just for you. Discover exclusive offers and save big on the best products from NextGen E-commerce.</p>
+        <button class="btn" onclick="window.location.href='ecommerce.html'">Shop Now</button>
+      </div>
+    </section>
+
+    <!-- Offers Grid Section -->
+    <section class="offers-section">
+      <h2>Our Latest Offers</h2>
+      <div class="offers-grid">
+        <!-- Offer Card 1 -->
+        <div class="offer-card" onclick="alert('Offer details coming soon!')">
+          <div class="offer-image" style="background-image: url('https://source.unsplash.com/300x200/?discount,offer');"></div>
+          <div class="offer-content">
+            <h3>Limited Time Deal</h3>
+            <p>Save up to 40% on select products. Don't miss this limited time offer to upgrade your lifestyle!</p>
+          </div>
+        </div>
+        <!-- Offer Card 2 -->
+        <div class="offer-card" onclick="alert('Offer details coming soon!')">
+          <div class="offer-image" style="background-image: url('https://source.unsplash.com/300x200/?sale,shopping');"></div>
+          <div class="offer-content">
+            <h3>Member Exclusive</h3>
+            <p>Sign up now and get early access to exclusive member deals and bonus rewards on your favorite items.</p>
+          </div>
+        </div>
+        <!-- Offer Card 3 -->
+        <div class="offer-card" onclick="alert('Offer details coming soon!')">
+          <div class="offer-image" style="background-image: url('https://source.unsplash.com/300x200/?coupon,deal');"></div>
+          <div class="offer-content">
+            <h3>Flash Sale</h3>
+            <p>Grab unbelievable prices on top-selling products during our flash sale. Act fast—offers end soon!</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Dummy Data Note -->
+    <div class="dummy-note">
+      <p>This frontend code is built using dummy data and is structured to be easily integrated with a Firebase backend in the future. The <code>fetchProducts()</code> function currently simulates data fetching, and will later be replaced by Firebase Firestore API calls. Authentication and data persistence will be handled via Firebase, allowing for dynamic and secure data management.</p>
+    </div>
+  </main>
+
+  <!-- Load External Footer -->
+  <script>
+    loadHTML("footer.html", "footer-placeholder");
+  </script>
+  <div id="footer-placeholder"></div>
 </body>
 </html>
