@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Exclusive Offers - NextGen E-commerce</title>
+  <title>Curated Selections - NextGen E-commerce</title>
   <!-- External CSS -->
   <link rel="stylesheet" href="style.css">
   <!-- Font Awesome for Icons -->
@@ -12,13 +12,13 @@
   <style>
     /* Reset & Base */
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Roboto', sans-serif; background: #f8f9fa; color: #333; }
+    body { font-family: 'Roboto', sans-serif; background: #f0f2f5; color: #444; }
     main { max-width: 1200px; margin: 0 auto 80px; padding: 20px; }
     /* HERO SECTION */
     .hero {
       position: relative;
-      height: 45vh;
-      background: url('https://source.unsplash.com/1600x900/?sale,discount') no-repeat center center/cover;
+      height: 50vh;
+      background: url('https://source.unsplash.com/1600x900/?curated,collection') no-repeat center center/cover;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -30,69 +30,70 @@
       position: absolute;
       top: 0; left: 0;
       width: 100%; height: 100%;
-      background: rgba(0, 0, 0, 0.5);
+      background: rgba(0, 0, 0, 0.3);
     }
     .hero .content {
       position: relative;
       z-index: 1;
       padding: 20px;
     }
-    .hero h1 { font-size: 2.5rem; margin-bottom: 10px; }
-    .hero p { font-size: 1.1rem; max-width: 800px; margin: 0 auto 20px; }
+    .hero h1 { font-size: 3rem; margin-bottom: 10px; font-weight: 700; }
+    .hero p { font-size: 1.2rem; max-width: 800px; margin: 0 auto 20px; }
     .hero .btn {
-      padding: 12px 30px;
+      padding: 14px 35px;
       font-size: 1rem;
-      background: #ff9800;
+      background: linear-gradient(45deg, #6a11cb, #2575fc);
       border: none;
       border-radius: 50px;
       color: #fff;
       cursor: pointer;
-      transition: background 0.3s;
+      transition: background 0.3s, transform 0.3s;
     }
-    .hero .btn:hover { background: #f57c00; }
-    /* OFFERS GRID */
-    .offers-section {
+    .hero .btn:hover { background: linear-gradient(45deg, #2575fc, #6a11cb); transform: scale(1.05); }
+    /* SELECTIONS GRID */
+    .selections-section {
       margin-top: 40px;
     }
-    .offers-section h2 {
+    .selections-section h2 {
       text-align: center;
       font-size: 2rem;
-      color: #4caf50;
+      color: #2575fc;
       margin-bottom: 30px;
     }
-    .offers-grid {
+    .selections-grid {
       display: flex;
       flex-wrap: wrap;
       gap: 20px;
       justify-content: center;
     }
-    .offer-card {
+    .selection-card {
       background: #fff;
       width: 300px;
-      border-radius: 8px;
+      border-radius: 10px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
       overflow: hidden;
-      transition: transform 0.3s;
+      transition: transform 0.3s, box-shadow 0.3s;
       cursor: pointer;
     }
-    .offer-card:hover { transform: translateY(-5px); }
-    .offer-image {
+    .selection-card:hover { transform: translateY(-5px); box-shadow: 0 8px 16px rgba(0,0,0,0.15); }
+    .selection-image {
       width: 100%;
       height: 200px;
       background-size: cover;
       background-position: center;
     }
-    .offer-content {
+    .selection-content {
       padding: 20px;
     }
-    .offer-content h3 {
-      font-size: 1.3rem;
+    .selection-content h3 {
+      font-size: 1.4rem;
       margin-bottom: 10px;
       color: #333;
     }
-    .offer-content p {
+    .selection-content p {
       font-size: 0.95rem;
       color: #666;
+      line-height: 1.5;
     }
     /* DUMMY DATA NOTE */
     .dummy-note {
@@ -104,9 +105,9 @@
     }
     /* Responsive */
     @media (max-width: 768px) {
-      .offers-grid { flex-direction: column; align-items: center; }
-      .offer-card { width: 90%; }
-      .hero { height: 35vh; }
+      .selections-grid { flex-direction: column; align-items: center; }
+      .selection-card { width: 90%; }
+      .hero { height: 40vh; }
     }
   </style>
 </head>
@@ -141,38 +142,38 @@
     <!-- Hero Section -->
     <section class="hero">
       <div class="content">
-        <h1>Exclusive Offers</h1>
-        <p>Experience heart-touching deals crafted just for you. Discover exclusive offers and save big on the best products from NextGen E-commerce.</p>
-        <button class="btn" onclick="window.location.href='ecommerce.html'">Shop Now</button>
+        <h1>Curated Selections</h1>
+        <p>Discover a refined collection of products chosen just for you. Elevate your lifestyle with our exclusive, hand-picked selections.</p>
+        <button class="btn" onclick="window.location.href='ecommerce.html'">Explore Now</button>
       </div>
     </section>
 
-    <!-- Offers Grid Section -->
-    <section class="offers-section">
-      <h2>Our Latest Offers</h2>
-      <div class="offers-grid">
-        <!-- Offer Card 1 -->
-        <div class="offer-card" onclick="alert('Offer details coming soon!')">
-          <div class="offer-image" style="background-image: url('https://source.unsplash.com/300x200/?discount,offer');"></div>
-          <div class="offer-content">
-            <h3>Limited Time Deal</h3>
-            <p>Save up to 40% on select products. Don't miss this limited time offer to upgrade your lifestyle!</p>
+    <!-- Selections Grid Section -->
+    <section class="selections-section">
+      <h2>Featured Collections</h2>
+      <div class="selections-grid">
+        <!-- Card 1 -->
+        <div class="selection-card" onclick="alert('Details coming soon!')">
+          <div class="selection-image" style="background-image: url('https://source.unsplash.com/300x200/?season,collection');"></div>
+          <div class="selection-content">
+            <h3>Seasonal Highlights</h3>
+            <p>Explore our seasonal highlights, featuring select items that embody quality and style for this season.</p>
           </div>
         </div>
-        <!-- Offer Card 2 -->
-        <div class="offer-card" onclick="alert('Offer details coming soon!')">
-          <div class="offer-image" style="background-image: url('https://source.unsplash.com/300x200/?sale,shopping');"></div>
-          <div class="offer-content">
-            <h3>Member Exclusive</h3>
-            <p>Sign up now and get early access to exclusive member deals and bonus rewards on your favorite items.</p>
+        <!-- Card 2 -->
+        <div class="selection-card" onclick="alert('Details coming soon!')">
+          <div class="selection-image" style="background-image: url('https://source.unsplash.com/300x200/?members,selection');"></div>
+          <div class="selection-content">
+            <h3>Members' Specials</h3>
+            <p>Join our community to access exclusive collections and personalized recommendations tailored to your taste.</p>
           </div>
         </div>
-        <!-- Offer Card 3 -->
-        <div class="offer-card" onclick="alert('Offer details coming soon!')">
-          <div class="offer-image" style="background-image: url('https://source.unsplash.com/300x200/?coupon,deal');"></div>
-          <div class="offer-content">
-            <h3>Flash Sale</h3>
-            <p>Grab unbelievable prices on top-selling products during our flash sale. Act fast—offers end soon!</p>
+        <!-- Card 3 -->
+        <div class="selection-card" onclick="alert('Details coming soon!')">
+          <div class="selection-image" style="background-image: url('https://source.unsplash.com/300x200/?trending,style');"></div>
+          <div class="selection-content">
+            <h3>Trending Now</h3>
+            <p>Stay ahead with trending selections that seamlessly blend value and contemporary design.</p>
           </div>
         </div>
       </div>
@@ -180,7 +181,7 @@
 
     <!-- Dummy Data Note -->
     <div class="dummy-note">
-      <p>This frontend code is built using dummy data and is structured to be easily integrated with a Firebase backend in the future. The <code>fetchProducts()</code> function currently simulates data fetching, and will later be replaced by Firebase Firestore API calls. Authentication and data persistence will be handled via Firebase, allowing for dynamic and secure data management.</p>
+      <p>This frontend code utilizes placeholder data and is structured for future integration with a Firebase backend. The <code>fetchProducts()</code> function will eventually connect to Firebase Firestore for dynamic data handling and secure authentication.</p>
     </div>
   </main>
 
