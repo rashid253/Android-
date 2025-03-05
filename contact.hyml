@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us - NextGen Experience</title>
+  <!-- External CSS -->
+  <link rel="stylesheet" href="style.css">
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Mobile-Optimized Contact Us Page */
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background: #fff;
+      overflow-x: hidden;
+    }
+    .contact-container {
+      width: 100%;
+      padding: 20px;
+      margin: 80px 10px 20px;
+      box-sizing: border-box;
+    }
+    .contact-container h1 {
+      text-align: center;
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+      color: #333;
+    }
+    .contact-container form {
+      display: flex;
+      flex-direction: column;
+    }
+    .contact-container label {
+      font-size: 1rem;
+      margin-bottom: 5px;
+      color: #555;
+    }
+    .contact-container input,
+    .contact-container textarea {
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1rem;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .contact-container button {
+      padding: 15px;
+      font-size: 1.1rem;
+      background: #4caf50;
+      border: none;
+      color: #fff;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .contact-container button:hover {
+      background: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <!-- Load External Header -->
+  <script>
+    fetch("header.html")
+      .then(response => response.text())
+      .then(data => {
+        document.body.insertAdjacentHTML("afterbegin", data);
+      })
+      .catch(error => console.error("Error loading header:", error));
+  </script>
+  
+  <div class="contact-container">
+    <h1>Contact Us</h1>
+    <form id="contactForm">
+      <label for="name">Name</label>
+      <input type="text" id="name" name="name" placeholder="Your Name" required>
+      
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" placeholder="Your Email" required>
+      
+      <label for="message">Message</label>
+      <textarea id="message" name="message" rows="4" placeholder="Your Message" required></textarea>
+      
+      <button type="submit">Send Message</button>
+    </form>
+  </div>
+  
+  <!-- Load External Footer -->
+  <script>
+    fetch("footer.html")
+      .then(response => response.text())
+      .then(data => {
+        document.body.insertAdjacentHTML("beforeend", data);
+      })
+      .catch(error => console.error("Error loading footer:", error));
+  </script>
+</body>
+</html>
