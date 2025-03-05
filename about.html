@@ -1,54 +1,152 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Footer</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Learn More - NextGen E-commerce</title>
+  <!-- External CSS -->
+  <link rel="stylesheet" href="style.css">
   <!-- Font Awesome for icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Page-Specific Inline CSS -->
   <style>
-    footer {
-      background: #333;
+    /* Hero Section for Learn More Page */
+    .hero-learn {
+      background: linear-gradient(135deg, #1a73e8, #4285f4);
       color: #fff;
-      padding: 10px;
+      text-align: center;
+      padding: 100px 20px;
+      position: relative;
+    }
+    .hero-learn h1 {
+      font-size: 3.5rem;
+      margin-bottom: 20px;
+    }
+    .hero-learn p {
+      font-size: 1.2rem;
+      max-width: 800px;
+      margin: 0 auto 30px;
+    }
+    .hero-learn .btn {
+      display: inline-block;
+      padding: 15px 30px;
+      font-size: 1.1rem;
+      background: #28a745;
+      color: #fff;
+      border-radius: 30px;
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+    .hero-learn .btn:hover {
+      background: #218838;
+    }
+    /* Info Sections */
+    .info-section {
+      padding: 60px 20px;
+      background: #fff;
       text-align: center;
     }
-    .footer-icons {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 20px;
-    }
-    .footer-icons a {
-      color: #fff;
-      font-size: 1.5rem;
-      text-decoration: none;
-      transition: color 0.3s;
-    }
-    .footer-icons a:hover {
+    .info-section h2 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
       color: #007bff;
     }
+    .info-section p {
+      font-size: 1.1rem;
+      max-width: 800px;
+      margin: 0 auto;
+      line-height: 1.6;
+      color: #555;
+    }
+    /* Technology Information Block */
+    .tech-info {
+      background: #f0f4ff;
+      padding: 40px 20px;
+      margin: 40px auto;
+      border-radius: 8px;
+      text-align: left;
+      max-width: 800px;
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #333;
+    }
+    .tech-info code {
+      background: #e8f0fe;
+      padding: 2px 4px;
+      border-radius: 4px;
+      font-family: monospace;
+    }
+    /* Call-to-Action Section */
+    .cta-section {
+      padding: 60px 20px;
+      background: #e9f1f7;
+      text-align: center;
+    }
+    .cta-section h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: #005a9e;
+    }
+    .cta-section a {
+      display: inline-block;
+      padding: 15px 30px;
+      font-size: 1.1rem;
+      background: #28a745;
+      color: #fff;
+      border-radius: 30px;
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+    .cta-section a:hover {
+      background: #218838;
+    }
   </style>
+  <!-- External Global JS -->
+  <script src="script.js" defer></script>
 </head>
 <body>
-  <footer>
-    <div class="footer-icons">
-      <a href="#" title="Chat with Seller">
-        <i class="fas fa-comments"></i>
-      </a>
-      <a href="#" title="Track Order">
-        <i class="fas fa-truck"></i>
-      </a>
-      <a href="#" title="Help &amp; Support">
-        <i class="fas fa-headset"></i>
-      </a>
-      <a href="analytics.html" title="Analytics">
-        <i class="fas fa-chart-line"></i>
-      </a>
-      <!-- Replacing the ellipsis with the call center icon -->
-      <a href="callcenter.html" title="Call Center">
-        <i class="fas fa-phone"></i>
-      </a>
-    </div>
-  </footer>
+  <!-- External Header -->
+  <div id="header-placeholder"></div>
+
+  <!-- Hero Section -->
+  <section class="hero-learn">
+    <h1>Discover the Future of E-Commerce</h1>
+    <p>Experience a cutting-edge platform built with next‑generation technology, innovative design, and a commitment to secure, seamless online shopping.</p>
+    <a href="ecommerce.html" class="btn">Explore Shop Now</a>
+  </section>
+
+  <!-- Info Section: Innovative Technology -->
+  <section class="info-section">
+    <h2>Innovative Technology</h2>
+    <p>Our platform is designed for tomorrow. Built using dummy data today, it’s structured to integrate effortlessly with a Firebase backend soon. The <code>fetchProducts()</code> function currently simulates data fetching – soon to be replaced by real-time Firebase Firestore API calls for dynamic, secure data management.</p>
+  </section>
+
+  <!-- Info Section: Premium Experience -->
+  <section class="info-section">
+    <h2>Premium User Experience</h2>
+    <p>Every element reflects a high‑end, professional design. From secure transactions and intuitive navigation to visually engaging interfaces, our platform delivers a seamless and immersive shopping experience for discerning users.</p>
+  </section>
+
+  <!-- Technology Information Block -->
+  <section class="tech-info">
+    <p><strong>Note:</strong> This frontend code is built using dummy data and is structured to be easily integrated with a Firebase backend in the future. The <code>fetchProducts()</code> function currently simulates data fetching, and will later be replaced by Firebase Firestore API calls. Authentication and data persistence will be handled via Firebase, allowing for dynamic and secure data management.</p>
+  </section>
+
+  <!-- Call-to-Action Section -->
+  <section class="cta-section">
+    <h2>Ready to Experience Next‑Gen E-Commerce?</h2>
+    <a href="contact.html">Get Started</a>
+  </section>
+
+  <!-- External Footer -->
+  <div id="footer-placeholder"></div>
+
+  <!-- Inline Script to Load Header and Footer -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      loadHTML("header-placeholder", "header.html");
+      loadHTML("footer-placeholder", "footer.html");
+    });
+  </script>
 </body>
 </html>
