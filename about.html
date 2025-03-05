@@ -3,208 +3,111 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Learn More - NextGen Experience</title>
+  <title>Contact Us - NextGen App</title>
   <!-- External CSS -->
   <link rel="stylesheet" href="style.css">
   <!-- Font Awesome for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <!-- Page-Specific Inline CSS -->
+  <!-- Page-Specific CSS -->
   <style>
-    /* Base Styles */
-    body { margin: 0; padding: 0; font-family: 'Roboto', sans-serif; background: #fff; }
-    
-    /* Hero Section: Smaller and Engaging */
-    .hero {
-      position: relative;
-      height: 50vh;
-      background: linear-gradient(135deg, #FF6B6B, #FFD93D, #6BCB77);
-      background-size: 400% 400%;
-      animation: gradientAnimation 20s ease infinite;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      color: #fff;
-      padding: 0;
+    /* Ensure the body fills the viewport without unwanted overflow */
+    body {
       margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background: #fff;
+      overflow-x: hidden;
     }
-    @keyframes gradientAnimation {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-    .hero .content {
-      z-index: 2;
+    /* Contact Container optimized for mobile */
+    .contact-container {
+      width: 100%;
+      max-width: 100%;
       padding: 20px;
-    }
-    .hero h1 { font-size: 2.5rem; margin-bottom: 10px; }
-    .hero p { font-size: 1.2rem; max-width: 800px; margin: 0 auto 20px; }
-    .hero .btn {
-      padding: 10px 30px; font-size: 1rem;
-      background: #fff; border: none; border-radius: 50px;
-      color: #333; cursor: pointer; transition: background 0.3s, transform 0.3s;
-    }
-    .hero .btn:hover { background: #f0f0f0; transform: scale(1.05); }
-    
-    /* Section Styling with Smooth Fade-In */
-    .section {
-      padding: 60px 20px;
-      text-align: center;
-      opacity: 0;
-      transform: translateY(30px);
-      animation: fadeInUp 1s forwards;
-    }
-    .section:nth-child(even) { background: #f9f9f9; }
-    @keyframes fadeInUp {
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .section h2 { font-size: 2.5rem; margin-bottom: 20px; color: #333; }
-    .section p { font-size: 1.1rem; max-width: 800px; margin: 0 auto 20px; line-height: 1.6; color: #666; }
-    
-    /* Testimonial Carousel */
-    .testimonials {
-      position: relative;
-      max-width: 800px;
-      margin: 40px auto;
-      overflow: hidden;
-    }
-    .testimonials .slides {
-      display: flex;
-      transition: transform 0.5s ease;
-    }
-    .testimonial {
-      min-width: 100%;
-      padding: 20px;
+      margin: 80px 10px 20px; /* Top margin gives space below header; bottom margin above footer */
       box-sizing: border-box;
     }
-    .testimonial p { font-size: 1.1rem; color: #555; margin-bottom: 10px; }
-    .testimonial .author { font-size: 0.9rem; color: #888; }
-    
-    /* Technical Note Box */
-    .tech-note {
-      background: #e8f0fe;
-      padding: 30px;
-      border-radius: 8px;
-      max-width: 800px;
-      margin: 40px auto;
-      text-align: left;
-      font-size: 1rem;
-      line-height: 1.6;
+    .contact-container h1 {
+      text-align: center;
+      font-size: 1.8rem;
+      margin-bottom: 20px;
       color: #333;
     }
-    .tech-note code {
-      background: #c5d4f1;
-      padding: 2px 4px;
-      border-radius: 4px;
-      font-family: monospace;
+    .contact-container form {
+      display: flex;
+      flex-direction: column;
     }
-    
-    /* Call-to-Action Section */
-    .cta {
-      background: #4caf50;
-      color: #fff;
-      padding: 40px 20px;
-      text-align: center;
+    .contact-container label {
+      font-size: 1rem;
+      margin-bottom: 5px;
+      color: #555;
     }
-    .cta h2 { font-size: 2rem; margin-bottom: 20px; }
-    .cta a {
-      display: inline-block;
-      padding: 12px 30px;
+    .contact-container input, 
+    .contact-container textarea {
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1rem;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .contact-container button {
+      padding: 15px;
       font-size: 1.1rem;
-      background: #ff9800;
+      background: #4caf50;
+      border: none;
       color: #fff;
-      border-radius: 50px;
-      text-decoration: none;
+      border-radius: 5px;
+      cursor: pointer;
       transition: background 0.3s;
     }
-    .cta a:hover { background: #f57c00; }
+    .contact-container button:hover {
+      background: #45a049;
+    }
+    /* Ensure the footer does not cause overflow on mobile */
+    footer {
+      width: 100%;
+      box-sizing: border-box;
+    }
   </style>
-  <script defer>
-    document.addEventListener("DOMContentLoaded", () => {
-      // Load external header and footer
-      fetch("header.html")
-        .then(response => response.text())
-        .then(data => document.body.insertAdjacentHTML("afterbegin", data))
-        .catch(error => console.error("Header load error:", error));
-      
-      fetch("footer.html")
-        .then(response => response.text())
-        .then(data => document.body.insertAdjacentHTML("beforeend", data))
-        .catch(error => console.error("Footer load error:", error));
-      
-      // Testimonial Carousel Logic
-      let slideIndex = 0;
-      const slides = document.querySelector('.slides');
-      const totalSlides = document.querySelectorAll('.testimonial').length;
-      
-      function showNextSlide() {
-        slideIndex = (slideIndex + 1) % totalSlides;
-        slides.style.transform = 'translateX(' + (-slideIndex * 100) + '%)';
-      }
-      
-      setInterval(showNextSlide, 4000); // change slide every 4 seconds
-    });
-  </script>
 </head>
 <body>
-  <!-- External Header is loaded dynamically -->
+  <!-- Load external header -->
+  <script>
+    fetch("header.html")
+      .then(response => response.text())
+      .then(data => {
+         // Insert header at the top of the body
+         document.body.insertAdjacentHTML("afterbegin", data);
+      })
+      .catch(error => console.error("Error loading header:", error));
+  </script>
   
-  <!-- Hero Section -->
-  <section class="hero">
-    <div class="content">
-      <h1>Discover the NextGen Experience</h1>
-      <p>Engage with a platform that redefines online shopping through cutting‑edge technology and addictive, premium design.</p>
-      <button class="btn" onclick="window.location.href='ecommerce.html'">Visit Shop</button>
-    </div>
-  </section>
+  <!-- Contact Form Container -->
+  <div class="contact-container">
+    <h1>Contact Us</h1>
+    <form id="contactForm">
+      <label for="name">Name</label>
+      <input type="text" id="name" name="name" placeholder="Your Name" required>
+      
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" placeholder="Your Email" required>
+      
+      <label for="message">Message</label>
+      <textarea id="message" name="message" rows="4" placeholder="Your Message" required></textarea>
+      
+      <button type="submit">Send Message</button>
+    </form>
+  </div>
   
-  <!-- Innovative Technology Section -->
-  <section class="section">
-    <h2>Innovative Technology</h2>
-    <p>Our platform is built on dummy data today, paving the way for a robust Firebase integration tomorrow—bringing real‑time updates and secure data management to every interaction.</p>
-  </section>
-  
-  <!-- Customer Testimonials Section -->
-  <section class="section">
-    <h2>What Our Customers Say</h2>
-    <div class="testimonials">
-      <div class="slides">
-        <div class="testimonial">
-          <p>"This platform is truly addictive—the seamless experience and cutting‑edge features keep me coming back!"</p>
-          <div class="author">- Ayesha, Karachi</div>
-        </div>
-        <div class="testimonial">
-          <p>"Innovative and engaging! I feel like I'm part of the future every time I shop here."</p>
-          <div class="author">- Bilal, Lahore</div>
-        </div>
-        <div class="testimonial">
-          <p>"The design and technology are simply addictive—shopping has never felt this exciting."</p>
-          <div class="author">- Fatima, Islamabad</div>
-        </div>
-      </div>
-    </div>
-  </section>
-  
-  <!-- Vision & Mission Section -->
-  <section class="section">
-    <h2>Our Vision &amp; Mission</h2>
-    <p>We strive to create an experience so engaging it becomes a part of your lifestyle. Our mission is to blend next‑generation technology with innovative design, making every interaction on our platform a captivating experience.</p>
-  </section>
-  
-  <!-- Technical Note Section -->
-  <section class="section">
-    <div class="tech-note">
-      <p><strong>Technical Note:</strong> This frontend is currently powered by dummy data, structured for seamless integration with Firebase Firestore. Soon, <code>fetchProducts()</code> will be replaced by live API calls, ensuring real‑time data, secure authentication, and dynamic updates.</p>
-    </div>
-  </section>
-  
-  <!-- Call-to-Action Section -->
-  <section class="cta">
-    <h2>Ready to Experience the Future?</h2>
-    <a href="contact.html">Get in Touch</a>
-  </section>
-  
-  <!-- External Footer is loaded dynamically -->
-  
+  <!-- Load external footer -->
+  <script>
+    fetch("footer.html")
+      .then(response => response.text())
+      .then(data => {
+         // Insert footer at the end of the body
+         document.body.insertAdjacentHTML("beforeend", data);
+      })
+      .catch(error => console.error("Error loading footer:", error));
+  </script>
 </body>
 </html>
