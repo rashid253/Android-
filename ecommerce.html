@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>NextGen E-commerce - Shop Now</title>
 
-    <!-- External CSS -->
+    <!-- External Global CSS (for page-wide styling) -->
     <link rel="stylesheet" href="style.css" />
     <!-- Font Awesome for icons -->
     <link
@@ -229,11 +229,11 @@
       }
     </style>
 
-    <!-- External Global JS -->
+    <!-- External Global JS (if any) -->
     <script src="script.js" defer></script>
   </head>
   <body>
-    <!-- External Header (loaded from header.html) -->
+    <!-- External Header (loaded from header.html fragment) -->
     <div id="header-placeholder"></div>
 
     <!-- MAIN CONTENT -->
@@ -270,7 +270,7 @@
       </div>
     </main>
 
-    <!-- External Footer (loaded from footer.html) -->
+    <!-- External Footer (loaded from footer.html fragment) -->
     <div id="footer-placeholder"></div>
 
     <!-- Bootstrap Bundle JS -->
@@ -278,7 +278,7 @@
 
     <!-- DYNAMIC LOADING & INITIALIZATION SCRIPT -->
     <script>
-      // Function to load external HTML into a placeholder element
+      // Function to load external HTML fragments into a placeholder element
       function loadHTML(elementId, filePath) {
         fetch(filePath)
           .then(response => {
@@ -306,7 +306,7 @@
         initMainPage();
       });
 
-      // Dummy product data
+      // Dummy product data and functions for dynamic content
       const productData = {
         "Countdown Sales": [
           {
