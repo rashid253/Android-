@@ -21,6 +21,16 @@
     color: #fff;
     background: red;
   }
+  /* Desktop Navigation */
+  .nav-desktop a {
+    text-decoration: none; /* Remove underline */
+    color: #333;           /* Set desired text color */
+    font-size: 1.2rem;
+    transition: color 0.3s;
+  }
+  .nav-desktop a:hover {
+    color: #007bff;
+  }
   /* Side Menu: Reduce width to 180px */
   .side-menu {
     position: fixed;
@@ -111,12 +121,10 @@
 <script>
   // Inline JavaScript for header functionality
   document.addEventListener("DOMContentLoaded", function() {
-    // Function to navigate to a page
     window.openPage = function(url) {
       window.location.href = url;
     };
 
-    // Toggle mobile side menu
     window.toggleSideMenu = function() {
       const sideMenu = document.getElementById("side-menu");
       if (sideMenu) {
@@ -124,7 +132,6 @@
       }
     };
 
-    // Close side menu when clicking outside of it and the toggle button
     document.addEventListener("click", function(event) {
       const sideMenu = document.getElementById("side-menu");
       const menuToggle = document.querySelector(".menu-toggle");
@@ -138,7 +145,6 @@
       }
     });
 
-    // Dummy function to update the cart count badge
     function updateCartCount() {
       var count = localStorage.getItem("cartCount") || 3;
       if (document.getElementById("cartCount")) {
