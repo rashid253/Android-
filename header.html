@@ -1,61 +1,123 @@
 <style>
-  /* Minimal header with company logo and search bar */
+  /* Compact header with left search & right icon */
   .header {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     background: #fff;
-    padding: 10px 15px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    z-index: 1000;
-  }
-  .header-container {
+    padding: 5px 10px; /* Reduced padding for a smaller height */
     display: flex;
     align-items: center;
     justify-content: space-between;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    z-index: 1000;
+    min-height: 48px; /* Overall smaller header height */
   }
-  .brand {
-    display: flex;
-    align-items: center;
-    font-size: 1.6rem;
-    font-weight: bold;
-    color: #007bff;
-  }
-  .brand i {
-    margin-right: 8px;
-    font-size: 1.8rem;
-  }
+  /* Search bar on the left */
   .search-bar {
     flex: 1;
-    margin-left: 15px;
+    margin-right: auto;
+    display: flex;
   }
   .search-bar input {
     width: 100%;
-    padding: 8px 12px;
+    padding: 6px 12px;
     border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 1rem;
+    border-radius: 20px; /* Rounded corners */
+    font-size: 0.9rem;
+    outline: none;
   }
+  /* Logo icon on the right */
+  .logo-icon {
+    font-size: 1.4rem;
+    color: #007bff;
+    margin-left: 10px;
+  }
+
+  /* Overlay that appears when user clicks search bar */
+  .search-overlay {
+    display: none;
+    position: fixed;
+    top: 0; 
+    left: 0;
+    width: 100%; 
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 9999; /* Above the header */
+  }
+  .search-overlay.show {
+    display: block;
+  }
+  /* Centered overlay content */
+  .search-overlay-content {
+    position: absolute;
+    top: 50%; 
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 600px;
+    background: #fff;
+    border-radius: 8px;
+    padding: 20px;
+  }
+  .search-overlay-content h2 {
+    margin-bottom: 10px;
+  }
+  .close-btn {
+    float: right;
+    cursor: pointer;
+    font-size: 1.3rem;
+    color: #999;
+  }
+
   @media (max-width: 600px) {
-    .header-container {
-      flex-direction: column;
-      align-items: stretch;
+    .header {
+      padding: 4px 8px;
+      min-height: 44px;
     }
-    .search-bar {
-      margin-left: 0;
-      margin-top: 10px;
+    .search-bar input {
+      padding: 5px 10px;
+      font-size: 0.85rem;
+    }
+    .logo-icon {
+      font-size: 1.2rem;
     }
   }
 </style>
+
 <header class="header">
-  <div class="header-container">
-    <div class="brand">
-      <i class="fas fa-briefcase"></i>
-      <span>MyBusiness</span>
-    </div>
-    <div class="search-bar">
-      <input type="text" placeholder="Search products..." />
+  <!-- Left: Rounded Search Bar -->
+  <div class="search-bar">
+    <input 
+      type="text"
+      placeholder="Search products..."
+      onfocus="openSearchOverlay()"
+    />
+  </div>
+  <!-- Right: Only the icon as 'logo' -->
+  <i class="fas fa-briefcase logo-icon"></i>
+</header>
+
+<!-- Overlay for search results -->
+<div id="searchOverlay" class="search-overlay">
+  <div class="search-overlay-content">
+    <span class="close-btn" onclick="closeSearchOverlay()">&times;</span>
+    <h2>Search Results</h2>
+    <div id="searchResults">
+      <!-- Placeholder: integrate actual product data from ecommerce.html here -->
+      Type in the search bar to find matching items...
     </div>
   </div>
-</header>
+</div>
+
+<script>
+  // Show overlay when focusing on the search bar
+  function openSearchOverlay() {
+    document.getElementById("searchOverlay").classList.add("show");
+  }
+  // Close overlay
+  function closeSearchOverlay() {
+    document.getElementById("searchOverlay").classList.remove("show");
+  }
+</script>
