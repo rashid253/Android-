@@ -1,5 +1,5 @@
 <style>
-  /* Minimal mobile-app–style footer as bottom navigation */
+  /* Mobile-app–style footer using your provided icons and links */
   .footer {
     position: fixed;
     bottom: 0;
@@ -16,12 +16,46 @@
   .footer a {
     text-decoration: none;
     color: #333;
-    flex: 1;
     text-align: center;
+    flex: 1;
+    position: relative;
+  }
+  .footer a i {
+    display: block;
+    font-size: 1.2rem;
+    margin-bottom: 2px;
+  }
+  .badge {
+    display: inline-block;
+    min-width: 16px;
+    height: 16px;
+    line-height: 16px;
+    border-radius: 50%;
+    background: red;
+    color: #fff;
+    font-size: 0.7rem;
+    position: absolute;
+    top: -4px;
+    right: -8px;
   }
 </style>
 <footer class="footer">
-  <a href="index.html">Home</a>
-  <a href="search.html">Search</a>
-  <a href="profile.html">Profile</a>
+  <a href="index.html"><i class="fas fa-home"></i>Home</a>
+  <a href="offers.html"><i class="fas fa-tags"></i>Offers</a>
+  <a href="analytics.html"><i class="fas fa-chart-line"></i>Analytics</a>
+  <a href="cart.html" class="cart-link">
+    <i class="fas fa-shopping-cart"></i>Cart
+    <span id="cartCountFooter" class="badge">0</span>
+  </a>
+  <a href="more.html"><i class="fas fa-ellipsis-h"></i>More</a>
 </footer>
+<script>
+  // Update the cart count in the footer if available
+  document.addEventListener("DOMContentLoaded", function() {
+    var count = localStorage.getItem("cartCount") || 0;
+    var cartCount = document.getElementById("cartCountFooter");
+    if (cartCount) {
+      cartCount.innerText = count;
+    }
+  });
+</script>
