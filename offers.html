@@ -14,16 +14,23 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: 'Roboto', sans-serif; background: #f0f2f5; color: #444; }
     main { max-width: 1200px; margin: 0 auto 80px; padding: 20px; }
-    /* HERO SECTION */
+    /* HERO SECTION with Animated Gradient Background */
     .hero {
       position: relative;
       height: 50vh;
-      background: url('https://source.unsplash.com/1600x900/?curated,collection') no-repeat center center/cover;
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
       color: #fff;
+      background: linear-gradient(45deg, #6a11cb, #2575fc, #ff9900, #e68a00);
+      background-size: 400% 400%;
+      animation: gradientAnimation 15s ease infinite;
+    }
+    @keyframes gradientAnimation {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
     .hero::after {
       content: "";
