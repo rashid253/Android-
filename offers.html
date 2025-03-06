@@ -14,7 +14,8 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: 'Roboto', sans-serif; background: #f0f2f5; color: #444; }
     main { max-width: 1200px; margin: 0 auto 80px; padding: 20px; }
-    /* HERO SECTION with Animated Gradient Background */
+    
+    /* HERO SECTION with Animated Gradient Background & Creative Shape */
     .hero {
       position: relative;
       height: 50vh;
@@ -26,11 +27,25 @@
       background: linear-gradient(45deg, #6a11cb, #2575fc, #ff9900, #e68a00);
       background-size: 400% 400%;
       animation: gradientAnimation 15s ease infinite;
+      /* Creative slant shape at the bottom */
+      clip-path: polygon(0 0, 100% 0, 100% 85%, 50% 100%, 0 85%);
     }
     @keyframes gradientAnimation {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
+    }
+    /* Additional creative element: half circle shape overlay */
+    .hero::before {
+      content: "";
+      position: absolute;
+      bottom: -50px;
+      right: -50px;
+      width: 150px;
+      height: 150px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      transform: rotate(45deg);
     }
     .hero::after {
       content: "";
@@ -48,13 +63,13 @@
       font-size: 3rem; 
       margin-bottom: 10px; 
       font-weight: 700; 
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.6); /* Added text shadow for better contrast */
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
     }
     .hero p { 
       font-size: 1.2rem; 
       max-width: 800px; 
       margin: 0 auto 20px;
-      text-shadow: 1px 1px 3px rgba(0,0,0,0.5); /* Added text shadow */
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
     }
     .hero .btn {
       padding: 14px 35px;
@@ -70,6 +85,7 @@
       background: linear-gradient(45deg, #2575fc, #6a11cb); 
       transform: scale(1.05); 
     }
+    
     /* OFFERS GRID SECTION */
     .offers-section {
       margin-top: 40px;
@@ -95,7 +111,10 @@
       transition: transform 0.3s, box-shadow 0.3s;
       cursor: pointer;
     }
-    .offer-card:hover { transform: translateY(-5px); box-shadow: 0 8px 16px rgba(0,0,0,0.15); }
+    .offer-card:hover { 
+      transform: translateY(-5px); 
+      box-shadow: 0 8px 16px rgba(0,0,0,0.15); 
+    }
     .offer-image {
       width: 100%;
       height: 200px;
