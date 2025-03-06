@@ -110,6 +110,13 @@ body {
   padding: 0 15px;
   color: #fff;
 }
+
+/* Specific Hero Section for Index Page */
+.hero-index {
+  background: url("https://i.imgur.com/048d9400ce02b71.jpg") no-repeat center center;
+  background-size: cover;
+}
+
 .hero-content {
   max-width: 600px;
   margin: 0 auto;
