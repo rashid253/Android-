@@ -15,7 +15,7 @@
     body { font-family: 'Roboto', sans-serif; background: #f0f2f5; color: #444; }
     main { max-width: 1200px; margin: 0 auto 80px; padding: 20px; }
     
-    /* HERO SECTION with Animated Gradient Background & Creative Shape */
+    /* HERO SECTION with Animated Gradient Background & Creative 3D Shape */
     .hero {
       position: relative;
       height: 50vh;
@@ -27,26 +27,15 @@
       background: linear-gradient(45deg, #6a11cb, #2575fc, #ff9900, #e68a00);
       background-size: 400% 400%;
       animation: gradientAnimation 15s ease infinite;
-      /* Creative slant shape at the bottom */
-      clip-path: polygon(0 0, 100% 0, 100% 85%, 50% 100%, 0 85%);
+      /* Adjusted creative slant shape */
+      clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
     }
     @keyframes gradientAnimation {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
-    /* Additional creative element: half circle shape overlay */
-    .hero::before {
-      content: "";
-      position: absolute;
-      bottom: -50px;
-      right: -50px;
-      width: 150px;
-      height: 150px;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 50%;
-      transform: rotate(45deg);
-    }
+    /* Removed any extra pseudo-element interfering with content */
     .hero::after {
       content: "";
       position: absolute;
@@ -59,11 +48,22 @@
       z-index: 1;
       padding: 20px;
     }
-    .hero h1 { 
-      font-size: 3rem; 
-      margin-bottom: 10px; 
-      font-weight: 700; 
+    /* 3D effect for the hero heading */
+    .hero h1 {
+      position: relative;
+      font-size: 3rem;
+      margin-bottom: 10px;
+      font-weight: 700;
       text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+      transform: perspective(500px) translateZ(20px);
+    }
+    .hero h1::before {
+      content: attr(data-text);
+      position: absolute;
+      top: 5px;
+      left: 5px;
+      color: rgba(0,0,0,0.3);
+      z-index: -1;
     }
     .hero p { 
       font-size: 1.2rem; 
@@ -72,6 +72,8 @@
       text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
     }
     .hero .btn {
+      position: relative; /* Ensure the button is above any overlay */
+      z-index: 2;
       padding: 14px 35px;
       font-size: 1rem;
       background: linear-gradient(45deg, #6a11cb, #2575fc);
@@ -181,7 +183,7 @@
     <!-- Hero Section -->
     <section class="hero">
       <div class="content">
-        <h1>Curated Selections</h1>
+        <h1 data-text="Curated Selections">Curated Selections</h1>
         <p>Discover exclusive offers and hand-picked deals from our vast collection. Elevate your shopping experience with NextGen E-commerce.</p>
         <button class="btn" onclick="window.location.href='ecommerce.html'">Explore All Offers</button>
       </div>
