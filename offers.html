@@ -30,32 +30,29 @@
       padding: 20px;
     }
 
-    /* HERO SECTION: 50vh, Animated Gradient, Partial Stroke on top half of text */
+    /* HERO SECTION */
     .hero {
       position: relative;
-      height: 50vh; /* Kept at 50vh, as requested */
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      height: 50vh; /* fixed height */
+      overflow: visible; /* allow content to overflow */
       text-align: center;
       color: #fff;
+    }
+    /* Background pseudo-element with clip-path for a stylish slant */
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       background: linear-gradient(45deg, #6a11cb, #2575fc, #ff9900, #e68a00);
       background-size: 400% 400%;
       animation: gradientAnimation 15s ease infinite;
-      /* Slanted bottom clip, no height increase */
       clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+      z-index: -2;
     }
-    @keyframes gradientAnimation {
-      0% {
-        background-position: 0% 50%;
-      }
-      50% {
-        background-position: 100% 50%;
-      }
-      100% {
-        background-position: 0% 50%;
-      }
-    }
+    /* Optional dark overlay to boost contrast */
     .hero::after {
       content: "";
       position: absolute;
@@ -64,45 +61,38 @@
       width: 100%;
       height: 100%;
       background: rgba(0, 0, 0, 0.3);
+      z-index: -1;
+    }
+    @keyframes gradientAnimation {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
     .hero .content {
       position: relative;
       z-index: 1;
       padding: 20px;
-      /* Extra top padding so text doesn't collide with the top */
-      padding-top: 40px; 
+      /* Extra top padding so content isn’t too close to the container edge */
+      padding-top: 40px;
     }
-
-    /* Main heading with partial "border/3D" for top half */
+    /* The main heading styled to partially overflow the hero */
     .hero h1 {
       position: relative;
       font-size: 3rem;
       margin-bottom: 10px;
       font-weight: 700;
       color: #fff;
-      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
+      /* Add prominent text effects */
+      -webkit-text-stroke: 2px black;
+      text-shadow: 3px 3px 6px rgba(0,0,0,0.8);
+      /* Negative top margin to make the top half overflow outside the hero */
+      margin-top: -30px;
     }
-    /* 
-       This pseudo-element gives a 'stroke' to just the top half of the text. 
-       If you find it too subtle or too strong, adjust clip-path or stroke color/width.
-    */
-    .hero h1::before {
-      content: attr(data-text);
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 100%;
-      color: transparent;            /* Make the text itself invisible */
-      -webkit-text-stroke: 2px #fff; /* White "border" stroke */
-      pointer-events: none;
-      clip-path: inset(0 0 50% 0);   /* Only apply stroke to the top half of the text */
-    }
-
     .hero p {
       font-size: 1.2rem;
       max-width: 800px;
       margin: 0 auto 20px;
-      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
     }
     .hero .btn {
       position: relative;
@@ -142,14 +132,14 @@
       background: #fff;
       width: 300px;
       border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
       overflow: hidden;
       transition: transform 0.3s, box-shadow 0.3s;
       cursor: pointer;
     }
     .offer-card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.15);
     }
     .offer-image {
       width: 100%;
@@ -187,11 +177,9 @@
       .offer-card {
         width: 90%;
       }
-      .hero {
-        height: 50vh; /* keep same for small screens */
-      }
       .hero h1 {
         font-size: 2rem;
+        margin-top: -20px;
       }
     }
   </style>
@@ -201,13 +189,11 @@
   <script>
     function loadHTML(url, containerId, callback) {
       fetch(url)
-        .then((response) => response.text())
-        .then((html) => {
+        .then(response => response.text())
+        .then(html => {
           document.getElementById(containerId).innerHTML = html;
-          const scripts = document
-            .getElementById(containerId)
-            .querySelectorAll("script");
-          scripts.forEach((oldScript) => {
+          const scripts = document.getElementById(containerId).querySelectorAll("script");
+          scripts.forEach(oldScript => {
             const newScript = document.createElement("script");
             if (oldScript.src) {
               newScript.src = oldScript.src;
@@ -218,7 +204,7 @@
           });
           if (callback) callback();
         })
-        .catch((err) => console.error("Error loading " + url, err));
+        .catch(err => console.error("Error loading " + url, err));
     }
     loadHTML("header.html", "header-placeholder");
   </script>
@@ -264,7 +250,7 @@
 
   <!-- DYNAMIC OFFERS SCRIPT -->
   <script>
-    // Dummy categories for demonstration
+    // Dummy offers for demonstration
     const offers = [
       {
         title: "Countdown Sales",
@@ -295,21 +281,18 @@
 
     const offersGrid = document.getElementById("offersGrid");
 
-    offers.forEach((offer) => {
+    offers.forEach(offer => {
       const card = document.createElement("div");
       card.className = "offer-card";
       card.onclick = () => {
-        // Jump to the specific category section in ecommerce.html
         const sectionId = "section-" + offer.title.replace(/\s/g, "");
         window.location.href = "ecommerce.html#" + sectionId;
       };
 
-      // Offer image
       const imageDiv = document.createElement("div");
       imageDiv.className = "offer-image";
       imageDiv.style.backgroundImage = `url('https://source.unsplash.com/300x200/?${offer.query}')`;
 
-      // Offer content
       const contentDiv = document.createElement("div");
       contentDiv.className = "offer-content";
       const title = document.createElement("h3");
