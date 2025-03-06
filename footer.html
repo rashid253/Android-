@@ -1,8 +1,7 @@
 <style>
-  /* Mobile-app style footer navigation */
+  /* Mobile-app style footer navigation – compact version */
   .footer {
     position: fixed;
-    /* Move the main footer up a bit to allow room for the extra footer */
     bottom: 30px;
     left: 0;
     width: 100%;
@@ -10,8 +9,8 @@
     border-top: 1px solid #ddd;
     display: flex;
     justify-content: space-around;
-    padding: 10px 0;
-    font-size: 0.9rem;
+    padding: 5px 0;  /* Reduced padding */
+    font-size: 0.7rem;  /* Reduced font size */
     z-index: 1000;
   }
   .footer a {
@@ -23,30 +22,30 @@
   }
   .footer a i {
     display: block;
-    font-size: 1rem; /* Reduced icon size */
+    font-size: 0.8rem; /* Reduced icon size */
     margin-bottom: 2px;
   }
   .badge {
     position: absolute;
-    top: -4px;
+    top: -3px;
     right: 20%;
     background: red;
     border-radius: 50%;
     color: #fff;
-    padding: 2px 6px;
-    font-size: 0.7rem;
+    padding: 1px 4px;
+    font-size: 0.6rem;
   }
-  /* Extra footer bar with transparent white background */
+  /* Extra footer bar with black background and white text */
   .footer-extra {
     position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
-    background: rgba(255, 255, 255, 0.8);
+    background: #000;  /* Black background */
     text-align: center;
-    padding: 5px 0;
-    font-size: 0.8rem;
-    color: #333;
+    padding: 3px 0;   /* Reduced padding */
+    font-size: 0.7rem; /* Reduced font size */
+    color: #fff;       /* White text */
     z-index: 1100;
   }
 </style>
@@ -64,7 +63,7 @@
   &copy; 2025 MyBusiness. All rights reserved.
 </div>
 <script>
-  // Update the cart count in the footer badge
+  // Update the cart count badge if available
   document.addEventListener("DOMContentLoaded", function() {
     var count = localStorage.getItem("cartCount") || 0;
     var badge = document.getElementById("cartCountFooter");
