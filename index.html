@@ -12,10 +12,9 @@
     <script src="script.js" defer></script>
     <style>
       /* HERO SECTION WITH VIDEO BACKGROUND */
-      /* Assuming header height is 60px */
+      /* Header is assumed to be 60px tall */
       .hero {
         position: relative;
-        width: 100%;
         height: calc(100vh - 60px);
         overflow: hidden;
         background: #fff; /* White fallback background */
@@ -29,8 +28,7 @@
         width: auto;
         height: auto;
         transform: translate(-50%, -50%);
-        object-fit: contain; /* Ensure full video is visible without cropping */
-        background: transparent;
+        object-fit: cover; /* Fill the hero area completely */
         z-index: -1;
       }
       .hero-content {
@@ -39,7 +37,7 @@
         color: #fff;
         text-align: center;
         padding: 20px;
-        background: rgba(0, 0, 0, 0.4); /* Dark overlay for readability */
+        background: rgba(0, 0, 0, 0.4); /* Optional dark overlay for readability */
         border-radius: 8px;
         max-width: 600px;
         margin: 0 auto;
@@ -133,7 +131,7 @@
     </style>
   </head>
   <body>
-    <!-- External Header -->
+    <!-- External Header (loaded via fetch) -->
     <div id="header-placeholder"></div>
     
     <!-- Main Content -->
@@ -181,10 +179,10 @@
       </section>
     </main>
     
-    <!-- External Footer -->
+    <!-- External Footer (loaded via fetch) -->
     <div id="footer-placeholder"></div>
     
-    <!-- Inline Script to load header/footer and define openPage() -->
+    <!-- Inline Script to Load Header/ Footer & Define openPage() -->
     <script>
       function loadHTML(elementId, filePath) {
         fetch(filePath)
