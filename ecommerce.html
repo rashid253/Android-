@@ -8,23 +8,31 @@
     <!-- External CSS -->
     <link rel="stylesheet" href="style.css" />
     <!-- Font Awesome for icons -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <!-- Bootstrap 5 CSS -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
 
     <!-- Page-Specific Inline CSS -->
     <style>
-      /* Global body settings */
+      /* Fixed Footer Style */
+      .footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background: #fff;
+        box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+        padding: 10px;
+        z-index: 1000;
+        text-align: center;
+      }
+      /* Global Body Settings */
       body {
         font-family: 'Roboto', sans-serif;
         background-color: #f3f4f6;
         color: #2d3748;
+        padding-top: 70px;   /* Reserve space for fixed header */
+        padding-bottom: 70px; /* Reserve space for fixed footer */
       }
       main {
         padding-bottom: 100px;
@@ -181,7 +189,7 @@
         border: none;
         border-radius: 8px;
         overflow: hidden;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
       }
       .product-tile .card img {
         width: 100%;
@@ -283,12 +291,13 @@
         fetch(filePath)
           .then(response => {
             if (!response.ok) {
+              // Fallback content if external file is not found
               if (elementId === "header-placeholder") {
                 document.getElementById(elementId).innerHTML =
                   '<header style="background:#333;color:#fff;padding:10px;text-align:center;">Header</header>';
               } else if (elementId === "footer-placeholder") {
                 document.getElementById(elementId).innerHTML =
-                  '<footer style="background:#333;color:#fff;padding:10px;text-align:center;">Footer</footer>';
+                  '<footer class="footer" style="background:#333;color:#fff;padding:10px;text-align:center;">Footer</footer>';
               }
               throw new Error("Error fetching " + filePath);
             }
@@ -491,7 +500,6 @@
           navContainer.appendChild(btn);
         }
       }
-
       // Set active style on navigation tile
       function setActiveCategory(category) {
         let buttons = document.querySelectorAll(".category-button");
@@ -502,7 +510,6 @@
           activeBtn.classList.add("active-category");
         }
       }
-
       // Helper: Generate star icons
       function generateStars(rating) {
         let html = "";
@@ -516,7 +523,6 @@
         }
         return html;
       }
-
       // Render main page: banners and horizontal product tiles
       function initMainPage() {
         document.getElementById("mainPage").style.display = "block";
@@ -564,7 +570,6 @@
           });
         });
       }
-
       // Open vertical category page (non-scrollable, unfolded view)
       function openCategoryPage(category) {
         window.currentCategory = category;
@@ -593,17 +598,14 @@
           grid.appendChild(col);
         });
       }
-
       function backToMain() {
         document.getElementById("categoryPage").style.display = "none";
         document.getElementById("mainPage").style.display = "block";
       }
-
       function openProductDetails(product) {
         localStorage.setItem("selectedProduct", JSON.stringify(product));
         window.location.href = "details.html";
       }
-
       // Create banners dynamically based on index
       function createBannerForCategory(category, index) {
         let banner = document.createElement("div");
