@@ -12,8 +12,16 @@
   <style>
     /* Reset & Base */
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Roboto', sans-serif; background: #f0f2f5; color: #444; }
-    main { max-width: 1200px; margin: 0 auto 80px; padding: 20px; }
+    body { 
+      font-family: 'Roboto', sans-serif; 
+      background: #f0f2f5; 
+      color: #444; 
+    }
+    main { 
+      max-width: 1200px; 
+      margin: 0 auto 80px; 
+      padding: 20px; 
+    }
     
     /* HERO SECTION with Animated Gradient Background & Creative 3D Shape */
     .hero {
@@ -27,7 +35,7 @@
       background: linear-gradient(45deg, #6a11cb, #2575fc, #ff9900, #e68a00);
       background-size: 400% 400%;
       animation: gradientAnimation 15s ease infinite;
-      /* Adjusted creative slant shape */
+      /* Creative shape: a slanted bottom */
       clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
     }
     @keyframes gradientAnimation {
@@ -35,7 +43,7 @@
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
-    /* Remove interfering pseudo-element */
+    /* Remove any extra pseudo-element interfering with the content */
     .hero::after {
       content: "";
       position: absolute;
@@ -48,14 +56,16 @@
       z-index: 1;
       padding: 20px;
     }
-    /* 3D effect for the hero heading */
     .hero h1 {
       position: relative;
       font-size: 3rem;
       margin-bottom: 10px;
       font-weight: 700;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
-      transform: perspective(500px) translateZ(20px);
+      color: #fff;
+      /* Enhanced 3D and shadow effect for visibility */
+      text-shadow: 4px 4px 8px rgba(0,0,0,0.8);
+      -webkit-text-stroke: 1px black;
+      transform: perspective(500px) translateZ(30px);
     }
     .hero h1::before {
       content: attr(data-text);
@@ -71,23 +81,23 @@
       margin: 0 auto 20px;
       text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
     }
-    /* Call-to-Action Card replacing the button */
-    .cta-card {
+    /* Retaining the button; now with more top margin so it's clearly visible */
+    .hero .btn {
       position: relative;
-      display: inline-block;
+      z-index: 2;
       padding: 14px 35px;
       font-size: 1rem;
       background: linear-gradient(45deg, #6a11cb, #2575fc);
+      border: none;
       border-radius: 50px;
       color: #fff;
       cursor: pointer;
       transition: background 0.3s, transform 0.3s;
-      z-index: 2;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      margin-top: 30px; /* Increased margin to lift button upward */
     }
-    .cta-card:hover {
-      background: linear-gradient(45deg, #2575fc, #6a11cb);
-      transform: scale(1.05);
+    .hero .btn:hover { 
+      background: linear-gradient(45deg, #2575fc, #6a11cb); 
+      transform: scale(1.05); 
     }
     
     /* OFFERS GRID SECTION */
@@ -138,7 +148,6 @@
       color: #666;
       line-height: 1.5;
     }
-    /* DUMMY DATA NOTE */
     .dummy-note {
       text-align: center;
       font-size: 0.85rem;
@@ -146,11 +155,17 @@
       margin-top: 40px;
       padding: 0 20px;
     }
-    /* Responsive */
     @media (max-width: 768px) {
-      .offers-grid { flex-direction: column; align-items: center; }
-      .offer-card { width: 90%; }
-      .hero { height: 40vh; }
+      .offers-grid { 
+        flex-direction: column; 
+        align-items: center; 
+      }
+      .offer-card { 
+        width: 90%; 
+      }
+      .hero { 
+        height: 40vh; 
+      }
     }
   </style>
 </head>
@@ -162,7 +177,6 @@
         .then(response => response.text())
         .then(html => {
           document.getElementById(containerId).innerHTML = html;
-          // Re-execute scripts if needed
           const scripts = document.getElementById(containerId).querySelectorAll('script');
           scripts.forEach(oldScript => {
             const newScript = document.createElement("script");
@@ -182,19 +196,16 @@
   <div id="header-placeholder"></div>
 
   <main>
-    <!-- Hero Section -->
+    <!-- HERO SECTION -->
     <section class="hero">
       <div class="content">
         <h1 data-text="Curated Selections">Curated Selections</h1>
         <p>Discover exclusive offers and hand-picked deals from our vast collection. Elevate your shopping experience with NextGen E-commerce.</p>
-        <!-- Call-to-Action Card instead of a button -->
-        <div class="cta-card" onclick="window.location.href='ecommerce.html'">
-          Explore All Offers
-        </div>
+        <button class="btn" onclick="window.location.href='ecommerce.html'">Visit Shop</button>
       </div>
     </section>
 
-    <!-- Offers Grid Section -->
+    <!-- OFFERS GRID SECTION -->
     <section class="offers-section">
       <h2>Featured Offers</h2>
       <div class="offers-grid" id="offersGrid">
@@ -202,7 +213,7 @@
       </div>
     </section>
 
-    <!-- Dummy Data Note -->
+    <!-- DUMMY DATA NOTE -->
     <div class="dummy-note">
       <p>This page is integrated with our main E-commerce platform. Click on any offer to jump directly to the detailed section on our main site.</p>
     </div>
@@ -214,9 +225,8 @@
   </script>
   <div id="footer-placeholder"></div>
 
-  <!-- Dynamic Offers Script -->
+  <!-- DYNAMIC OFFERS SCRIPT -->
   <script>
-    // Define the offer categories to match those in your ecommerce file
     const offers = [
       {
         title: "Countdown Sales",
@@ -251,17 +261,14 @@
       const card = document.createElement('div');
       card.className = 'offer-card';
       card.onclick = () => {
-        // Navigate to ecommerce page with anchor linking to the category section
         const sectionId = "section-" + offer.title.replace(/\s/g, '');
         window.location.href = "ecommerce.html#" + sectionId;
       };
 
-      // Create the image div using Unsplash based on the offer query
       const imageDiv = document.createElement('div');
       imageDiv.className = 'offer-image';
       imageDiv.style.backgroundImage = `url('https://source.unsplash.com/300x200/?${offer.query}')`;
 
-      // Create the content div
       const contentDiv = document.createElement('div');
       contentDiv.className = 'offer-content';
       const title = document.createElement('h3');
@@ -271,10 +278,8 @@
 
       contentDiv.appendChild(title);
       contentDiv.appendChild(desc);
-
       card.appendChild(imageDiv);
       card.appendChild(contentDiv);
-
       offersGrid.appendChild(card);
     });
   </script>
