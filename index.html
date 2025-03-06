@@ -6,17 +6,19 @@
     <title>MyBusiness Premium</title>
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- External CSS (if needed) -->
+    <!-- External CSS (if any) -->
     <link rel="stylesheet" href="style.css">
     <!-- Custom JavaScript -->
     <script src="script.js" defer></script>
     <style>
       /* HERO SECTION WITH VIDEO BACKGROUND */
+      /* Header height assumed to be 60px (restored size) */
       .hero {
         position: relative;
         width: 100%;
-        height: 100vh; /* Full viewport height */
+        height: calc(100vh - 60px); /* Full viewport minus header */
         overflow: hidden;
+        background: #000; /* Fallback background */
       }
       .hero video {
         position: absolute;
@@ -28,7 +30,8 @@
         height: auto;
         z-index: -1;
         transform: translate(-50%, -50%);
-        object-fit: cover;
+        object-fit: contain; /* Ensure the full video is visible without cropping */
+        background: #000;
       }
       .hero-content {
         position: relative;
@@ -36,7 +39,7 @@
         color: #fff;
         text-align: center;
         padding: 20px;
-        background: rgba(0, 0, 0, 0.4); /* Optional dark overlay */
+        background: rgba(0, 0, 0, 0.4); /* Dark overlay for readability */
         border-radius: 8px;
         max-width: 600px;
         margin: 0 auto;
@@ -181,7 +184,7 @@
     <!-- External Footer -->
     <div id="footer-placeholder"></div>
     
-    <!-- Inline Script to load header/footer and define openPage() -->
+    <!-- Inline Script to Load Header & Footer and Define openPage() -->
     <script>
       function loadHTML(elementId, filePath) {
         fetch(filePath)
