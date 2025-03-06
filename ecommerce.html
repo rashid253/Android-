@@ -3,30 +3,33 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>NextGen E-commerce - Shop Now</title>
+    <title>MyBusiness Premium</title>
 
-    <!-- External CSS -->
+    <!-- External CSS (Optional) -->
     <link rel="stylesheet" href="style.css" />
+
     <!-- Font Awesome for icons -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
+
     <!-- Bootstrap 5 CSS -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
 
-    <!-- Inline CSS Overrides (applied after external CSS) -->
+    <!-- Inline CSS Overrides -->
     <style>
-      /* Ensure header/footer links are not blue underlined */
+      /* Ensure header/footer links are not default underlined/blue */
       header.header a,
       footer.footer a {
         color: #333 !important;
         text-decoration: none !important;
       }
-      /* Global Base Styles */
+
+      /* Global resets & base styles */
       * {
         margin: 0;
         padding: 0;
@@ -36,18 +39,20 @@
         font-family: 'Roboto', sans-serif;
         background-color: #f3f4f6;
         color: #2d3748;
-        /* Reserve space for fixed header and footer */
+        /* Space for fixed header & footer */
         padding-top: 70px;
         padding-bottom: 70px;
       }
       main {
         padding-bottom: 100px;
       }
-      /* HERO SECTION */
+
+      /* Hero Section (matching "Required" screenshot) */
       .hero {
         position: relative;
         min-height: 500px;
-        background: linear-gradient(135deg, #2a2a72, #009ffd);
+        /* Blue gradient background */
+        background: linear-gradient(135deg, #0d6efd, #0a58ca);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -57,33 +62,39 @@
       .hero-content {
         position: relative;
         z-index: 2;
+        max-width: 600px;
+        margin: 0 auto;
         padding: 0 20px;
       }
       .hero-content h1 {
-        font-size: 3rem;
+        font-size: 2.2rem;
         font-weight: bold;
         margin-bottom: 1rem;
         color: #fff;
       }
       .hero-content p {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
         margin-bottom: 1.5rem;
         color: #fff;
+        line-height: 1.4;
       }
-      .hero-content .btn {
-        font-size: 1.1rem;
-        padding: 0.75rem 1.5rem;
-        background-color: #ff9900;
-        border: none;
-        border-radius: 4px;
+      .cta-buttons {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      .cta-buttons a.btn {
+        border-radius: 25px;
+        padding: 0.6rem 1.5rem;
+        font-size: 1rem;
         color: #fff;
-        transition: background 0.3s, transform 0.3s;
       }
-      .hero-content .btn:hover {
-        background-color: #e68a00;
-        transform: scale(1.05);
+      .cta-buttons a.btn:hover {
+        opacity: 0.9;
       }
-      /* CATEGORY NAVIGATION (Below Hero) */
+
+      /* Category Navigation (Below Hero) */
       #categoriesNav {
         margin: 20px 0;
       }
@@ -115,7 +126,8 @@
         color: #007bff;
         margin-bottom: 5px;
       }
-      /* HORIZONTAL SCROLL for product tiles */
+
+      /* Horizontal Scroll for product tiles */
       .horizontal-scroll {
         display: flex;
         overflow-x: auto;
@@ -126,7 +138,8 @@
       .horizontal-scroll::-webkit-scrollbar {
         display: none;
       }
-      /* BANNER STYLES */
+
+      /* Banners */
       .banner {
         margin: 1rem 0;
         border-radius: 8px;
@@ -184,7 +197,8 @@
         height: 100%;
         object-fit: contain;
       }
-      /* PRODUCT TILE STYLES */
+
+      /* Product Tiles */
       .product-tile {
         min-width: 150px;
         margin-right: 0.75rem;
@@ -242,11 +256,11 @@
       }
     </style>
 
-    <!-- External Global JS (contains functions like openPage, toggleSideMenu, etc.) -->
+    <!-- External JS for any global functions -->
     <script src="script.js" defer></script>
   </head>
   <body>
-    <!-- External Header (loaded from header.html) -->
+    <!-- External Header (header.html) -->
     <div id="header-placeholder"></div>
 
     <!-- MAIN CONTENT -->
@@ -254,9 +268,16 @@
       <!-- HERO SECTION -->
       <section class="hero">
         <div class="hero-content">
-          <h1>Welcome to NextGen E-commerce</h1>
-          <p>Your one‑stop shop for the latest trends &amp; exclusive deals.</p>
-          <a href="#categoriesContainer" class="btn">Shop Now</a>
+          <h1>Premium Business Solutions</h1>
+          <p>
+            Experience secure transactions, exclusive offers, and a seamless
+            interface with our next-generation mobile app.
+          </p>
+          <div class="cta-buttons">
+            <!-- "Shop Now" scrolls to categories; "Learn More" can link anywhere you want -->
+            <a href="#categoriesNav" class="btn btn-success">Shop Now</a>
+            <a href="#" class="btn btn-primary">Learn More</a>
+          </div>
         </div>
       </section>
 
@@ -283,7 +304,7 @@
       </div>
     </main>
 
-    <!-- External Footer (loaded from footer.html) -->
+    <!-- External Footer (footer.html) -->
     <div id="footer-placeholder"></div>
 
     <!-- Bootstrap Bundle JS -->
@@ -291,12 +312,11 @@
 
     <!-- DYNAMIC LOADING & INITIALIZATION SCRIPT -->
     <script>
-      // Function to load external HTML into a placeholder element
+      // Load external HTML for header & footer
       function loadHTML(elementId, filePath) {
         fetch(filePath)
-          .then(response => {
+          .then((response) => {
             if (!response.ok) {
-              // Fallback content if the file is not found
               if (elementId === "header-placeholder") {
                 document.getElementById(elementId).innerHTML =
                   '<header class="header" style="background:#333;color:#fff;padding:10px;text-align:center;">Header</header>';
@@ -308,14 +328,12 @@
             }
             return response.text();
           })
-          .then(html => {
+          .then((html) => {
             document.getElementById(elementId).innerHTML = html;
           })
-          .catch(error => console.error(error));
+          .catch((error) => console.error(error));
       }
-      
-      // When the document is ready, load the external header and footer,
-      // then initialize the page content.
+
       document.addEventListener("DOMContentLoaded", function () {
         loadHTML("header-placeholder", "header.html");
         loadHTML("footer-placeholder", "footer.html");
@@ -323,7 +341,7 @@
         initMainPage();
       });
 
-      /* --- Dummy Product Data and JS Functions --- */
+      // Dummy product data
       const productData = {
         "Countdown Sales": [
           {
@@ -472,6 +490,7 @@
         ]
       };
 
+      // 1) Initialize category navigation
       function initCategoriesNav() {
         const navContainer = document.getElementById("categoriesNavContainer");
         navContainer.innerHTML = "";
@@ -485,6 +504,7 @@
           backToMain();
         };
         navContainer.appendChild(allTile);
+
         // One tile per category
         for (let category in productData) {
           let btn = document.createElement("div");
@@ -520,6 +540,7 @@
         }
       }
 
+      // 2) Mark the selected category as active
       function setActiveCategory(category) {
         let buttons = document.querySelectorAll(".category-button");
         buttons.forEach((btn) => btn.classList.remove("active-category"));
@@ -533,6 +554,7 @@
         }
       }
 
+      // 3) Generate star icons
       function generateStars(rating) {
         let html = "";
         let fullStars = Math.floor(rating);
@@ -546,6 +568,7 @@
         return html;
       }
 
+      // 4) Initialize the main page (banners + horizontal scroll tiles)
       function initMainPage() {
         document.getElementById("mainPage").style.display = "block";
         document.getElementById("categoryPage").style.display = "none";
@@ -553,8 +576,11 @@
         container.innerHTML = "";
         let index = 0;
         for (let category in productData) {
+          // Insert a banner
           let banner = createBannerForCategory(category, index);
           container.appendChild(banner);
+
+          // Category heading + horizontal scroll container
           let section = document.createElement("div");
           section.id = "section-" + category.replace(/\s/g, '');
           section.innerHTML = `
@@ -562,7 +588,11 @@
             <div class="horizontal-scroll" id="scroll-${category.replace(/\s/g, '')}"></div>
           `;
           container.appendChild(section);
-          let scrollContainer = document.getElementById(`scroll-${category.replace(/\s/g, '')}`);
+
+          // Populate product tiles
+          let scrollContainer = document.getElementById(
+            `scroll-${category.replace(/\s/g, '')}`
+          );
           productData[category].forEach((product) => {
             let tile = document.createElement("div");
             tile.className = "product-tile";
@@ -583,6 +613,8 @@
           });
           index++;
         }
+
+        // Initialize carousels if any
         document.querySelectorAll(".carousel").forEach(function (carouselElement) {
           new bootstrap.Carousel(carouselElement, {
             interval: 3000,
@@ -591,6 +623,7 @@
         });
       }
 
+      // 5) Open category page with a vertical grid
       function openCategoryPage(category) {
         window.currentCategory = category;
         document.getElementById("mainPage").style.display = "none";
@@ -621,16 +654,19 @@
         });
       }
 
+      // 6) Back to the main categories page
       function backToMain() {
         document.getElementById("categoryPage").style.display = "none";
         document.getElementById("mainPage").style.display = "block";
       }
 
+      // 7) Open product details (demo - simply store in localStorage & go to details.html)
       function openProductDetails(product) {
         localStorage.setItem("selectedProduct", JSON.stringify(product));
         window.location.href = "details.html";
       }
 
+      // 8) Banners for each category
       function createBannerForCategory(category, index) {
         let banner = document.createElement("div");
         banner.className = "banner";
