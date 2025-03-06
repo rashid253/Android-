@@ -9,6 +9,11 @@
     box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
     z-index: 1000 !important;
   }
+  /* Ensure links in header use our styles (override global defaults) */
+  .header a {
+    text-decoration: none !important;
+    color: inherit !important;
+  }
   /* Badge: Round red circle */
   .badge {
     display: inline-block;
@@ -23,13 +28,13 @@
   }
   /* Desktop Navigation */
   .nav-desktop a {
-    text-decoration: none; /* Remove underline */
-    color: #333;           /* Set desired text color */
+    text-decoration: none !important;
+    color: #333 !important;
     font-size: 1.2rem;
     transition: color 0.3s;
   }
   .nav-desktop a:hover {
-    color: #007bff;
+    color: #007bff !important;
   }
   /* Side Menu: Reduce width to 180px */
   .side-menu {
@@ -121,10 +126,12 @@
 <script>
   // Inline JavaScript for header functionality
   document.addEventListener("DOMContentLoaded", function() {
+    // Navigation function
     window.openPage = function(url) {
       window.location.href = url;
     };
 
+    // Toggle side menu for mobile
     window.toggleSideMenu = function() {
       const sideMenu = document.getElementById("side-menu");
       if (sideMenu) {
@@ -132,6 +139,7 @@
       }
     };
 
+    // Close side menu when clicking outside
     document.addEventListener("click", function(event) {
       const sideMenu = document.getElementById("side-menu");
       const menuToggle = document.querySelector(".menu-toggle");
@@ -145,6 +153,7 @@
       }
     });
 
+    // Dummy cart count update
     function updateCartCount() {
       var count = localStorage.getItem("cartCount") || 3;
       if (document.getElementById("cartCount")) {
