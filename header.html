@@ -1,207 +1,156 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <title>Header</title>
-    <!-- Font Awesome for icons (optional if used in header) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-      /* Header Inline CSS */
-      .header {
-        position: fixed !important;
-        top: 0 !important;
-        left: 0 !important;
-        width: 100% !important;
-        background: #fff !important;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
-        z-index: 1000 !important;
-      }
-      .header-content {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 10px 15px;
-      }
-      .brand {
-        font-size: 1.5rem;
-        font-weight: 700;
-        color: #007bff;
-        display: flex;
-        align-items: center;
-      }
-      .brand i {
-        margin-right: 8px;
-        font-size: 1.8rem;
-        color: #007bff;
-      }
-      .menu-toggle {
-        background: none;
-        border: none;
-        color: #007bff;
-        font-size: 1.8rem;
-        cursor: pointer;
-        display: block;
-      }
-      .nav-desktop {
-        display: none;
-      }
-      @media (min-width: 600px) {
-        .menu-toggle { display: none; }
-        .nav-desktop {
-          display: flex;
-          gap: 20px;
-        }
-        .nav-desktop a {
-          text-decoration: none;
-          color: #333;
-          font-size: 1.2rem;
-          transition: color 0.3s;
-        }
-        .nav-desktop a:hover { color: #007bff; }
-      }
-      .badge {
-        display: inline-block;
-        min-width: 20px;
-        height: 20px;
-        line-height: 20px;
-        border-radius: 50%;
-        text-align: center;
-        font-size: 0.75rem;
-        color: #fff;
-        background: red;
-      }
-      .side-menu {
-        position: fixed;
-        top: 70px;
-        right: 0;
-        width: 180px;
-        background: #fff;
-        box-shadow: -2px 0 4px rgba(0,0,0,0.1);
-        padding: 20px;
-        display: none;
-        flex-direction: column;
-        z-index: 1001;
-      }
-      .side-menu.visible {
-        display: flex;
-      }
-      .side-menu a {
-        margin-bottom: 10px;
-        color: #333;
-        text-decoration: none;
-      }
-    </style>
-  </head>
-  <body>
-    <header class="header">
-      <div class="header-content">
-        <div class="brand">
-          <i class="fas fa-briefcase"></i>
-          <span>MyBusiness</span>
-        </div>
-        <!-- Desktop Navigation -->
-        <nav class="nav-desktop">
-          <a href="index.html" onclick="openPage('index.html')">
-            <i class="fas fa-home"></i>
-          </a>
-          <a href="offers.html" onclick="openPage('offers.html')">
-            <i class="fas fa-tags"></i>
-          </a>
-          <a href="analytics.html" onclick="openPage('analytics.html')">
-            <i class="fas fa-chart-line"></i>
-          </a>
-          <a href="cart.html" onclick="openPage('cart.html')" style="position: relative;">
-            <i class="fas fa-shopping-cart"></i>
-            <span>Cart</span>
-            <span id="cartCount" class="badge" style="position: absolute; top: -5px; right: -10px;">0</span>
-          </a>
-          <a href="more.html" onclick="openPage('more.html')">
-            <i class="fas fa-ellipsis-h"></i>
-          </a>
-        </nav>
-        <!-- Hamburger for Mobile -->
-        <button class="menu-toggle" onclick="toggleSideMenu()">
-          <i class="fas fa-bars"></i>
-        </button>
-      </div>
-      <!-- Mobile Side Menu -->
-      <aside id="side-menu" class="side-menu">
-        <a href="index.html" onclick="openPage('index.html'); toggleSideMenu()">Home</a>
-        <a href="offers.html" onclick="openPage('offers.html'); toggleSideMenu()">Offers</a>
-        <a href="analytics.html" onclick="openPage('analytics.html'); toggleSideMenu()">Analytics</a>
-        <a href="cart.html" onclick="openPage('cart.html'); toggleSideMenu()" style="position: relative;">
-          Cart
-          <span id="cartCountMobile" class="badge" style="position: absolute; top: 3px; right: -2px;">0</span>
-        </a>
-        <a href="more.html" onclick="openPage('more.html'); toggleSideMenu()">More</a>
-      </aside>
-      <!-- Mobile Bottom Navigation -->
-      <nav class="mobile-nav">
-        <a href="index.html" onclick="openPage('index.html')">
-          <i class="fas fa-home"></i><span>Home</span>
-        </a>
-        <a href="offers.html" onclick="openPage('offers.html')">
-          <i class="fas fa-tags"></i><span>Offers</span>
-        </a>
-        <a href="analytics.html" onclick="openPage('analytics.html')">
-          <i class="fas fa-chart-line"></i><span>Analytics</span>
-        </a>
-        <a href="cart.html" onclick="openPage('cart.html')" style="position: relative;">
-          <i class="fas fa-shopping-cart"></i>
-          <span>Cart</span>
-          <span id="cartCountMobileBottom" class="badge" style="position: absolute; top: -5px; right: -10px;">0</span>
-        </a>
-        <a href="more.html" onclick="openPage('more.html')">
-          <i class="fas fa-ellipsis-h"></i><span>More</span>
-        </a>
-      </nav>
-    </header>
+<style>
+  /* Fixed Header */
+  .header {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    background: #fff !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+    z-index: 1000 !important;
+  }
+  /* Badge: Round red circle */
+  .badge {
+    display: inline-block;
+    min-width: 20px;
+    height: 20px;
+    line-height: 20px;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 0.75rem;
+    color: #fff;
+    background: red;
+  }
+  /* Side Menu: Reduce width to 180px */
+  .side-menu {
+    position: fixed;
+    top: 70px;
+    right: 0;
+    width: 180px;
+    background: #fff;
+    box-shadow: -2px 0 4px rgba(0,0,0,0.1);
+    padding: 20px;
+    display: none;
+    flex-direction: column;
+    z-index: 1001;
+  }
+  .side-menu.visible {
+    display: flex;
+  }
+  .side-menu a {
+    margin-bottom: 10px;
+    color: #333;
+    text-decoration: none;
+  }
+</style>
 
-    <!-- Header Inline JavaScript -->
-    <script>
-      document.addEventListener("DOMContentLoaded", function() {
-        // Function to navigate to a page
-        window.openPage = function(url) {
-          window.location.href = url;
-        };
+<header class="header">
+  <div class="header-content">
+    <div class="brand">
+      <i class="fas fa-briefcase"></i>
+      <span>MyBusiness</span>
+    </div>
+    <!-- Desktop Navigation -->
+    <nav class="nav-desktop">
+      <a href="index.html" onclick="openPage('index.html')">
+        <i class="fas fa-home"></i>
+      </a>
+      <a href="offers.html" onclick="openPage('offers.html')">
+        <i class="fas fa-tags"></i>
+      </a>
+      <a href="analytics.html" onclick="openPage('analytics.html')">
+        <i class="fas fa-chart-line"></i>
+      </a>
+      <a href="cart.html" onclick="openPage('cart.html')" style="position: relative;">
+        <i class="fas fa-shopping-cart"></i>
+        <span>Cart</span>
+        <span id="cartCount" class="badge" style="position: absolute; top: -5px; right: -10px;">0</span>
+      </a>
+      <a href="more.html" onclick="openPage('more.html')">
+        <i class="fas fa-ellipsis-h"></i>
+      </a>
+    </nav>
+    <!-- Hamburger for Mobile -->
+    <button class="menu-toggle" onclick="toggleSideMenu()">
+      <i class="fas fa-bars"></i>
+    </button>
+  </div>
+  <!-- Mobile Side Menu (Drop-down) -->
+  <aside id="side-menu" class="side-menu">
+    <a href="index.html" onclick="openPage('index.html'); toggleSideMenu()">Home</a>
+    <a href="offers.html" onclick="openPage('offers.html'); toggleSideMenu()">Offers</a>
+    <a href="analytics.html" onclick="openPage('analytics.html'); toggleSideMenu()">Analytics</a>
+    <a href="cart.html" onclick="openPage('cart.html'); toggleSideMenu()" style="position: relative;">
+      Cart
+      <span id="cartCountMobile" class="badge" style="position: absolute; top: 3px; right: -2px;">0</span>
+    </a>
+    <a href="more.html" onclick="openPage('more.html'); toggleSideMenu()">More</a>
+  </aside>
+  <!-- Mobile Bottom Navigation -->
+  <nav class="mobile-nav">
+    <a href="index.html" onclick="openPage('index.html')">
+      <i class="fas fa-home"></i><span>Home</span>
+    </a>
+    <a href="offers.html" onclick="openPage('offers.html')">
+      <i class="fas fa-tags"></i><span>Offers</span>
+    </a>
+    <a href="analytics.html" onclick="openPage('analytics.html')">
+      <i class="fas fa-chart-line"></i><span>Analytics</span>
+    </a>
+    <a href="cart.html" onclick="openPage('cart.html')" style="position: relative;">
+      <i class="fas fa-shopping-cart"></i>
+      <span>Cart</span>
+      <span id="cartCountMobileBottom" class="badge" style="position: absolute; top: -5px; right: -10px;">0</span>
+    </a>
+    <a href="more.html" onclick="openPage('more.html')">
+      <i class="fas fa-ellipsis-h"></i><span>More</span>
+    </a>
+  </nav>
+</header>
 
-        // Toggle mobile side menu
-        window.toggleSideMenu = function() {
-          const sideMenu = document.getElementById("side-menu");
-          if (sideMenu) {
-            sideMenu.classList.toggle("visible");
-          }
-        };
+<script>
+  // Inline JavaScript for header functionality
+  document.addEventListener("DOMContentLoaded", function() {
+    // Function to navigate to a page
+    window.openPage = function(url) {
+      window.location.href = url;
+    };
 
-        // Close side menu when clicking outside of it and the toggle button
-        document.addEventListener("click", function(event) {
-          const sideMenu = document.getElementById("side-menu");
-          const menuToggle = document.querySelector(".menu-toggle");
-          if (
-            sideMenu &&
-            sideMenu.classList.contains("visible") &&
-            !sideMenu.contains(event.target) &&
-            !menuToggle.contains(event.target)
-          ) {
-            sideMenu.classList.remove("visible");
-          }
-        });
+    // Toggle mobile side menu
+    window.toggleSideMenu = function() {
+      const sideMenu = document.getElementById("side-menu");
+      if (sideMenu) {
+        sideMenu.classList.toggle("visible");
+      }
+    };
 
-        // Dummy function to update the cart count badge
-        function updateCartCount() {
-          var count = localStorage.getItem("cartCount") || 3;
-          if (document.getElementById("cartCount")) {
-            document.getElementById("cartCount").innerText = count;
-          }
-          if (document.getElementById("cartCountMobile")) {
-            document.getElementById("cartCountMobile").innerText = count;
-          }
-          if (document.getElementById("cartCountMobileBottom")) {
-            document.getElementById("cartCountMobileBottom").innerText = count;
-          }
-        }
-        updateCartCount();
-      });
-    </script>
-  </body>
-</html>
+    // Close side menu when clicking outside of it and the toggle button
+    document.addEventListener("click", function(event) {
+      const sideMenu = document.getElementById("side-menu");
+      const menuToggle = document.querySelector(".menu-toggle");
+      if (
+        sideMenu &&
+        sideMenu.classList.contains("visible") &&
+        !sideMenu.contains(event.target) &&
+        !menuToggle.contains(event.target)
+      ) {
+        sideMenu.classList.remove("visible");
+      }
+    });
+
+    // Dummy function to update the cart count badge
+    function updateCartCount() {
+      var count = localStorage.getItem("cartCount") || 3;
+      if (document.getElementById("cartCount")) {
+        document.getElementById("cartCount").innerText = count;
+      }
+      if (document.getElementById("cartCountMobile")) {
+        document.getElementById("cartCountMobile").innerText = count;
+      }
+      if (document.getElementById("cartCountMobileBottom")) {
+        document.getElementById("cartCountMobileBottom").innerText = count;
+      }
+    }
+    updateCartCount();
+  });
+</script>
