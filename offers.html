@@ -35,7 +35,7 @@
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
-    /* Removed any extra pseudo-element interfering with content */
+    /* Remove interfering pseudo-element */
     .hero::after {
       content: "";
       position: absolute;
@@ -71,21 +71,23 @@
       margin: 0 auto 20px;
       text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
     }
-    .hero .btn {
-      position: relative; /* Ensure the button is above any overlay */
-      z-index: 2;
+    /* Call-to-Action Card replacing the button */
+    .cta-card {
+      position: relative;
+      display: inline-block;
       padding: 14px 35px;
       font-size: 1rem;
       background: linear-gradient(45deg, #6a11cb, #2575fc);
-      border: none;
       border-radius: 50px;
       color: #fff;
       cursor: pointer;
       transition: background 0.3s, transform 0.3s;
+      z-index: 2;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
     }
-    .hero .btn:hover { 
-      background: linear-gradient(45deg, #2575fc, #6a11cb); 
-      transform: scale(1.05); 
+    .cta-card:hover {
+      background: linear-gradient(45deg, #2575fc, #6a11cb);
+      transform: scale(1.05);
     }
     
     /* OFFERS GRID SECTION */
@@ -185,7 +187,10 @@
       <div class="content">
         <h1 data-text="Curated Selections">Curated Selections</h1>
         <p>Discover exclusive offers and hand-picked deals from our vast collection. Elevate your shopping experience with NextGen E-commerce.</p>
-        <button class="btn" onclick="window.location.href='ecommerce.html'">Explore All Offers</button>
+        <!-- Call-to-Action Card instead of a button -->
+        <div class="cta-card" onclick="window.location.href='ecommerce.html'">
+          Explore All Offers
+        </div>
       </div>
     </section>
 
