@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MyBusiness Premium - E-commerce</title>
+
     <!-- Font Awesome for icons -->
     <link
       rel="stylesheet"
@@ -11,22 +12,28 @@
     />
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css" />
-    <!-- Custom JavaScript (if needed) -->
+    <!-- Bootstrap 5 CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- External JS (script.js) -->
     <script src="script.js" defer></script>
+
     <!-- Inline CSS Overrides -->
     <style>
-      /* Ensure links in header and footer use desired styles */
+      /* Ensure header/footer links use desired styling */
       header.header a,
       footer.footer a {
         color: #333 !important;
         text-decoration: none !important;
       }
-      /* Reserve space for fixed header/footer */
+      /* Reserve space for fixed header and footer */
       body {
         padding-top: 70px;
         padding-bottom: 70px;
       }
-      /* A simple hero section for ecommerce.html */
+      /* Minimal hero styling */
       .hero {
         background: #f8f9fa;
         text-align: center;
@@ -40,7 +47,7 @@
         font-size: 1.1rem;
         margin-bottom: 1.5rem;
       }
-      .hero button {
+      .cta-buttons button {
         padding: 0.75rem 1.5rem;
         font-size: 1rem;
         border: none;
@@ -49,24 +56,13 @@
         border-radius: 4px;
         cursor: pointer;
       }
-      .hero button:hover {
+      .cta-buttons button:hover {
         opacity: 0.9;
-      }
-      /* Minimal styling for product section */
-      .products {
-        padding: 40px 20px;
-      }
-      .products h2 {
-        text-align: center;
-        margin-bottom: 20px;
-      }
-      .products p {
-        text-align: center;
       }
     </style>
   </head>
   <body>
-    <!-- Header Placeholder: external header.html will be loaded here -->
+    <!-- Header Placeholder (external header.html will be loaded here) -->
     <div id="header-placeholder"></div>
 
     <!-- Main Content -->
@@ -76,55 +72,53 @@
         <div class="hero-content">
           <h1>Welcome to NextGen E-commerce</h1>
           <p>Your one‑stop shop for the latest trends &amp; exclusive deals.</p>
-          <!-- Example button to navigate back to index.html (like your Shop Now in index) -->
-          <button onclick="openPage('index.html')">Back to Home</button>
+          <div class="cta-buttons">
+            <!-- Use openPage to navigate (overridden below) -->
+            <button onclick="openPage('index.html')">Home</button>
+            <button onclick="openPage('about.html')">Learn More</button>
+          </div>
         </div>
       </section>
 
-      <!-- Products / Categories Section (Placeholder Content) -->
+      <!-- (Optional) Additional sections such as product categories can be added here -->
       <section class="products">
         <div class="container">
-          <h2>Featured Products</h2>
-          <p>(Products will be loaded here...)</p>
+          <h2 class="text-center">Featured Products</h2>
+          <p class="text-center">(Products will be loaded here...)</p>
         </div>
       </section>
     </main>
 
-    <!-- Footer Placeholder: external footer.html will be loaded here -->
+    <!-- Footer Placeholder (external footer.html will be loaded here) -->
     <div id="footer-placeholder"></div>
 
-    <!-- Inline Script to Load External Header and Footer -->
+    <!-- Inline Script: Load external header and footer and override openPage -->
     <script>
-      /**
-       * Loads external HTML into a given element.
-       * This function is identical to the one in your index.html.
-       */
+      // Override openPage to navigate in the same tab.
+      function openPage(page) {
+        window.location.href = page;
+      }
+      // Function to load external HTML into a placeholder element.
       function loadHTML(elementId, filePath) {
         fetch(filePath)
-          .then(response => {
+          .then((response) => {
             if (!response.ok) {
               throw new Error("Error fetching " + filePath);
             }
             return response.text();
           })
-          .then(html => {
+          .then((html) => {
             document.getElementById(elementId).innerHTML = html;
           })
-          .catch(error => console.error(error));
+          .catch((error) => console.error(error));
       }
-
-      /**
-       * Navigates to a different page.
-       */
-      function openPage(page) {
-        window.location.href = page;
-      }
-
-      // On DOMContentLoaded, load header.html and footer.html.
-      document.addEventListener("DOMContentLoaded", function() {
+      document.addEventListener("DOMContentLoaded", function () {
         loadHTML("header-placeholder", "header.html");
         loadHTML("footer-placeholder", "footer.html");
       });
     </script>
+
+    <!-- Bootstrap Bundle JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
