@@ -2,14 +2,84 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>MyBusiness Premium</title>
   <!-- Font Awesome for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <!-- External CSS -->
+  <!-- External CSS (your style.css) -->
   <link rel="stylesheet" href="style.css">
-  <!-- External JavaScript -->
+  <!-- External JavaScript (your script.js) -->
   <script src="script.js" defer></script>
+  <!-- Inline Hero Styles to ensure proper layering -->
+  <style>
+    /* HERO SECTION (overrides only hero-related styles if needed) */
+    .hero {
+      position: relative;
+      overflow: hidden;
+      height: 100vh; /* Full viewport height */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: #fff;
+      background: #007bff; /* Fallback background */
+    }
+    .hero video.hero-video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 1;
+    }
+    .hero .video-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.4);
+      z-index: 2;
+    }
+    .hero .hero-content {
+      position: relative;
+      z-index: 3;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .hero h1 {
+      font-size: 2.8rem;
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+    .hero p {
+      font-size: 1.1rem;
+      margin-bottom: 30px;
+      line-height: 1.5;
+    }
+    .cta-buttons button {
+      background: #28a745;
+      border: none;
+      padding: 12px 25px;
+      font-size: 1rem;
+      color: #fff;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      margin: 5px;
+    }
+    .cta-buttons button:hover {
+      background: #218838;
+    }
+    /* Ensure main content isn’t overlapped by fixed header/mobile nav */
+    main {
+      /* The body padding (set in style.css) already reserves space for the fixed header (70px)
+         and fixed mobile nav (70px) */
+      display: block;
+    }
+  </style>
 </head>
 <body>
   <!-- Header (inlined from header.html) -->
@@ -21,23 +91,15 @@
       </div>
       <!-- Desktop Navigation -->
       <nav class="nav-desktop">
-        <a href="index.html" onclick="openPage('index.html')">
-          <i class="fas fa-home"></i>
-        </a>
-        <a href="offers.html" onclick="openPage('offers.html')">
-          <i class="fas fa-tags"></i>
-        </a>
-        <a href="analytics.html" onclick="openPage('analytics.html')">
-          <i class="fas fa-chart-line"></i>
-        </a>
+        <a href="index.html" onclick="openPage('index.html')"><i class="fas fa-home"></i></a>
+        <a href="offers.html" onclick="openPage('offers.html')"><i class="fas fa-tags"></i></a>
+        <a href="analytics.html" onclick="openPage('analytics.html')"><i class="fas fa-chart-line"></i></a>
         <a href="cart.html" onclick="openPage('cart.html')" style="position: relative;">
           <i class="fas fa-shopping-cart"></i>
           <span>Cart</span>
           <span id="cartCount" class="badge" style="position: absolute; top: -5px; right: -10px;">0</span>
         </a>
-        <a href="more.html" onclick="openPage('more.html')">
-          <i class="fas fa-ellipsis-h"></i>
-        </a>
+        <a href="more.html" onclick="openPage('more.html')"><i class="fas fa-ellipsis-h"></i></a>
       </nav>
       <!-- Hamburger for Mobile -->
       <button class="menu-toggle" onclick="toggleSideMenu()">
@@ -76,7 +138,7 @@
       </a>
     </nav>
   </header>
-
+  
   <!-- Main Content -->
   <main>
     <!-- Hero Section -->
@@ -88,9 +150,7 @@
       <div class="video-overlay"></div>
       <div class="hero-content">
         <h1>Premium Business Solutions</h1>
-        <p>
-          Experience secure transactions, exclusive offers, and a seamless interface with our next-generation mobile app.
-        </p>
+        <p>Experience secure transactions, exclusive offers, and a seamless interface with our next-generation mobile app.</p>
         <div class="cta-buttons">
           <button onclick="openPage('ecommerce.html')">Shop Now</button>
           <button onclick="openPage('about.html')">Learn More</button>
@@ -122,7 +182,7 @@
       </div>
     </section>
   </main>
-
+  
   <!-- Footer (inlined from footer.html) -->
   <footer class="footer">
     <div class="footer-container">
