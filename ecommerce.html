@@ -3,298 +3,51 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MyBusiness Premium</title>
-
-    <!-- External CSS (Optional) -->
-    <link rel="stylesheet" href="style.css" />
+    <title>MyBusiness Premium - E-commerce</title>
 
     <!-- Font Awesome for icons -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
-
-    <!-- Bootstrap 5 CSS -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-
-    <!-- Inline CSS Overrides -->
-    <style>
-      /* Ensure header/footer links are not default underlined/blue */
-      header.header a,
-      footer.footer a {
-        color: #333 !important;
-        text-decoration: none !important;
-      }
-
-      /* Global resets & base styles */
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-      body {
-        font-family: 'Roboto', sans-serif;
-        background-color: #f3f4f6;
-        color: #2d3748;
-        /* Space for fixed header & footer */
-        padding-top: 70px;
-        padding-bottom: 70px;
-      }
-      main {
-        padding-bottom: 100px;
-      }
-
-      /* Hero Section (matching "Required" screenshot) */
-      .hero {
-        position: relative;
-        min-height: 500px;
-        /* Blue gradient background */
-        background: linear-gradient(135deg, #0d6efd, #0a58ca);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        overflow: hidden;
-      }
-      .hero-content {
-        position: relative;
-        z-index: 2;
-        max-width: 600px;
-        margin: 0 auto;
-        padding: 0 20px;
-      }
-      .hero-content h1 {
-        font-size: 2.2rem;
-        font-weight: bold;
-        margin-bottom: 1rem;
-        color: #fff;
-      }
-      .hero-content p {
-        font-size: 1.1rem;
-        margin-bottom: 1.5rem;
-        color: #fff;
-        line-height: 1.4;
-      }
-      .cta-buttons {
-        display: flex;
-        gap: 1rem;
-        justify-content: center;
-        flex-wrap: wrap;
-      }
-      .cta-buttons a.btn {
-        border-radius: 25px;
-        padding: 0.6rem 1.5rem;
-        font-size: 1rem;
-        color: #fff;
-      }
-      .cta-buttons a.btn:hover {
-        opacity: 0.9;
-      }
-
-      /* Category Navigation (Below Hero) */
-      #categoriesNav {
-        margin: 20px 0;
-      }
-      #categoriesNavContainer {
-        display: flex;
-        justify-content: center;
-        gap: 15px;
-        flex-wrap: wrap;
-      }
-      .category-button {
-        background: #fff;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-        padding: 10px 15px;
-        cursor: pointer;
-        text-align: center;
-        max-width: 150px;
-        transition: background 0.3s, border-color 0.3s;
-      }
-      .category-button:hover {
-        background: #f0f0f0;
-      }
-      .active-category {
-        background: #e0f7fa !important;
-        border-color: #00acc1 !important;
-      }
-      .category-icon {
-        font-size: 1.5rem;
-        color: #007bff;
-        margin-bottom: 5px;
-      }
-
-      /* Horizontal Scroll for product tiles */
-      .horizontal-scroll {
-        display: flex;
-        overflow-x: auto;
-        gap: 1rem;
-        padding-bottom: 1rem;
-        margin-bottom: 2rem;
-      }
-      .horizontal-scroll::-webkit-scrollbar {
-        display: none;
-      }
-
-      /* Banners */
-      .banner {
-        margin: 1rem 0;
-        border-radius: 8px;
-        overflow: hidden;
-        background: #fff;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        height: 150px;
-      }
-      .banner img {
-        width: 100%;
-        height: 150px;
-        object-fit: cover;
-      }
-      .fullwidth-banner {
-        position: relative;
-      }
-      .fullwidth-banner img {
-        height: 150px;
-        opacity: 0.85;
-      }
-      .fullwidth-banner .banner-text {
-        position: absolute;
-        top: 50%;
-        left: 10%;
-        transform: translateY(-50%);
-        color: #fff;
-        font-size: 1.2rem;
-        font-weight: bold;
-      }
-      .accordion-banner .accordion-button {
-        font-weight: bold;
-        font-size: 1rem;
-      }
-      .three-part-banner {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        height: 150px;
-        padding: 0 1rem;
-      }
-      .three-part-banner .banner-title {
-        flex: 1;
-        font-size: 1.2rem;
-        font-weight: bold;
-      }
-      .three-part-banner .banner-desc {
-        flex: 2;
-        font-size: 1rem;
-      }
-      .three-part-banner .banner-img {
-        flex: 1;
-        text-align: right;
-      }
-      .three-part-banner .banner-img img {
-        height: 100%;
-        object-fit: contain;
-      }
-
-      /* Product Tiles */
-      .product-tile {
-        min-width: 150px;
-        margin-right: 0.75rem;
-        cursor: pointer;
-      }
-      .product-tile .card {
-        border: none;
-        border-radius: 8px;
-        overflow: hidden;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
-      }
-      .product-tile .card img {
-        width: 100%;
-        height: 180px;
-        object-fit: cover;
-      }
-      .product-details {
-        text-align: center;
-        margin-top: 4px;
-      }
-      .product-price {
-        font-weight: bold;
-        color: #e4393c;
-        font-size: 1.1rem;
-        margin: 0;
-      }
-      .product-old-price {
-        text-decoration: line-through;
-        color: #999;
-        margin-left: 5px;
-        font-size: 0.9rem;
-      }
-      .star-rating {
-        margin: 2px 0;
-      }
-      .star-rating i {
-        font-size: 1rem;
-        color: #ffc107;
-        transition: transform 0.2s ease;
-      }
-      .star-rating i:hover {
-        transform: scale(1.1);
-      }
-      .product-stats small {
-        font-size: 0.75rem;
-        color: #666;
-      }
-      @media (max-width: 576px) {
-        .product-tile {
-          min-width: 130px;
-        }
-        .product-tile .card img {
-          height: 150px;
-        }
-      }
-    </style>
-
-    <!-- External JS for any global functions -->
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css" />
+    <!-- Custom JavaScript -->
     <script src="script.js" defer></script>
   </head>
   <body>
-    <!-- External Header (header.html) -->
+    <!-- Header Placeholder -->
     <div id="header-placeholder"></div>
 
-    <!-- MAIN CONTENT -->
+    <!-- Main Content -->
     <main>
-      <!-- HERO SECTION -->
+      <!-- Hero Section -->
       <section class="hero">
         <div class="hero-content">
-          <h1>Premium Business Solutions</h1>
-          <p>
-            Experience secure transactions, exclusive offers, and a seamless
-            interface with our next-generation mobile app.
-          </p>
+          <h1>Welcome to NextGen E-commerce</h1>
+          <p>Your one‑stop shop for the latest trends &amp; exclusive deals.</p>
           <div class="cta-buttons">
-            <!-- "Shop Now" scrolls to categories; "Learn More" can link anywhere you want -->
-            <a href="#categoriesNav" class="btn btn-success">Shop Now</a>
-            <a href="#" class="btn btn-primary">Learn More</a>
+            <!-- Example: Link back to index or other pages -->
+            <button onclick="openPage('index.html')">Home</button>
+            <button onclick="openPage('about.html')">Learn More</button>
           </div>
         </div>
       </section>
 
-      <!-- CATEGORY NAVIGATION (Below Hero) -->
+      <!-- Category Navigation -->
       <section id="categoriesNav" class="container my-4">
         <div id="categoriesNavContainer"></div>
       </section>
 
-      <!-- MAIN PAGE: Banners and Horizontal Scroll of Product Tiles -->
+      <!-- Main Page: Banners & Horizontal Scroll of Products -->
       <div class="container my-4" id="mainPage">
         <h1 class="mb-4 text-center">Product Categories</h1>
         <div id="categoriesContainer">
-          <!-- Dynamic category sections will be rendered here -->
+          <!-- Dynamic category sections (banners, product tiles) -->
         </div>
       </div>
 
-      <!-- CATEGORY PAGE: Vertical Grid of Products -->
+      <!-- Category Page: Vertical Grid of Products -->
       <div class="container my-4" id="categoryPage" style="display: none;">
         <button class="btn btn-secondary mb-3" onclick="backToMain()">Back to Categories</button>
         <h2 id="categoryTitle" class="mb-4"></h2>
@@ -304,26 +57,19 @@
       </div>
     </main>
 
-    <!-- External Footer (footer.html) -->
+    <!-- Footer Placeholder -->
     <div id="footer-placeholder"></div>
 
-    <!-- Bootstrap Bundle JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- DYNAMIC LOADING & INITIALIZATION SCRIPT -->
+    <!-- Inline Script to load header/footer & define e-commerce logic -->
     <script>
-      // Load external HTML for header & footer
+      /**
+       * Loads external HTML into a given element.
+       * Same approach as in index.html
+       */
       function loadHTML(elementId, filePath) {
         fetch(filePath)
           .then((response) => {
             if (!response.ok) {
-              if (elementId === "header-placeholder") {
-                document.getElementById(elementId).innerHTML =
-                  '<header class="header" style="background:#333;color:#fff;padding:10px;text-align:center;">Header</header>';
-              } else if (elementId === "footer-placeholder") {
-                document.getElementById(elementId).innerHTML =
-                  '<footer class="footer" style="background:#333;color:#fff;padding:10px;text-align:center;">Footer</footer>';
-              }
               throw new Error("Error fetching " + filePath);
             }
             return response.text();
@@ -334,14 +80,25 @@
           .catch((error) => console.error(error));
       }
 
+      /**
+       * Navigates to the given page.
+       * Same approach as in index.html
+       */
+      function openPage(page) {
+        window.location.href = page;
+      }
+
       document.addEventListener("DOMContentLoaded", function () {
+        // Load the same header.html and footer.html used by index.html
         loadHTML("header-placeholder", "header.html");
         loadHTML("footer-placeholder", "footer.html");
+
+        // Initialize e-commerce functionality
         initCategoriesNav();
         initMainPage();
       });
 
-      // Dummy product data
+      /* --- Below is your existing e-commerce JS, unchanged --- */
       const productData = {
         "Countdown Sales": [
           {
@@ -490,7 +247,7 @@
         ]
       };
 
-      // 1) Initialize category navigation
+      // Same e-commerce functions you had before
       function initCategoriesNav() {
         const navContainer = document.getElementById("categoriesNavContainer");
         navContainer.innerHTML = "";
@@ -540,7 +297,6 @@
         }
       }
 
-      // 2) Mark the selected category as active
       function setActiveCategory(category) {
         let buttons = document.querySelectorAll(".category-button");
         buttons.forEach((btn) => btn.classList.remove("active-category"));
@@ -554,11 +310,10 @@
         }
       }
 
-      // 3) Generate star icons
       function generateStars(rating) {
         let html = "";
         let fullStars = Math.floor(rating);
-        let halfStar = (rating - fullStars) >= 0.5 ? 1 : 0;
+        let halfStar = rating - fullStars >= 0.5 ? 1 : 0;
         for (let i = 0; i < fullStars; i++) {
           html += '<i class="fa fa-star"></i>';
         }
@@ -568,7 +323,6 @@
         return html;
       }
 
-      // 4) Initialize the main page (banners + horizontal scroll tiles)
       function initMainPage() {
         document.getElementById("mainPage").style.display = "block";
         document.getElementById("categoryPage").style.display = "none";
@@ -576,11 +330,11 @@
         container.innerHTML = "";
         let index = 0;
         for (let category in productData) {
-          // Insert a banner
+          // Banner
           let banner = createBannerForCategory(category, index);
           container.appendChild(banner);
 
-          // Category heading + horizontal scroll container
+          // Section heading + horizontal scroll
           let section = document.createElement("div");
           section.id = "section-" + category.replace(/\s/g, '');
           section.innerHTML = `
@@ -589,7 +343,7 @@
           `;
           container.appendChild(section);
 
-          // Populate product tiles
+          // Product tiles
           let scrollContainer = document.getElementById(
             `scroll-${category.replace(/\s/g, '')}`
           );
@@ -613,8 +367,7 @@
           });
           index++;
         }
-
-        // Initialize carousels if any
+        // Initialize carousels
         document.querySelectorAll(".carousel").forEach(function (carouselElement) {
           new bootstrap.Carousel(carouselElement, {
             interval: 3000,
@@ -623,7 +376,6 @@
         });
       }
 
-      // 5) Open category page with a vertical grid
       function openCategoryPage(category) {
         window.currentCategory = category;
         document.getElementById("mainPage").style.display = "none";
@@ -654,19 +406,16 @@
         });
       }
 
-      // 6) Back to the main categories page
       function backToMain() {
         document.getElementById("categoryPage").style.display = "none";
         document.getElementById("mainPage").style.display = "block";
       }
 
-      // 7) Open product details (demo - simply store in localStorage & go to details.html)
       function openProductDetails(product) {
         localStorage.setItem("selectedProduct", JSON.stringify(product));
         window.location.href = "details.html";
       }
 
-      // 8) Banners for each category
       function createBannerForCategory(category, index) {
         let banner = document.createElement("div");
         banner.className = "banner";
