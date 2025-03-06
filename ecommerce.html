@@ -5,14 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>NextGen E-commerce - Shop Now</title>
 
-    <!-- External Global CSS (for page-wide styling) -->
+    <!-- Global CSS, Font Awesome, and Bootstrap CSS -->
     <link rel="stylesheet" href="style.css" />
-    <!-- Font Awesome for icons -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
-    <!-- Bootstrap 5 CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -25,6 +20,8 @@
         font-family: 'Roboto', sans-serif;
         background-color: #f3f4f6;
         color: #2d3748;
+        padding-top: 70px; /* Reserve space for header */
+        padding-bottom: 70px; /* Reserve space for footer */
       }
       main {
         padding-bottom: 100px;
@@ -228,12 +225,11 @@
         }
       }
     </style>
-
-    <!-- External Global JS (if any) -->
+    <!-- Global JS (if any) -->
     <script src="script.js" defer></script>
   </head>
   <body>
-    <!-- External Header (loaded from header.html fragment) -->
+    <!-- Header Placeholder: External Header loaded from header.html -->
     <div id="header-placeholder"></div>
 
     <!-- MAIN CONTENT -->
@@ -270,7 +266,7 @@
       </div>
     </main>
 
-    <!-- External Footer (loaded from footer.html fragment) -->
+    <!-- Footer Placeholder: External Footer loaded from footer.html -->
     <div id="footer-placeholder"></div>
 
     <!-- Bootstrap Bundle JS -->
@@ -278,11 +274,13 @@
 
     <!-- DYNAMIC LOADING & INITIALIZATION SCRIPT -->
     <script>
-      // Function to load external HTML fragments into a placeholder element
+      // Function to load an external HTML fragment into a placeholder element
       function loadHTML(elementId, filePath) {
         fetch(filePath)
           .then(response => {
+            console.log("Response for " + filePath, response);
             if (!response.ok) {
+              // Fallback content if fetch fails
               if (elementId === "header-placeholder") {
                 document.getElementById(elementId).innerHTML =
                   '<header style="background:#333;color:#fff;padding:10px;text-align:center;">Header</header>';
@@ -295,10 +293,12 @@
             return response.text();
           })
           .then(html => {
+            console.log("Loaded HTML from " + filePath, html);
             document.getElementById(elementId).innerHTML = html;
           })
           .catch(error => console.error(error));
       }
+
       document.addEventListener("DOMContentLoaded", function () {
         loadHTML("header-placeholder", "header.html");
         loadHTML("footer-placeholder", "footer.html");
@@ -306,7 +306,7 @@
         initMainPage();
       });
 
-      // Dummy product data and functions for dynamic content
+      // Dummy product data and dynamic content functions
       const productData = {
         "Countdown Sales": [
           {
@@ -463,8 +463,9 @@
         let allTile = document.createElement("div");
         allTile.className = "category-button";
         allTile.id = "category-All";
-        allTile.innerHTML = `<div class="category-icon"><i class="fas fa-th"></i></div><div class="category-name">All Categories</div>`;
-        allTile.onclick = function() {
+        allTile.innerHTML =
+          '<div class="category-icon"><i class="fas fa-th"></i></div><div class="category-name">All Categories</div>';
+        allTile.onclick = function () {
           setActiveCategory("All");
           backToMain();
         };
@@ -473,18 +474,35 @@
         for (let category in productData) {
           let btn = document.createElement("div");
           btn.className = "category-button";
-          btn.id = "category-" + category.replace(/\s/g, '');
+          btn.id = "category-" + category.replace(/\s/g, "");
           let icon;
           switch (category) {
-            case "Countdown Sales": icon = "fa-bolt"; break;
-            case "Discount Offers": icon = "fa-tags"; break;
-            case "Hot Sales": icon = "fa-fire"; break;
-            case "Seasonal Offers": icon = "fa-leaf"; break;
-            case "Clearance Sale": icon = "fa-exclamation-triangle"; break;
-            default: icon = "fa-box"; break;
+            case "Countdown Sales":
+              icon = "fa-bolt";
+              break;
+            case "Discount Offers":
+              icon = "fa-tags";
+              break;
+            case "Hot Sales":
+              icon = "fa-fire";
+              break;
+            case "Seasonal Offers":
+              icon = "fa-leaf";
+              break;
+            case "Clearance Sale":
+              icon = "fa-exclamation-triangle";
+              break;
+            default:
+              icon = "fa-box";
+              break;
           }
-          btn.innerHTML = `<div class="category-icon"><i class="fas ${icon}"></i></div><div class="category-name">${category}</div>`;
-          btn.onclick = function() {
+          btn.innerHTML =
+            '<div class="category-icon"><i class="fas ' +
+            icon +
+            '"></i></div><div class="category-name">' +
+            category +
+            "</div>";
+          btn.onclick = function () {
             setActiveCategory(category);
             openCategoryPage(category);
           };
@@ -495,8 +513,8 @@
       // Set active style on navigation tile
       function setActiveCategory(category) {
         let buttons = document.querySelectorAll(".category-button");
-        buttons.forEach(btn => btn.classList.remove("active-category"));
-        let id = category === "All" ? "category-All" : "category-" + category.replace(/\s/g, '');
+        buttons.forEach((btn) => btn.classList.remove("active-category"));
+        let id = category === "All" ? "category-All" : "category-" + category.replace(/\s/g, "");
         let activeBtn = document.getElementById(id);
         if (activeBtn) {
           activeBtn.classList.add("active-category");
@@ -529,19 +547,21 @@
           let banner = createBannerForCategory(category, index);
           container.appendChild(banner);
           let section = document.createElement("div");
-          section.id = "section-" + category.replace(/\s/g, '');
+          section.id = "section-" + category.replace(/\s/g, "");
           // Category heading in blue
           section.innerHTML = `
             <h2 class="mt-4" style="color: blue;">${category}</h2>
-            <div class="horizontal-scroll" id="scroll-${category.replace(/\s/g, '')}"></div>
+            <div class="horizontal-scroll" id="scroll-${category.replace(/\s/g, "")}"></div>
           `;
           container.appendChild(section);
           // Render product tiles in horizontal scroll container
-          let scrollContainer = document.getElementById(`scroll-${category.replace(/\s/g, '')}`);
-          productData[category].forEach(product => {
+          let scrollContainer = document.getElementById(`scroll-${category.replace(/\s/g, "")}`);
+          productData[category].forEach((product) => {
             let tile = document.createElement("div");
             tile.className = "product-tile";
-            tile.onclick = function () { openCategoryPage(category); };
+            tile.onclick = function () {
+              openCategoryPage(category);
+            };
             tile.innerHTML = `
               <div class="card">
                 <img src="${product.image}" alt="${product.name}">
@@ -556,16 +576,16 @@
           });
           index++;
         }
-        // Initialize dynamic carousels
-        document.querySelectorAll('.carousel').forEach(function(carouselElement) {
+        // Initialize any dynamic carousels
+        document.querySelectorAll(".carousel").forEach(function (carouselElement) {
           new bootstrap.Carousel(carouselElement, {
             interval: 3000,
-            ride: 'carousel'
+            ride: "carousel",
           });
         });
       }
 
-      // Open vertical category page (non-scrollable, unfolded view)
+      // Open vertical category page (unfolded view)
       function openCategoryPage(category) {
         window.currentCategory = category;
         document.getElementById("mainPage").style.display = "none";
@@ -573,12 +593,14 @@
         document.getElementById("categoryTitle").innerText = category;
         const grid = document.getElementById("categoryProducts");
         grid.innerHTML = "";
-        productData[category].forEach(product => {
+        productData[category].forEach((product) => {
           let col = document.createElement("div");
           col.className = "col-6 col-md-4 mb-4";
           let tile = document.createElement("div");
           tile.className = "product-tile";
-          tile.onclick = function () { openProductDetails(product); };
+          tile.onclick = function () {
+            openProductDetails(product);
+          };
           tile.innerHTML = `
             <div class="card">
               <img src="${product.image}" alt="${product.name}">
