@@ -1,171 +1,97 @@
 <style>
-  /* Fixed Header */
+  /* Simple & Mobile Friendly Header */
   .header {
-    position: fixed !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 100% !important;
-    background: #fff !important;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
-    z-index: 1000 !important;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 1000;
   }
-  /* Ensure links in header use our styles (override global defaults) */
-  .header a {
-    text-decoration: none !important;
-    color: inherit !important;
+  .header .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #007bff;
   }
-  /* Badge: Round red circle */
-  .badge {
-    display: inline-block;
-    min-width: 20px;
-    height: 20px;
-    line-height: 20px;
-    border-radius: 50%;
-    text-align: center;
-    font-size: 0.75rem;
-    color: #fff;
-    background: red;
+  .header nav {
+    display: flex;
+    gap: 15px;
   }
-  /* Desktop Navigation */
-  .nav-desktop a {
-    text-decoration: none !important;
-    color: #333 !important;
-    font-size: 1.2rem;
+  .header nav a {
+    text-decoration: none;
+    color: #333;
+    font-size: 1rem;
     transition: color 0.3s;
   }
-  .nav-desktop a:hover {
-    color: #007bff !important;
+  .header nav a:hover {
+    color: #007bff;
   }
-  /* Side Menu: Reduce width to 180px */
-  .side-menu {
-    position: fixed;
-    top: 70px;
-    right: 0;
-    width: 180px;
-    background: #fff;
-    box-shadow: -2px 0 4px rgba(0,0,0,0.1);
-    padding: 20px;
+  .hamburger {
+    display: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+  /* Mobile Menu */
+  .mobile-menu {
     display: none;
     flex-direction: column;
-    z-index: 1001;
+    background: #fff;
+    position: fixed;
+    top: 60px; /* Height of header */
+    left: 0;
+    width: 100%;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    z-index: 999;
   }
-  .side-menu.visible {
+  .mobile-menu a {
+    padding: 10px 15px;
+    border-bottom: 1px solid #eee;
+    text-decoration: none;
+    color: #333;
+  }
+  .mobile-menu a:last-child {
+    border-bottom: none;
+  }
+  .mobile-menu.show {
     display: flex;
   }
-  .side-menu a {
-    margin-bottom: 10px;
-    color: #333;
-    text-decoration: none;
+  @media (max-width: 600px) {
+    nav {
+      display: none;
+    }
+    .hamburger {
+      display: block;
+    }
   }
 </style>
 
 <header class="header">
-  <div class="header-content">
-    <div class="brand">
-      <i class="fas fa-briefcase"></i>
-      <span>MyBusiness</span>
-    </div>
-    <!-- Desktop Navigation -->
-    <nav class="nav-desktop">
-      <a href="index.html" onclick="openPage('index.html')">
-        <i class="fas fa-home"></i>
-      </a>
-      <a href="offers.html" onclick="openPage('offers.html')">
-        <i class="fas fa-tags"></i>
-      </a>
-      <a href="analytics.html" onclick="openPage('analytics.html')">
-        <i class="fas fa-chart-line"></i>
-      </a>
-      <a href="cart.html" onclick="openPage('cart.html')" style="position: relative;">
-        <i class="fas fa-shopping-cart"></i>
-        <span>Cart</span>
-        <span id="cartCount" class="badge" style="position: absolute; top: -5px; right: -10px;">0</span>
-      </a>
-      <a href="more.html" onclick="openPage('more.html')">
-        <i class="fas fa-ellipsis-h"></i>
-      </a>
-    </nav>
-    <!-- Hamburger for Mobile -->
-    <button class="menu-toggle" onclick="toggleSideMenu()">
-      <i class="fas fa-bars"></i>
-    </button>
-  </div>
-  <!-- Mobile Side Menu (Drop-down) -->
-  <aside id="side-menu" class="side-menu">
-    <a href="index.html" onclick="openPage('index.html'); toggleSideMenu()">Home</a>
-    <a href="offers.html" onclick="openPage('offers.html'); toggleSideMenu()">Offers</a>
-    <a href="analytics.html" onclick="openPage('analytics.html'); toggleSideMenu()">Analytics</a>
-    <a href="cart.html" onclick="openPage('cart.html'); toggleSideMenu()" style="position: relative;">
-      Cart
-      <span id="cartCountMobile" class="badge" style="position: absolute; top: 3px; right: -2px;">0</span>
-    </a>
-    <a href="more.html" onclick="openPage('more.html'); toggleSideMenu()">More</a>
-  </aside>
-  <!-- Mobile Bottom Navigation -->
-  <nav class="mobile-nav">
-    <a href="index.html" onclick="openPage('index.html')">
-      <i class="fas fa-home"></i><span>Home</span>
-    </a>
-    <a href="offers.html" onclick="openPage('offers.html')">
-      <i class="fas fa-tags"></i><span>Offers</span>
-    </a>
-    <a href="analytics.html" onclick="openPage('analytics.html')">
-      <i class="fas fa-chart-line"></i><span>Analytics</span>
-    </a>
-    <a href="cart.html" onclick="openPage('cart.html')" style="position: relative;">
-      <i class="fas fa-shopping-cart"></i>
-      <span>Cart</span>
-      <span id="cartCountMobileBottom" class="badge" style="position: absolute; top: -5px; right: -10px;">0</span>
-    </a>
-    <a href="more.html" onclick="openPage('more.html')">
-      <i class="fas fa-ellipsis-h"></i><span>More</span>
-    </a>
+  <div class="logo">MyBusiness</div>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="offers.html">Offers</a>
+    <a href="analytics.html">Analytics</a>
+    <a href="cart.html">Cart</a>
+    <a href="more.html">More</a>
   </nav>
+  <div class="hamburger" onclick="toggleMobileMenu()">&#9776;</div>
 </header>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html" onclick="toggleMobileMenu()">Home</a>
+  <a href="offers.html" onclick="toggleMobileMenu()">Offers</a>
+  <a href="analytics.html" onclick="toggleMobileMenu()">Analytics</a>
+  <a href="cart.html" onclick="toggleMobileMenu()">Cart</a>
+  <a href="more.html" onclick="toggleMobileMenu()">More</a>
+</div>
 
 <script>
-  // Inline JavaScript for header functionality
-  document.addEventListener("DOMContentLoaded", function() {
-    // Navigation function
-    window.openPage = function(url) {
-      window.location.href = url;
-    };
-
-    // Toggle side menu for mobile
-    window.toggleSideMenu = function() {
-      const sideMenu = document.getElementById("side-menu");
-      if (sideMenu) {
-        sideMenu.classList.toggle("visible");
-      }
-    };
-
-    // Close side menu when clicking outside
-    document.addEventListener("click", function(event) {
-      const sideMenu = document.getElementById("side-menu");
-      const menuToggle = document.querySelector(".menu-toggle");
-      if (
-        sideMenu &&
-        sideMenu.classList.contains("visible") &&
-        !sideMenu.contains(event.target) &&
-        !menuToggle.contains(event.target)
-      ) {
-        sideMenu.classList.remove("visible");
-      }
-    });
-
-    // Dummy cart count update
-    function updateCartCount() {
-      var count = localStorage.getItem("cartCount") || 3;
-      if (document.getElementById("cartCount")) {
-        document.getElementById("cartCount").innerText = count;
-      }
-      if (document.getElementById("cartCountMobile")) {
-        document.getElementById("cartCountMobile").innerText = count;
-      }
-      if (document.getElementById("cartCountMobileBottom")) {
-        document.getElementById("cartCountMobileBottom").innerText = count;
-      }
-    }
-    updateCartCount();
-  });
+  function toggleMobileMenu() {
+    var menu = document.getElementById('mobileMenu');
+    menu.classList.toggle('show');
+  }
 </script>
