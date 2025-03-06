@@ -1,444 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>MyBusiness Premium</title>
-  <!-- Font Awesome for icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <style>
-    /* ---------- Reset & Base Styles ---------- */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    body {
-      font-family: 'Roboto', sans-serif;
-      background-color: #f4f4f4;
-      color: #333;
-      padding-top: 70px;   /* Space for fixed header */
-      padding-bottom: 70px; /* Space for fixed bottom nav */
-    }
-
-    /* ---------- Badge Styling ---------- */
-    .badge {
-      display: inline-block;
-      min-width: 20px;
-      height: 20px;
-      line-height: 20px;
-      border-radius: 50%;
-      text-align: center;
-      font-size: 0.75rem;
-      color: #fff;
-      background: red;
-    }
-
-    /* ---------- Fixed Header ---------- */
-    .header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      background: #fff;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      z-index: 1000;
-    }
-    .header-content {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 15px;
-    }
-    .brand {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: #007bff;
-      display: flex;
-      align-items: center;
-    }
-    .brand i {
-      margin-right: 8px;
-      font-size: 1.8rem;
-      color: #007bff;
-    }
-    .menu-toggle {
-      background: none;
-      border: none;
-      color: #007bff;
-      font-size: 1.8rem;
-      cursor: pointer;
-      display: block;
-    }
-    .nav-desktop {
-      display: none;
-    }
-    @media (min-width: 600px) {
-      .menu-toggle {
-        display: none;
+  <head>
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>MyBusiness Premium</title>  
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Custom JavaScript -->
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <!-- Header Placeholder -->
+    <div id="header-placeholder"></div>
+    
+    <!-- Main Content -->
+    <main>
+      <!-- Hero Section -->
+      <section class="hero">
+        <div class="hero-content">
+          <h1>Premium Business Solutions</h1>
+          <p>
+            Experience secure transactions, exclusive offers, and a seamless interface with our next-generation mobile app.
+          </p>
+          <div class="cta-buttons">
+            <button onclick="openPage('ecommerce.html')">Shop Now</button>
+            <button onclick="openPage('about.html')">Learn More</button>
+          </div>
+        </div>
+      </section>
+      <!-- Features Section -->
+      <section class="features">
+        <div class="container">
+          <h2>Our Exclusive Features</h2>
+          <div class="features-grid">
+            <div class="feature-item">
+              <i class="fas fa-lock"></i>
+              <h3>Secure Payments</h3>
+              <p>State-of-the-art security for your transactions.</p>
+            </div>
+            <div class="feature-item">
+              <i class="fas fa-truck"></i>
+              <h3>Fast Delivery</h3>
+              <p>Reliable, door-to-door delivery service.</p>
+            </div>
+            <div class="feature-item">
+              <i class="fas fa-tags"></i>
+              <h3>Exclusive Deals</h3>
+              <p>Premium discounts and seasonal offers.</p>
+            </div>
+          </div>
+        </div>
+      </section>    
+    </main>
+    
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+    
+    <!-- Inline Script to load header and footer dynamically and define openPage function -->
+    <script>
+      /**
+       * Loads external HTML into a given element.
+       * @param {string} elementId - The ID of the element to load content into.
+       * @param {string} filePath - The path of the HTML file to load.
+       */
+      function loadHTML(elementId, filePath) {
+        fetch(filePath)
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Error fetching ' + filePath);
+            }
+            return response.text();
+          })
+          .then(html => {
+            document.getElementById(elementId).innerHTML = html;
+          })
+          .catch(error => console.error(error));
       }
-      .nav-desktop {
-        display: flex;
-        gap: 20px;
+      
+      /**
+       * Navigates to the given page.
+       * @param {string} page - The URL of the page to navigate to.
+       */
+      function openPage(page) {
+        window.location.href = page;
       }
-      .nav-desktop a {
-        text-decoration: none;
-        color: #333;
-        font-size: 1.2rem;
-        transition: color 0.3s;
-      }
-      .nav-desktop a:hover {
-        color: #007bff;
-      }
-    }
-    /* Mobile Side Menu */
-    .side-menu {
-      position: fixed;
-      top: 70px;
-      right: 0;
-      width: 220px;
-      background: #fff;
-      box-shadow: -2px 0 4px rgba(0,0,0,0.1);
-      padding: 20px;
-      display: none;
-      flex-direction: column;
-      z-index: 1001;
-    }
-    .side-menu a {
-      text-decoration: none;
-      color: #333;
-      padding: 10px 0;
-      border-bottom: 1px solid #e0e0e0;
-      font-size: 1rem;
-    }
-    .side-menu a:last-child {
-      border-bottom: none;
-    }
-    .side-menu.visible {
-      display: flex;
-    }
-    /* Mobile Bottom Navigation */
-    .mobile-nav {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      background: #fff;
-      border-top: 1px solid #e0e0e0;
-      display: flex;
-      justify-content: space-around;
-      padding: 8px 0;
-      z-index: 1000;
-    }
-    .mobile-nav a {
-      text-decoration: none;
-      color: #333;
-      font-size: 1.2rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    .mobile-nav a span {
-      font-size: 0.65rem;
-      margin-top: 3px;
-    }
-    /* Optional Fixed Footer (above mobile nav) */
-    .footer {
-      position: fixed;
-      bottom: 70px;
-      left: 0;
-      width: 100%;
-      background: #fff;
-      text-align: center;
-      padding: 8px 0;
-      box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
-      font-size: 0.85rem;
-      color: #333;
-      z-index: 1000;
-    }
-
-    /* ---------- Hero Section ---------- */
-    .hero {
-      position: relative;
-      overflow: hidden;
-      height: 100vh; /* Full viewport height */
-      transform: translateY(-4cm); /* Moves the hero section upward by 4cm */
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      color: #fff;
-      background: #007bff; /* Fallback color */
-    }
-    .hero video.hero-video {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      z-index: 1;
-    }
-    .hero .video-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.4);
-      z-index: 2;
-    }
-    .hero .hero-content {
-      position: relative;
-      z-index: 3;
-      max-width: 600px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-    .hero h1 {
-      font-size: 2.8rem;
-      margin-bottom: 20px;
-      font-weight: 700;
-    }
-    .hero p {
-      font-size: 1.1rem;
-      margin-bottom: 30px;
-      line-height: 1.5;
-    }
-    .cta-buttons button {
-      background: #28a745;
-      border: none;
-      padding: 12px 25px;
-      font-size: 1rem;
-      color: #fff;
-      border-radius: 25px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-    .cta-buttons button:hover {
-      background: #218838;
-    }
-    @media (max-width: 600px) {
-      .hero h1 {
-        font-size: 2rem;
-      }
-      .hero p {
-        font-size: 1rem;
-      }
-      .cta-buttons button {
-        font-size: 0.9rem;
-        padding: 10px 20px;
-      }
-    }
-
-    /* ---------- Features Section ---------- */
-    .features {
-      padding: 40px 15px;
-      background: #fff;
-    }
-    .features .container {
-      width: 90%;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    .features h2 {
-      text-align: center;
-      font-size: 2rem;
-      margin-bottom: 30px;
-      color: #007bff;
-    }
-    .features-grid {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
-    }
-    .feature-item {
-      background: #f9f9f9;
-      padding: 20px;
-      border-radius: 8px;
-      width: 280px;
-      text-align: center;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      transition: transform 0.3s;
-    }
-    .feature-item:hover {
-      transform: translateY(-5px);
-    }
-    .feature-item i {
-      font-size: 2rem;
-      margin-bottom: 15px;
-      color: #007bff;
-    }
-    .feature-item h3 {
-      font-size: 1.3rem;
-      margin-bottom: 10px;
-      color: #333;
-    }
-    .feature-item p {
-      font-size: 1rem;
-      color: #666;
-    }
-  </style>
-  <script>
-    // JavaScript for mobile side menu toggling and openPage functionality.
-    document.addEventListener("DOMContentLoaded", function () {
-      window.openPage = function (url) {
-        window.open(url, "_blank");
-      };
-
-      window.toggleSideMenu = function () {
-        const sideMenu = document.getElementById("side-menu");
-        if (sideMenu) {
-          sideMenu.classList.toggle("visible");
-        }
-      };
-
-      document.addEventListener("click", function (event) {
-        const sideMenu = document.getElementById("side-menu");
-        const menuToggle = document.querySelector(".menu-toggle");
-        if (
-          sideMenu &&
-          sideMenu.classList.contains("visible") &&
-          !sideMenu.contains(event.target) &&
-          !menuToggle.contains(event.target)
-        ) {
-          sideMenu.classList.remove("visible");
-        }
+      
+      document.addEventListener("DOMContentLoaded", function() {
+        loadHTML('header-placeholder', 'header.html');
+        loadHTML('footer-placeholder', 'footer.html');
       });
-
-      // Dummy function to update the cart count.
-      function updateCartCount() {
-        var count = localStorage.getItem("cartCount") || 3;
-        if (document.getElementById("cartCount")) {
-          document.getElementById("cartCount").innerText = count;
-        }
-        if (document.getElementById("cartCountMobile")) {
-          document.getElementById("cartCountMobile").innerText = count;
-        }
-        if (document.getElementById("cartCountMobileBottom")) {
-          document.getElementById("cartCountMobileBottom").innerText = count;
-        }
-      }
-      updateCartCount();
-    });
-  </script>
-</head>
-<body>
-  <!-- ---------- Header ---------- -->
-  <header class="header">
-    <div class="header-content">
-      <div class="brand">
-        <i class="fas fa-briefcase"></i>
-        <span>MyBusiness</span>
-      </div>
-      <nav class="nav-desktop">
-        <a href="index.html" onclick="openPage('index.html')">
-          <i class="fas fa-home"></i>
-        </a>
-        <a href="offers.html" onclick="openPage('offers.html')">
-          <i class="fas fa-tags"></i>
-        </a>
-        <a href="analytics.html" onclick="openPage('analytics.html')">
-          <i class="fas fa-chart-line"></i>
-        </a>
-        <a href="cart.html" onclick="openPage('cart.html')" style="position: relative;">
-          <i class="fas fa-shopping-cart"></i>
-          <span>Cart</span>
-          <span id="cartCount" class="badge" style="position: absolute; top: -5px; right: -10px;">0</span>
-        </a>
-        <a href="more.html" onclick="openPage('more.html')">
-          <i class="fas fa-ellipsis-h"></i>
-        </a>
-      </nav>
-      <button class="menu-toggle" onclick="toggleSideMenu()">
-        <i class="fas fa-bars"></i>
-      </button>
-    </div>
-    <!-- Mobile Side Menu -->
-    <aside id="side-menu" class="side-menu">
-      <a href="index.html" onclick="openPage('index.html'); toggleSideMenu()">Home</a>
-      <a href="offers.html" onclick="openPage('offers.html'); toggleSideMenu()">Offers</a>
-      <a href="analytics.html" onclick="openPage('analytics.html'); toggleSideMenu()">Analytics</a>
-      <a href="cart.html" onclick="openPage('cart.html'); toggleSideMenu()" style="position: relative;">
-        Cart
-        <span id="cartCountMobile" class="badge" style="position: absolute; top: 3px; right: -2px;">0</span>
-      </a>
-      <a href="more.html" onclick="openPage('more.html'); toggleSideMenu()">More</a>
-    </aside>
-    <!-- Mobile Bottom Navigation -->
-    <nav class="mobile-nav">
-      <a href="index.html" onclick="openPage('index.html')">
-        <i class="fas fa-home"></i><span>Home</span>
-      </a>
-      <a href="offers.html" onclick="openPage('offers.html')">
-        <i class="fas fa-tags"></i><span>Offers</span>
-      </a>
-      <a href="analytics.html" onclick="openPage('analytics.html')">
-        <i class="fas fa-chart-line"></i><span>Analytics</span>
-      </a>
-      <a href="cart.html" onclick="openPage('cart.html')" style="position: relative;">
-        <i class="fas fa-shopping-cart"></i>
-        <span>Cart</span>
-        <span id="cartCountMobileBottom" class="badge" style="position: absolute; top: -5px; right: -10px;">0</span>
-      </a>
-      <a href="more.html" onclick="openPage('more.html')">
-        <i class="fas fa-ellipsis-h"></i><span>More</span>
-      </a>
-    </nav>
-  </header>
-
-  <!-- ---------- Main Content ---------- -->
-  <main>
-    <!-- Hero Section -->
-    <section class="hero">
-      <video autoplay muted loop class="hero-video">
-        <source src="https://i.imgur.com/9bpUpSq.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
-      <div class="video-overlay"></div>
-      <div class="hero-content">
-        <h1>Premium Business Solutions</h1>
-        <p>
-          Experience secure transactions, exclusive offers, and a seamless interface with our next-generation mobile app.
-        </p>
-        <div class="cta-buttons">
-          <button onclick="openPage('ecommerce.html')">Shop Now</button>
-          <button onclick="openPage('about.html')">Learn More</button>
-        </div>
-      </div>
-    </section>
-
-    <!-- Features Section -->
-    <section class="features">
-      <div class="container">
-        <h2>Our Exclusive Features</h2>
-        <div class="features-grid">
-          <div class="feature-item">
-            <i class="fas fa-lock"></i>
-            <h3>Secure Payments</h3>
-            <p>State-of-the-art security for your transactions.</p>
-          </div>
-          <div class="feature-item">
-            <i class="fas fa-truck"></i>
-            <h3>Fast Delivery</h3>
-            <p>Reliable, door-to-door delivery service.</p>
-          </div>
-          <div class="feature-item">
-            <i class="fas fa-tags"></i>
-            <h3>Exclusive Deals</h3>
-            <p>Premium discounts and seasonal offers.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <!-- ---------- Footer ---------- -->
-  <footer class="footer">
-    <div class="footer-container">
-      <p>&copy; 2025 MyBusiness Premium. All rights reserved.</p>
-    </div>
-  </footer>
-</body>
+    </script>
+  </body>
 </html>
