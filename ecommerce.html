@@ -5,9 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>NextGen E-commerce - Shop Now</title>
 
-    <!-- Global CSS, Font Awesome, and Bootstrap CSS -->
+    <!-- External CSS -->
     <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <!-- Font Awesome for icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <!-- Bootstrap 5 CSS -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -20,8 +25,6 @@
         font-family: 'Roboto', sans-serif;
         background-color: #f3f4f6;
         color: #2d3748;
-        padding-top: 70px; /* Reserve space for header */
-        padding-bottom: 70px; /* Reserve space for footer */
       }
       main {
         padding-bottom: 100px;
@@ -225,11 +228,12 @@
         }
       }
     </style>
-    <!-- Global JS (if any) -->
+
+    <!-- External Global JS -->
     <script src="script.js" defer></script>
   </head>
   <body>
-    <!-- Header Placeholder: External Header loaded from header.html -->
+    <!-- External Header (loaded from header.html) -->
     <div id="header-placeholder"></div>
 
     <!-- MAIN CONTENT -->
@@ -266,7 +270,7 @@
       </div>
     </main>
 
-    <!-- Footer Placeholder: External Footer loaded from footer.html -->
+    <!-- External Footer (loaded from footer.html) -->
     <div id="footer-placeholder"></div>
 
     <!-- Bootstrap Bundle JS -->
@@ -274,13 +278,11 @@
 
     <!-- DYNAMIC LOADING & INITIALIZATION SCRIPT -->
     <script>
-      // Function to load an external HTML fragment into a placeholder element
+      // Function to load external HTML into a placeholder element
       function loadHTML(elementId, filePath) {
         fetch(filePath)
           .then(response => {
-            console.log("Response for " + filePath, response);
             if (!response.ok) {
-              // Fallback content if fetch fails
               if (elementId === "header-placeholder") {
                 document.getElementById(elementId).innerHTML =
                   '<header style="background:#333;color:#fff;padding:10px;text-align:center;">Header</header>';
@@ -293,12 +295,10 @@
             return response.text();
           })
           .then(html => {
-            console.log("Loaded HTML from " + filePath, html);
             document.getElementById(elementId).innerHTML = html;
           })
           .catch(error => console.error(error));
       }
-
       document.addEventListener("DOMContentLoaded", function () {
         loadHTML("header-placeholder", "header.html");
         loadHTML("footer-placeholder", "footer.html");
@@ -306,8 +306,383 @@
         initMainPage();
       });
 
-      // Dummy product data and dynamic content functions...
-      // (The rest of your ecommerce dynamic code remains unchanged)
+      // Dummy product data
+      const productData = {
+        "Countdown Sales": [
+          {
+            name: "Smartphone A",
+            price: "PKR 894",
+            description: "High-performance smartphone.",
+            image: "https://via.placeholder.com/300x200?text=Smartphone+A",
+            rating: 4.5,
+            added: "500",
+            sold: "3k"
+          },
+          {
+            name: "Smart TV B",
+            price: "PKR 557",
+            description: "4K Ultra HD Smart TV.",
+            image: "https://via.placeholder.com/300x200?text=Smart+TV+B",
+            rating: 4,
+            added: "400",
+            sold: "2.5k"
+          },
+          {
+            name: "Laptop C",
+            price: "PKR 1,004",
+            description: "Gaming laptop with high performance.",
+            image: "https://via.placeholder.com/300x200?text=Laptop+C",
+            rating: 4.5,
+            added: "600",
+            sold: "3.2k"
+          }
+        ],
+        "Discount Offers": [
+          {
+            name: "Headphones D",
+            price: "PKR 600",
+            description: "Noise cancelling headphones.",
+            image: "https://via.placeholder.com/300x200?text=Headphones+D",
+            rating: 4,
+            added: "350",
+            sold: "2k"
+          },
+          {
+            name: "Speaker E",
+            price: "PKR 999",
+            description: "Wireless speaker with deep bass.",
+            image: "https://via.placeholder.com/300x200?text=Speaker+E",
+            rating: 4.5,
+            added: "450",
+            sold: "2.8k"
+          },
+          {
+            name: "Camera F",
+            price: "PKR 1,299",
+            description: "High resolution digital camera.",
+            image: "https://via.placeholder.com/300x200?text=Camera+F",
+            rating: 4,
+            added: "300",
+            sold: "1.9k"
+          }
+        ],
+        "Hot Sales": [
+          {
+            name: "Smartwatch G",
+            price: "PKR 999",
+            description: "Feature-rich smartwatch.",
+            image: "https://via.placeholder.com/300x200?text=Smartwatch+G",
+            rating: 4.5,
+            added: "550",
+            sold: "3k"
+          },
+          {
+            name: "Tablet H",
+            price: "PKR 1,700",
+            description: "Latest generation tablet.",
+            image: "https://via.placeholder.com/300x200?text=Tablet+H",
+            rating: 4,
+            added: "400",
+            sold: "2.7k"
+          },
+          {
+            name: "Drone I",
+            price: "PKR 2,999",
+            description: "High-performance drone.",
+            image: "https://via.placeholder.com/300x200?text=Drone+I",
+            rating: 4.5,
+            added: "320",
+            sold: "2.5k"
+          }
+        ],
+        "Seasonal Offers": [
+          {
+            name: "Jacket J",
+            price: "PKR 499",
+            description: "Warm and stylish jacket.",
+            image: "https://via.placeholder.com/300x200?text=Jacket+J",
+            rating: 4,
+            added: "280",
+            sold: "1.8k"
+          },
+          {
+            name: "Boots K",
+            price: "PKR 1,199",
+            description: "Comfortable boots.",
+            image: "https://via.placeholder.com/300x200?text=Boots+K",
+            rating: 4.5,
+            added: "330",
+            sold: "2k"
+          },
+          {
+            name: "Scarf L",
+            price: "PKR 299",
+            description: "Cozy scarf for winter.",
+            image: "https://via.placeholder.com/300x200?text=Scarf+L",
+            rating: 4,
+            added: "250",
+            sold: "1.5k"
+          }
+        ],
+        "Clearance Sale": [
+          {
+            name: "Old Model Phone M",
+            price: "PKR 199",
+            description: "Last year's smartphone model.",
+            image: "https://via.placeholder.com/300x200?text=Phone+M",
+            rating: 3.5,
+            added: "150",
+            sold: "1k"
+          },
+          {
+            name: "Outdated TV N",
+            price: "PKR 299",
+            description: "Old model television.",
+            image: "https://via.placeholder.com/300x200?text=TV+N",
+            rating: 3,
+            added: "120",
+            sold: "900"
+          },
+          {
+            name: "Vintage Laptop O",
+            price: "PKR 499",
+            description: "Vintage laptop with classic design.",
+            image: "https://via.placeholder.com/300x200?text=Laptop+O",
+            rating: 3.5,
+            added: "100",
+            sold: "800"
+          }
+        ]
+      };
+
+      // Initialize category navigation (including an "All Categories" tile)
+      function initCategoriesNav() {
+        const navContainer = document.getElementById("categoriesNavContainer");
+        navContainer.innerHTML = "";
+        // "All Categories" tile
+        let allTile = document.createElement("div");
+        allTile.className = "category-button";
+        allTile.id = "category-All";
+        allTile.innerHTML = `<div class="category-icon"><i class="fas fa-th"></i></div><div class="category-name">All Categories</div>`;
+        allTile.onclick = function() {
+          setActiveCategory("All");
+          backToMain();
+        };
+        navContainer.appendChild(allTile);
+        // One tile per category
+        for (let category in productData) {
+          let btn = document.createElement("div");
+          btn.className = "category-button";
+          btn.id = "category-" + category.replace(/\s/g, '');
+          let icon;
+          switch (category) {
+            case "Countdown Sales": icon = "fa-bolt"; break;
+            case "Discount Offers": icon = "fa-tags"; break;
+            case "Hot Sales": icon = "fa-fire"; break;
+            case "Seasonal Offers": icon = "fa-leaf"; break;
+            case "Clearance Sale": icon = "fa-exclamation-triangle"; break;
+            default: icon = "fa-box"; break;
+          }
+          btn.innerHTML = `<div class="category-icon"><i class="fas ${icon}"></i></div><div class="category-name">${category}</div>`;
+          btn.onclick = function() {
+            setActiveCategory(category);
+            openCategoryPage(category);
+          };
+          navContainer.appendChild(btn);
+        }
+      }
+
+      // Set active style on navigation tile
+      function setActiveCategory(category) {
+        let buttons = document.querySelectorAll(".category-button");
+        buttons.forEach(btn => btn.classList.remove("active-category"));
+        let id = category === "All" ? "category-All" : "category-" + category.replace(/\s/g, '');
+        let activeBtn = document.getElementById(id);
+        if (activeBtn) {
+          activeBtn.classList.add("active-category");
+        }
+      }
+
+      // Helper: Generate star icons
+      function generateStars(rating) {
+        let html = "";
+        let fullStars = Math.floor(rating);
+        let halfStar = (rating - fullStars) >= 0.5 ? 1 : 0;
+        for (let i = 0; i < fullStars; i++) {
+          html += '<i class="fa fa-star"></i>';
+        }
+        if (halfStar) {
+          html += '<i class="fa fa-star-half-alt"></i>';
+        }
+        return html;
+      }
+
+      // Render main page: banners and horizontal product tiles
+      function initMainPage() {
+        document.getElementById("mainPage").style.display = "block";
+        document.getElementById("categoryPage").style.display = "none";
+        const container = document.getElementById("categoriesContainer");
+        container.innerHTML = "";
+        let index = 0;
+        for (let category in productData) {
+          // Append banner for this category (with section id for navigation)
+          let banner = createBannerForCategory(category, index);
+          container.appendChild(banner);
+          let section = document.createElement("div");
+          section.id = "section-" + category.replace(/\s/g, '');
+          // Category heading in blue
+          section.innerHTML = `
+            <h2 class="mt-4" style="color: blue;">${category}</h2>
+            <div class="horizontal-scroll" id="scroll-${category.replace(/\s/g, '')}"></div>
+          `;
+          container.appendChild(section);
+          // Render product tiles in horizontal scroll container
+          let scrollContainer = document.getElementById(`scroll-${category.replace(/\s/g, '')}`);
+          productData[category].forEach(product => {
+            let tile = document.createElement("div");
+            tile.className = "product-tile";
+            tile.onclick = function () { openCategoryPage(category); };
+            tile.innerHTML = `
+              <div class="card">
+                <img src="${product.image}" alt="${product.name}">
+              </div>
+              <div class="product-details">
+                <p class="product-price">${product.price} <span class="product-old-price">PKR1,487</span></p>
+                <div class="star-rating">${generateStars(product.rating)}</div>
+                <div class="product-stats"><small>${product.added} Added | ${product.sold} Sold</small></div>
+              </div>
+            `;
+            scrollContainer.appendChild(tile);
+          });
+          index++;
+        }
+        // Initialize dynamic carousels
+        document.querySelectorAll('.carousel').forEach(function(carouselElement) {
+          new bootstrap.Carousel(carouselElement, {
+            interval: 3000,
+            ride: 'carousel'
+          });
+        });
+      }
+
+      // Open vertical category page (non-scrollable, unfolded view)
+      function openCategoryPage(category) {
+        window.currentCategory = category;
+        document.getElementById("mainPage").style.display = "none";
+        document.getElementById("categoryPage").style.display = "block";
+        document.getElementById("categoryTitle").innerText = category;
+        const grid = document.getElementById("categoryProducts");
+        grid.innerHTML = "";
+        productData[category].forEach(product => {
+          let col = document.createElement("div");
+          col.className = "col-6 col-md-4 mb-4";
+          let tile = document.createElement("div");
+          tile.className = "product-tile";
+          tile.onclick = function () { openProductDetails(product); };
+          tile.innerHTML = `
+            <div class="card">
+              <img src="${product.image}" alt="${product.name}">
+            </div>
+            <div class="product-details">
+              <p class="product-price">${product.price} <span class="product-old-price">PKR1,487</span></p>
+              <div class="star-rating">${generateStars(product.rating)}</div>
+              <div class="product-stats"><small>${product.added} Added | ${product.sold} Sold</small></div>
+            </div>
+          `;
+          col.appendChild(tile);
+          grid.appendChild(col);
+        });
+      }
+
+      function backToMain() {
+        document.getElementById("categoryPage").style.display = "none";
+        document.getElementById("mainPage").style.display = "block";
+      }
+
+      function openProductDetails(product) {
+        localStorage.setItem("selectedProduct", JSON.stringify(product));
+        window.location.href = "details.html";
+      }
+
+      // Create banners dynamically based on index
+      function createBannerForCategory(category, index) {
+        let banner = document.createElement("div");
+        banner.className = "banner";
+        switch (index) {
+          case 0:
+            banner.classList.add("carousel-banner");
+            banner.innerHTML = `
+              <div id="carouselBanner${index}" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+                <div class="carousel-indicators">
+                  <button type="button" data-bs-target="#carouselBanner${index}" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                  <button type="button" data-bs-target="#carouselBanner${index}" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                  <button type="button" data-bs-target="#carouselBanner${index}" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                </div>
+                <div class="carousel-inner">
+                  <div class="carousel-item active">
+                    <img src="https://via.placeholder.com/1200x150?text=Deal+1" class="d-block w-100" alt="Deal 1">
+                  </div>
+                  <div class="carousel-item">
+                    <img src="https://via.placeholder.com/1200x150?text=Deal+2" class="d-block w-100" alt="Deal 2">
+                  </div>
+                  <div class="carousel-item">
+                    <img src="https://via.placeholder.com/1200x150?text=Deal+3" class="d-block w-100" alt="Deal 3">
+                  </div>
+                </div>
+              </div>
+            `;
+            break;
+          case 1:
+            banner.classList.add("fullwidth-banner");
+            banner.innerHTML = `
+              <img src="https://via.placeholder.com/1200x150?text=Big+Discount+Offer" alt="Big Discount">
+              <div class="banner-text">Big Discounts Available!</div>
+            `;
+            break;
+          case 2:
+            banner.classList.add("accordion-banner");
+            banner.innerHTML = `
+              <div class="accordion" id="accordionBanner${index}">
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="headingOne${index}">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne${index}" aria-expanded="false">
+                      Hot Sales Offer
+                    </button>
+                  </h2>
+                  <div id="collapseOne${index}" class="accordion-collapse collapse">
+                    <div class="accordion-body">
+                      Exclusive hot sale deals for a limited time!
+                    </div>
+                  </div>
+                </div>
+              </div>
+            `;
+            break;
+          case 3:
+            banner.classList.add("three-part-banner");
+            banner.innerHTML = `
+              <div class="banner-title">Seasonal Savings</div>
+              <div class="banner-desc">Special offers for the season.</div>
+              <div class="banner-img">
+                <img src="https://via.placeholder.com/150x150?text=Seasonal" alt="Seasonal">
+              </div>
+            `;
+            break;
+          case 4:
+            banner.classList.add("three-part-banner");
+            banner.innerHTML = `
+              <div class="banner-title">Clearance Sale</div>
+              <div class="banner-desc">Last chance deals on clearance items!</div>
+              <div class="banner-img">
+                <img src="https://via.placeholder.com/150x150?text=Clearance" alt="Clearance">
+              </div>
+            `;
+            break;
+          default:
+            banner.innerHTML = `<p>Special Offer</p>`;
+        }
+        return banner;
+      }
     </script>
   </body>
 </html>
