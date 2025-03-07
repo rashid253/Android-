@@ -18,16 +18,10 @@
       overflow-x: hidden;
     }
     main {
-      padding-bottom: 100px; /* extra bottom padding to avoid clashing with footer */
+      padding-bottom: 100px; /* Extra bottom padding to avoid clashing with footer */
     }
-    /* Remove Hero Section – it is no longer needed */
-    /* 
-    .hero {
-      ... 
-    }
-    */
-
-    /* Call-to-Action (CTA) Section – reused at the top in place of the hero */
+    
+    /* Top Call-to-Action (CTA) Section – replaces the hero section */
     .cta {
       background: #4caf50;
       color: #fff;
@@ -52,35 +46,40 @@
     .cta a:hover {
       background: #f57c00;
     }
-    /* Section Styling */
-    .section {
-      padding: 40px 15px;
+    
+    /* Card Container for Sections */
+    .card-container {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      padding: 0 15px;
+      margin-bottom: 40px;
+    }
+    .card {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      padding: 20px;
       text-align: center;
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeInUp 1s forwards;
     }
-    @keyframes fadeInUp {
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .section h2 {
+    .card h2 {
       font-size: 1.8rem;
-      margin-bottom: 15px;
+      margin-bottom: 10px;
       color: #333;
     }
-    .section p {
+    .card p {
       font-size: 1rem;
-      max-width: 90%;
-      margin: 0 auto 15px;
-      line-height: 1.5;
       color: #666;
+      line-height: 1.5;
+      margin-bottom: 0;
     }
-    /* Testimonials Carousel */
+    
+    /* Testimonials inside a card */
     .testimonials {
       overflow: hidden;
       position: relative;
-      max-width: 90%;
-      margin: 20px auto;
+      margin-top: 10px;
     }
     .testimonials .slides {
       display: flex;
@@ -100,17 +99,17 @@
       font-size: 0.8rem;
       color: #888;
     }
-    /* Technical Note Section */
+    
+    /* Technical Note Styling */
     .tech-note {
       background: #e8f0fe;
       padding: 20px;
       border-radius: 8px;
-      max-width: 90%;
-      margin: 20px auto;
       text-align: left;
       font-size: 0.9rem;
       line-height: 1.5;
       color: #333;
+      margin: 0;
     }
     .tech-note code {
       background: #c5d4f1;
@@ -118,6 +117,7 @@
       border-radius: 4px;
       font-family: monospace;
     }
+    
     /* Final CTA Section at Page End */
     .final-cta {
       background: #4caf50;
@@ -158,53 +158,57 @@
   
   <!-- Main Content -->
   <main>
-    <!-- Moved-Up CTA Section (replaces the removed hero section) -->
+    <!-- Top CTA Section (replaces the hero section) -->
     <section class="cta">
       <h2>Experience the Future of Shopping</h2>
       <a href="ecommerce.html">Shop Now</a>
     </section>
     
-    <!-- Innovative Technology Section -->
-    <section class="section">
-      <h2>Innovative Technology</h2>
-      <p>Our platform currently uses dummy data—designed for a seamless shift to Firebase Firestore for real-time, secure updates.</p>
-    </section>
-    
-    <!-- Customer Testimonials Section -->
-    <section class="section">
-      <h2>What Our Users Say</h2>
-      <div class="testimonials">
-        <div class="slides">
-          <div class="testimonial">
-            <p>"The experience is addictive—I feel like I'm living in the future every time I use the app!"</p>
-            <div class="author">- Ayesha, Karachi</div>
-          </div>
-          <div class="testimonial">
-            <p>"Innovative and engaging! The design and functionality are truly revolutionary."</p>
-            <div class="author">- Bilal, Lahore</div>
-          </div>
-          <div class="testimonial">
-            <p>"Every detail is crafted perfectly. Shopping here is a captivating experience!"</p>
-            <div class="author">- Fatima, Islamabad</div>
+    <!-- Card Container for Sections Below CTA -->
+    <div class="card-container">
+      <!-- Card: Innovative Technology -->
+      <div class="card">
+        <h2>Innovative Technology</h2>
+        <p>Our platform currently uses dummy data—designed for a seamless shift to Firebase Firestore for real-time, secure updates.</p>
+      </div>
+      
+      <!-- Card: Customer Testimonials -->
+      <div class="card">
+        <h2>What Our Users Say</h2>
+        <div class="testimonials">
+          <div class="slides">
+            <div class="testimonial">
+              <p>"The experience is addictive—I feel like I'm living in the future every time I use the app!"</p>
+              <div class="author">- Ayesha, Karachi</div>
+            </div>
+            <div class="testimonial">
+              <p>"Innovative and engaging! The design and functionality are truly revolutionary."</p>
+              <div class="author">- Bilal, Lahore</div>
+            </div>
+            <div class="testimonial">
+              <p>"Every detail is crafted perfectly. Shopping here is a captivating experience!"</p>
+              <div class="author">- Fatima, Islamabad</div>
+            </div>
           </div>
         </div>
       </div>
-    </section>
-    
-    <!-- Vision & Mission Section -->
-    <section class="section">
-      <h2>Our Vision &amp; Mission</h2>
-      <p>We aim to create an engaging experience that becomes part of your lifestyle—merging next-generation technology with innovative design.</p>
-    </section>
-    
-    <!-- Technical Note Section -->
-    <section class="section">
-      <div class="tech-note">
-        <p><strong>Technical Note:</strong> This frontend is built using dummy data and is structured for seamless integration with Firebase Firestore. The <code>fetchProducts()</code> function will soon be replaced by live API calls for real-time updates, secure authentication, and dynamic content.</p>
+      
+      <!-- Card: Our Vision & Mission -->
+      <div class="card">
+        <h2>Our Vision &amp; Mission</h2>
+        <p>We aim to create an engaging experience that becomes part of your lifestyle—merging next-generation technology with innovative design.</p>
       </div>
-    </section>
+      
+      <!-- Card: Technical Note -->
+      <div class="card">
+        <h2>Technical Note</h2>
+        <div class="tech-note">
+          <p><strong>Technical Note:</strong> This frontend is built using dummy data and is structured for seamless integration with Firebase Firestore. The <code>fetchProducts()</code> function will soon be replaced by live API calls for real-time updates, secure authentication, and dynamic content.</p>
+        </div>
+      </div>
+    </div>
     
-    <!-- Final Call-to-Action Section at the Page End -->
+    <!-- Final CTA Section at the Page End -->
     <section class="final-cta">
       <h2>Don't Miss Out on Exclusive Offers</h2>
       <a href="ecommerce.html">Visit Our Shop</a>
