@@ -1,123 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>MS Office 2030 Style Footer</title>
-  <!-- Font Awesome for Icons -->
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-  />
+  <meta charset="UTF-8">
+  <title>MyBusiness</title>
+  <!-- Include FontAwesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
   <style>
-    /* Base Reset */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    /* Global Styles */
     body {
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      background: #f3f3f3;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
     }
-    /* Fluent-inspired Footer Container */
-    .footer-fluent {
-      position: fixed;
-      bottom: 60px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 90%;
-      max-width: 600px;
-      background: rgba(255, 255, 255, 0.75); /* White transparent background */
-      backdrop-filter: blur(15px); /* Acrylic effect */
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 4px; /* Slightly sharp edges */
-      padding: 10px 0;
-      z-index: 1000;
-    }
-    .footer-nav {
+
+    /* Navigation Bar */
+    .navbar {
+      background-color: #fff;
       display: flex;
-      justify-content: space-around;
       align-items: center;
+      padding: 10px 20px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
-    .footer-nav a {
-      position: relative; /* Enables badge positioning */
-      color: #0078D7; /* Microsoft blue */
+    .navbar a {
       text-decoration: none;
-      width: 40px;
-      height: 40px;
+      color: #333;
+      margin-right: 30px;
+      display: flex;
+      align-items: center;
+      font-size: 16px;
+      position: relative;
+    }
+    .navbar a:last-child {
+      margin-right: 0;
+    }
+    .navbar a i {
+      margin-right: 8px;
+      font-size: 24px; /* Icon size */
+      color: blue;    /* Icon color set to blue */
+    }
+    
+    /* Cart badge */
+    .cart-badge {
+      position: absolute;
+      top: -5px;
+      right: -10px;
+      background-color: red;
+      color: #fff;
+      border-radius: 50%;
+      font-size: 12px;
+      width: 18px;
+      height: 18px;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: transform 0.2s ease-in-out;
     }
-    .footer-nav a:hover {
-      transform: scale(1.1);
-    }
-    .footer-nav a i {
-      font-size: 1.2rem; /* Moderated icon size */
-    }
-    /* Cart Badge Styling */
-    .footer-nav a .badge {
-      position: absolute;
-      top: -4px;
-      right: -4px;
-      background: #E81123; /* A vivid red */
-      color: #fff;
-      border-radius: 50%;
-      padding: 2px 5px;
-      font-size: 0.6rem;
-    }
-    /* Extra Footer Bar for Copyright */
-    .footer-extra {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      background: #1B1B1B;
-      color: #FFF;
+    
+    /* Footer */
+    .footer {
+      background-color: #fff;
       text-align: center;
-      padding: 5px 0;
-      font-size: 0.8rem;
-      z-index: 1100;
+      padding: 15px;
+      margin-top: 30px;
+      box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+      font-size: 14px;
+    }
+    .footer p {
+      margin: 0;
+      color: #777;
     }
   </style>
 </head>
 <body>
-  <footer class="footer-fluent">
-    <nav class="footer-nav">
-      <a href="index.html" title="Home">
-        <i class="fas fa-home"></i>
-      </a>
-      <a href="offers.html" title="Offers">
-        <i class="fas fa-tags"></i>
-      </a>
-      <a href="analytics.html" title="Analytics">
-        <i class="fas fa-chart-line"></i>
-      </a>
-      <a href="cart.html" title="Cart">
-        <i class="fas fa-shopping-cart"></i>
-        <span class="badge" id="cartCount">0</span>
-      </a>
-      <a href="support.html" title="Support">
-        <i class="fas fa-headset"></i>
-      </a>
-    </nav>
-  </footer>
 
-  <div class="footer-extra">
-    &copy; 2025 MyBusiness. All rights reserved.
+  <!-- Navigation Bar -->
+  <header class="navbar">
+    <a href="#"><i class="fa fa-home"></i> Home</a>
+    <a href="#"><i class="fa fa-tags"></i> Offers</a>
+    <a href="#"><i class="fa fa-chart-line"></i> Analytics</a>
+    <a href="#">
+      <i class="fa fa-shopping-cart"></i> Cart 
+      <span class="cart-badge">0</span>
+    </a>
+    <a href="#"><i class="fa fa-life-ring"></i> Support</a>
+  </header>
+
+  <!-- Main Content -->
+  <div class="content" style="padding:20px;">
+    <!-- Your content goes here -->
   </div>
 
-  <script>
-    // Update the cart count badge from local storage
-    document.addEventListener("DOMContentLoaded", function() {
-      var count = localStorage.getItem("cartCount") || 0;
-      var badge = document.getElementById("cartCount");
-      if (badge) {
-        badge.innerText = count;
-      }
-    });
-  </script>
+  <!-- Footer -->
+  <footer class="footer">
+    <p>&copy; 2025 MyBusiness. All rights reserved.</p>
+  </footer>
+
 </body>
 </html>
