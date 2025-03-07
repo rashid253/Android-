@@ -10,65 +10,71 @@
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
   />
   <style>
-    /* Modern Footer Navigation with Glassmorphism */
+    /* Reset styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+    }
+    /* Footer Navigation Container */
     .footer-nav {
       position: fixed;
-      bottom: 20px;
+      bottom: 10px;
       left: 50%;
       transform: translateX(-50%);
-      display: flex;
-      justify-content: space-around;
-      background: rgba(255, 255, 255, 0.8);
-      backdrop-filter: blur(10px);
+      background: #ffffff;
       border-radius: 30px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
       padding: 10px 20px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      width: 90%;
-      max-width: 500px;
+      display: flex;
+      gap: 20px;
       z-index: 1000;
     }
+    /* Footer Navigation Links (Icons Only) */
     .footer-nav a {
-      flex: 1;
-      text-align: center;
-      color: #333;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      height: 50px;
+      color: #555;
       text-decoration: none;
-      position: relative;
+      border-radius: 50%;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+    .footer-nav a:hover {
+      background-color: #f0f0f0;
+      transform: scale(1.1);
     }
     .footer-nav a i {
       font-size: 1.5rem;
-      width: 40px;
-      height: 40px;
-      line-height: 40px;
-      background: #f0f0f0;
-      border-radius: 50%;
-      display: inline-block;
-      transition: background 0.3s, transform 0.3s;
     }
-    .footer-nav a:hover i {
-      background: #e0e0e0;
-      transform: scale(1.1);
-    }
-    .badge {
+    /* Badge for Cart Count */
+    .footer-nav a .badge {
       position: absolute;
-      top: -5px;
-      right: calc(50% - 10px);
+      top: -4px;
+      right: -4px;
       background: red;
-      border-radius: 50%;
       color: #fff;
-      padding: 2px 5px;
-      font-size: 0.7rem;
+      border-radius: 50%;
+      padding: 2px 6px;
+      font-size: 0.65rem;
     }
-    /* Extra Footer Bar (Optional) */
+    /* Extra Footer Bar */
     .footer-extra {
       position: fixed;
       bottom: 0;
       left: 0;
       width: 100%;
-      background: #000;
+      background: #222;
+      color: #ccc;
       text-align: center;
-      padding: 3px 0;
-      font-size: 0.7rem;
-      color: #fff;
+      padding: 5px 0;
+      font-size: 0.8rem;
       z-index: 1100;
     }
   </style>
@@ -86,7 +92,7 @@
     </a>
     <a href="cart.html" title="Cart">
       <i class="fas fa-shopping-cart"></i>
-      <span id="cartCount" class="badge">0</span>
+      <span class="badge" id="cartCount">0</span>
     </a>
     <a href="support.html" title="Support">
       <i class="fas fa-headset"></i>
