@@ -8,11 +8,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
-    <!-- Inline styles for hero video background -->
+    <!-- Inline styles for hero video background and text enhancements -->
     <style>
       .hero {
         position: relative;
         overflow: hidden;
+        height: 100vh; /* Full viewport height */
       }
       .hero-video {
         position: absolute;
@@ -24,13 +25,26 @@
         height: auto;
         z-index: -1;
         transform: translate(-50%, -50%);
+        object-fit: cover; /* Ensures the video covers the container */
       }
       .hero-content {
-        position: relative;
+        position: absolute;
+        top: 20%;
+        left: 50%;
+        transform: translateX(-50%);
         z-index: 1;
         text-align: center;
         color: #fff;
-        padding: 40vh 20px 20px;
+        padding: 20px;
+        text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8);
+      }
+      .hero-content h1 {
+        font-size: 3rem;
+        margin-bottom: 20px;
+      }
+      .hero-content p {
+        font-size: 1.2rem;
+        margin-bottom: 20px;
       }
       .cta-buttons button {
         padding: 10px 20px;
