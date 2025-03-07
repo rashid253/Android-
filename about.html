@@ -74,20 +74,12 @@
       line-height: 1.5;
       margin-bottom: 0;
     }
-    /* Link inside a card leading to shop page */
-    .card-link {
-      display: inline-block;
-      margin-top: 15px;
-      font-size: 1rem;
+    
+    /* Make the shop card clickable */
+    .shop-card-link {
       text-decoration: none;
-      color: #007bff;
-      border-bottom: 2px dashed #007bff;
-      padding-bottom: 5px;
-      transition: color 0.3s, border-color 0.3s;
-    }
-    .card-link:hover {
-      color: #0056b3;
-      border-color: #0056b3;
+      color: inherit;
+      display: block;
     }
     
     /* Testimonials inside a card */
@@ -147,7 +139,7 @@
   
   <!-- Main Content -->
   <main>
-    <!-- Top CTA Section (replacing the hero section) -->
+    <!-- Top CTA Section -->
     <section class="cta">
       <h2>Ready to Experience the Future</h2>
       <a href="contact.html">Get in Touch</a>
@@ -196,15 +188,16 @@
         </div>
       </div>
       
-      <!-- Card: Shop Card -->
-      <div class="card">
-        <h2>Explore Our Collection</h2>
-        <p>Discover exclusive offers and innovative products curated just for you.</p>
-        <a class="card-link" href="ecommerce.html">Visit Our Shop</a>
-      </div>
+      <!-- Shop Card: Entire card is clickable -->
+      <a class="shop-card-link" href="ecommerce.html">
+        <div class="card">
+          <h2>Explore Our Collection</h2>
+          <p>Discover exclusive offers and innovative products curated just for you.</p>
+        </div>
+      </a>
     </div>
     
-    <!-- (Bottom hero type section removed) -->
+    <!-- (No Bottom Hero Section) -->
   </main>
   
   <!-- Load External Footer -->
