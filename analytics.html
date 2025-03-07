@@ -3,25 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Analytics & Insights - Android-</title>
-  <!-- Link to your external CSS if available -->
+  <title>Your Purchase Dashboard - Android-</title>
+  <!-- External CSS (if available) -->
   <link rel="stylesheet" href="styles.css">
-  <!-- Optional: Bootstrap CSS for quick styling -->
+  <!-- Bootstrap CSS for quick responsive styling -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <!-- Custom Inline Styles -->
+  <!-- Custom Styles -->
   <style>
-    body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f9f9f9; }
-    header { background-color: #007bff; color: #fff; padding: 20px 0; }
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f8f8f8; }
+    header { background-color: #007bff; color: #fff; padding: 15px 0; }
     header .container { display: flex; align-items: center; justify-content: space-between; }
     header nav a { color: #fff; margin: 0 10px; text-decoration: none; font-weight: bold; }
-    .hero { background: url('images/analytics-banner.jpg') no-repeat center center; background-size: cover; padding: 100px 0; color: #fff; text-align: center; }
-    .hero h1 { font-size: 3rem; margin-bottom: 20px; }
+    .hero { background: url('images/dashboard-banner.jpg') no-repeat center center; background-size: cover; padding: 80px 0; color: #fff; text-align: center; }
+    .hero h1 { font-size: 2.8rem; margin-bottom: 20px; }
     .hero p { font-size: 1.2rem; }
-    .content-section { padding: 60px 0; }
+    .section { padding: 60px 0; }
+    .section h2 { text-align: center; margin-bottom: 40px; }
     .chart-container { width: 100%; max-width: 800px; margin: 0 auto; }
-    .cta { background-color: #28a745; color: #fff; padding: 40px 0; text-align: center; }
-    .cta h2 { font-size: 2rem; margin-bottom: 20px; }
-    .cta a { background: #fff; color: #28a745; padding: 10px 20px; text-decoration: none; font-weight: bold; border-radius: 5px; }
+    .recommended .card { margin-bottom: 30px; }
+    .offers { background-color: #e9f7ef; text-align: center; padding: 50px 0; }
+    .offers h2 { font-size: 2rem; }
+    .offers p { font-size: 1.1rem; margin-bottom: 20px; }
     footer { background-color: #343a40; color: #ccc; padding: 20px 0; text-align: center; }
     footer a { color: #ccc; text-decoration: none; margin: 0 5px; }
   </style>
@@ -33,8 +35,9 @@
       <h2>Android-</h2>
       <nav>
         <a href="index.html">Home</a>
-        <a href="about.html">About</a>
-        <a href="analytics.html">Analytics</a>
+        <a href="shop.html">Shop</a>
+        <a href="orders.html">My Orders</a>
+        <a href="analytics.html">Dashboard</a>
       </nav>
     </div>
   </header>
@@ -42,58 +45,73 @@
   <!-- Hero Section -->
   <section class="hero">
     <div class="container">
-      <h1>Unlock Insights, Drive Sales</h1>
-      <p>Discover powerful analytics to optimize your strategy and boost your revenue.</p>
+      <h1>Welcome to Your Dashboard</h1>
+      <p>Track your spending, discover personalized offers, and enjoy a shopping experience tailored for you.</p>
     </div>
   </section>
 
-  <!-- Analytics Content Section -->
-  <section class="content-section">
+  <!-- Spending Overview Section -->
+  <section class="section">
     <div class="container">
-      <h2 class="text-center mb-5">Real-Time Analytics</h2>
+      <h2>Your Spending Overview</h2>
       <div class="chart-container">
-        <!-- Chart Placeholder -->
-        <canvas id="salesChart" width="800" height="400"></canvas>
+        <!-- Interactive Chart -->
+        <canvas id="purchaseChart" width="800" height="400"></canvas>
       </div>
       <p class="mt-4 text-center">
-        Monitor your performance with our dynamic, real-time dashboard. Our intuitive analytics tools help you make data-driven decisions to accelerate growth.
+        See your purchase trends over the past months and keep track of your spending.
       </p>
     </div>
   </section>
 
-  <!-- Customer Engagement Section -->
-  <section class="content-section bg-light">
+  <!-- Recommended Products Section -->
+  <section class="section recommended">
     <div class="container">
-      <h2 class="text-center mb-5">What Our Customers Say</h2>
+      <h2>Products Recommended for You</h2>
       <div class="row">
+        <!-- Product Card 1 -->
         <div class="col-md-4">
-          <blockquote class="blockquote">
-            <p>"The analytics dashboard transformed our approach and significantly boosted our sales!"</p>
-            <footer class="blockquote-footer">Customer A</footer>
-          </blockquote>
+          <div class="card">
+            <img src="images/product1.jpg" class="card-img-top" alt="Product 1">
+            <div class="card-body">
+              <h5 class="card-title">Smart Gadget</h5>
+              <p class="card-text">A perfect blend of innovation and style. Just for you.</p>
+              <a href="shop.html" class="btn btn-primary">Shop Now</a>
+            </div>
+          </div>
         </div>
+        <!-- Product Card 2 -->
         <div class="col-md-4">
-          <blockquote class="blockquote">
-            <p>"A user-friendly tool that helped us pinpoint key growth areas. Highly recommended!"</p>
-            <footer class="blockquote-footer">Customer B</footer>
-          </blockquote>
+          <div class="card">
+            <img src="images/product2.jpg" class="card-img-top" alt="Product 2">
+            <div class="card-body">
+              <h5 class="card-title">Modern Accessory</h5>
+              <p class="card-text">Elevate your lifestyle with this exclusive offer.</p>
+              <a href="shop.html" class="btn btn-primary">Shop Now</a>
+            </div>
+          </div>
         </div>
+        <!-- Product Card 3 -->
         <div class="col-md-4">
-          <blockquote class="blockquote">
-            <p>"Insights that matter – our go-to platform for data-driven success."</p>
-            <footer class="blockquote-footer">Customer C</footer>
-          </blockquote>
+          <div class="card">
+            <img src="images/product3.jpg" class="card-img-top" alt="Product 3">
+            <div class="card-body">
+              <h5 class="card-title">Trendy Wear</h5>
+              <p class="card-text">Style meets comfort—discover your new favorite piece.</p>
+              <a href="shop.html" class="btn btn-primary">Shop Now</a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Call-to-Action Section -->
-  <section class="cta">
+  <!-- Exclusive Offers Section -->
+  <section class="offers">
     <div class="container">
-      <h2>Ready to Elevate Your Business?</h2>
-      <p>Contact us today to learn how our analytics solutions can drive your sales growth.</p>
-      <a href="contact.html">Get In Touch</a>
+      <h2>Exclusive Offers Just for You</h2>
+      <p>Unlock special discounts and deals tailored to your shopping habits. Enjoy the perks of being a valued customer!</p>
+      <a href="offers.html" class="btn btn-success">View Offers</a>
     </div>
   </section>
 
@@ -103,7 +121,7 @@
       <p>&copy; 2025 Android-. All rights reserved.</p>
       <p>
         <a href="analytics.html">
-          <img src="images/analytics-icon.png" alt="Analytics" style="width:24px; vertical-align:middle;"> Analytics
+          <img src="images/analytics-icon.png" alt="Dashboard Icon" style="width:24px; vertical-align:middle;"> Dashboard
         </a>
       </p>
     </div>
@@ -112,17 +130,17 @@
   <!-- Optional JavaScript: Chart.js for interactive charts -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
-    // Sample data for the sales chart
-    const ctx = document.getElementById('salesChart').getContext('2d');
-    const salesChart = new Chart(ctx, {
+    // Sample data for the spending chart
+    const ctx = document.getElementById('purchaseChart').getContext('2d');
+    const purchaseChart = new Chart(ctx, {
       type: 'line',
       data: {
         labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
         datasets: [{
-          label: 'Monthly Sales',
-          data: [150, 200, 180, 220, 260, 300, 350],
-          backgroundColor: 'rgba(0, 123, 255, 0.2)',
-          borderColor: 'rgba(0, 123, 255, 1)',
+          label: 'Monthly Spending ($)',
+          data: [120, 180, 150, 200, 240, 210, 270],
+          backgroundColor: 'rgba(75, 192, 192, 0.2)',
+          borderColor: 'rgba(75, 192, 192, 1)',
           borderWidth: 2,
           fill: true
         }]
