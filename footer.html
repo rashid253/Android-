@@ -3,50 +3,62 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Footer – Icons Only</title>
+  <title>Modern Footer Navigation</title>
   <!-- Font Awesome for Icons -->
   <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
   />
   <style>
-    /* Mobile-app style footer navigation – compact version using only icons */
-    .footer {
+    /* Modern Footer Navigation with Glassmorphism */
+    .footer-nav {
       position: fixed;
-      bottom: 30px;
-      left: 0;
-      width: 100%;
-      background: #fff;
-      border-top: 1px solid #ddd;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
       display: flex;
       justify-content: space-around;
-      padding: 5px 0;
-      font-size: 1.2rem; /* Larger font size to ensure icon clarity */
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(10px);
+      border-radius: 30px;
+      padding: 10px 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      width: 90%;
+      max-width: 500px;
       z-index: 1000;
     }
-    .footer a {
-      text-decoration: none;
-      color: #333;
-      text-align: center;
+    .footer-nav a {
       flex: 1;
+      text-align: center;
+      color: #333;
+      text-decoration: none;
       position: relative;
-      padding: 10px 0;
     }
-    .footer a i {
-      display: block;
-      margin: 0 auto;
+    .footer-nav a i {
+      font-size: 1.5rem;
+      width: 40px;
+      height: 40px;
+      line-height: 40px;
+      background: #f0f0f0;
+      border-radius: 50%;
+      display: inline-block;
+      transition: background 0.3s, transform 0.3s;
+    }
+    .footer-nav a:hover i {
+      background: #e0e0e0;
+      transform: scale(1.1);
     }
     .badge {
       position: absolute;
-      top: -3px;
-      right: 25%;
+      top: -5px;
+      right: calc(50% - 10px);
       background: red;
       border-radius: 50%;
       color: #fff;
-      padding: 1px 4px;
-      font-size: 0.6rem;
+      padding: 2px 5px;
+      font-size: 0.7rem;
     }
-    /* Extra footer bar with black background and white text */
+    /* Extra Footer Bar (Optional) */
     .footer-extra {
       position: fixed;
       bottom: 0;
@@ -62,7 +74,7 @@
   </style>
 </head>
 <body>
-  <footer class="footer">
+  <footer class="footer-nav">
     <a href="index.html" title="Home">
       <i class="fas fa-home"></i>
     </a>
@@ -74,7 +86,7 @@
     </a>
     <a href="cart.html" title="Cart">
       <i class="fas fa-shopping-cart"></i>
-      <span id="cartCountFooter" class="badge">0</span>
+      <span id="cartCount" class="badge">0</span>
     </a>
     <a href="support.html" title="Support">
       <i class="fas fa-headset"></i>
@@ -86,10 +98,10 @@
   </div>
 
   <script>
-    // Update the cart count in the footer badge
+    // Update the cart count badge from local storage
     document.addEventListener("DOMContentLoaded", function() {
       var count = localStorage.getItem("cartCount") || 0;
-      var badge = document.getElementById("cartCountFooter");
+      var badge = document.getElementById("cartCount");
       if (badge) {
         badge.innerText = count;
       }
