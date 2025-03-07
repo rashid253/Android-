@@ -20,52 +20,37 @@
     main {
       padding-bottom: 100px; /* extra bottom padding to avoid clashing with footer */
     }
-    /* Hero Section – 50vh for mobile */
+    /* Remove Hero Section – it is no longer needed */
+    /* 
     .hero {
-      position: relative;
-      height: 50vh;
-      background: linear-gradient(135deg, #FF6B6B, #FFD93D, #6BCB77);
-      background-size: 400% 400%;
-      animation: gradientAnimation 20s ease infinite;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
+      ... 
+    }
+    */
+
+    /* Call-to-Action (CTA) Section – reused at the top in place of the hero */
+    .cta {
+      background: #4caf50;
       color: #fff;
-      margin: 0;
-      padding: 0;
+      padding: 30px 15px;
+      text-align: center;
+      margin-bottom: 40px;
     }
-    @keyframes gradientAnimation {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-    .hero .content {
-      padding: 10px;
-      z-index: 2;
-    }
-    .hero h1 {
+    .cta h2 {
       font-size: 1.8rem;
       margin-bottom: 10px;
     }
-    .hero p {
-      font-size: 1rem;
-      max-width: 90%;
-      margin: 0 auto 15px;
-    }
-    .hero .btn {
+    .cta a {
+      display: inline-block;
       padding: 10px 20px;
-      font-size: 0.9rem;
-      background: #fff;
-      border: none;
+      font-size: 1rem;
+      background: #ff9800;
+      color: #fff;
       border-radius: 50px;
-      color: #333;
-      cursor: pointer;
-      transition: background 0.3s, transform 0.3s;
+      text-decoration: none;
+      transition: background 0.3s;
     }
-    .hero .btn:hover {
-      background: #f0f0f0;
-      transform: scale(1.05);
+    .cta a:hover {
+      background: #f57c00;
     }
     /* Section Styling */
     .section {
@@ -133,18 +118,19 @@
       border-radius: 4px;
       font-family: monospace;
     }
-    /* Call-to-Action Section */
-    .cta {
+    /* Final CTA Section at Page End */
+    .final-cta {
       background: #4caf50;
       color: #fff;
       padding: 30px 15px;
       text-align: center;
+      margin-top: 40px;
     }
-    .cta h2 {
+    .final-cta h2 {
       font-size: 1.8rem;
       margin-bottom: 10px;
     }
-    .cta a {
+    .final-cta a {
       display: inline-block;
       padding: 10px 20px;
       font-size: 1rem;
@@ -154,7 +140,7 @@
       text-decoration: none;
       transition: background 0.3s;
     }
-    .cta a:hover {
+    .final-cta a:hover {
       background: #f57c00;
     }
   </style>
@@ -172,13 +158,10 @@
   
   <!-- Main Content -->
   <main>
-    <!-- Hero Section -->
-    <section class="hero">
-      <div class="content">
-        <h1>Discover the Future</h1>
-        <p>Engage with an experience that redefines online shopping through innovative design and dynamic technology.</p>
-        <button class="btn" onclick="window.location.href='ecommerce.html'">Visit Shop</button>
-      </div>
+    <!-- Moved-Up CTA Section (replaces the removed hero section) -->
+    <section class="cta">
+      <h2>Experience the Future of Shopping</h2>
+      <a href="ecommerce.html">Shop Now</a>
     </section>
     
     <!-- Innovative Technology Section -->
@@ -221,10 +204,10 @@
       </div>
     </section>
     
-    <!-- Call-to-Action Section -->
-    <section class="cta">
-      <h2>Ready to Experience the Future?</h2>
-      <a href="contact.html" target="_blank">Get in Touch</a>
+    <!-- Final Call-to-Action Section at the Page End -->
+    <section class="final-cta">
+      <h2>Don't Miss Out on Exclusive Offers</h2>
+      <a href="ecommerce.html">Visit Our Shop</a>
     </section>
   </main>
   
