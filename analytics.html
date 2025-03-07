@@ -4,49 +4,72 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Your Purchase Dashboard - Android-</title>
-  <!-- External CSS (if available) -->
+  <!-- External CSS -->
   <link rel="stylesheet" href="styles.css">
-  <!-- Bootstrap CSS for quick responsive styling -->
+  <!-- Bootstrap CSS for responsive styling -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <!-- Custom Styles -->
   <style>
-    body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f8f8f8; }
-    header { background-color: #007bff; color: #fff; padding: 15px 0; }
-    header .container { display: flex; align-items: center; justify-content: space-between; }
-    header nav a { color: #fff; margin: 0 10px; text-decoration: none; font-weight: bold; }
-    .hero { background: url('images/dashboard-banner.jpg') no-repeat center center; background-size: cover; padding: 80px 0; color: #fff; text-align: center; }
-    .hero h1 { font-size: 2.8rem; margin-bottom: 20px; }
-    .hero p { font-size: 1.2rem; }
-    .section { padding: 60px 0; }
-    .section h2 { text-align: center; margin-bottom: 40px; }
-    .chart-container { width: 100%; max-width: 800px; margin: 0 auto; }
-    .recommended .card { margin-bottom: 30px; }
-    .offers { background-color: #e9f7ef; text-align: center; padding: 50px 0; }
-    .offers h2 { font-size: 2rem; }
-    .offers p { font-size: 1.1rem; margin-bottom: 20px; }
-    footer { background-color: #343a40; color: #ccc; padding: 20px 0; text-align: center; }
-    footer a { color: #ccc; text-decoration: none; margin: 0 5px; }
+    /* Minimal header for dashboard content */
+    .page-title {
+      background-color: #f0f0f0;
+      padding: 20px 0;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .page-title h1 {
+      margin: 0;
+      font-size: 2rem;
+      color: #333;
+    }
+    .section {
+      padding: 60px 0;
+    }
+    .chart-container {
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .recommended .card {
+      margin-bottom: 30px;
+    }
+    .offers {
+      background-color: #e9f7ef;
+      text-align: center;
+      padding: 50px 0;
+    }
+    .offers h2 {
+      font-size: 2rem;
+    }
+    .offers p {
+      font-size: 1.1rem;
+      margin-bottom: 20px;
+    }
   </style>
+  <script>
+    // Load external header and footer
+    document.addEventListener('DOMContentLoaded', function() {
+      fetch('header.html')
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById('header-placeholder').innerHTML = data;
+        });
+      fetch('footer.html')
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById('footer-placeholder').innerHTML = data;
+        });
+    });
+  </script>
 </head>
 <body>
-  <!-- Header Section -->
-  <header>
-    <div class="container">
-      <h2>Android-</h2>
-      <nav>
-        <a href="index.html">Home</a>
-        <a href="shop.html">Shop</a>
-        <a href="orders.html">My Orders</a>
-        <a href="analytics.html">Dashboard</a>
-      </nav>
-    </div>
-  </header>
+  <!-- External Header -->
+  <div id="header-placeholder"></div>
 
-  <!-- Hero Section -->
-  <section class="hero">
+  <!-- Minimal Page Title Section Instead of Hero -->
+  <section class="page-title">
     <div class="container">
-      <h1>Welcome to Your Dashboard</h1>
-      <p>Track your spending, discover personalized offers, and enjoy a shopping experience tailored for you.</p>
+      <h1>Dashboard</h1>
+      <p>Track your spending, view personalized recommendations, and access exclusive offers.</p>
     </div>
   </section>
 
@@ -55,7 +78,6 @@
     <div class="container">
       <h2>Your Spending Overview</h2>
       <div class="chart-container">
-        <!-- Interactive Chart -->
         <canvas id="purchaseChart" width="800" height="400"></canvas>
       </div>
       <p class="mt-4 text-center">
@@ -75,7 +97,7 @@
             <img src="images/product1.jpg" class="card-img-top" alt="Product 1">
             <div class="card-body">
               <h5 class="card-title">Smart Gadget</h5>
-              <p class="card-text">A perfect blend of innovation and style. Just for you.</p>
+              <p class="card-text">A perfect blend of innovation and style, made just for you.</p>
               <a href="shop.html" class="btn btn-primary">Shop Now</a>
             </div>
           </div>
@@ -115,22 +137,13 @@
     </div>
   </section>
 
-  <!-- Footer Section -->
-  <footer>
-    <div class="container">
-      <p>&copy; 2025 Android-. All rights reserved.</p>
-      <p>
-        <a href="analytics.html">
-          <img src="images/analytics-icon.png" alt="Dashboard Icon" style="width:24px; vertical-align:middle;"> Dashboard
-        </a>
-      </p>
-    </div>
-  </footer>
+  <!-- External Footer -->
+  <div id="footer-placeholder"></div>
 
-  <!-- Optional JavaScript: Chart.js for interactive charts -->
+  <!-- Chart.js for interactive chart -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
-    // Sample data for the spending chart
+    // Initialize the spending chart with sample data
     const ctx = document.getElementById('purchaseChart').getContext('2d');
     const purchaseChart = new Chart(ctx, {
       type: 'line',
@@ -152,6 +165,18 @@
         }
       }
     });
+
+    // To use personalized data, replace the above static data by fetching user-specific data via an API:
+    /*
+    fetch('/api/spending')
+      .then(response => response.json())
+      .then(data => {
+         purchaseChart.data.labels = data.labels;
+         purchaseChart.data.datasets[0].data = data.values;
+         purchaseChart.update();
+      })
+      .catch(error => console.error('Error fetching spending data:', error));
+    */
   </script>
 </body>
 </html>
