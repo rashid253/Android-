@@ -89,7 +89,7 @@
         color: #fff;
       }
 
-      /* ===== Features Section with Card Layout (icons remain as in your HTML file) ===== */
+      /* ===== Features Section with Cards in Single Column ===== */
       .features {
         padding: 20px 10px;
         background-color: #f8f9fa;
@@ -98,18 +98,13 @@
         max-width: 1200px;
         margin: auto;
       }
+      /* Single-column grid */
       .features-grid {
         display: grid;
         grid-template-columns: 1fr;
         row-gap: 1.5rem;
         justify-items: center;
         margin-top: 20px;
-      }
-      @media (min-width: 768px) {
-        .features-grid {
-          grid-template-columns: repeat(3, 1fr);
-          column-gap: 1.5rem;
-        }
       }
       .feature-item {
         background-color: #fff;
@@ -120,10 +115,11 @@
         padding: 1.5rem;
         text-align: center;
       }
-      /* Using icon styling as per your HTML file – no extra color or background circle added */
+      /* Icon styling updated to green color */
       .feature-item i {
         font-size: 2rem;
         margin-bottom: 1rem;
+        color: green;
       }
       .feature-item h3 {
         font-size: 1.2rem;
@@ -161,7 +157,7 @@
         </div>
       </section>
       
-      <!-- Features Section with Cards -->
+      <!-- Features Section with Single Column Cards -->
       <section class="features">
         <div class="container">
           <h2>Our Exclusive Features</h2>
