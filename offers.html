@@ -32,13 +32,13 @@
     .hero {
       position: relative;
       min-height: 40vh; /* Reduced minimum height */
-      padding-top: 60px; /* Added top padding to prevent overflow */
+      padding-top: 60px; /* Prevents overflow */
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
       color: #fff;
-      background: #2575fc; /* Professional solid background color */
+      background: #2575fc; /* Solid background color */
     }
     .hero .content {
       position: relative;
@@ -86,7 +86,7 @@
       flex-wrap: wrap;
       gap: 20px;
       justify-content: center;
-      padding: 20px; /* Added padding for better spacing */
+      padding: 20px; /* Added padding for spacing */
     }
     .offer-card {
       background: #fff;
@@ -95,7 +95,7 @@
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
       transition: transform 0.3s, box-shadow 0.3s;
       cursor: pointer;
-      padding: 20px; /* Added padding inside card */
+      padding: 20px; /* Inner padding */
       text-align: center;
     }
     .offer-card:hover {
@@ -124,45 +124,6 @@
       margin-top: 40px;
       padding: 0 20px;
     }
-    /* HISTORY SECTION */
-    .history-section {
-      margin-top: 40px;
-      padding: 20px;
-      background: #fff;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    }
-    .history-section h2 {
-      text-align: center;
-      font-size: 2.5rem;
-      color: #2575fc;
-      margin-bottom: 20px;
-    }
-    .history-content {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      justify-content: center;
-    }
-    .history-item {
-      flex: 1;
-      min-width: 280px;
-      background: #f9f9f9;
-      border-radius: 5px;
-      padding: 15px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-      text-align: center;
-    }
-    .history-item h3 {
-      font-size: 1.5rem;
-      color: #333;
-      margin-bottom: 10px;
-    }
-    .history-item p {
-      font-size: 1rem;
-      color: #666;
-      line-height: 1.5;
-    }
     /* Responsive Adjustments */
     @media (max-width: 768px) {
       .offers-grid {
@@ -178,25 +139,20 @@
       .hero h1 {
         font-size: 2.2rem;
       }
-      .history-content {
-        flex-direction: column;
-        align-items: center;
-      }
     }
   </style>
 </head>
 <body>
   <!-- Load External Header -->
+  <div id="header-placeholder"></div>
   <script>
     function loadHTML(url, containerId, callback) {
       fetch(url)
-        .then((response) => response.text())
-        .then((html) => {
+        .then(response => response.text())
+        .then(html => {
           document.getElementById(containerId).innerHTML = html;
-          const scripts = document
-            .getElementById(containerId)
-            .querySelectorAll("script");
-          scripts.forEach((oldScript) => {
+          const scripts = document.getElementById(containerId).querySelectorAll("script");
+          scripts.forEach(oldScript => {
             const newScript = document.createElement("script");
             if (oldScript.src) {
               newScript.src = oldScript.src;
@@ -207,11 +163,10 @@
           });
           if (callback) callback();
         })
-        .catch((err) => console.error("Error loading " + url, err));
+        .catch(err => console.error("Error loading " + url, err));
     }
     loadHTML("header.html", "header-placeholder");
   </script>
-  <div id="header-placeholder"></div>
 
   <main>
     <!-- HERO SECTION -->
@@ -219,12 +174,9 @@
       <div class="content">
         <h1>Curated Selections</h1>
         <p>
-          Discover exclusive offers and hand-picked deals from our vast
-          collection. Elevate your shopping experience with NextGen E-commerce.
+          Discover exclusive offers and hand-picked deals from our vast collection. Elevate your shopping experience with NextGen E-commerce.
         </p>
-        <button class="btn" onclick="window.location.href='ecommerce.html'">
-          Shop Now
-        </button>
+        <button class="btn" onclick="window.location.href='ecommerce.html'">Shop Now</button>
       </div>
     </section>
 
@@ -239,41 +191,19 @@
     <!-- DUMMY DATA NOTE -->
     <div class="dummy-note">
       <p>
-        This page is integrated with our main E-commerce platform. Click on any
-        offer to jump directly to the detailed section on our main site.
+        This page is integrated with our main E-commerce platform. Click on any offer to jump directly to the detailed section on our main site.
       </p>
     </div>
-    
-    <!-- HISTORY & RECOMMENDATIONS SECTION -->
-    <section class="history-section">
-      <h2>Your History & Recommendations</h2>
-      <div class="history-content">
-        <div class="history-item">
-          <h3>Previous Shopping History</h3>
-          <p>Your recent purchases will appear here.</p>
-        </div>
-        <div class="history-item">
-          <h3>Search History</h3>
-          <p>Your recent search queries will appear here.</p>
-        </div>
-        <div class="history-item">
-          <h3>Recommended for You</h3>
-          <p>Based on your history, we recommend these products for you.</p>
-        </div>
-      </div>
-    </section>
-    
   </main>
 
   <!-- Load External Footer -->
+  <div id="footer-placeholder"></div>
   <script>
     loadHTML("footer.html", "footer-placeholder");
   </script>
-  <div id="footer-placeholder"></div>
 
   <!-- DYNAMIC OFFERS SCRIPT -->
   <script>
-    // Mapping of offer titles to Font Awesome icon classes
     const offerIcons = {
       "Countdown Sales": "fas fa-hourglass-half",
       "Discount Offers": "fas fa-percent",
@@ -281,8 +211,6 @@
       "Seasonal Offers": "fas fa-leaf",
       "Clearance Sale": "fas fa-tags"
     };
-
-    // Dummy categories for demonstration
     const offers = [
       {
         title: "Countdown Sales",
@@ -310,38 +238,27 @@
         query: "Clearance,Sale"
       }
     ];
-
     const offersGrid = document.getElementById("offersGrid");
-
     offers.forEach((offer) => {
       const card = document.createElement("div");
       card.className = "offer-card";
       card.onclick = () => {
-        // Jump to the specific category section in ecommerce.html
         const sectionId = "section-" + offer.title.replace(/\s/g, "");
         window.location.href = "ecommerce.html#" + sectionId;
       };
-
-      // Create icon element for the offer
       const iconDiv = document.createElement("div");
       iconDiv.className = "offer-icon";
       const iconElement = document.createElement("i");
-      // Use the corresponding icon class, default to a generic icon if not found
       iconElement.className = offerIcons[offer.title] || "fas fa-star";
       iconDiv.appendChild(iconElement);
-
-      // Offer content
       const contentDiv = document.createElement("div");
       contentDiv.className = "offer-content";
       const title = document.createElement("h3");
       title.textContent = offer.title;
       const desc = document.createElement("p");
       desc.textContent = offer.description;
-
       contentDiv.appendChild(title);
       contentDiv.appendChild(desc);
-
-      // Append icon and content to the card
       card.appendChild(iconDiv);
       card.appendChild(contentDiv);
       offersGrid.appendChild(card);
