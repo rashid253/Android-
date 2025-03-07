@@ -124,6 +124,45 @@
       margin-top: 40px;
       padding: 0 20px;
     }
+    /* HISTORY SECTION */
+    .history-section {
+      margin-top: 40px;
+      padding: 20px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    .history-section h2 {
+      text-align: center;
+      font-size: 2.5rem;
+      color: #2575fc;
+      margin-bottom: 20px;
+    }
+    .history-content {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+    .history-item {
+      flex: 1;
+      min-width: 280px;
+      background: #f9f9f9;
+      border-radius: 5px;
+      padding: 15px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+    .history-item h3 {
+      font-size: 1.5rem;
+      color: #333;
+      margin-bottom: 10px;
+    }
+    .history-item p {
+      font-size: 1rem;
+      color: #666;
+      line-height: 1.5;
+    }
     /* Responsive Adjustments */
     @media (max-width: 768px) {
       .offers-grid {
@@ -138,6 +177,10 @@
       }
       .hero h1 {
         font-size: 2.2rem;
+      }
+      .history-content {
+        flex-direction: column;
+        align-items: center;
       }
     }
   </style>
@@ -200,6 +243,26 @@
         offer to jump directly to the detailed section on our main site.
       </p>
     </div>
+    
+    <!-- HISTORY & RECOMMENDATIONS SECTION -->
+    <section class="history-section">
+      <h2>Your History & Recommendations</h2>
+      <div class="history-content">
+        <div class="history-item">
+          <h3>Previous Shopping History</h3>
+          <p>Your recent purchases will appear here.</p>
+        </div>
+        <div class="history-item">
+          <h3>Search History</h3>
+          <p>Your recent search queries will appear here.</p>
+        </div>
+        <div class="history-item">
+          <h3>Recommended for You</h3>
+          <p>Based on your history, we recommend these products for you.</p>
+        </div>
+      </div>
+    </section>
+    
   </main>
 
   <!-- Load External Footer -->
