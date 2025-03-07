@@ -8,68 +8,37 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <!-- External Custom CSS -->
   <link rel="stylesheet" href="style.css">
-  <!-- Inline CSS for the Secure Payments Page -->
+  <!-- Inline CSS for Secure Payments Page -->
   <style>
-    /* Basic reset and layout */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-      color: #333;
-      line-height: 1.6;
-    }
-    header, footer {
-      background: #333;
-      color: #fff;
-      text-align: center;
-      padding: 1rem 0;
-    }
-    header h2, footer p {
-      margin: 0;
-    }
-    main {
-      padding-bottom: 60px; /* Ensure main content doesn't overlap with footer */
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: Arial, sans-serif; background-color: #f4f4f4; color: #333; line-height: 1.6; }
+    header, footer { background: #333; color: #fff; text-align: center; padding: 1rem 0; }
+    main { padding-bottom: 60px; }
     /* Hero Section */
     .hero {
       background: url('https://via.placeholder.com/1920x500?text=Secure+Payments') no-repeat center center/cover;
       height: 300px;
+      position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
-      position: relative;
     }
     .hero::after {
       content: '';
       position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
+      top: 0; left: 0; right: 0; bottom: 0;
       background: rgba(0,0,0,0.5);
     }
     .hero-content {
       position: relative;
-      z-index: 1;
       text-align: center;
       color: #fff;
       padding: 0 20px;
+      z-index: 1;
     }
-    .hero-content h1 {
-      font-size: 2.5rem;
-      margin-bottom: 0.5rem;
-    }
-    /* Container for main content */
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-    /* Content Section */
+    .hero-content h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+    /* Container & Content Section */
+    .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
     .content-section {
       background: #fff;
       border-radius: 8px;
@@ -79,21 +48,10 @@
       position: relative;
       z-index: 1;
     }
-    .content-section h2 {
-      font-size: 2rem;
-      margin-bottom: 1rem;
-      color: #007BFF;
-    }
-    .content-section p {
-      margin-bottom: 1rem;
-    }
-    .content-section ul {
-      margin-left: 20px;
-      margin-bottom: 1rem;
-    }
-    .content-section li {
-      margin-bottom: 0.5rem;
-    }
+    .content-section h2 { font-size: 2rem; margin-bottom: 1rem; color: #007BFF; }
+    .content-section p { margin-bottom: 1rem; }
+    .content-section ul { margin-left: 20px; margin-bottom: 1rem; }
+    .content-section li { margin-bottom: 0.5rem; }
     /* Call-to-Action Button */
     .cta-btn {
       display: inline-block;
@@ -104,59 +62,53 @@
       border-radius: 5px;
       transition: background-color 0.3s ease;
     }
-    .cta-btn:hover {
-      background-color: #0056b3;
-    }
+    .cta-btn:hover { background-color: #0056b3; }
   </style>
 </head>
 <body>
   <!-- External Header -->
-  <header id="header-placeholder">
-    <h2>MyBusiness Premium</h2>
-  </header>
-
+  <div id="header-placeholder"></div>
+  
   <!-- Main Content -->
   <main>
     <!-- Hero Section -->
     <section class="hero">
       <div class="hero-content">
         <h1>Secure Payments</h1>
-        <p>Your safety, our priority</p>
+        <p>Your Safety, Our Priority</p>
       </div>
     </section>
-
+    
     <!-- Content Section -->
     <div class="container">
       <div class="content-section">
         <h2>Experience Unmatched Security</h2>
         <p>
-          At MyBusiness Premium, we understand that secure transactions are the backbone of trust. Our advanced payment system is designed to protect your data and provide you with a seamless payment experience.
+          At MyBusiness Premium, secure transactions form the backbone of trust. Our advanced payment system safeguards your data and ensures a seamless payment experience.
         </p>
-        <h3>Why Choose Our Secure Payment System?</h3>
+        <h3>Key Benefits:</h3>
         <ul>
-          <li><strong>Advanced Encryption:</strong> All transactions are secured with state-of-the-art encryption technology.</li>
-          <li><strong>Fraud Protection:</strong> Robust monitoring systems detect and prevent unauthorized access.</li>
-          <li><strong>User-Friendly Interface:</strong> Enjoy an effortless and intuitive payment process.</li>
-          <li><strong>24/7 Support:</strong> Our dedicated team is always available to assist you.</li>
+          <li><strong>Advanced Encryption:</strong> Cutting-edge encryption technology for every transaction.</li>
+          <li><strong>Fraud Protection:</strong> Robust systems to detect and prevent unauthorized activities.</li>
+          <li><strong>User-Friendly Interface:</strong> Intuitive design for effortless payments.</li>
+          <li><strong>24/7 Support:</strong> Round-the-clock assistance for your peace of mind.</li>
         </ul>
         <p>
-          Ready to experience the ultimate in secure payment technology? Join us today and take the first step towards a safer transaction experience.
+          Join us today and embrace a new era of secure payments.
         </p>
-        <a href="signup.html" class="cta-btn">Get Started Now</a>
+        <a href="ecommerce.html" class="cta-btn">Shop Now</a>
       </div>
     </div>
   </main>
-
+  
   <!-- External Footer -->
-  <footer id="footer-placeholder">
-    <p>&copy; 2025 MyBusiness Premium. All rights reserved.</p>
-  </footer>
-
+  <div id="footer-placeholder"></div>
+  
   <script>
-    // Optional: Code to load external header and footer if required
+    // Example: Load external header/footer if using AJAX include
     document.addEventListener("DOMContentLoaded", function() {
-      // Example: loadHTML('header-placeholder', 'header.html');
-      // Example: loadHTML('footer-placeholder', 'footer.html');
+      // loadHTML('header-placeholder', 'header.html');
+      // loadHTML('footer-placeholder', 'footer.html');
     });
   </script>
 </body>
