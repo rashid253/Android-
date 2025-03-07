@@ -22,10 +22,12 @@
       #header-placeholder, #footer-placeholder {
         flex-shrink: 0;
       }
+      /* Added bottom padding to ensure content doesn't overlap with footer */
       main {
         flex: 1;
         position: relative;
         overflow-y: auto;
+        padding-bottom: 60px;
       }
 
       /* ===== Hero Section (unchanged) ===== */
@@ -98,7 +100,6 @@
         max-width: 1200px;
         margin: auto;
       }
-      /* Single-column grid */
       .features-grid {
         display: grid;
         grid-template-columns: 1fr;
@@ -115,7 +116,7 @@
         padding: 1.5rem;
         text-align: center;
       }
-      /* Icon styling updated to green color */
+      /* Icon styling: green icons */
       .feature-item i {
         font-size: 2rem;
         margin-bottom: 1rem;
