@@ -1,179 +1,139 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>NextGen Analytics - Dashboard</title>
-    <!-- Font Awesome for icons (used in header/footer) -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
-    <!-- Custom CSS for overall site (header, footer, etc.) -->
-    <link rel="stylesheet" href="style.css" />
-    <!-- Bootstrap 5 CSS for layout -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <!-- Inline Styles for Analytics Page -->
-    <style>
-      body {
-        font-family: 'Roboto', sans-serif;
-        background-color: #f3f4f6;
-        color: #2d3748;
-        margin: 0;
-        padding: 0;
-      }
-      a {
-        text-decoration: none;
-        color: inherit;
-        transition: color 0.3s ease;
-      }
-      a:hover {
-        color: #ff6f61;
-      }
-      main {
-        padding-bottom: 100px; /* To prevent content from being hidden by the footer */
-      }
-      .analytics-header {
-        margin-top: 20px;
-        margin-bottom: 40px;
-      }
-      /* Card styles for dashboard panels */
-      .dashboard-card {
-        margin-bottom: 30px;
-      }
-      .dashboard-card .card-header {
-        background-color: #007bff;
-        color: #fff;
-        font-weight: bold;
-      }
-      .dashboard-metric {
-        font-size: 1.5rem;
-        font-weight: bold;
-      }
-    </style>
-  </head>
-  <body>
-    <!-- Header Placeholder (loaded dynamically from header.html) -->
-    <div id="header-placeholder"></div>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Analytics & Insights - Android-</title>
+  <!-- Link to your external CSS if available -->
+  <link rel="stylesheet" href="styles.css">
+  <!-- Optional: Bootstrap CSS for quick styling -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- Custom Inline Styles -->
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f9f9f9; }
+    header { background-color: #007bff; color: #fff; padding: 20px 0; }
+    header .container { display: flex; align-items: center; justify-content: space-between; }
+    header nav a { color: #fff; margin: 0 10px; text-decoration: none; font-weight: bold; }
+    .hero { background: url('images/analytics-banner.jpg') no-repeat center center; background-size: cover; padding: 100px 0; color: #fff; text-align: center; }
+    .hero h1 { font-size: 3rem; margin-bottom: 20px; }
+    .hero p { font-size: 1.2rem; }
+    .content-section { padding: 60px 0; }
+    .chart-container { width: 100%; max-width: 800px; margin: 0 auto; }
+    .cta { background-color: #28a745; color: #fff; padding: 40px 0; text-align: center; }
+    .cta h2 { font-size: 2rem; margin-bottom: 20px; }
+    .cta a { background: #fff; color: #28a745; padding: 10px 20px; text-decoration: none; font-weight: bold; border-radius: 5px; }
+    footer { background-color: #343a40; color: #ccc; padding: 20px 0; text-align: center; }
+    footer a { color: #ccc; text-decoration: none; margin: 0 5px; }
+  </style>
+</head>
+<body>
+  <!-- Header Section -->
+  <header>
+    <div class="container">
+      <h2>Android-</h2>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="analytics.html">Analytics</a>
+      </nav>
+    </div>
+  </header>
 
-    <!-- Main Analytics Content -->
-    <main>
-      <div class="container">
-        <h1 class="analytics-header text-center">Analytics Dashboard</h1>
-        <!-- First Row: Two charts side by side -->
-        <div class="row">
-          <div class="col-md-6">
-            <div class="card dashboard-card">
-              <div class="card-header">Sales Overview</div>
-              <div class="card-body">
-                <!-- Dummy chart image -->
-                <img
-                  src="https://via.placeholder.com/500x300?text=Sales+Chart"
-                  class="img-fluid"
-                  alt="Sales Chart"
-                />
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="card dashboard-card">
-              <div class="card-header">User Engagement</div>
-              <div class="card-body">
-                <img
-                  src="https://via.placeholder.com/500x300?text=Engagement+Chart"
-                  class="img-fluid"
-                  alt="Engagement Chart"
-                />
-              </div>
-            </div>
-          </div>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <h1>Unlock Insights, Drive Sales</h1>
+      <p>Discover powerful analytics to optimize your strategy and boost your revenue.</p>
+    </div>
+  </section>
+
+  <!-- Analytics Content Section -->
+  <section class="content-section">
+    <div class="container">
+      <h2 class="text-center mb-5">Real-Time Analytics</h2>
+      <div class="chart-container">
+        <!-- Chart Placeholder -->
+        <canvas id="salesChart" width="800" height="400"></canvas>
+      </div>
+      <p class="mt-4 text-center">
+        Monitor your performance with our dynamic, real-time dashboard. Our intuitive analytics tools help you make data-driven decisions to accelerate growth.
+      </p>
+    </div>
+  </section>
+
+  <!-- Customer Engagement Section -->
+  <section class="content-section bg-light">
+    <div class="container">
+      <h2 class="text-center mb-5">What Our Customers Say</h2>
+      <div class="row">
+        <div class="col-md-4">
+          <blockquote class="blockquote">
+            <p>"The analytics dashboard transformed our approach and significantly boosted our sales!"</p>
+            <footer class="blockquote-footer">Customer A</footer>
+          </blockquote>
         </div>
-        <!-- Second Row: Full-width chart -->
-        <div class="row">
-          <div class="col-md-12">
-            <div class="card dashboard-card">
-              <div class="card-header">Revenue Statistics</div>
-              <div class="card-body">
-                <img
-                  src="https://via.placeholder.com/1000x300?text=Revenue+Chart"
-                  class="img-fluid"
-                  alt="Revenue Chart"
-                />
-              </div>
-            </div>
-          </div>
+        <div class="col-md-4">
+          <blockquote class="blockquote">
+            <p>"A user-friendly tool that helped us pinpoint key growth areas. Highly recommended!"</p>
+            <footer class="blockquote-footer">Customer B</footer>
+          </blockquote>
         </div>
-        <!-- Third Row: Metrics Panels -->
-        <div class="row">
-          <div class="col-md-4">
-            <div class="card text-white bg-primary dashboard-card">
-              <div class="card-body">
-                <h5 class="card-title">Total Sales</h5>
-                <p class="dashboard-metric">PKR 1,500,000</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="card text-white bg-success dashboard-card">
-              <div class="card-body">
-                <h5 class="card-title">Active Users</h5>
-                <p class="dashboard-metric">12,000</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="card text-white bg-danger dashboard-card">
-              <div class="card-body">
-                <h5 class="card-title">Conversion Rate</h5>
-                <p class="dashboard-metric">3.5%</p>
-              </div>
-            </div>
-          </div>
+        <div class="col-md-4">
+          <blockquote class="blockquote">
+            <p>"Insights that matter – our go-to platform for data-driven success."</p>
+            <footer class="blockquote-footer">Customer C</footer>
+          </blockquote>
         </div>
       </div>
-    </main>
+    </div>
+  </section>
 
-    <!-- Footer Placeholder (loaded dynamically from footer.html) -->
-    <div id="footer-placeholder"></div>
+  <!-- Call-to-Action Section -->
+  <section class="cta">
+    <div class="container">
+      <h2>Ready to Elevate Your Business?</h2>
+      <p>Contact us today to learn how our analytics solutions can drive your sales growth.</p>
+      <a href="contact.html">Get In Touch</a>
+    </div>
+  </section>
 
-    <!-- Scripts -->
-    <!-- Bootstrap 5 JS Bundle -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Script to load header and footer dynamically -->
-    <script>
-      function loadHTML(elementId, filePath) {
-        fetch(filePath)
-          .then(response => {
-            if (!response.ok) {
-              // Fallback: if header.html or footer.html not found, display default content.
-              if (elementId === "header-placeholder") {
-                document.getElementById(elementId).innerHTML =
-                  '<header style="background:#333;color:#fff;padding:10px;text-align:center;">Header</header>';
-              } else if (elementId === "footer-placeholder") {
-                document.getElementById(elementId).innerHTML =
-                  '<footer style="background:#333;color:#fff;padding:10px;text-align:center;">Footer</footer>';
-              }
-              throw new Error('Error fetching ' + filePath);
-            }
-            return response.text();
-          })
-          .then(html => {
-            document.getElementById(elementId).innerHTML = html;
-          })
-          .catch(error => console.error(error));
+  <!-- Footer Section -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 Android-. All rights reserved.</p>
+      <p>
+        <a href="analytics.html">
+          <img src="images/analytics-icon.png" alt="Analytics" style="width:24px; vertical-align:middle;"> Analytics
+        </a>
+      </p>
+    </div>
+  </footer>
+
+  <!-- Optional JavaScript: Chart.js for interactive charts -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    // Sample data for the sales chart
+    const ctx = document.getElementById('salesChart').getContext('2d');
+    const salesChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+        datasets: [{
+          label: 'Monthly Sales',
+          data: [150, 200, 180, 220, 260, 300, 350],
+          backgroundColor: 'rgba(0, 123, 255, 0.2)',
+          borderColor: 'rgba(0, 123, 255, 1)',
+          borderWidth: 2,
+          fill: true
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: { beginAtZero: true }
+        }
       }
-      document.addEventListener("DOMContentLoaded", function () {
-        loadHTML("header-placeholder", "header.html");
-        loadHTML("footer-placeholder", "footer.html");
-      });
-    </script>
-    <!--
-      This frontend code is built using dummy data and is structured to be easily integrated with a Firebase backend in the future.
-      The fetchProducts() function currently simulates data fetching, and will later be replaced by Firebase Firestore API calls.
-      Authentication and data persistence will be handled via Firebase, allowing for dynamic and secure data management.
-    -->
-  </body>
+    });
+  </script>
+</body>
 </html>
