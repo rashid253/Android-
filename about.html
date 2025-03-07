@@ -55,6 +55,12 @@
       padding: 0 15px;
       margin-bottom: 40px;
     }
+    /* Make every card clickable */
+    .card-link {
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
     .card {
       background: #fff;
       border: 1px solid #ddd;
@@ -62,6 +68,10 @@
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
       padding: 20px;
       text-align: center;
+      transition: transform 0.3s;
+    }
+    .card:hover {
+      transform: translateY(-5px);
     }
     .card h2 {
       font-size: 1.8rem;
@@ -73,13 +83,6 @@
       color: #666;
       line-height: 1.5;
       margin-bottom: 0;
-    }
-    
-    /* Make the shop card clickable */
-    .shop-card-link {
-      text-decoration: none;
-      color: inherit;
-      display: block;
     }
     
     /* Testimonials inside a card */
@@ -148,48 +151,56 @@
     <!-- Card Container for Section Blocks -->
     <div class="card-container">
       <!-- Card: Innovative Technology -->
-      <div class="card">
-        <h2>Innovative Technology</h2>
-        <p>Our platform currently uses dummy data—designed for a seamless shift to Firebase Firestore for real-time, secure updates.</p>
-      </div>
+      <a class="card-link" href="technology.html">
+        <div class="card">
+          <h2>Innovative Technology</h2>
+          <p>Our platform currently uses dummy data—designed for a seamless shift to Firebase Firestore for real-time, secure updates.</p>
+        </div>
+      </a>
       
       <!-- Card: Customer Testimonials -->
-      <div class="card">
-        <h2>What Our Users Say</h2>
-        <div class="testimonials">
-          <div class="slides">
-            <div class="testimonial">
-              <p>"The experience is addictive—I feel like I'm living in the future every time I use the app!"</p>
-              <div class="author">- Ayesha, Karachi</div>
-            </div>
-            <div class="testimonial">
-              <p>"Innovative and engaging! The design and functionality are truly revolutionary."</p>
-              <div class="author">- Bilal, Lahore</div>
-            </div>
-            <div class="testimonial">
-              <p>"Every detail is crafted perfectly. Shopping here is a captivating experience!"</p>
-              <div class="author">- Fatima, Islamabad</div>
+      <a class="card-link" href="testimonials.html">
+        <div class="card">
+          <h2>What Our Users Say</h2>
+          <div class="testimonials">
+            <div class="slides">
+              <div class="testimonial">
+                <p>"The experience is addictive—I feel like I'm living in the future every time I use the app!"</p>
+                <div class="author">- Ayesha, Karachi</div>
+              </div>
+              <div class="testimonial">
+                <p>"Innovative and engaging! The design and functionality are truly revolutionary."</p>
+                <div class="author">- Bilal, Lahore</div>
+              </div>
+              <div class="testimonial">
+                <p>"Every detail is crafted perfectly. Shopping here is a captivating experience!"</p>
+                <div class="author">- Fatima, Islamabad</div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </a>
       
       <!-- Card: Our Vision & Mission -->
-      <div class="card">
-        <h2>Our Vision &amp; Mission</h2>
-        <p>We aim to create an engaging experience that becomes part of your lifestyle—merging next-generation technology with innovative design.</p>
-      </div>
+      <a class="card-link" href="vision.html">
+        <div class="card">
+          <h2>Our Vision &amp; Mission</h2>
+          <p>We aim to create an engaging experience that becomes part of your lifestyle—merging next-generation technology with innovative design.</p>
+        </div>
+      </a>
       
       <!-- Card: Technical Note -->
-      <div class="card">
-        <h2>Technical Note</h2>
-        <div class="tech-note">
-          <p><strong>Technical Note:</strong> This frontend is built using dummy data and is structured for seamless integration with Firebase Firestore. The <code>fetchProducts()</code> function will soon be replaced by live API calls for real-time updates, secure authentication, and dynamic content.</p>
+      <a class="card-link" href="technical.html">
+        <div class="card">
+          <h2>Technical Note</h2>
+          <div class="tech-note">
+            <p><strong>Technical Note:</strong> This frontend is built using dummy data and is structured for seamless integration with Firebase Firestore. The <code>fetchProducts()</code> function will soon be replaced by live API calls for real-time updates, secure authentication, and dynamic content.</p>
+          </div>
         </div>
-      </div>
+      </a>
       
-      <!-- Shop Card: Entire card is clickable -->
-      <a class="shop-card-link" href="ecommerce.html">
+      <!-- Card: Explore Our Collection (Shop Card) -->
+      <a class="card-link" href="ecommerce.html">
         <div class="card">
           <h2>Explore Our Collection</h2>
           <p>Discover exclusive offers and innovative products curated just for you.</p>
