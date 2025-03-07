@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="style.css">
   <!-- Font Awesome for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <!-- Page-Specific Styles -->
+  <!-- Inline Page-Specific Styles -->
   <style>
     /* Base Styles */
     body {
@@ -18,10 +18,10 @@
       overflow-x: hidden;
     }
     main {
-      padding-bottom: 100px; /* Extra bottom padding to avoid clashing with footer */
+      padding-bottom: 100px;
     }
     
-    /* Top Call-to-Action (CTA) Section */
+    /* Top CTA Section */
     .cta {
       background: #4caf50;
       color: #fff;
@@ -47,7 +47,7 @@
       background: #f57c00;
     }
     
-    /* Card Container for Content Sections */
+    /* Card Container */
     .card-container {
       display: flex;
       flex-direction: column;
@@ -55,7 +55,7 @@
       padding: 0 15px;
       margin-bottom: 40px;
     }
-    /* Make every card clickable */
+    /* Make each card clickable */
     .card-link {
       text-decoration: none;
       color: inherit;
@@ -69,6 +69,7 @@
       padding: 20px;
       text-align: center;
       transition: transform 0.3s;
+      cursor: pointer;
     }
     .card:hover {
       transform: translateY(-5px);
@@ -85,47 +86,38 @@
       margin-bottom: 0;
     }
     
-    /* Testimonials inside a card */
-    .testimonials {
-      overflow: hidden;
-      position: relative;
-      margin-top: 10px;
+    /* Modal Styles */
+    .modal {
+      display: none; 
+      position: fixed;
+      z-index: 10000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow-y: auto;
+      background-color: rgba(0,0,0,0.7);
+      padding: 20px;
     }
-    .testimonials .slides {
-      display: flex;
-      transition: transform 0.5s ease;
-    }
-    .testimonial {
-      min-width: 100%;
-      padding: 10px;
-      box-sizing: border-box;
-    }
-    .testimonial p {
-      font-size: 0.9rem;
-      color: #555;
-      margin-bottom: 5px;
-    }
-    .testimonial .author {
-      font-size: 0.8rem;
-      color: #888;
-    }
-    
-    /* Technical Note Styling */
-    .tech-note {
-      background: #e8f0fe;
+    .modal-content {
+      background-color: #fff;
+      margin: 5% auto;
       padding: 20px;
       border-radius: 8px;
-      text-align: left;
-      font-size: 0.9rem;
-      line-height: 1.5;
-      color: #333;
-      margin: 0;
+      width: 90%;
+      max-width: 600px;
+      position: relative;
     }
-    .tech-note code {
-      background: #c5d4f1;
-      padding: 2px 4px;
-      border-radius: 4px;
-      font-family: monospace;
+    .close-modal {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 1.5rem;
+      color: #aaa;
+      cursor: pointer;
+    }
+    .close-modal:hover {
+      color: #000;
     }
   </style>
 </head>
@@ -148,58 +140,41 @@
       <a href="contact.html">Get in Touch</a>
     </section>
     
-    <!-- Card Container for Section Blocks -->
+    <!-- Card Container -->
     <div class="card-container">
       <!-- Card: Innovative Technology -->
-      <a class="card-link" href="technology.html">
+      <div class="card-link" onclick="openModal('modalTechnology')">
         <div class="card">
           <h2>Innovative Technology</h2>
-          <p>Our platform currently uses dummy data—designed for a seamless shift to Firebase Firestore for real-time, secure updates.</p>
+          <p>Click to learn how we leverage state-of-the-art tech for a seamless shopping experience.</p>
         </div>
-      </a>
+      </div>
       
-      <!-- Card: Customer Testimonials -->
-      <a class="card-link" href="testimonials.html">
+      <!-- Card: What Our Users Say -->
+      <div class="card-link" onclick="openModal('modalTestimonials')">
         <div class="card">
           <h2>What Our Users Say</h2>
-          <div class="testimonials">
-            <div class="slides">
-              <div class="testimonial">
-                <p>"The experience is addictive—I feel like I'm living in the future every time I use the app!"</p>
-                <div class="author">- Ayesha, Karachi</div>
-              </div>
-              <div class="testimonial">
-                <p>"Innovative and engaging! The design and functionality are truly revolutionary."</p>
-                <div class="author">- Bilal, Lahore</div>
-              </div>
-              <div class="testimonial">
-                <p>"Every detail is crafted perfectly. Shopping here is a captivating experience!"</p>
-                <div class="author">- Fatima, Islamabad</div>
-              </div>
-            </div>
-          </div>
+          <p>Click to see what our satisfied customers have to share.</p>
         </div>
-      </a>
+      </div>
       
       <!-- Card: Our Vision & Mission -->
-      <a class="card-link" href="vision.html">
+      <div class="card-link" onclick="openModal('modalVision')">
         <div class="card">
           <h2>Our Vision &amp; Mission</h2>
-          <p>We aim to create an engaging experience that becomes part of your lifestyle—merging next-generation technology with innovative design.</p>
+          <p>Click to discover our philosophy and commitment to innovation.</p>
         </div>
-      </a>
+      </div>
       
       <!-- Card: Technical Note -->
-      <a class="card-link" href="technical.html">
+      <div class="card-link" onclick="openModal('modalTechnical')">
         <div class="card">
           <h2>Technical Note</h2>
-          <div class="tech-note">
-            <p><strong>Technical Note:</strong> This frontend is built using dummy data and is structured for seamless integration with Firebase Firestore. The <code>fetchProducts()</code> function will soon be replaced by live API calls for real-time updates, secure authentication, and dynamic content.</p>
-          </div>
+          <p>Click to explore the technical backbone powering our platform.</p>
         </div>
-      </a>
+      </div>
       
-      <!-- Card: Explore Our Collection (Shop Card) -->
+      <!-- Shop Card: Entire card clickable and links directly to ecommerce.html -->
       <a class="card-link" href="ecommerce.html">
         <div class="card">
           <h2>Explore Our Collection</h2>
@@ -208,7 +183,66 @@
       </a>
     </div>
     
-    <!-- (No Bottom Hero Section) -->
+    <!-- Modals for Card Details -->
+    <!-- Modal: Innovative Technology -->
+    <div id="modalTechnology" class="modal">
+      <div class="modal-content">
+        <span class="close-modal" onclick="closeModal('modalTechnology')">&times;</span>
+        <h2>Innovative Technology</h2>
+        <p>At NextGen Experience, we harness state-of-the-art technologies to deliver a seamless digital shopping experience. Our platform is built on modern frameworks that enable real‑time updates, robust security, and an intuitive user interface.</p>
+        <p>Leveraging Firebase Firestore, our system ensures that data is synchronized instantly—providing dynamic, interactive experiences with secure transactions and personalized content delivered in real time.</p>
+        <p>We continuously explore emerging technologies to keep our platform ahead of the curve, ensuring that every interaction is engaging, efficient, and future‑ready.</p>
+      </div>
+    </div>
+    
+    <!-- Modal: What Our Users Say -->
+    <div id="modalTestimonials" class="modal">
+      <div class="modal-content">
+        <span class="close-modal" onclick="closeModal('modalTestimonials')">&times;</span>
+        <h2>What Our Users Say</h2>
+        <p>"The experience is transformative! Every time I use the platform, it feels like I'm stepping into the future of online shopping." – Ayesha, Karachi</p>
+        <p>"NextGen Experience redefines ecommerce. The seamless integration of cutting‑edge technology and elegant design is unparalleled." – Bilal, Lahore</p>
+        <p>"From real‑time updates to personalized recommendations, this platform is a game‑changer. Shopping has never felt so exciting!" – Fatima, Islamabad</p>
+        <p>"The customer service and innovative features make this site stand out. I truly feel like a valued user every time I visit." – Omar, Multan</p>
+      </div>
+    </div>
+    
+    <!-- Modal: Our Vision & Mission -->
+    <div id="modalVision" class="modal">
+      <div class="modal-content">
+        <span class="close-modal" onclick="closeModal('modalVision')">&times;</span>
+        <h2>Our Vision &amp; Mission</h2>
+        <p>At NextGen Experience, our vision is to revolutionize the way people interact with online shopping. By fusing advanced technology with innovative design, we create an immersive, user‑friendly experience that transforms everyday shopping into an adventure.</p>
+        <p>Our mission is to empower users with real‑time updates, personalized recommendations, and a platform that anticipates their needs. With creativity and commitment to excellence, we continuously push the boundaries of digital commerce.</p>
+        <p>Join us as we redefine the future of ecommerce—making every interaction engaging, intuitive, and uniquely rewarding.</p>
+      </div>
+    </div>
+    
+    <!-- Modal: Technical Note -->
+    <div id="modalTechnical" class="modal">
+      <div class="modal-content">
+        <span class="close-modal" onclick="closeModal('modalTechnical')">&times;</span>
+        <h2>Technical Note</h2>
+        <p>This frontend is built using modern web technologies and dummy data as a foundation for seamless integration with live data via Firebase Firestore. Our architecture is designed for real‑time updates, secure authentication, and dynamic content delivery.</p>
+        <p>Key technical highlights include:</p>
+        <ul>
+          <li>Real‑time data synchronization using Firebase Firestore</li>
+          <li>Robust security protocols protecting user data</li>
+          <li>Responsive design for optimal experience across all devices</li>
+          <li>Modular code structure for ease of maintenance and scalability</li>
+        </ul>
+        <p>Example snippet:</p>
+        <pre style="background:#f4f4f4; padding:10px; border-radius:4px; overflow-x:auto;">
+function fetchProducts() {
+  // Replace with live API call, e.g., using Firebase Firestore:
+  // firebase.firestore().collection('products').get().then(...);
+  console.log('Fetching products...');
+}
+        </pre>
+        <p>We are continuously refining our technology to deliver an unparalleled ecommerce experience. Stay tuned for more updates!</p>
+      </div>
+    </div>
+    
   </main>
   
   <!-- Load External Footer -->
@@ -219,17 +253,36 @@
          document.body.insertAdjacentHTML("beforeend", data);
       })
       .catch(error => console.error("Footer load error:", error));
+      
+    // Modal Functions
+    function openModal(modalId) {
+      document.getElementById(modalId).style.display = "block";
+    }
+    function closeModal(modalId) {
+      document.getElementById(modalId).style.display = "none";
+    }
+    // Close modal when clicking outside modal-content
+    window.onclick = function(event) {
+      const modals = document.getElementsByClassName('modal');
+      for (let modal of modals) {
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      }
+    }
     
-    // Testimonial Carousel Logic
+    // Testimonial Carousel Logic (if needed on the modal page)
     document.addEventListener("DOMContentLoaded", () => {
       let slideIndex = 0;
       const slides = document.querySelector('.slides');
-      const totalSlides = document.querySelectorAll('.testimonial').length;
-      function showNextSlide() {
-        slideIndex = (slideIndex + 1) % totalSlides;
-        slides.style.transform = 'translateX(' + (-slideIndex * 100) + '%)';
+      if (slides) {
+        const totalSlides = document.querySelectorAll('.testimonial').length;
+        function showNextSlide() {
+          slideIndex = (slideIndex + 1) % totalSlides;
+          slides.style.transform = 'translateX(' + (-slideIndex * 100) + '%)';
+        }
+        setInterval(showNextSlide, 4000);
       }
-      setInterval(showNextSlide, 4000);
     });
   </script>
 </body>
