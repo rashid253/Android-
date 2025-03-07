@@ -1,17 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8">  
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
-    <title>MyBusiness Premium</title>  
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyBusiness Premium</title>
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="style.css">
-    <!-- Inline styles for hero video background -->
     <style>
+      /* Basic resets and typography */
+      body, html {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+      }
+      a {
+        text-decoration: none;
+      }
+      
+      /* Header styling */
+      header {
+        background-color: #333;
+        color: #fff;
+        text-align: center;
+        padding: 1em 0;
+      }
+      header nav a {
+        color: #fff;
+        margin: 0 10px;
+      }
+      
+      /* Hero section with video background */
       .hero {
         position: relative;
+        height: 100vh;
         overflow: hidden;
       }
       .hero-video {
@@ -28,14 +49,73 @@
       .hero-content {
         position: relative;
         z-index: 1;
+        text-align: center;
+        color: #fff;
+        padding-top: 40vh;
+      }
+      .cta-buttons button {
+        padding: 10px 20px;
+        margin: 10px;
+        font-size: 16px;
+        border: none;
+        cursor: pointer;
+      }
+      
+      /* Features section styling */
+      .features {
+        padding: 50px 20px;
+        text-align: center;
+      }
+      .features-grid {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        margin-top: 30px;
+      }
+      .feature-item {
+        width: 30%;
+        padding: 20px;
+        box-sizing: border-box;
+      }
+      .feature-item i {
+        font-size: 40px;
+        margin-bottom: 20px;
+      }
+      @media (max-width: 768px) {
+        .features-grid {
+          flex-direction: column;
+        }
+        .feature-item {
+          width: 80%;
+          margin: 0 auto 20px;
+        }
+      }
+      
+      /* Footer styling */
+      footer {
+        background-color: #333;
+        color: #fff;
+        text-align: center;
+        padding: 1em 0;
       }
     </style>
-    <!-- Custom JavaScript -->
-    <script src="script.js" defer></script>
+    <script>
+      // Function to navigate to a different page
+      function openPage(page) {
+        window.location.href = page;
+      }
+    </script>
   </head>
   <body>
-    <!-- Header Placeholder -->
-    <div id="header-placeholder"></div>
+    <!-- Header Section -->
+    <header>
+      <h2>MyBusiness Premium</h2>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="ecommerce.html">Shop</a>
+      </nav>
+    </header>
     
     <!-- Main Content -->
     <main>
@@ -56,67 +136,33 @@
           </div>
         </div>
       </section>
+      
       <!-- Features Section -->
       <section class="features">
-        <div class="container">
-          <h2>Our Exclusive Features</h2>
-          <div class="features-grid">
-            <div class="feature-item">
-              <i class="fas fa-lock"></i>
-              <h3>Secure Payments</h3>
-              <p>State-of-the-art security for your transactions.</p>
-            </div>
-            <div class="feature-item">
-              <i class="fas fa-truck"></i>
-              <h3>Fast Delivery</h3>
-              <p>Reliable, door-to-door delivery service.</p>
-            </div>
-            <div class="feature-item">
-              <i class="fas fa-tags"></i>
-              <h3>Exclusive Deals</h3>
-              <p>Premium discounts and seasonal offers.</p>
-            </div>
+        <h2>Our Exclusive Features</h2>
+        <div class="features-grid">
+          <div class="feature-item">
+            <i class="fas fa-lock"></i>
+            <h3>Secure Payments</h3>
+            <p>State-of-the-art security for your transactions.</p>
+          </div>
+          <div class="feature-item">
+            <i class="fas fa-truck"></i>
+            <h3>Fast Delivery</h3>
+            <p>Reliable, door-to-door delivery service.</p>
+          </div>
+          <div class="feature-item">
+            <i class="fas fa-tags"></i>
+            <h3>Exclusive Deals</h3>
+            <p>Premium discounts and seasonal offers.</p>
           </div>
         </div>
-      </section>    
+      </section>
     </main>
     
-    <!-- Footer Placeholder -->
-    <div id="footer-placeholder"></div>
-    
-    <!-- Inline Script to load header and footer dynamically and define openPage function -->
-    <script>
-      /**
-       * Loads external HTML into a given element.
-       * @param {string} elementId - The ID of the element to load content into.
-       * @param {string} filePath - The path of the HTML file to load.
-       */
-      function loadHTML(elementId, filePath) {
-        fetch(filePath)
-          .then(response => {
-            if (!response.ok) {
-              throw new Error('Error fetching ' + filePath);
-            }
-            return response.text();
-          })
-          .then(html => {
-            document.getElementById(elementId).innerHTML = html;
-          })
-          .catch(error => console.error(error));
-      }
-      
-      /**
-       * Navigates to the given page.
-       * @param {string} page - The URL of the page to navigate to.
-       */
-      function openPage(page) {
-        window.location.href = page;
-      }
-      
-      document.addEventListener("DOMContentLoaded", function() {
-        loadHTML('header-placeholder', 'header.html');
-        loadHTML('footer-placeholder', 'footer.html');
-      });
-    </script>
+    <!-- Footer Section -->
+    <footer>
+      <p>&copy; 2025 MyBusiness Premium. All rights reserved.</p>
+    </footer>
   </body>
 </html>
