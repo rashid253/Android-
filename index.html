@@ -3,142 +3,23 @@
   <head>
     <meta charset="UTF-8">  
     <meta name="viewport" content="width=device-width, initial-scale=1.0">  
-    <title>MyBusiness Premium</title>
+    <title>MyBusiness Premium</title>  
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- External CSS (if any) -->
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
     <!-- Custom JavaScript -->
     <script src="script.js" defer></script>
-    <style>
-      /* HERO SECTION WITH VIDEO BACKGROUND */
-      /* Header is assumed to be 60px tall */
-      .hero {
-        position: relative;
-        height: calc(100vh - 60px);
-        overflow: hidden;
-        background: #fff; /* White fallback background */
-      }
-      .hero video {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        min-width: 100%;
-        min-height: 100%;
-        width: auto;
-        height: auto;
-        transform: translate(-50%, -50%);
-        object-fit: cover; /* Fill the hero area completely */
-        z-index: -1;
-      }
-      .hero-content {
-        position: relative;
-        z-index: 1;
-        color: #fff;
-        text-align: center;
-        padding: 20px;
-        background: rgba(0, 0, 0, 0.4); /* Optional dark overlay for readability */
-        border-radius: 8px;
-        max-width: 600px;
-        margin: 0 auto;
-        top: 50%;
-        transform: translateY(-50%);
-      }
-      .hero-content h1 {
-        font-size: 2.5rem;
-        margin-bottom: 15px;
-      }
-      .hero-content p {
-        font-size: 1.1rem;
-        margin-bottom: 20px;
-      }
-      .cta-buttons button {
-        margin: 0 10px;
-        padding: 10px 20px;
-        font-size: 1rem;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        transition: background-color 0.3s;
-      }
-      .cta-buttons button:first-child {
-        background-color: #28a745;
-        color: #fff;
-      }
-      .cta-buttons button:first-child:hover {
-        background-color: #218838;
-      }
-      .cta-buttons button:last-child {
-        background-color: #007bff;
-        color: #fff;
-      }
-      .cta-buttons button:last-child:hover {
-        background-color: #0069d9;
-      }
-      /* FEATURES SECTION */
-      .features {
-        padding: 40px 15px;
-        background: #fff;
-      }
-      .features .container {
-        max-width: 1200px;
-        margin: 0 auto;
-      }
-      .features h2 {
-        text-align: center;
-        font-size: 2rem;
-        margin-bottom: 30px;
-        color: #007bff;
-      }
-      .features-grid {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 20px;
-      }
-      .feature-item {
-        background: #f9f9f9;
-        padding: 20px;
-        border-radius: 8px;
-        width: 280px;
-        text-align: center;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        transition: transform 0.3s;
-      }
-      .feature-item:hover {
-        transform: translateY(-5px);
-      }
-      .feature-item i {
-        font-size: 2rem;
-        margin-bottom: 15px;
-        color: #007bff;
-      }
-      .feature-item h3 {
-        font-size: 1.3rem;
-        margin-bottom: 10px;
-        color: #333;
-      }
-      .feature-item p {
-        font-size: 1rem;
-        color: #666;
-      }
-      /* CONTAINER */
-      .container {
-        width: 90%;
-        max-width: 1200px;
-        margin: 0 auto;
-      }
-    </style>
   </head>
   <body>
-    <!-- External Header (loaded via fetch) -->
+    <!-- Header Placeholder -->
     <div id="header-placeholder"></div>
     
     <!-- Main Content -->
     <main>
-      <!-- Hero Section with Video Background -->
-      <section class="hero">
-        <video autoplay muted loop>
+      <!-- Hero Section with Background Video -->
+      <section class="hero" style="position: relative; overflow: hidden;">
+        <video autoplay muted loop playsinline class="hero-video" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1;">
           <source src="https://i.imgur.com/9bpUpSq.mp4" type="video/mp4">
           Your browser does not support the video tag.
         </video>
@@ -153,7 +34,6 @@
           </div>
         </div>
       </section>
-      
       <!-- Features Section -->
       <section class="features">
         <div class="container">
@@ -176,14 +56,19 @@
             </div>
           </div>
         </div>
-      </section>
+      </section>    
     </main>
     
-    <!-- External Footer (loaded via fetch) -->
+    <!-- Footer Placeholder -->
     <div id="footer-placeholder"></div>
     
-    <!-- Inline Script to Load Header/ Footer & Define openPage() -->
+    <!-- Inline Script to load header and footer dynamically and define openPage function -->
     <script>
+      /**
+       * Loads external HTML into a given element.
+       * @param {string} elementId - The ID of the element to load content into.
+       * @param {string} filePath - The path of the HTML file to load.
+       */
       function loadHTML(elementId, filePath) {
         fetch(filePath)
           .then(response => {
@@ -197,9 +82,15 @@
           })
           .catch(error => console.error(error));
       }
+      
+      /**
+       * Navigates to the given page.
+       * @param {string} page - The URL of the page to navigate to.
+       */
       function openPage(page) {
         window.location.href = page;
       }
+      
       document.addEventListener("DOMContentLoaded", function() {
         loadHTML('header-placeholder', 'header.html');
         loadHTML('footer-placeholder', 'footer.html');
