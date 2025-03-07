@@ -6,22 +6,20 @@
   <title>Fast Delivery | MyBusiness Premium</title>
   <!-- Font Awesome for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <!-- External Custom CSS -->
+  <!-- External CSS -->
   <link rel="stylesheet" href="style.css">
-  <!-- Inline CSS for Fast Delivery Page -->
+  <!-- Inline Styles for Delivery Page -->
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: Arial, sans-serif; background-color: #f4f4f4; color: #333; line-height: 1.6; }
+    body { font-family: Arial, sans-serif; background: #f4f4f4; color: #333; line-height: 1.6; }
     header, footer { background: #333; color: #fff; text-align: center; padding: 1rem 0; }
     main { padding-bottom: 60px; }
     /* Hero Section */
     .hero {
-      background: url('https://via.placeholder.com/1920x500?text=Fast+Delivery') no-repeat center center/cover;
-      height: 300px;
       position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      overflow: hidden;
+      height: 40vh;
+      background: url('https://via.placeholder.com/1920x500?text=Fast+Delivery') no-repeat center center/cover;
     }
     .hero::after {
       content: '';
@@ -31,13 +29,16 @@
     }
     .hero-content {
       position: relative;
+      z-index: 1;
       text-align: center;
       color: #fff;
       padding: 0 20px;
-      z-index: 1;
+      top: 50%;
+      transform: translateY(-50%);
     }
     .hero-content h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
-    /* Container & Content Section */
+    .hero-content p { font-size: 1.2rem; margin-bottom: 20px; }
+    /* Content Section */
     .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
     .content-section {
       background: #fff;
@@ -56,26 +57,27 @@
     .cta-btn {
       display: inline-block;
       padding: 15px 30px;
-      background-color: #007BFF;
+      background: #007BFF;
       color: #fff;
       text-decoration: none;
       border-radius: 5px;
-      transition: background-color 0.3s ease;
+      transition: background 0.3s ease;
     }
-    .cta-btn:hover { background-color: #0056b3; }
+    .cta-btn:hover { background: #0056b3; }
   </style>
 </head>
 <body>
   <!-- External Header -->
-  <div id="header-placeholder"></div>
+  <div id="header-placeholder">
+    <!-- header.html content will be loaded here -->
+  </div>
   
-  <!-- Main Content -->
   <main>
     <!-- Hero Section -->
     <section class="hero">
       <div class="hero-content">
         <h1>Fast Delivery</h1>
-        <p>Your Orders, Delivered at Lightning Speed</p>
+        <p>Your Orders, Delivered in Record Time</p>
       </div>
     </section>
     
@@ -84,17 +86,17 @@
       <div class="content-section">
         <h2>Speed That Sets You Apart</h2>
         <p>
-          At MyBusiness Premium, we believe that prompt delivery is key to customer satisfaction. Our advanced logistics network ensures that your orders reach you quickly and reliably.
+          At MyBusiness Premium, prompt delivery is at the core of our service. Our advanced logistics network ensures that your orders are delivered swiftly and reliably.
         </p>
         <h3>Why Our Delivery is Unmatched:</h3>
         <ul>
-          <li><strong>Optimized Logistics:</strong> Smart routing and real-time tracking for faster deliveries.</li>
-          <li><strong>Wide Coverage:</strong> Extensive delivery network to serve you better.</li>
-          <li><strong>On-Time Guarantee:</strong> We commit to delivering your orders when you need them.</li>
-          <li><strong>24/7 Customer Support:</strong> Always here to assist you with any delivery queries.</li>
+          <li><strong>Optimized Routing:</strong> Smart routing and real-time tracking for speedy deliveries.</li>
+          <li><strong>Wide Coverage:</strong> Extensive network ensuring delivery anywhere you need.</li>
+          <li><strong>On-Time Guarantee:</strong> We commit to punctual deliveries every time.</li>
+          <li><strong>24/7 Support:</strong> Our team is always ready to assist with your queries.</li>
         </ul>
         <p>
-          Experience the next-generation delivery service that keeps you ahead.
+          Experience next-generation delivery service that keeps you ahead.
         </p>
         <a href="ecommerce.html" class="cta-btn">Shop Now</a>
       </div>
@@ -102,10 +104,13 @@
   </main>
   
   <!-- External Footer -->
-  <div id="footer-placeholder"></div>
+  <div id="footer-placeholder">
+    <!-- footer.html content will be loaded here -->
+  </div>
   
   <script>
     document.addEventListener("DOMContentLoaded", function() {
+      // Optionally load external header/footer via AJAX:
       // loadHTML('header-placeholder', 'header.html');
       // loadHTML('footer-placeholder', 'footer.html');
     });
