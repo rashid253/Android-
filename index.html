@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- External Custom CSS -->
     <link rel="stylesheet" href="style.css">
-    <!-- Inline styles for mobile-friendly layout, hero section, and updated card layout -->
+    <!-- Inline styles for layout, hero section, and updated card layout -->
     <style>
       /* ===== General Layout ===== */
       html, body {
@@ -89,7 +89,7 @@
         color: #fff;
       }
 
-      /* ===== Features Section (cards updated) ===== */
+      /* ===== Features Section with Card Layout (icons remain as in your HTML file) ===== */
       .features {
         padding: 20px 10px;
         background-color: #f8f9fa;
@@ -98,10 +98,6 @@
         max-width: 1200px;
         margin: auto;
       }
-      /* 
-         1) Single column on small screens (cards centered).
-         2) Two or three columns on larger screens (adjust as needed).
-      */
       .features-grid {
         display: grid;
         grid-template-columns: 1fr;
@@ -110,7 +106,6 @@
         margin-top: 20px;
       }
       @media (min-width: 768px) {
-        /* Switch to 3 columns on tablets/desktops */
         .features-grid {
           grid-template-columns: repeat(3, 1fr);
           column-gap: 1.5rem;
@@ -120,23 +115,14 @@
         background-color: #fff;
         border-radius: 8px;
         box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        /* Control how wide each card can get */
         max-width: 320px;
         width: 100%;
         padding: 1.5rem;
         text-align: center;
       }
-      /* Icon in a colored circle at the top */
+      /* Using icon styling as per your HTML file – no extra color or background circle added */
       .feature-item i {
-        display: inline-block;
-        width: 50px;
-        height: 50px;
-        background-color: #ff5b5b; /* Circle color */
-        color: #fff;
-        font-size: 1.5rem;
-        line-height: 50px;
-        text-align: center;
-        border-radius: 50%;
+        font-size: 2rem;
         margin-bottom: 1rem;
       }
       .feature-item h3 {
@@ -175,7 +161,7 @@
         </div>
       </section>
       
-      <!-- Features Section with Updated Card Styles -->
+      <!-- Features Section with Cards -->
       <section class="features">
         <div class="container">
           <h2>Our Exclusive Features</h2>
