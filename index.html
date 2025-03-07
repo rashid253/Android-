@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MyBusiness Premium</title>
   <!-- Font Awesome for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <!-- External Custom CSS -->
+  <!-- External CSS -->
   <link rel="stylesheet" href="style.css">
-  <!-- Inline styles for layout, hero section, and card layout -->
+  <!-- Inline Styles for Index Page -->
   <style>
-    /* ===== General Layout ===== */
+    /* General Layout */
     html, body {
       height: 100%;
       margin: 0;
+      font-family: Arial, sans-serif;
     }
     body {
       display: flex;
@@ -24,16 +25,14 @@
     }
     main {
       flex: 1;
-      position: relative;
-      overflow-y: auto;
-      padding-bottom: 60px; /* space for footer */
+      padding-bottom: 60px; /* Space for footer */
     }
-    
-    /* ===== Hero Section ===== */
+    /* Hero Section */
     .hero {
       position: relative;
       overflow: hidden;
-      height: 100%;
+      height: 60vh;
+      background: #000;
     }
     .hero-video {
       position: absolute;
@@ -41,36 +40,27 @@
       left: 50%;
       min-width: 100%;
       min-height: 100%;
-      width: auto;
-      height: auto;
-      z-index: -1;
       transform: translate(-50%, -50%);
       object-fit: cover;
+      z-index: -1;
     }
     .hero-content {
       position: absolute;
-      top: 10%;
+      top: 20%;
       left: 50%;
       transform: translateX(-50%);
-      z-index: 1;
       text-align: center;
       color: #fff;
-      padding: 10px;
       text-shadow: 1px 1px 4px rgba(0,0,0,0.8);
+      padding: 0 20px;
     }
     .hero-content h1 {
-      font-size: 2rem;
+      font-size: 2.5rem;
       margin-bottom: 10px;
     }
     .hero-content p {
-      font-size: 1rem;
-      margin-bottom: 10px;
-    }
-    .cta-buttons {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      align-items: center;
+      font-size: 1.2rem;
+      margin-bottom: 20px;
     }
     .cta-buttons button {
       width: 80%;
@@ -80,6 +70,7 @@
       border: none;
       border-radius: 4px;
       cursor: pointer;
+      margin: 5px;
     }
     .cta-buttons button:first-child {
       background-color: #007BFF;
@@ -89,59 +80,49 @@
       background-color: #28a745;
       color: #fff;
     }
-    
-    /* ===== Features Section with Single Column Cards ===== */
+    /* Features Section */
     .features {
+      background: #f8f9fa;
       padding: 20px 10px;
-      background-color: #f8f9fa;
     }
     .features .container {
       max-width: 1200px;
-      margin: auto;
+      margin: 0 auto;
     }
     .features-grid {
       display: grid;
       grid-template-columns: 1fr;
-      row-gap: 1.5rem;
-      justify-items: center;
+      gap: 1.5rem;
       margin-top: 20px;
     }
-    .feature-item {
-      background-color: #fff;
+    /* Clickable Card Style */
+    .feature-card {
+      background: #fff;
       border-radius: 8px;
       box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      max-width: 320px;
-      width: 100%;
       padding: 1.5rem;
       text-align: center;
-      position: relative;
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: block;
     }
-    .feature-item i {
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    }
+    .feature-card i {
       font-size: 2rem;
       margin-bottom: 1rem;
       color: green;
     }
-    .feature-item h3 {
+    .feature-card h3 {
       font-size: 1.2rem;
       margin-bottom: 0.5rem;
-      color: #333;
     }
-    .feature-item p {
+    .feature-card p {
       font-size: 0.95rem;
       color: #6c757d;
-    }
-    .feature-item a {
-      display: inline-block;
-      margin-top: 1rem;
-      padding: 10px 20px;
-      background: #007BFF;
-      color: #fff;
-      text-decoration: none;
-      border-radius: 4px;
-      transition: background 0.3s ease;
-    }
-    .feature-item a:hover {
-      background: #0056b3;
     }
   </style>
   <script>
@@ -153,12 +134,12 @@
 <body>
   <!-- External Header -->
   <div id="header-placeholder">
-    <!-- header.html will be loaded here -->
+    <!-- header.html content will be loaded here -->
   </div>
   
   <!-- Main Content -->
   <main>
-    <!-- Hero Section -->
+    <!-- Hero Section with Video Background -->
     <section class="hero">
       <video autoplay muted loop playsinline class="hero-video">
         <source src="https://i.imgur.com/OXCPyAw.mp4" type="video/mp4">
@@ -166,7 +147,7 @@
       </video>
       <div class="hero-content">
         <h1>Premium Business Solutions</h1>
-        <p>Experience the Next Generation of Business Solutions</p>
+        <p>Experience Next Generation Mobile App for Smart Sales</p>
         <div class="cta-buttons">
           <button onclick="openPage('ecommerce.html')">Shop Now</button>
           <button onclick="openPage('about.html')">Learn More</button>
@@ -174,32 +155,26 @@
       </div>
     </section>
     
-    <!-- Features Section with Cards -->
+    <!-- Features Section with Clickable Cards -->
     <section class="features">
       <div class="container">
         <h2>Our Exclusive Features</h2>
         <div class="features-grid">
-          <!-- Card 1: Secure Payments -->
-          <div class="feature-item">
+          <a href="payment.html" class="feature-card">
             <i class="fas fa-lock"></i>
             <h3>Secure Payments</h3>
             <p>State-of-the-art security for your transactions.</p>
-            <a href="payment.html">Learn More</a>
-          </div>
-          <!-- Card 2: Fast Delivery -->
-          <div class="feature-item">
+          </a>
+          <a href="delivery.html" class="feature-card">
             <i class="fas fa-truck"></i>
             <h3>Fast Delivery</h3>
             <p>Reliable, door-to-door delivery service.</p>
-            <a href="delivery.html">Learn More</a>
-          </div>
-          <!-- Card 3: Exclusive Deals -->
-          <div class="feature-item">
+          </a>
+          <a href="deals.html" class="feature-card">
             <i class="fas fa-tags"></i>
             <h3>Exclusive Deals</h3>
             <p>Premium discounts and seasonal offers.</p>
-            <a href="deals.html">Learn More</a>
-          </div>
+          </a>
         </div>
       </div>
     </section>
@@ -207,14 +182,14 @@
   
   <!-- External Footer -->
   <div id="footer-placeholder">
-    <!-- footer.html will be loaded here -->
+    <!-- footer.html content will be loaded here -->
   </div>
   
   <script>
-    // Optional: Load external header and footer files via AJAX if desired.
     document.addEventListener("DOMContentLoaded", function() {
-      // Example: loadHTML('header-placeholder', 'header.html');
-      // Example: loadHTML('footer-placeholder', 'footer.html');
+      // Optionally, load external header/footer via AJAX:
+      // loadHTML('header-placeholder', 'header.html');
+      // loadHTML('footer-placeholder', 'footer.html');
     });
   </script>
 </body>
