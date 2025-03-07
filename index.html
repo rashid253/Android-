@@ -8,12 +8,31 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
-    <!-- Inline styles for hero video background and text enhancements -->
+    <!-- Inline styles for layout and hero section -->
     <style>
+      /* Ensure the entire page fills the viewport and use flexbox to space header, main, and footer */
+      html, body {
+        height: 100%;
+        margin: 0;
+      }
+      body {
+        display: flex;
+        flex-direction: column;
+      }
+      /* The header and footer will take their natural height */
+      #header-placeholder, #footer-placeholder {
+        flex-shrink: 0;
+      }
+      /* Main area fills the remaining space */
+      main {
+        flex: 1;
+        position: relative;
+      }
+      /* Hero section fills the entire main area */
       .hero {
         position: relative;
         overflow: hidden;
-        height: 100vh; /* Full viewport height */
+        height: 100%;
       }
       .hero-video {
         position: absolute;
@@ -25,7 +44,7 @@
         height: auto;
         z-index: -1;
         transform: translate(-50%, -50%);
-        object-fit: cover; /* Ensures the video covers the container */
+        object-fit: cover;
       }
       .hero-content {
         position: absolute;
@@ -52,6 +71,40 @@
         font-size: 16px;
         border: none;
         cursor: pointer;
+      }
+      /* Features Section styling remains unchanged */
+      .features {
+        padding: 50px 20px;
+      }
+      .features .container {
+        max-width: 1200px;
+        margin: auto;
+      }
+      .features-grid {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        margin-top: 30px;
+      }
+      .feature-item {
+        width: 30%;
+        padding: 20px;
+        box-sizing: border-box;
+        text-align: center;
+      }
+      .feature-item i {
+        font-size: 40px;
+        margin-bottom: 20px;
+      }
+      @media (max-width: 768px) {
+        .features-grid {
+          flex-direction: column;
+          align-items: center;
+        }
+        .feature-item {
+          width: 80%;
+          margin-bottom: 20px;
+        }
       }
     </style>
     <!-- Custom JavaScript -->
