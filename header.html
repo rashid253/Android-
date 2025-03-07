@@ -1,4 +1,8 @@
 <style>
+  /* Global box-sizing to include padding in element widths */
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
   /* Compact header with logo (left), search bar (center) and support icon (right) */
   .header {
     position: fixed;
@@ -9,6 +13,7 @@
     padding: 5px 10px;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     z-index: 1000;
     min-height: 48px;
@@ -23,7 +28,7 @@
   }
   /* Centered search bar */
   .search-bar {
-    flex: 1;
+    flex: 1 1 auto;
     margin: 0 10px;
   }
   .search-bar input {
@@ -41,6 +46,9 @@
   .support-icon a {
     text-decoration: none;
     color: #007bff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   .support-icon i {
     font-size: 1.6rem;
