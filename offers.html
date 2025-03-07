@@ -23,6 +23,7 @@
       font-family: "Roboto", sans-serif;
       background: #f0f2f5;
       color: #444;
+      line-height: 1.6;
     }
     main {
       max-width: 1200px;
@@ -30,40 +31,24 @@
       padding: 20px;
     }
 
-    /* HERO SECTION: Animated Gradient, Larger Height, Adjusted Clip-Path */
+    /* HERO SECTION: Enhanced Professional Styling */
     .hero {
       position: relative;
-      /* Increase the height so text and button are not clipped */
-      min-height: 60vh;
+      min-height: 70vh;
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
       color: #fff;
-      background: linear-gradient(
-        45deg,
-        #6a11cb,
-        #2575fc,
-        #ff9900,
-        #e68a00
-      );
-      background-size: 400% 400%;
+      background: linear-gradient(135deg, #4e54c8, #8f94fb);
       animation: gradientAnimation 15s ease infinite;
-      /* Lower the slope so the top area remains visible */
-      clip-path: polygon(0 0, 100% 0, 100% 95%, 0 100%);
+      clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
     }
     @keyframes gradientAnimation {
-      0% {
-        background-position: 0% 50%;
-      }
-      50% {
-        background-position: 100% 50%;
-      }
-      100% {
-        background-position: 0% 50%;
-      }
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
-    /* Dark overlay to help text stand out */
     .hero::after {
       content: "";
       position: absolute;
@@ -71,80 +56,65 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.3);
+      background: rgba(0, 0, 0, 0.4);
     }
     .hero .content {
       position: relative;
       z-index: 1;
       padding: 20px;
     }
-    /* Enhanced 3D + stroke for "Curated Selections" */
     .hero h1 {
-      position: relative;
-      font-size: 3rem;
-      margin-bottom: 10px;
+      font-size: 3.5rem;
+      margin-bottom: 20px;
       font-weight: 700;
       color: #fff;
-      text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.8);
-      -webkit-text-stroke: 1px black;
-    }
-    /* This pseudo-element helps create a subtle 3D offset; 
-       you can remove if it's still causing issues */
-    .hero h1::before {
-      content: attr(data-text);
-      position: absolute;
-      top: 5px;
-      left: 5px;
-      color: rgba(0, 0, 0, 0.3);
-      z-index: -1;
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+      -webkit-text-stroke: 1px rgba(0, 0, 0, 0.2);
     }
     .hero p {
-      font-size: 1.2rem;
+      font-size: 1.3rem;
       max-width: 800px;
-      margin: 0 auto 20px;
-      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+      margin: 0 auto 30px;
+      text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
     }
-    /* The CTA button is spaced down from the text for clarity */
     .hero .btn {
-      position: relative;
-      z-index: 2;
-      margin-top: 20px;
-      padding: 14px 35px;
-      font-size: 1rem;
-      background: linear-gradient(45deg, #6a11cb, #2575fc);
+      padding: 15px 40px;
+      font-size: 1.1rem;
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
       border: none;
       border-radius: 50px;
       color: #fff;
       cursor: pointer;
       transition: background 0.3s, transform 0.3s;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     }
     .hero .btn:hover {
-      background: linear-gradient(45deg, #2575fc, #6a11cb);
-      transform: scale(1.05);
+      background: linear-gradient(135deg, #2575fc, #6a11cb);
+      transform: translateY(-3px);
     }
 
     /* OFFERS GRID SECTION */
     .offers-section {
-      margin-top: 40px;
+      margin-top: 60px;
     }
     .offers-section h2 {
       text-align: center;
-      font-size: 2.5rem;
-      color: #2575fc;
-      margin-bottom: 30px;
+      font-size: 2.8rem;
+      color: #4e54c8;
+      margin-bottom: 40px;
     }
     .offers-grid {
       display: flex;
       flex-wrap: wrap;
-      gap: 20px;
+      gap: 30px;
       justify-content: center;
     }
     .offer-card {
       background: #fff;
       width: 300px;
       border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
       overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
       transition: transform 0.3s, box-shadow 0.3s;
       cursor: pointer;
     }
@@ -157,6 +127,12 @@
       height: 200px;
       background-size: cover;
       background-position: center;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+      transition: transform 0.3s;
+    }
+    .offer-card:hover .offer-image {
+      transform: scale(1.05);
     }
     .offer-content {
       padding: 20px;
@@ -175,7 +151,7 @@
       text-align: center;
       font-size: 0.85rem;
       color: #888;
-      margin-top: 40px;
+      margin-top: 60px;
       padding: 0 20px;
     }
 
@@ -189,10 +165,13 @@
         width: 90%;
       }
       .hero {
-        min-height: 50vh; /* Slightly less on smaller screens */
+        min-height: 50vh;
       }
       .hero h1 {
-        font-size: 2.2rem;
+        font-size: 2.5rem;
+      }
+      .hero p {
+        font-size: 1.1rem;
       }
     }
   </style>
@@ -205,9 +184,7 @@
         .then((response) => response.text())
         .then((html) => {
           document.getElementById(containerId).innerHTML = html;
-          const scripts = document
-            .getElementById(containerId)
-            .querySelectorAll("script");
+          const scripts = document.getElementById(containerId).querySelectorAll("script");
           scripts.forEach((oldScript) => {
             const newScript = document.createElement("script");
             if (oldScript.src) {
@@ -229,11 +206,9 @@
     <!-- HERO SECTION -->
     <section class="hero">
       <div class="content">
-        <!-- data-text for the 3D shadow effect -->
         <h1 data-text="Curated Selections">Curated Selections</h1>
         <p>
-          Discover exclusive offers and hand-picked deals from our vast
-          collection. Elevate your shopping experience with NextGen E-commerce.
+          Discover exclusive offers and hand-picked deals from our vast collection. Elevate your shopping experience with NextGen E-commerce.
         </p>
         <button class="btn" onclick="window.location.href='ecommerce.html'">
           Shop Now
@@ -252,8 +227,7 @@
     <!-- DUMMY DATA NOTE -->
     <div class="dummy-note">
       <p>
-        This page is integrated with our main E-commerce platform. Click on any
-        offer to jump directly to the detailed section on our main site.
+        This page is integrated with our main E-commerce platform. Click on any offer to jump directly to the detailed section on our main site.
       </p>
     </div>
   </main>
@@ -266,7 +240,6 @@
 
   <!-- DYNAMIC OFFERS SCRIPT -->
   <script>
-    // Dummy categories for demonstration
     const offers = [
       {
         title: "Countdown Sales",
@@ -301,17 +274,14 @@
       const card = document.createElement("div");
       card.className = "offer-card";
       card.onclick = () => {
-        // Jump to the specific category section in ecommerce.html
         const sectionId = "section-" + offer.title.replace(/\s/g, "");
         window.location.href = "ecommerce.html#" + sectionId;
       };
 
-      // Offer image
       const imageDiv = document.createElement("div");
       imageDiv.className = "offer-image";
       imageDiv.style.backgroundImage = `url('https://source.unsplash.com/300x200/?${offer.query}')`;
 
-      // Offer content
       const contentDiv = document.createElement("div");
       contentDiv.className = "offer-content";
       const title = document.createElement("h3");
