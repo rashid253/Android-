@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="style.css">
   <!-- Font Awesome for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Page-Specific Styles -->
   <style>
     /* Base Styles */
     body {
@@ -17,9 +18,10 @@
       overflow-x: hidden;
     }
     main {
-      padding-bottom: 100px;
+      padding-bottom: 100px; /* Extra bottom padding to avoid clashing with footer */
     }
-    /* Top CTA Section (replacing the hero section) */
+    
+    /* Top Call-to-Action (CTA) Section */
     .cta {
       background: #4caf50;
       color: #fff;
@@ -44,27 +46,14 @@
     .cta a:hover {
       background: #f57c00;
     }
-    /* Card Container */
+    
+    /* Card Container for Content Sections */
     .card-container {
       display: flex;
       flex-direction: column;
       gap: 20px;
       padding: 0 15px;
       margin-bottom: 40px;
-    }
-    .card-row {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-    @media (min-width: 600px) {
-      .card-row {
-        flex-direction: row;
-        gap: 20px;
-      }
-      .card {
-        flex: 1;
-      }
     }
     .card {
       background: #fff;
@@ -85,11 +74,10 @@
       line-height: 1.5;
       margin-bottom: 0;
     }
-    /* Link styled like a spring binding (appears between every two cards) */
+    /* Link inside a card leading to shop page */
     .card-link {
-      display: block;
-      text-align: center;
-      margin: 10px 0;
+      display: inline-block;
+      margin-top: 15px;
       font-size: 1rem;
       text-decoration: none;
       color: #007bff;
@@ -101,6 +89,7 @@
       color: #0056b3;
       border-color: #0056b3;
     }
+    
     /* Testimonials inside a card */
     .testimonials {
       overflow: hidden;
@@ -125,6 +114,7 @@
       font-size: 0.8rem;
       color: #888;
     }
+    
     /* Technical Note Styling */
     .tech-note {
       background: #e8f0fe;
@@ -141,31 +131,6 @@
       padding: 2px 4px;
       border-radius: 4px;
       font-family: monospace;
-    }
-    /* Final CTA Section */
-    .final-cta {
-      background: #4caf50;
-      color: #fff;
-      padding: 30px 15px;
-      text-align: center;
-      margin-top: 40px;
-    }
-    .final-cta h2 {
-      font-size: 1.8rem;
-      margin-bottom: 10px;
-    }
-    .final-cta a {
-      display: inline-block;
-      padding: 10px 20px;
-      font-size: 1rem;
-      background: #ff9800;
-      color: #fff;
-      border-radius: 50px;
-      text-decoration: none;
-      transition: background 0.3s;
-    }
-    .final-cta a:hover {
-      background: #f57c00;
     }
   </style>
 </head>
@@ -184,67 +149,62 @@
   <main>
     <!-- Top CTA Section (replacing the hero section) -->
     <section class="cta">
-      <h2>Experience the Future of Shopping</h2>
-      <a href="ecommerce.html">Shop Now</a>
+      <h2>Ready to Experience the Future</h2>
+      <a href="contact.html">Get in Touch</a>
     </section>
     
     <!-- Card Container for Section Blocks -->
     <div class="card-container">
-      <!-- First Row: Two Cards -->
-      <div class="card-row">
-        <!-- Card: Innovative Technology -->
-        <div class="card">
-          <h2>Innovative Technology</h2>
-          <p>Our platform currently uses dummy data—designed for a seamless shift to Firebase Firestore for real-time, secure updates.</p>
-        </div>
-        <!-- Card: Customer Testimonials -->
-        <div class="card">
-          <h2>What Our Users Say</h2>
-          <div class="testimonials">
-            <div class="slides">
-              <div class="testimonial">
-                <p>"The experience is addictive—I feel like I'm living in the future every time I use the app!"</p>
-                <div class="author">- Ayesha, Karachi</div>
-              </div>
-              <div class="testimonial">
-                <p>"Innovative and engaging! The design and functionality are truly revolutionary."</p>
-                <div class="author">- Bilal, Lahore</div>
-              </div>
-              <div class="testimonial">
-                <p>"Every detail is crafted perfectly. Shopping here is a captivating experience!"</p>
-                <div class="author">- Fatima, Islamabad</div>
-              </div>
+      <!-- Card: Innovative Technology -->
+      <div class="card">
+        <h2>Innovative Technology</h2>
+        <p>Our platform currently uses dummy data—designed for a seamless shift to Firebase Firestore for real-time, secure updates.</p>
+      </div>
+      
+      <!-- Card: Customer Testimonials -->
+      <div class="card">
+        <h2>What Our Users Say</h2>
+        <div class="testimonials">
+          <div class="slides">
+            <div class="testimonial">
+              <p>"The experience is addictive—I feel like I'm living in the future every time I use the app!"</p>
+              <div class="author">- Ayesha, Karachi</div>
+            </div>
+            <div class="testimonial">
+              <p>"Innovative and engaging! The design and functionality are truly revolutionary."</p>
+              <div class="author">- Bilal, Lahore</div>
+            </div>
+            <div class="testimonial">
+              <p>"Every detail is crafted perfectly. Shopping here is a captivating experience!"</p>
+              <div class="author">- Fatima, Islamabad</div>
             </div>
           </div>
         </div>
       </div>
-      <!-- Link below first row -->
-      <a class="card-link" href="apis.html">Spring Wali Book Binding</a>
       
-      <!-- Second Row: Two Cards -->
-      <div class="card-row">
-        <!-- Card: Our Vision & Mission -->
-        <div class="card">
-          <h2>Our Vision &amp; Mission</h2>
-          <p>We aim to create an engaging experience that becomes part of your lifestyle—merging next-generation technology with innovative design.</p>
-        </div>
-        <!-- Card: Technical Note -->
-        <div class="card">
-          <h2>Technical Note</h2>
-          <div class="tech-note">
-            <p><strong>Technical Note:</strong> This frontend is built using dummy data and is structured for seamless integration with Firebase Firestore. The <code>fetchProducts()</code> function will soon be replaced by live API calls for real-time updates, secure authentication, and dynamic content.</p>
-          </div>
+      <!-- Card: Our Vision & Mission -->
+      <div class="card">
+        <h2>Our Vision &amp; Mission</h2>
+        <p>We aim to create an engaging experience that becomes part of your lifestyle—merging next-generation technology with innovative design.</p>
+      </div>
+      
+      <!-- Card: Technical Note -->
+      <div class="card">
+        <h2>Technical Note</h2>
+        <div class="tech-note">
+          <p><strong>Technical Note:</strong> This frontend is built using dummy data and is structured for seamless integration with Firebase Firestore. The <code>fetchProducts()</code> function will soon be replaced by live API calls for real-time updates, secure authentication, and dynamic content.</p>
         </div>
       </div>
-      <!-- Link below second row -->
-      <a class="card-link" href="apis.html">Spring Wali Book Binding</a>
+      
+      <!-- Card: Shop Card -->
+      <div class="card">
+        <h2>Explore Our Collection</h2>
+        <p>Discover exclusive offers and innovative products curated just for you.</p>
+        <a class="card-link" href="ecommerce.html">Visit Our Shop</a>
+      </div>
     </div>
     
-    <!-- Final CTA Section at the Page End -->
-    <section class="final-cta">
-      <h2>Don't Miss Out on Exclusive Offers</h2>
-      <a href="ecommerce.html">Visit Our Shop</a>
-    </section>
+    <!-- (Bottom hero type section removed) -->
   </main>
   
   <!-- Load External Footer -->
