@@ -6,81 +6,34 @@
     <title>MyBusiness Premium</title>  
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Inline CSS -->
+    <!-- External Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Inline styles for mobile-friendly layout, hero section, and updated card layout -->
     <style>
-      /* Reset default margins/padding */
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
+      /* ===== General Layout ===== */
       html, body {
         height: 100%;
-        font-family: sans-serif;
+        margin: 0;
       }
       body {
         display: flex;
         flex-direction: column;
       }
-      main {
-        flex: 1;
-        overflow-y: auto;
-      }
-
-      /* Header & Footer placeholders (if needed) */
       #header-placeholder, #footer-placeholder {
         flex-shrink: 0;
       }
+      main {
+        flex: 1;
+        position: relative;
+        overflow-y: auto;
+      }
 
-      /* Hero Section */
+      /* ===== Hero Section (unchanged) ===== */
       .hero {
         position: relative;
-        height: 50vh; /* Adjust if you want more or less height */
         overflow: hidden;
-        background: #333; /* Fallback background */
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #fff;
-        text-align: center;
+        height: 100%;
       }
-      .hero-content {
-        z-index: 1;
-        padding: 1rem;
-      }
-      .hero h1 {
-        font-size: 2rem;
-        margin-bottom: 0.5rem;
-      }
-      .hero p {
-        font-size: 1rem;
-        margin-bottom: 1rem;
-      }
-      .cta-buttons {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        align-items: center;
-      }
-      .cta-buttons button {
-        padding: 0.75rem 1rem;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        font-size: 1rem;
-      }
-      .cta-buttons button:first-child {
-        background-color: #007BFF;
-        color: #fff;
-      }
-      .cta-buttons button:last-child {
-        background-color: #28a745;
-        color: #fff;
-      }
-
-      /* Example video background (Optional) */
       .hero-video {
         position: absolute;
         top: 50%;
@@ -93,27 +46,73 @@
         transform: translate(-50%, -50%);
         object-fit: cover;
       }
-
-      /* Features Section */
-      .features {
-        background-color: #f8f9fa;
-        padding: 2rem 1rem;
-      }
-      .features h2 {
+      .hero-content {
+        position: absolute;
+        top: 10%;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 1;
         text-align: center;
-        margin-bottom: 1rem;
+        color: #fff;
+        padding: 10px;
+        text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
       }
+      .hero-content h1 {
+        font-size: 2rem;
+        margin-bottom: 10px;
+      }
+      .hero-content p {
+        font-size: 1rem;
+        margin-bottom: 10px;
+      }
+      .cta-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+      }
+      .cta-buttons button {
+        width: 80%;
+        max-width: 300px;
+        padding: 10px;
+        font-size: 1rem;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      .cta-buttons button:first-child {
+        background-color: #007BFF;
+        color: #fff;
+      }
+      .cta-buttons button:last-child {
+        background-color: #28a745;
+        color: #fff;
+      }
+
+      /* ===== Features Section (cards updated) ===== */
+      .features {
+        padding: 20px 10px;
+        background-color: #f8f9fa;
+      }
+      .features .container {
+        max-width: 1200px;
+        margin: auto;
+      }
+      /* 
+         1) Single column on small screens (cards centered).
+         2) Two or three columns on larger screens (adjust as needed).
+      */
       .features-grid {
-        /* Single column on smaller devices */
         display: grid;
         grid-template-columns: 1fr;
         row-gap: 1.5rem;
         justify-items: center;
+        margin-top: 20px;
       }
       @media (min-width: 768px) {
-        /* Two columns on medium+ screens */
+        /* Switch to 3 columns on tablets/desktops */
         .features-grid {
-          grid-template-columns: repeat(2, 1fr);
+          grid-template-columns: repeat(3, 1fr);
           column-gap: 1.5rem;
         }
       }
@@ -121,17 +120,18 @@
         background-color: #fff;
         border-radius: 8px;
         box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        max-width: 320px; /* Control how wide the card can get */
-        width: 100%;      /* Ensure it takes full width up to the max-width */
-        text-align: center;
+        /* Control how wide each card can get */
+        max-width: 320px;
+        width: 100%;
         padding: 1.5rem;
-        margin: 0 auto;   /* Center on smaller screens */
+        text-align: center;
       }
+      /* Icon in a colored circle at the top */
       .feature-item i {
         display: inline-block;
         width: 50px;
         height: 50px;
-        background-color: #ff5b5b; /* Example circle color behind icon */
+        background-color: #ff5b5b; /* Circle color */
         color: #fff;
         font-size: 1.5rem;
         line-height: 50px;
@@ -149,30 +149,20 @@
         color: #6c757d;
       }
     </style>
-
-    <!-- Inline JS (Optional) -->
-    <script>
-      function openPage(page) {
-        window.location.href = page;
-      }
-    </script>
+    <script src="script.js" defer></script>
   </head>
-
   <body>
-    <!-- Header (optional external file) -->
-    <div id="header-placeholder">
-      <!-- Your header content goes here -->
-    </div>
+    <!-- External Header -->
+    <div id="header-placeholder"></div>
     
+    <!-- Main Content -->
     <main>
-      <!-- Hero Section -->
+      <!-- Hero Section with Video Background -->
       <section class="hero">
-        <!-- If you want the video background -->
-        <video class="hero-video" autoplay muted loop playsinline>
+        <video autoplay muted loop playsinline class="hero-video">
           <source src="https://i.imgur.com/OXCPyAw.mp4" type="video/mp4">
           Your browser does not support the video tag.
         </video>
-
         <div class="hero-content">
           <h1>Premium Business Solutions</h1>
           <p>
@@ -184,38 +174,62 @@
           </div>
         </div>
       </section>
-
-      <!-- Features Section -->
+      
+      <!-- Features Section with Updated Card Styles -->
       <section class="features">
-        <h2>Our Exclusive Features</h2>
-        <div class="features-grid">
-          <div class="feature-item">
-            <i class="fas fa-lightbulb"></i>
-            <h3>Innovative Solutions</h3>
-            <p>Cutting-edge solutions for your business challenges.</p>
-          </div>
-          <div class="feature-item">
-            <i class="fas fa-cubes"></i>
-            <h3>Quality Products</h3>
-            <p>Premium products tailored for excellence.</p>
-          </div>
-          <div class="feature-item">
-            <i class="fas fa-lock"></i>
-            <h3>Secure Payments</h3>
-            <p>State-of-the-art security for your transactions.</p>
-          </div>
-          <div class="feature-item">
-            <i class="fas fa-truck"></i>
-            <h3>Fast Delivery</h3>
-            <p>Reliable, door-to-door delivery service.</p>
+        <div class="container">
+          <h2>Our Exclusive Features</h2>
+          <div class="features-grid">
+            <!-- Card #1 -->
+            <div class="feature-item">
+              <i class="fas fa-lock"></i>
+              <h3>Secure Payments</h3>
+              <p>State-of-the-art security for your transactions.</p>
+            </div>
+            <!-- Card #2 -->
+            <div class="feature-item">
+              <i class="fas fa-truck"></i>
+              <h3>Fast Delivery</h3>
+              <p>Reliable, door-to-door delivery service.</p>
+            </div>
+            <!-- Card #3 -->
+            <div class="feature-item">
+              <i class="fas fa-tags"></i>
+              <h3>Exclusive Deals</h3>
+              <p>Premium discounts and seasonal offers.</p>
+            </div>
           </div>
         </div>
       </section>
     </main>
-
-    <!-- Footer (optional external file) -->
-    <div id="footer-placeholder">
-      <!-- Your footer content goes here -->
-    </div>
+    
+    <!-- External Footer -->
+    <div id="footer-placeholder"></div>
+    
+    <!-- Inline Script to Load External Header and Footer -->
+    <script>
+      function loadHTML(elementId, filePath) {
+        fetch(filePath)
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Error fetching ' + filePath);
+            }
+            return response.text();
+          })
+          .then(html => {
+            document.getElementById(elementId).innerHTML = html;
+          })
+          .catch(error => console.error(error));
+      }
+      
+      function openPage(page) {
+        window.location.href = page;
+      }
+      
+      document.addEventListener("DOMContentLoaded", function() {
+        loadHTML('header-placeholder', 'header.html');
+        loadHTML('footer-placeholder', 'footer.html');
+      });
+    </script>
   </body>
 </html>
