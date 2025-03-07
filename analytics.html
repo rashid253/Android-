@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Your Purchase Dashboard - Android-</title>
+  <title>Company Spending Overview - Android-</title>
   <!-- External CSS -->
   <link rel="stylesheet" href="styles.css">
   <!-- Bootstrap CSS for responsive styling -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <style>
-    /* Minimal header for dashboard content */
+    /* Minimal Page Title */
     .page-title {
       background-color: #f0f0f0;
       padding: 20px 0;
@@ -21,6 +21,10 @@
       font-size: 2rem;
       color: #333;
     }
+    .page-title p {
+      margin: 5px 0 0;
+      color: #666;
+    }
     .section {
       padding: 60px 0;
     }
@@ -28,9 +32,6 @@
       width: 100%;
       max-width: 800px;
       margin: 0 auto;
-    }
-    .recommended .card {
-      margin-bottom: 30px;
     }
     .offers {
       background-color: #e9f7ef;
@@ -50,14 +51,10 @@
     document.addEventListener('DOMContentLoaded', function() {
       fetch('header.html')
         .then(response => response.text())
-        .then(data => {
-          document.getElementById('header-placeholder').innerHTML = data;
-        });
+        .then(data => { document.getElementById('header-placeholder').innerHTML = data; });
       fetch('footer.html')
         .then(response => response.text())
-        .then(data => {
-          document.getElementById('footer-placeholder').innerHTML = data;
-        });
+        .then(data => { document.getElementById('footer-placeholder').innerHTML = data; });
     });
   </script>
 </head>
@@ -65,74 +62,53 @@
   <!-- External Header -->
   <div id="header-placeholder"></div>
 
-  <!-- Minimal Page Title Section Instead of Hero -->
+  <!-- Minimal Page Title Section -->
   <section class="page-title">
     <div class="container">
-      <h1>Dashboard</h1>
-      <p>Track your spending, view personalized recommendations, and access exclusive offers.</p>
+      <h1>Company Spending Overview</h1>
+      <p>Analyze overall spending trends and performance metrics.</p>
     </div>
   </section>
 
   <!-- Spending Overview Section -->
   <section class="section">
     <div class="container">
-      <h2>Your Spending Overview</h2>
+      <h2>Overall Spending Trends</h2>
       <div class="chart-container">
-        <canvas id="purchaseChart" width="800" height="400"></canvas>
+        <canvas id="companySpendingChart" width="800" height="400"></canvas>
       </div>
       <p class="mt-4 text-center">
-        See your purchase trends over the past months and keep track of your spending.
+        This chart displays the company's spending over recent months. Review key trends and performance indicators to support strategic decisions.
       </p>
     </div>
   </section>
 
-  <!-- Recommended Products Section -->
-  <section class="section recommended">
+  <!-- Additional Key Metrics Section -->
+  <section class="section">
     <div class="container">
-      <h2>Products Recommended for You</h2>
-      <div class="row">
-        <!-- Product Card 1 -->
+      <h2>Key Metrics</h2>
+      <div class="row text-center">
         <div class="col-md-4">
-          <div class="card">
-            <img src="images/product1.jpg" class="card-img-top" alt="Product 1">
-            <div class="card-body">
-              <h5 class="card-title">Smart Gadget</h5>
-              <p class="card-text">A perfect blend of innovation and style, made just for you.</p>
-              <a href="shop.html" class="btn btn-primary">Shop Now</a>
-            </div>
-          </div>
+          <h3>$1,250,000</h3>
+          <p>Total Spending</p>
         </div>
-        <!-- Product Card 2 -->
         <div class="col-md-4">
-          <div class="card">
-            <img src="images/product2.jpg" class="card-img-top" alt="Product 2">
-            <div class="card-body">
-              <h5 class="card-title">Modern Accessory</h5>
-              <p class="card-text">Elevate your lifestyle with this exclusive offer.</p>
-              <a href="shop.html" class="btn btn-primary">Shop Now</a>
-            </div>
-          </div>
+          <h3>12%</h3>
+          <p>Monthly Growth</p>
         </div>
-        <!-- Product Card 3 -->
         <div class="col-md-4">
-          <div class="card">
-            <img src="images/product3.jpg" class="card-img-top" alt="Product 3">
-            <div class="card-body">
-              <h5 class="card-title">Trendy Wear</h5>
-              <p class="card-text">Style meets comfort—discover your new favorite piece.</p>
-              <a href="shop.html" class="btn btn-primary">Shop Now</a>
-            </div>
-          </div>
+          <h3>$15,000</h3>
+          <p>Average Monthly Spend</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Exclusive Offers Section -->
+  <!-- Optional Exclusive Offers Section -->
   <section class="offers">
     <div class="container">
-      <h2>Exclusive Offers Just for You</h2>
-      <p>Unlock special discounts and deals tailored to your shopping habits. Enjoy the perks of being a valued customer!</p>
+      <h2>Exclusive Offers for the Company</h2>
+      <p>Unlock special discounts and strategic investments that drive efficiency and growth.</p>
       <a href="offers.html" class="btn btn-success">View Offers</a>
     </div>
   </section>
@@ -143,17 +119,17 @@
   <!-- Chart.js for interactive chart -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
-    // Initialize the spending chart with sample data
-    const ctx = document.getElementById('purchaseChart').getContext('2d');
-    const purchaseChart = new Chart(ctx, {
+    // Initialize the company spending chart with sample data
+    const ctx = document.getElementById('companySpendingChart').getContext('2d');
+    const companySpendingChart = new Chart(ctx, {
       type: 'line',
       data: {
         labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
         datasets: [{
-          label: 'Monthly Spending ($)',
-          data: [120, 180, 150, 200, 240, 210, 270],
-          backgroundColor: 'rgba(75, 192, 192, 0.2)',
-          borderColor: 'rgba(75, 192, 192, 1)',
+          label: 'Company Spending ($)',
+          data: [150000, 200000, 180000, 220000, 260000, 300000, 350000],
+          backgroundColor: 'rgba(54, 162, 235, 0.2)',
+          borderColor: 'rgba(54, 162, 235, 1)',
           borderWidth: 2,
           fill: true
         }]
@@ -166,14 +142,14 @@
       }
     });
 
-    // To use personalized data, replace the above static data by fetching user-specific data via an API:
+    // To provide personalized or real data, replace the static values by fetching data from your back end.
     /*
-    fetch('/api/spending')
+    fetch('/api/company-spending')
       .then(response => response.json())
       .then(data => {
-         purchaseChart.data.labels = data.labels;
-         purchaseChart.data.datasets[0].data = data.values;
-         purchaseChart.update();
+         companySpendingChart.data.labels = data.labels;
+         companySpendingChart.data.datasets[0].data = data.values;
+         companySpendingChart.update();
       })
       .catch(error => console.error('Error fetching spending data:', error));
     */
