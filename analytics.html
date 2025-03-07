@@ -1,232 +1,153 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Company Spending & Trends - Android-</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Analytics - NextGen E-commerce</title>
   <!-- External CSS -->
-  <link rel="stylesheet" href="styles.css">
-  <!-- Bootstrap CSS for responsive styling -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="style.css" />
+  <!-- Font Awesome for Icons -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  />
   <style>
-    /* Reset margins and hide horizontal overflow */
-    html, body {
+    /* Reset & Base */
+    * {
       margin: 0;
       padding: 0;
-      overflow-x: hidden;
+      box-sizing: border-box;
     }
-    /* Minimal page title styling */
-    .page-title {
-      background-color: #f0f0f0;
-      padding: 20px 0;
+    body {
+      font-family: "Roboto", sans-serif;
+      background: #f0f2f5;
+      color: #444;
+    }
+    main {
+      max-width: 1200px;
+      margin: 80px auto 80px;
+      padding: 20px;
+    }
+    /* ANALYTICS CONTAINER */
+    .analytics-container {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      margin-bottom: 40px;
+    }
+    .analytics-container h1 {
+      margin-bottom: 20px;
+      font-size: 2rem;
+      color: #2575fc;
+    }
+    /* HISTORY & RECOMMENDATIONS SECTION */
+    .history-section {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    .history-section h2 {
       text-align: center;
+      font-size: 2.5rem;
+      color: #2575fc;
       margin-bottom: 20px;
     }
-    .page-title h1 {
-      margin: 0;
-      font-size: 2rem;
+    .history-content {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+    .history-item {
+      flex: 1;
+      min-width: 280px;
+      background: #f9f9f9;
+      border-radius: 5px;
+      padding: 15px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+    .history-item h3 {
+      font-size: 1.5rem;
       color: #333;
+      margin-bottom: 10px;
     }
-    .page-title p {
-      margin: 5px 0 0;
+    .history-item p {
+      font-size: 1rem;
       color: #666;
+      line-height: 1.5;
     }
-    /* Main content wrapper to prevent overlap */
-    .main-content {
-      margin: 20px 0;
-    }
-    .section {
-      padding: 40px 0;
-    }
-    .chart-container {
-      width: 100%;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-    /* Trending product card styling */
-    .product-card {
-      margin-bottom: 30px;
-    }
-    /* Data analysis section styling */
-    .analysis-section {
-      background-color: #fafafa;
-      padding: 30px;
-      border-radius: 8px;
-      margin-top: 20px;
-    }
-    /* Ensure header and footer take full width */
-    #header-placeholder, #footer-placeholder {
-      width: 100%;
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+      .history-content {
+        flex-direction: column;
+        align-items: center;
+      }
     }
   </style>
-  <script>
-    // Load external header and footer
-    document.addEventListener('DOMContentLoaded', function() {
-      fetch('header.html')
-        .then(response => response.text())
-        .then(data => { document.getElementById('header-placeholder').innerHTML = data; });
-      fetch('footer.html')
-        .then(response => response.text())
-        .then(data => { document.getElementById('footer-placeholder').innerHTML = data; });
-    });
-  </script>
 </head>
 <body>
-  <!-- External Header -->
+  <!-- Load External Header -->
   <div id="header-placeholder"></div>
-
-  <!-- Main Content Wrapper -->
-  <div class="main-content">
-    <!-- Page Title Section -->
-    <section class="page-title">
-      <div class="container">
-        <h1>Company Spending & Trends</h1>
-        <p>Review overall spending, see trending product recommendations, and explore data-driven suggestions.</p>
-      </div>
-    </section>
-
-    <!-- Company Spending Overview Section -->
-    <section class="section">
-      <div class="container">
-        <h2>Overall Spending Trends</h2>
-        <div class="chart-container">
-          <canvas id="companySpendingChart" width="800" height="400"></canvas>
-        </div>
-        <p class="mt-4 text-center">
-          This chart displays the company's spending over recent months. Analyze trends to support strategic decisions.
-        </p>
-      </div>
-    </section>
-
-    <!-- Key Metrics Section -->
-    <section class="section">
-      <div class="container">
-        <h2>Key Metrics</h2>
-        <div class="row text-center">
-          <div class="col-md-4">
-            <h3>$1,250,000</h3>
-            <p>Total Spending</p>
-          </div>
-          <div class="col-md-4">
-            <h3>12%</h3>
-            <p>Monthly Growth</p>
-          </div>
-          <div class="col-md-4">
-            <h3>$15,000</h3>
-            <p>Average Monthly Spend</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Trending Product Recommendations Section -->
-    <section class="section">
-      <div class="container">
-        <h2>Trending Product Recommendations</h2>
-        <div class="row">
-          <!-- Trending Product Card 1 -->
-          <div class="col-md-4">
-            <div class="card product-card">
-              <img src="images/trending1.jpg" class="card-img-top" alt="Trending Product 1">
-              <div class="card-body">
-                <h5 class="card-title">Innovative Widget</h5>
-                <p class="card-text">A popular choice among our clients for its cutting-edge design.</p>
-                <a href="shop.html" class="btn btn-primary">Shop Now</a>
-              </div>
-            </div>
-          </div>
-          <!-- Trending Product Card 2 -->
-          <div class="col-md-4">
-            <div class="card product-card">
-              <img src="images/trending2.jpg" class="card-img-top" alt="Trending Product 2">
-              <div class="card-body">
-                <h5 class="card-title">Smart Device</h5>
-                <p class="card-text">Top-rated for performance and reliability in today's market.</p>
-                <a href="shop.html" class="btn btn-primary">Shop Now</a>
-              </div>
-            </div>
-          </div>
-          <!-- Trending Product Card 3 -->
-          <div class="col-md-4">
-            <div class="card product-card">
-              <img src="images/trending3.jpg" class="card-img-top" alt="Trending Product 3">
-              <div class="card-body">
-                <h5 class="card-title">Eco-Friendly Gadget</h5>
-                <p class="card-text">Trending for its sustainability and innovative features.</p>
-                <a href="shop.html" class="btn btn-primary">Shop Now</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Data Analysis & Suggestions Section -->
-    <section class="section">
-      <div class="container">
-        <h2>Data Analysis & Suggestions</h2>
-        <div class="analysis-section">
-          <p>Based on our historical spending records and performance data, we offer the following insights:</p>
-          <ul>
-            <li><strong>Cost Optimization:</strong> Review vendor contracts to potentially reduce spending by 8-10%.</li>
-            <li><strong>Seasonal Investments:</strong> Increased spending during peak periods suggests a focus on seasonal promotions.</li>
-            <li><strong>Efficiency Improvements:</strong> Monitor recurring high-cost items for possible process enhancements.</li>
-          </ul>
-          <p>These record-based recommendations are designed to drive efficiency and growth.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Exclusive Offers Section -->
-    <section class="section">
-      <div class="container">
-        <h2>Exclusive Offers for the Company</h2>
-        <p>Unlock special discounts and strategic investments that drive efficiency and growth.</p>
-        <a href="offers.html" class="btn btn-success">View Offers</a>
-      </div>
-    </section>
-  </div>
-
-  <!-- External Footer -->
-  <div id="footer-placeholder"></div>
-
-  <!-- Chart.js for interactive chart -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
-    // Initialize the company spending chart with sample data
-    const ctx = document.getElementById('companySpendingChart').getContext('2d');
-    const companySpendingChart = new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
-        datasets: [{
-          label: 'Company Spending ($)',
-          data: [150000, 200000, 180000, 220000, 260000, 300000, 350000],
-          backgroundColor: 'rgba(54, 162, 235, 0.2)',
-          borderColor: 'rgba(54, 162, 235, 1)',
-          borderWidth: 2,
-          fill: true
-        }]
-      },
-      options: {
-        responsive: true,
-        scales: {
-          y: { beginAtZero: true }
-        }
-      }
-    });
-
-    // For dynamic data, replace the static sample data with API calls as needed.
-    /*
-    fetch('/api/company-spending')
-      .then(response => response.json())
-      .then(data => {
-         companySpendingChart.data.labels = data.labels;
-         companySpendingChart.data.datasets[0].data = data.values;
-         companySpendingChart.update();
-      })
-      .catch(error => console.error('Error fetching spending data:', error));
-    */
+    function loadHTML(url, containerId, callback) {
+      fetch(url)
+        .then(response => response.text())
+        .then(html => {
+          document.getElementById(containerId).innerHTML = html;
+          const scripts = document.getElementById(containerId).querySelectorAll("script");
+          scripts.forEach(oldScript => {
+            const newScript = document.createElement("script");
+            if (oldScript.src) {
+              newScript.src = oldScript.src;
+            } else {
+              newScript.textContent = oldScript.textContent;
+            }
+            document.head.appendChild(newScript);
+          });
+          if (callback) callback();
+        })
+        .catch(err => console.error("Error loading " + url, err));
+    }
+    loadHTML("header.html", "header-placeholder");
+  </script>
+  
+  <main>
+    <!-- ANALYTICS DASHBOARD -->
+    <div class="analytics-container">
+      <h1>Analytics Dashboard</h1>
+      <p>
+        Welcome to the analytics page. Here you can view insights about your e-commerce performance.
+      </p>
+      <!-- Additional analytics content goes here -->
+    </div>
+    
+    <!-- HISTORY & RECOMMENDATIONS SECTION -->
+    <div class="history-section">
+      <h2>Your History & Recommendations</h2>
+      <div class="history-content">
+        <div class="history-item">
+          <h3>Previous Shopping History</h3>
+          <p>Your recent purchases will appear here.</p>
+        </div>
+        <div class="history-item">
+          <h3>Search History</h3>
+          <p>Your recent search queries will appear here.</p>
+        </div>
+        <div class="history-item">
+          <h3>Recommended for You</h3>
+          <p>Based on your history, we recommend these products for you.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+  
+  <!-- Load External Footer -->
+  <div id="footer-placeholder"></div>
+  <script>
+    loadHTML("footer.html", "footer-placeholder");
   </script>
 </body>
 </html>
