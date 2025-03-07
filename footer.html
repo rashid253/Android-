@@ -1,99 +1,80 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>MyBusiness</title>
-  <!-- Include FontAwesome for icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <style>
-    /* Global Styles */
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-      color: #333;
-    }
+<style>
+  /* Mobile-app style footer navigation – compact version */
+  .footer {
+    position: fixed;
+    bottom: 30px;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    border-top: 1px solid #ddd;
+    display: flex;
+    justify-content: space-around;
+    padding: 5px 0; /* Reduced padding */
+    font-size: 0.7rem; /* Reduced font size */
+    z-index: 1000;
+  }
+  .footer a {
+    text-decoration: none;
+    color: #333;
+    text-align: center;
+    flex: 1;
+    position: relative;
+  }
+  .footer a i {
+    display: block;
+    font-size: 0.8rem; /* Reduced icon size */
+    margin-bottom: 2px;
+  }
+  .badge {
+    position: absolute;
+    top: -3px;
+    right: 25%; /* Moved badge slightly left from 20% to 25% */
+    background: red;
+    border-radius: 50%;
+    color: #fff;
+    padding: 1px 4px;
+    font-size: 0.6rem;
+  }
+  /* Extra footer bar with black background and white text */
+  .footer-extra {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #000;  /* Black background */
+    text-align: center;
+    padding: 3px 0;    /* Reduced padding */
+    font-size: 0.7rem; /* Reduced font size */
+    color: #fff;       /* White text */
+    z-index: 1100;
+  }
+</style>
 
-    /* Navigation Bar */
-    .navbar {
-      background-color: #fff;
-      display: flex;
-      align-items: center;
-      padding: 10px 20px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    }
-    .navbar a {
-      text-decoration: none;
-      color: #333;
-      margin-right: 30px;
-      display: flex;
-      align-items: center;
-      font-size: 16px;
-      position: relative;
-    }
-    .navbar a:last-child {
-      margin-right: 0;
-    }
-    .navbar a i {
-      margin-right: 8px;
-      font-size: 24px; /* Icon size */
-      color: blue;    /* Icon color set to blue */
-    }
-    
-    /* Cart badge */
-    .cart-badge {
-      position: absolute;
-      top: -5px;
-      right: -10px;
-      background-color: red;
-      color: #fff;
-      border-radius: 50%;
-      font-size: 12px;
-      width: 18px;
-      height: 18px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    
-    /* Footer */
-    .footer {
-      background-color: #fff;
-      text-align: center;
-      padding: 15px;
-      margin-top: 30px;
-      box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
-      font-size: 14px;
-    }
-    .footer p {
-      margin: 0;
-      color: #777;
-    }
-  </style>
-</head>
-<body>
+<footer class="footer">
+  <a href="index.html"><i class="fas fa-home"></i>Home</a>
+  <a href="offers.html"><i class="fas fa-tags"></i>Offers</a>
+  <a href="analytics.html"><i class="fas fa-chart-line"></i>Analytics</a>
+  <a href="cart.html">
+    <i class="fas fa-shopping-cart"></i>Cart
+    <span id="cartCountFooter" class="badge">0</span>
+  </a>
+  <!-- Replaced "More" with "Support" -->
+  <a href="support.html">
+    <i class="fas fa-headset"></i>Support
+  </a>
+</footer>
 
-  <!-- Navigation Bar -->
-  <header class="navbar">
-    <a href="#"><i class="fa fa-home"></i> Home</a>
-    <a href="#"><i class="fa fa-tags"></i> Offers</a>
-    <a href="#"><i class="fa fa-chart-line"></i> Analytics</a>
-    <a href="#">
-      <i class="fa fa-shopping-cart"></i> Cart 
-      <span class="cart-badge">0</span>
-    </a>
-    <a href="#"><i class="fa fa-life-ring"></i> Support</a>
-  </header>
+<div class="footer-extra">
+  &copy; 2025 MyBusiness. All rights reserved.
+</div>
 
-  <!-- Main Content -->
-  <div class="content" style="padding:20px;">
-    <!-- Your content goes here -->
-  </div>
-
-  <!-- Footer -->
-  <footer class="footer">
-    <p>&copy; 2025 MyBusiness. All rights reserved.</p>
-  </footer>
-
-</body>
-</html>
+<script>
+  // Update the cart count in the footer badge
+  document.addEventListener("DOMContentLoaded", function() {
+    var count = localStorage.getItem("cartCount") || 0;
+    var badge = document.getElementById("cartCountFooter");
+    if (badge) {
+      badge.innerText = count;
+    }
+  });
+</script>
