@@ -8,22 +8,25 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
-    <!-- Inline Styles for Hero Section Background Video -->
+    <!-- Inline CSS for hero background video -->
     <style>
       .hero {
         position: relative;
         overflow: hidden;
       }
-      .hero-video {
+      .hero video {
         position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
+        top: 50%;
+        left: 50%;
+        min-width: 100%;
+        min-height: 100%;
+        width: auto;
+        height: auto;
         z-index: -1;
+        transform: translate(-50%, -50%);
       }
-      .hero-content {
+      /* Ensure hero content appears above the video */
+      .hero .hero-content {
         position: relative;
         z-index: 1;
       }
@@ -37,10 +40,10 @@
     
     <!-- Main Content -->
     <main>
-      <!-- Hero Section with Background Video -->
+      <!-- Hero Section with Video Background -->
       <section class="hero">
-        <video autoplay muted loop playsinline class="hero-video">
-          <source src="https://i.imgur.com/9bpUpSq.mp4" type="video/mp4">
+        <video autoplay muted loop playsinline>
+          <source src="https://i.imgur.com/OXCPyAw.mp4" type="video/mp4">
           Your browser does not support the video tag.
         </video>
         <div class="hero-content">
@@ -54,7 +57,6 @@
           </div>
         </div>
       </section>
-      
       <!-- Features Section -->
       <section class="features">
         <div class="container">
