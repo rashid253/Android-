@@ -18,9 +18,10 @@
       line-height: 1.6;
       overflow-x: hidden;
     }
+    /* Add top margin to account for fixed header */
     main {
       max-width: 1000px;
-      margin: 0 auto 40px;
+      margin: 80px auto 40px; /* Added 80px top margin */
       padding: 20px;
     }
     h1, h2 {
@@ -92,7 +93,7 @@
     .contact-form button:hover { background: #45a049; }
     /* Responsive Design */
     @media (max-width: 768px) {
-      main { padding: 15px; }
+      main { padding: 15px; margin-top: 80px; }
       .map { height: 250px; }
     }
   </style>
