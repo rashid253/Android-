@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exclusive Deals | MyBusiness Premium</title>
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- External Custom CSS -->
+  <link rel="stylesheet" href="style.css">
+  <!-- Inline CSS for Exclusive Deals Page -->
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: Arial, sans-serif; background-color: #f4f4f4; color: #333; line-height: 1.6; }
+    header, footer { background: #333; color: #fff; text-align: center; padding: 1rem 0; }
+    main { padding-bottom: 60px; }
+    /* Hero Section */
+    .hero {
+      background: url('https://via.placeholder.com/1920x500?text=Exclusive+Deals') no-repeat center center/cover;
+      height: 300px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.5);
+    }
+    .hero-content {
+      position: relative;
+      text-align: center;
+      color: #fff;
+      padding: 0 20px;
+      z-index: 1;
+    }
+    .hero-content h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+    /* Container & Content Section */
+    .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+    .content-section {
+      background: #fff;
+      border-radius: 8px;
+      padding: 30px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      margin-top: -50px;
+      position: relative;
+      z-index: 1;
+    }
+    .content-section h2 { font-size: 2rem; margin-bottom: 1rem; color: #007BFF; }
+    .content-section p { margin-bottom: 1rem; }
+    .content-section ul { margin-left: 20px; margin-bottom: 1rem; }
+    .content-section li { margin-bottom: 0.5rem; }
+    /* Call-to-Action Button */
+    .cta-btn {
+      display: inline-block;
+      padding: 15px 30px;
+      background-color: #007BFF;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+    .cta-btn:hover { background-color: #0056b3; }
+  </style>
+</head>
+<body>
+  <!-- External Header -->
+  <div id="header-placeholder"></div>
+  
+  <!-- Main Content -->
+  <main>
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-content">
+        <h1>Exclusive Deals</h1>
+        <p>Unbeatable Offers Just for You</p>
+      </div>
+    </section>
+    
+    <!-- Content Section -->
+    <div class="container">
+      <div class="content-section">
+        <h2>Discover Incredible Savings</h2>
+        <p>
+          MyBusiness Premium brings you exclusive deals and premium discounts designed to provide you the best value. Enjoy a curated selection of offers that cater to your every need.
+        </p>
+        <h3>What Sets Our Deals Apart:</h3>
+        <ul>
+          <li><strong>Curated Offers:</strong> Handpicked deals that match your lifestyle.</li>
+          <li><strong>Seasonal Discounts:</strong> Special promotions during peak seasons.</li>
+          <li><strong>Member-Only Perks:</strong> Additional benefits for our loyal customers.</li>
+          <li><strong>Easy Redemption:</strong> Simple and hassle-free process to avail your discount.</li>
+        </ul>
+        <p>
+          Don’t miss out on these next-generation offers. Experience premium savings today.
+        </p>
+        <a href="ecommerce.html" class="cta-btn">Shop Now</a>
+      </div>
+    </div>
+  </main>
+  
+  <!-- External Footer -->
+  <div id="footer-placeholder"></div>
+  
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      // loadHTML('header-placeholder', 'header.html');
+      // loadHTML('footer-placeholder', 'footer.html');
+    });
+  </script>
+</body>
+</html>
