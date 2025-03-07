@@ -8,7 +8,6 @@
   <link rel="stylesheet" href="style.css">
   <!-- Font Awesome for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <!-- Page-Specific Styles -->
   <style>
     /* Base Styles */
     body {
@@ -18,10 +17,9 @@
       overflow-x: hidden;
     }
     main {
-      padding-bottom: 100px; /* Extra bottom padding to avoid clashing with footer */
+      padding-bottom: 100px;
     }
-    
-    /* Top Call-to-Action (CTA) Section – replaces the hero section */
+    /* Top CTA Section (replacing the hero section) */
     .cta {
       background: #4caf50;
       color: #fff;
@@ -46,14 +44,27 @@
     .cta a:hover {
       background: #f57c00;
     }
-    
-    /* Card Container for Sections */
+    /* Card Container */
     .card-container {
       display: flex;
       flex-direction: column;
       gap: 20px;
       padding: 0 15px;
       margin-bottom: 40px;
+    }
+    .card-row {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    @media (min-width: 600px) {
+      .card-row {
+        flex-direction: row;
+        gap: 20px;
+      }
+      .card {
+        flex: 1;
+      }
     }
     .card {
       background: #fff;
@@ -74,7 +85,22 @@
       line-height: 1.5;
       margin-bottom: 0;
     }
-    
+    /* Link styled like a spring binding (appears between every two cards) */
+    .card-link {
+      display: block;
+      text-align: center;
+      margin: 10px 0;
+      font-size: 1rem;
+      text-decoration: none;
+      color: #007bff;
+      border-bottom: 2px dashed #007bff;
+      padding-bottom: 5px;
+      transition: color 0.3s, border-color 0.3s;
+    }
+    .card-link:hover {
+      color: #0056b3;
+      border-color: #0056b3;
+    }
     /* Testimonials inside a card */
     .testimonials {
       overflow: hidden;
@@ -99,7 +125,6 @@
       font-size: 0.8rem;
       color: #888;
     }
-    
     /* Technical Note Styling */
     .tech-note {
       background: #e8f0fe;
@@ -117,8 +142,7 @@
       border-radius: 4px;
       font-family: monospace;
     }
-    
-    /* Final CTA Section at Page End */
+    /* Final CTA Section */
     .final-cta {
       background: #4caf50;
       color: #fff;
@@ -158,54 +182,62 @@
   
   <!-- Main Content -->
   <main>
-    <!-- Top CTA Section (replaces the hero section) -->
+    <!-- Top CTA Section (replacing the hero section) -->
     <section class="cta">
       <h2>Experience the Future of Shopping</h2>
       <a href="ecommerce.html">Shop Now</a>
     </section>
     
-    <!-- Card Container for Sections Below CTA -->
+    <!-- Card Container for Section Blocks -->
     <div class="card-container">
-      <!-- Card: Innovative Technology -->
-      <div class="card">
-        <h2>Innovative Technology</h2>
-        <p>Our platform currently uses dummy data—designed for a seamless shift to Firebase Firestore for real-time, secure updates.</p>
-      </div>
-      
-      <!-- Card: Customer Testimonials -->
-      <div class="card">
-        <h2>What Our Users Say</h2>
-        <div class="testimonials">
-          <div class="slides">
-            <div class="testimonial">
-              <p>"The experience is addictive—I feel like I'm living in the future every time I use the app!"</p>
-              <div class="author">- Ayesha, Karachi</div>
-            </div>
-            <div class="testimonial">
-              <p>"Innovative and engaging! The design and functionality are truly revolutionary."</p>
-              <div class="author">- Bilal, Lahore</div>
-            </div>
-            <div class="testimonial">
-              <p>"Every detail is crafted perfectly. Shopping here is a captivating experience!"</p>
-              <div class="author">- Fatima, Islamabad</div>
+      <!-- First Row: Two Cards -->
+      <div class="card-row">
+        <!-- Card: Innovative Technology -->
+        <div class="card">
+          <h2>Innovative Technology</h2>
+          <p>Our platform currently uses dummy data—designed for a seamless shift to Firebase Firestore for real-time, secure updates.</p>
+        </div>
+        <!-- Card: Customer Testimonials -->
+        <div class="card">
+          <h2>What Our Users Say</h2>
+          <div class="testimonials">
+            <div class="slides">
+              <div class="testimonial">
+                <p>"The experience is addictive—I feel like I'm living in the future every time I use the app!"</p>
+                <div class="author">- Ayesha, Karachi</div>
+              </div>
+              <div class="testimonial">
+                <p>"Innovative and engaging! The design and functionality are truly revolutionary."</p>
+                <div class="author">- Bilal, Lahore</div>
+              </div>
+              <div class="testimonial">
+                <p>"Every detail is crafted perfectly. Shopping here is a captivating experience!"</p>
+                <div class="author">- Fatima, Islamabad</div>
+              </div>
             </div>
           </div>
         </div>
       </div>
+      <!-- Link below first row -->
+      <a class="card-link" href="apis.html">Spring Wali Book Binding</a>
       
-      <!-- Card: Our Vision & Mission -->
-      <div class="card">
-        <h2>Our Vision &amp; Mission</h2>
-        <p>We aim to create an engaging experience that becomes part of your lifestyle—merging next-generation technology with innovative design.</p>
-      </div>
-      
-      <!-- Card: Technical Note -->
-      <div class="card">
-        <h2>Technical Note</h2>
-        <div class="tech-note">
-          <p><strong>Technical Note:</strong> This frontend is built using dummy data and is structured for seamless integration with Firebase Firestore. The <code>fetchProducts()</code> function will soon be replaced by live API calls for real-time updates, secure authentication, and dynamic content.</p>
+      <!-- Second Row: Two Cards -->
+      <div class="card-row">
+        <!-- Card: Our Vision & Mission -->
+        <div class="card">
+          <h2>Our Vision &amp; Mission</h2>
+          <p>We aim to create an engaging experience that becomes part of your lifestyle—merging next-generation technology with innovative design.</p>
+        </div>
+        <!-- Card: Technical Note -->
+        <div class="card">
+          <h2>Technical Note</h2>
+          <div class="tech-note">
+            <p><strong>Technical Note:</strong> This frontend is built using dummy data and is structured for seamless integration with Firebase Firestore. The <code>fetchProducts()</code> function will soon be replaced by live API calls for real-time updates, secure authentication, and dynamic content.</p>
+          </div>
         </div>
       </div>
+      <!-- Link below second row -->
+      <a class="card-link" href="apis.html">Spring Wali Book Binding</a>
     </div>
     
     <!-- Final CTA Section at the Page End -->
