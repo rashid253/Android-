@@ -28,7 +28,7 @@
       margin: 0 auto 80px;
       padding: 20px;
     }
-    /* HERO SECTION: Updated Background and Prominent Text */
+    /* HERO SECTION: Updated Background, Prominent Text, and Full-Width */
     .hero {
       position: relative;
       min-height: 40vh; /* Reduced minimum height */
@@ -38,10 +38,13 @@
       justify-content: center;
       text-align: center;
       color: #fff;
-      /* The hero background image with a fallback color */
+      /* Use the specified background image with fallback color */
       background: url("https://i.imgur.com/6NZ5gsx.jpeg") no-repeat center center/cover, #2575fc;
+      /* Force hero section to span the full viewport width */
+      width: 100vw;
+      margin-left: calc(50% - 50vw);
     }
-    /* Adding a semi-transparent dark overlay to enhance text contrast */
+    /* Semi-transparent overlay to enhance text contrast */
     .hero .content {
       position: relative;
       z-index: 1;
