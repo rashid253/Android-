@@ -33,6 +33,11 @@
       margin-bottom: 2px;
       font-weight: bold; /* Icons bold */
     }
+    /* Active state: when a link is clicked, its text and icon become blue */
+    .footer a.active,
+    .footer a.active i {
+      color: blue;
+    }
     .badge {
       position: absolute;
       top: -3px;
@@ -85,6 +90,21 @@
       if (badge) {
         badge.innerText = count;
       }
+      
+      // Attach click events to footer links to toggle active state
+      var footerLinks = document.querySelectorAll('.footer a');
+      footerLinks.forEach(function(link) {
+        link.addEventListener('click', function(event) {
+          // Remove active class from all links
+          footerLinks.forEach(function(link) {
+            link.classList.remove('active');
+          });
+          // Add active class to the clicked link
+          this.classList.add('active');
+          // If you're using standard page navigation, the active state might be visible briefly.
+          // For SPA implementations, you can persist the active state across page changes.
+        });
+      });
     });
   </script>
 
