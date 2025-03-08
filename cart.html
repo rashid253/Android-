@@ -1,234 +1,417 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Your Shopping Cart - NextGen E-commerce</title>
-  <!-- Font Awesome for Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <!-- Bootstrap 5 CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    body {
-      background: #f8f9fa;
-      font-family: 'Roboto', sans-serif;
-    }
-    .cart-container {
-      max-width: 800px;
-      margin: 60px auto;
-      background: #fff;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
-    .cart-header {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    .cart-item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-bottom: 1px solid #ddd;
-      padding: 15px 0;
-    }
-    .cart-item img {
-      width: 80px;
-      height: 80px;
-      border-radius: 8px;
-      object-fit: cover;
-    }
-    .cart-details {
-      flex: 1;
-      padding-left: 15px;
-    }
-    .cart-details h5 {
-      margin-bottom: 5px;
-      font-size: 1.1rem;
-    }
-    .cart-price {
-      font-weight: bold;
-      color: #e4393c;
-    }
-    .cart-quantity {
-      display: flex;
-      align-items: center;
-    }
-    .cart-quantity button {
-      width: 30px;
-      height: 30px;
-      border: none;
-      background: #007bff;
-      color: #fff;
-      cursor: pointer;
-      border-radius: 4px;
-    }
-    .cart-quantity input {
-      width: 40px;
-      text-align: center;
-      border: 1px solid #ddd;
-      margin: 0 5px;
-    }
-    .cart-remove {
-      color: red;
-      cursor: pointer;
-      font-size: 1.2rem;
-    }
-    .cart-footer {
-      text-align: center;
-      padding: 20px;
-    }
-    .cart-total {
-      font-size: 1.2rem;
-      font-weight: bold;
-      margin-top: 10px;
-    }
-    .checkout-button {
-      background: #28a745;
-      border: none;
-      color: #fff;
-      padding: 10px 20px;
-      font-size: 1rem;
-      border-radius: 25px;
-      cursor: pointer;
-      margin-top: 10px;
-      width: 100%;
-      transition: background-color 0.3s;
-    }
-    .checkout-button:hover {
-      background: #218838;
-    }
-    .empty-cart {
-      text-align: center;
-      font-size: 1rem;
-      margin-top: 20px;
-      color: #666;
-    }
-  </style>
-</head>
-<body>
-  <!-- External Header -->
-  <div id="header-placeholder"></div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product Details - NextGen E-commerce</title>
+    <!-- Font Awesome for icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <!-- Bootstrap 5 CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    />
+    <!-- Global Styles -->
+    <link rel="stylesheet" href="style.css" />
+    <!-- Custom JavaScript -->
+    <script src="script.js" defer></script>
+    <style>
+      /* Additional overrides for details.html */
 
-  <div class="cart-container">
-    <h2 class="cart-header">Your Shopping Cart</h2>
-    <div id="cartItemsContainer">
-      <!-- Cart items will be rendered here -->
-    </div>
-    <div class="cart-footer">
-      <p class="cart-total">Total: <span id="cartTotal">PKR 0</span></p>
-      <button class="checkout-button" onclick="proceedToCheckout()">Proceed to Checkout</button>
-    </div>
-  </div>
-
-  <!-- External Footer -->
-  <div id="footer-placeholder"></div>
-
-  <!-- Bootstrap JS Bundle -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <script>
-    // Reuse the CartManager class from details.html (or include it in a separate common JS file)
-    class CartManager {
-      static getCart() {
-        return JSON.parse(localStorage.getItem('cart')) || [];
+      /* Ensure content is pushed down by the fixed header (70px here) */
+      body {
+        margin-top: 70px;
+        scroll-behavior: smooth;
       }
-      static saveCart(cart) {
-        localStorage.setItem('cart', JSON.stringify(cart));
+
+      /* Sticky Section Navigation (below header) */
+      .section-nav {
+        background: #fff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        position: sticky;
+        top: 0;
+        z-index: 999;
       }
-      static updateItem(index, newQuantity) {
-        let cart = this.getCart();
-        if (cart[index]) {
-          cart[index].quantity = newQuantity;
-          if (newQuantity <= 0) {
-            cart.splice(index, 1);
+      .section-nav .nav-link {
+        color: #007bff;
+        font-weight: bold;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 10px 0;
+      }
+      .section-nav .nav-link i {
+        font-size: 1.5rem;
+        margin-bottom: 5px;
+      }
+      .section-nav .nav-link:hover {
+        color: #0056b3;
+      }
+
+      /* Description read-more transitions */
+      .description-content {
+        max-height: 150px;
+        overflow: hidden;
+        transition: max-height 0.4s ease;
+      }
+      .description-content.expanded {
+        max-height: 1000px; /* Adjust if needed */
+      }
+
+      /* Review full text hidden by default */
+      .review-full {
+        display: none;
+      }
+      .review-full.expanded {
+        display: block;
+      }
+
+      /* Star icons for rating input */
+      .star-icon {
+        cursor: pointer;
+        color: #ccc;
+      }
+      .star-icon.selected {
+        color: #f5c518;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- External Header will be loaded here -->
+    <div id="header-placeholder"></div>
+
+    <!-- Product Details Section with extra top and bottom spacing -->
+    <div class="container mt-5 mb-5">
+      <div class="row">
+        <!-- Product Image -->
+        <div class="col-md-5 text-center mb-3">
+          <img
+            id="productImage"
+            src="https://via.placeholder.com/400x300?text=Product+Image"
+            alt="Product Image"
+            class="img-fluid rounded"
+          />
+        </div>
+        <!-- Product Info -->
+        <div class="col-md-7">
+          <h2 id="productName">Product Name</h2>
+          <p class="h5 text-primary" id="productPrice">PKR 0</p>
+          <div id="productRating" class="star-rating mb-2"></div>
+          <p id="productStats" class="text-muted mb-3">0 Added | 0 Sold</p>
+          <button class="btn btn-success add-to-cart-btn mt-3">
+            <i class="fa fa-shopping-cart"></i> Add to Cart
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section Navigation Bar -->
+    <nav class="section-nav">
+      <div class="container d-flex justify-content-around">
+        <a class="nav-link" href="#section-description">
+          <i class="fa fa-file-text"></i>
+          <span>Description</span>
+        </a>
+        <a class="nav-link" href="#section-reviews">
+          <i class="fa fa-comments"></i>
+          <span>Reviews</span>
+        </a>
+        <a class="nav-link" href="#section-related">
+          <i class="fa fa-th"></i>
+          <span>Related Items</span>
+        </a>
+      </div>
+    </nav>
+
+    <!-- Description Section with modified Read More style -->
+    <section id="section-description" class="container mt-4 mb-5">
+      <h3>Description</h3>
+      <div class="description-content" id="descriptionContent">
+        <p id="productDescription">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+          mauris quam. Praesent sed nisi eleifend, varius nulla eu, auctor urna.
+          Vestibulum ante ipsum primis in faucibus orci luctus et ultrices
+          posuere cubilia curae; Suspendisse potenti. Proin ut tincidunt mauris,
+          vel dapibus nulla. Nulla facilisi. Sed nec nulla vitae eros aliquet
+          fermentum.
+        </p>
+      </div>
+      <button class="btn btn-sm btn-outline-primary mt-2" id="descReadMore">
+        Read More
+      </button>
+    </section>
+
+    <!-- Reviews Section -->
+    <section id="section-reviews" class="container mb-5">
+      <h3>Reviews</h3>
+      <div id="reviewsContainer">
+        <div class="card mb-3">
+          <div class="card-body">
+            <p>
+              <strong>User1:</strong> Amazing quality, highly recommended!
+              <span
+                class="review-read-more text-primary"
+                style="cursor: pointer"
+                >...Read more</span
+              >
+            </p>
+            <p class="text-muted"><small>Reviewed on July 10, 2025</small></p>
+            <p class="review-full" style="margin-bottom: 0">
+              Full review text for User1. Lorem ipsum dolor sit amet, consectetur
+              adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore
+              magna aliqua.
+            </p>
+          </div>
+        </div>
+        <div class="card mb-3">
+          <div class="card-body">
+            <p>
+              <strong>User2:</strong> Good value for money.
+              <span
+                class="review-read-more text-primary"
+                style="cursor: pointer"
+                >...Read more</span
+              >
+            </p>
+            <p class="text-muted"><small>Reviewed on July 8, 2025</small></p>
+            <p class="review-full" style="margin-bottom: 0">
+              Full review text for User2. Additional details about the product
+              experience go here.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Write a Review -->
+      <div class="card">
+        <div class="card-body">
+          <h5>Write a Review</h5>
+          <div id="ratingStars" class="mb-2">
+            <i class="fa fa-star star-icon" data-value="1"></i>
+            <i class="fa fa-star star-icon" data-value="2"></i>
+            <i class="fa fa-star star-icon" data-value="3"></i>
+            <i class="fa fa-star star-icon" data-value="4"></i>
+            <i class="fa fa-star star-icon" data-value="5"></i>
+          </div>
+          <textarea
+            class="form-control mb-2"
+            rows="3"
+            placeholder="Share your experience after purchasing"
+          ></textarea>
+          <button class="btn btn-success">Submit Review</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Related Items Section -->
+    <section id="section-related" class="container mb-5">
+      <h3>Related Items</h3>
+      <div class="row" id="relatedItemsContainer">
+        <div class="col-6 col-md-3 mb-3">
+          <div class="card text-center">
+            <img
+              src="https://via.placeholder.com/140x100?text=Item+1"
+              alt="Item 1"
+              class="card-img-top"
+            />
+            <div class="card-body p-2">
+              <p class="small mb-0">Item 1</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-6 col-md-3 mb-3">
+          <div class="card text-center">
+            <img
+              src="https://via.placeholder.com/140x100?text=Item+2"
+              alt="Item 2"
+              class="card-img-top"
+            />
+            <div class="card-body p-2">
+              <p class="small mb-0">Item 2</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-6 col-md-3 mb-3">
+          <div class="card text-center">
+            <img
+              src="https://via.placeholder.com/140x100?text=Item+3"
+              alt="Item 3"
+              class="card-img-top"
+            />
+            <div class="card-body p-2">
+              <p class="small mb-0">Item 3</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-6 col-md-3 mb-3">
+          <div class="card text-center">
+            <img
+              src="https://via.placeholder.com/140x100?text=Item+4"
+              alt="Item 4"
+              class="card-img-top"
+            />
+            <div class="card-body p-2">
+              <p class="small mb-0">Item 4</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- External Footer will be loaded here -->
+    <div id="footer-placeholder"></div>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // Basic loadHTML function to load external HTML content.
+      function loadHTML(elementId, filePath) {
+        return fetch(filePath)
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Network response was not ok for " + filePath);
+            }
+            return response.text();
+          })
+          .then((htmlText) => {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(htmlText, "text/html");
+            // Append style tags to head.
+            doc.querySelectorAll("style").forEach((styleTag) => {
+              document.head.appendChild(styleTag.cloneNode(true));
+            });
+            // Append script tags to head.
+            doc.querySelectorAll("script").forEach((scriptTag) => {
+              const newScript = document.createElement("script");
+              if (scriptTag.src) {
+                newScript.src = scriptTag.src;
+                newScript.async = false;
+              } else {
+                newScript.textContent = scriptTag.textContent;
+              }
+              document.head.appendChild(newScript);
+            });
+            // Remove script and style tags from fetched HTML.
+            doc.querySelectorAll("script, style").forEach((el) => el.remove());
+            document.getElementById(elementId).innerHTML = doc.body.innerHTML;
+          })
+          .catch((error) => console.error("Error loading " + filePath + ":", error));
+      }
+
+      // Observe header placeholder to attach menu toggle if available.
+      function observeHeaderAndAttachToggle() {
+        const targetNode = document.getElementById("header-placeholder");
+        if (!targetNode) return;
+        const observer = new MutationObserver((mutationsList, observer) => {
+          if (targetNode.innerHTML.trim().length > 0) {
+            const menuToggle = document.querySelector(".menu-toggle");
+            if (menuToggle) {
+              menuToggle.addEventListener("click", function () {
+                const sideMenu = document.getElementById("side-menu");
+                if (sideMenu) {
+                  sideMenu.classList.toggle("visible");
+                }
+              });
+              observer.disconnect();
+            }
           }
-          this.saveCart(cart);
-        }
-      }
-      static removeItem(index) {
-        let cart = this.getCart();
-        if (cart[index]) {
-          cart.splice(index, 1);
-          this.saveCart(cart);
-        }
-      }
-    }
-
-    // Utility function to load external header and footer.
-    function loadHTML(elementId, filePath) {
-      return fetch(filePath)
-        .then(response => {
-          if (!response.ok) throw new Error("Error fetching " + filePath);
-          return response.text();
-        })
-        .then(html => {
-          document.getElementById(elementId).innerHTML = html;
-        })
-        .catch(error => console.error(error));
-    }
-
-    // Function to render cart items.
-    function renderCart() {
-      const cart = CartManager.getCart();
-      const cartContainer = document.getElementById("cartItemsContainer");
-      const cartTotalDisplay = document.getElementById("cartTotal");
-      cartContainer.innerHTML = "";
-      let totalAmount = 0;
-
-      if (cart.length === 0) {
-        cartContainer.innerHTML = '<p class="empty-cart">Your cart is empty.</p>';
-        cartTotalDisplay.textContent = "PKR 0.00";
-        return;
+        });
+        observer.observe(targetNode, { childList: true, subtree: true });
       }
 
-      cart.forEach((item, index) => {
-        let itemPrice = parseFloat(item.price.replace("PKR", "").trim());
-        let lineTotal = itemPrice * item.quantity;
-        totalAmount += lineTotal;
-
-        const cartItem = document.createElement("div");
-        cartItem.classList.add("cart-item");
-        cartItem.innerHTML = `
-          <img src="${item.image}" alt="${item.name}">
-          <div class="cart-details">
-            <h5>${item.name}</h5>
-            <p class="cart-price">PKR ${itemPrice.toFixed(2)}</p>
-          </div>
-          <div class="cart-quantity">
-            <button onclick="changeQuantity(${index}, -1)">-</button>
-            <input type="text" value="${item.quantity}" readonly>
-            <button onclick="changeQuantity(${index}, 1)">+</button>
-          </div>
-          <span class="cart-remove" onclick="removeItem(${index})">&times;</span>
-        `;
-        cartContainer.appendChild(cartItem);
+      document.addEventListener("DOMContentLoaded", function () {
+        loadHTML("header-placeholder", "header.html").then(() => {
+          observeHeaderAndAttachToggle();
+        });
+        loadHTML("footer-placeholder", "footer.html");
       });
-      cartTotalDisplay.textContent = "PKR " + totalAmount.toFixed(2);
-    }
 
-    function changeQuantity(index, delta) {
-      const cart = CartManager.getCart();
-      let newQuantity = cart[index].quantity + delta;
-      if (newQuantity < 1) newQuantity = 0;
-      CartManager.updateItem(index, newQuantity);
-      renderCart();
-    }
+      // Dummy product data (replace with Firebase integration later)
+      const product =
+        JSON.parse(localStorage.getItem("selectedProduct")) || {
+          name: "Default Product",
+          price: "PKR 0",
+          description: "No description available.",
+          image: "https://via.placeholder.com/400x300?text=Product+Image",
+          rating: 0,
+          added: "0",
+          sold: "0",
+        };
 
-    function removeItem(index) {
-      CartManager.removeItem(index);
-      renderCart();
-    }
+      // Populate product details.
+      document.getElementById("productName").innerText = product.name;
+      document.getElementById("productPrice").innerText = product.price;
+      document.getElementById("productDescription").innerText = product.description;
+      document.getElementById("productImage").src = product.image;
+      document.getElementById("productRating").innerHTML = generateStars(product.rating);
+      document.getElementById("productStats").innerText =
+        product.added + " Added | " + product.sold + " Sold";
 
-    function proceedToCheckout() {
-      alert("Redirecting to checkout...");
-      window.location.href = "checkout.html";
-    }
+      // Helper function to generate star rating HTML.
+      function generateStars(rating) {
+        let html = "";
+        const fullStars = Math.floor(rating);
+        const halfStar = rating - fullStars >= 0.5 ? 1 : 0;
+        for (let i = 0; i < fullStars; i++) {
+          html += '<i class="fa fa-star text-warning"></i>';
+        }
+        if (halfStar) {
+          html += '<i class="fa fa-star-half-alt text-warning"></i>';
+        }
+        return html;
+      }
 
-    document.addEventListener("DOMContentLoaded", () => {
-      loadHTML("header-placeholder", "header.html");
-      loadHTML("footer-placeholder", "footer.html");
-      renderCart();
-    });
-  </script>
-</body>
+      // "Read More" functionality for Description.
+      const descReadMoreBtn = document.getElementById("descReadMore");
+      const descContent = document.getElementById("descriptionContent");
+      descReadMoreBtn.addEventListener("click", function () {
+        descContent.classList.toggle("expanded");
+        if (descContent.classList.contains("expanded")) {
+          this.textContent = "Show Less";
+        } else {
+          this.textContent = "Read More";
+        }
+      });
+
+      // Reviews "Read More" toggle functionality.
+      document.addEventListener("click", function (e) {
+        if (e.target && e.target.classList.contains("review-read-more")) {
+          const fullReview = e.target.closest(".card-body").querySelector(".review-full");
+          if (fullReview) {
+            fullReview.classList.toggle("expanded");
+            e.target.textContent =
+              fullReview.classList.contains("expanded") ? " Show less" : "...Read more";
+          }
+        }
+      });
+
+      // Star rating functionality for "Write a Review".
+      const starIcons = document.querySelectorAll("#ratingStars .star-icon");
+      starIcons.forEach((star) => {
+        star.addEventListener("click", function () {
+          const rating = this.getAttribute("data-value");
+          starIcons.forEach((s) => {
+            if (s.getAttribute("data-value") <= rating) {
+              s.classList.add("selected");
+            } else {
+              s.classList.remove("selected");
+            }
+          });
+        });
+      });
+
+      // Integration: Add to Cart button functionality.
+      document.querySelector('.add-to-cart-btn').addEventListener('click', function() {
+        // Retrieve existing cart items or initialize empty array.
+        let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+        // Add the current product to the cart.
+        cartItems.push(product);
+        localStorage.setItem('cartItems', JSON.stringify(cartItems));
+        alert("Product added to cart!");
+      });
+    </script>
+  </body>
 </html>
