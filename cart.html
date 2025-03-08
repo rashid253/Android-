@@ -3,271 +3,231 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MyBusiness Cart</title>
+    <title>Product Details - NextGen E-commerce</title>
     <!-- Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <!-- Bootstrap 5 CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    />
+    <!-- Global Styles -->
     <link rel="stylesheet" href="style.css" />
+    <!-- Custom JavaScript -->
+    <script src="script.js" defer></script>
     <style>
-      html, body {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        overflow-x: hidden;
-        font-family: Arial, sans-serif;
+      /* Additional overrides for details.html */
+      body {
+        margin-top: 70px;
+        scroll-behavior: smooth;
       }
-      .hero-cart {
-        background: #007bff;
-        color: #fff;
-        padding: 30px 15px;
-        text-align: center;
-        margin-top: 60px;
-        margin-bottom: 15px;
-      }
-      .hero-cart h1 {
-        font-size: 2.2rem;
-        margin: 0;
-      }
-      .hero-cart p {
-        margin-top: 8px;
-        font-size: 0.95rem;
-        white-space: normal;
-      }
-      .cart-container {
-        padding: 15px;
-        padding-bottom: 100px;
-        background: #f4f4f4;
-        min-height: calc(100vh - 120px);
-      }
-      #trash-bin-container {
-        position: relative;
-        display: inline-block;
-        cursor: pointer;
-        margin-bottom: 10px;
-      }
-      #trash-bin-container i {
-        font-size: 2rem;
-        color: blue;
-      }
-      #trash-bin-container #trash-count {
-        position: absolute;
-        bottom: -5px;
-        right: -5px;
-        background: red;
-        color: #fff;
-        border-radius: 50%;
-        padding: 2px 6px;
-        font-size: 0.8rem;
-      }
-      .cart-item {
-        display: flex;
-        align-items: center;
-        padding: 10px;
+      .section-nav {
         background: #fff;
-        border-radius: 8px;
-        margin-bottom: 10px;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        position: sticky;
+        top: 0;
+        z-index: 999;
       }
-      .cart-item input.delete-checkbox {
-        margin-right: 8px;
-      }
-      .cart-item img {
-        width: 70px;
-        height: 70px;
-        object-fit: cover;
-        border-radius: 4px;
-        margin-right: 10px;
-        display: block;
-      }
-      .cart-item-details {
-        flex: 1;
-      }
-      .cart-item-details h3 {
-        font-size: 1.1rem;
-        margin-bottom: 4px;
-        color: #333;
-      }
-      .cart-item-details p {
-        font-size: 0.95rem;
-        color: #666;
-      }
-      .quantity-vertical {
+      .section-nav .nav-link {
+        color: #007bff;
+        font-weight: bold;
         display: flex;
         flex-direction: column;
         align-items: center;
-        margin-left: 8px;
+        padding: 10px 0;
       }
-      .quantity-vertical button {
-        background: #007bff;
-        border: none;
-        color: #fff;
-        padding: 4px 8px;
-        border-radius: 4px;
+      .section-nav .nav-link i {
+        font-size: 1.5rem;
+        margin-bottom: 5px;
+      }
+      .section-nav .nav-link:hover {
+        color: #0056b3;
+      }
+      .description-content {
+        max-height: 150px;
+        overflow: hidden;
+        transition: max-height 0.4s ease;
+      }
+      .description-content.expanded {
+        max-height: 1000px;
+      }
+      .review-full {
+        display: none;
+      }
+      .review-full.expanded {
+        display: block;
+      }
+      .star-icon {
         cursor: pointer;
-        transition: background 0.3s;
+        color: #ccc;
       }
-      .quantity-vertical button:hover {
-        background: #0069d9;
-      }
-      .quantity-vertical span {
-        margin: 4px 0;
-        font-size: 1rem;
-        min-width: 20px;
-        text-align: center;
-      }
-      .cart-total {
-        text-align: right;
-        font-size: 1.2rem;
-        font-weight: bold;
-        margin-top: 10px;
-      }
-      .checkout-button {
-        background: #28a745;
-        border: none;
-        color: #fff;
-        padding: 10px 20px;
-        font-size: 1rem;
-        border-radius: 25px;
-        cursor: pointer;
-        margin-top: 10px;
-        width: 100%;
-        transition: background-color 0.3s;
-      }
-      .checkout-button:hover {
-        background: #218838;
-      }
-      .empty-cart {
-        text-align: center;
-        font-size: 1rem;
-        margin-top: 20px;
-        color: #666;
-      }
-      .receipt {
-        margin-top: 20px;
-        background: #fff;
-        padding: 10px;
-        border-radius: 8px;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-      }
-      .receipt h2 {
-        font-size: 1.3rem;
-        color: #007bff;
-        margin-bottom: 10px;
-      }
-      .receipt table {
-        width: 100%;
-        border-collapse: collapse;
-      }
-      .receipt th,
-      .receipt td {
-        padding: 6px;
-        text-align: left;
-        border-bottom: 1px solid #ddd;
-        font-size: 0.9rem;
-      }
-      .receipt th {
-        background: #f4f4f4;
-      }
-      .token-section {
-        margin-top: 40px;
-        background: #fff;
-        padding: 10px;
-        border-radius: 8px;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-      }
-      .token-section h2 {
-        font-size: 1.3rem;
-        color: #007bff;
-        margin-bottom: 10px;
-      }
-      .token-section input {
-        padding: 6px;
-        font-size: 0.9rem;
-        width: 120px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        margin-right: 8px;
-      }
-      .token-section button {
-        padding: 6px 12px;
-        font-size: 0.9rem;
-        border: none;
-        background: #28a745;
-        color: #fff;
-        border-radius: 4px;
-        cursor: pointer;
-        transition: background 0.3s;
-      }
-      .token-section button:hover {
-        background: #218838;
-      }
-      @media (min-width: 600px) {
-        .cart-container {
-          padding: 20px 40px;
-        }
-        .checkout-button {
-          width: auto;
-          float: right;
-        }
+      .star-icon.selected {
+        color: #f5c518;
       }
     </style>
   </head>
   <body>
-    <!-- External Header -->
+    <!-- External Header will be loaded here -->
     <div id="header-placeholder"></div>
-    
-    <!-- Hero Section -->
-    <section class="hero-cart">
-      <div class="hero-content">
-        <h1>Your Order Awaits</h1>
-        <p>Review your order, adjust quantities, and apply tokens for extra Rs savings.</p>
+
+    <!-- Product Details Section -->
+    <div class="container mt-5 mb-5">
+      <div class="row">
+        <!-- Product Image -->
+        <div class="col-md-5 text-center mb-3">
+          <img
+            id="productImage"
+            src="https://via.placeholder.com/400x300?text=Product+Image"
+            alt="Product Image"
+            class="img-fluid rounded"
+          />
+        </div>
+        <!-- Product Info -->
+        <div class="col-md-7">
+          <h2 id="productName">Product Name</h2>
+          <p class="h5 text-primary" id="productPrice">PKR 0</p>
+          <div id="productRating" class="star-rating mb-2"></div>
+          <p id="productStats" class="text-muted mb-3">0 Added | 0 Sold</p>
+          <button class="btn btn-success add-to-cart-btn mt-3">
+            <i class="fa fa-shopping-cart"></i> Add to Cart
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section Navigation Bar -->
+    <nav class="section-nav">
+      <div class="container d-flex justify-content-around">
+        <a class="nav-link" href="#section-description">
+          <i class="fa fa-file-text"></i>
+          <span>Description</span>
+        </a>
+        <a class="nav-link" href="#section-reviews">
+          <i class="fa fa-comments"></i>
+          <span>Reviews</span>
+        </a>
+        <a class="nav-link" href="#section-related">
+          <i class="fa fa-th"></i>
+          <span>Related Items</span>
+        </a>
+      </div>
+    </nav>
+
+    <!-- Description Section -->
+    <section id="section-description" class="container mt-4 mb-5">
+      <h3>Description</h3>
+      <div class="description-content" id="descriptionContent">
+        <p id="productDescription">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+          mauris quam. Praesent sed nisi eleifend, varius nulla eu, auctor urna.
+          Vestibulum ante ipsum primis in faucibus orci luctus et ultrices
+          posuere cubilia curae; Suspendisse potenti. Proin ut tincidunt mauris,
+          vel dapibus nulla. Nulla facilisi. Sed nec nulla vitae eros aliquet
+          fermentum.
+        </p>
+      </div>
+      <button class="btn btn-sm btn-outline-primary mt-2" id="descReadMore">
+        Read More
+      </button>
+    </section>
+
+    <!-- Reviews Section -->
+    <section id="section-reviews" class="container mb-5">
+      <h3>Reviews</h3>
+      <div id="reviewsContainer">
+        <div class="card mb-3">
+          <div class="card-body">
+            <p>
+              <strong>User1:</strong> Amazing quality, highly recommended!
+              <span class="review-read-more text-primary" style="cursor: pointer">...Read more</span>
+            </p>
+            <p class="text-muted"><small>Reviewed on July 10, 2025</small></p>
+            <p class="review-full" style="margin-bottom: 0">
+              Full review text for User1. Lorem ipsum dolor sit amet, consectetur
+              adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore
+              magna aliqua.
+            </p>
+          </div>
+        </div>
+        <div class="card mb-3">
+          <div class="card-body">
+            <p>
+              <strong>User2:</strong> Good value for money.
+              <span class="review-read-more text-primary" style="cursor: pointer">...Read more</span>
+            </p>
+            <p class="text-muted"><small>Reviewed on July 8, 2025</small></p>
+            <p class="review-full" style="margin-bottom: 0">
+              Full review text for User2. Additional details about the product
+              experience go here.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Write a Review -->
+      <div class="card">
+        <div class="card-body">
+          <h5>Write a Review</h5>
+          <div id="ratingStars" class="mb-2">
+            <i class="fa fa-star star-icon" data-value="1"></i>
+            <i class="fa fa-star star-icon" data-value="2"></i>
+            <i class="fa fa-star star-icon" data-value="3"></i>
+            <i class="fa fa-star star-icon" data-value="4"></i>
+            <i class="fa fa-star star-icon" data-value="5"></i>
+          </div>
+          <textarea class="form-control mb-2" rows="3" placeholder="Share your experience after purchasing"></textarea>
+          <button class="btn btn-success">Submit Review</button>
+        </div>
       </div>
     </section>
-    
-    <!-- Cart Container -->
-    <main class="cart-container">
-      <!-- Trash Bin Icon for Deletion -->
-      <div id="trash-bin-container" title="Delete selected items">
-        <i class="fas fa-trash-alt"></i>
-        <div id="trash-count">0</div>
+
+    <!-- Related Items Section -->
+    <section id="section-related" class="container mb-5">
+      <h3>Related Items</h3>
+      <div class="row" id="relatedItemsContainer">
+        <div class="col-6 col-md-3 mb-3">
+          <div class="card text-center">
+            <img src="https://via.placeholder.com/140x100?text=Item+1" alt="Item 1" class="card-img-top" />
+            <div class="card-body p-2">
+              <p class="small mb-0">Item 1</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-6 col-md-3 mb-3">
+          <div class="card text-center">
+            <img src="https://via.placeholder.com/140x100?text=Item+2" alt="Item 2" class="card-img-top" />
+            <div class="card-body p-2">
+              <p class="small mb-0">Item 2</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-6 col-md-3 mb-3">
+          <div class="card text-center">
+            <img src="https://via.placeholder.com/140x100?text=Item+3" alt="Item 3" class="card-img-top" />
+            <div class="card-body p-2">
+              <p class="small mb-0">Item 3</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-6 col-md-3 mb-3">
+          <div class="card text-center">
+            <img src="https://via.placeholder.com/140x100?text=Item+4" alt="Item 4" class="card-img-top" />
+            <div class="card-body p-2">
+              <p class="small mb-0">Item 4</p>
+            </div>
+          </div>
+        </div>
       </div>
-      
-      <div id="cart-items">
-        <!-- Cart items will be rendered here -->
-      </div>
-      <div class="cart-total" id="cart-total">Total: Rs 0.00</div>
-      <button class="checkout-button" id="checkout-button">Proceed to Checkout</button>
-      
-      <!-- Detailed Receipt Section -->
-      <div class="receipt" id="detailed-receipt">
-        <h2>Order Details</h2>
-        <table>
-          <thead>
-            <tr>
-              <th>Item</th>
-              <th>Qty</th>
-              <th>Unit Price</th>
-              <th>Line Total</th>
-            </tr>
-          </thead>
-          <tbody id="receipt-body">
-            <!-- Receipt details will be inserted here -->
-          </tbody>
-        </table>
-      </div>
-      
-      <!-- Token Section -->
-      <div class="token-section">
-        <h2>Apply Tokens</h2>
-        <p>You have <span id="user-tokens">50</span> tokens available.</p>
-        <input type="number" id="token-input" placeholder="Tokens to apply" min="0">
-        <button id="apply-tokens">Apply Tokens</button>
-        <p id="token-message"></p>
-      </div>
-    </main>
-    
-    <!-- External Footer -->
+    </section>
+
+    <!-- External Footer will be loaded here -->
     <div id="footer-placeholder"></div>
-    
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
       // Load cart items from localStorage.
       let cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
@@ -276,9 +236,12 @@
       let updateTimer;
       const DEBOUNCE_DELAY = 300;
 
-      // New function to clean out items with invalid (NaN or null) quantity.
+      // New function to remove items with invalid (NaN or null) quantity.
       function cleanCart() {
-        cartItems = cartItems.filter(item => !isNaN(item.quantity) && item.quantity !== null);
+        cartItems = cartItems.filter(item => {
+          const qty = Number(item.quantity);
+          return !isNaN(qty) && qty !== null;
+        });
         localStorage.setItem("cartItems", JSON.stringify(cartItems));
       }
 
@@ -367,7 +330,7 @@
         document.getElementById("trash-count").innerText = checked.length;
       }
       
-      // Updated delete function: clean out any invalid items first.
+      // Updated delete function: clean invalid items first.
       function deleteSelectedItems() {
         cleanCart();
         const checked = document.querySelectorAll(".delete-checkbox:checked");
