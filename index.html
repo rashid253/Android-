@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- External Custom CSS -->
     <link rel="stylesheet" href="style.css">
-    <!-- Inline styles for layout, hero section, features and modal -->
+    <!-- Inline styles for layout, hero section, features and full-page modal -->
     <style>
       /* ===== General Layout ===== */
       html, body {
@@ -29,7 +29,7 @@
         overflow-y: auto;
         padding-bottom: 60px;
       }
-
+      
       /* ===== Hero Section ===== */
       .hero {
         position: relative;
@@ -60,14 +60,12 @@
         padding: 10px;
         text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
       }
-      /* Updated title style */
       .hero-content h1 {
         font-size: 3rem;
         line-height: 1.2;
         margin-bottom: 10px;
         font-weight: bold;
       }
-      /* Updated description style */
       .hero-content p {
         font-size: 1.25rem;
         line-height: 1.4;
@@ -96,7 +94,6 @@
         background-color: #28a745;
         color: #fff;
       }
-      /* Mobile responsive adjustments for hero section title and description */
       @media (max-width: 768px) {
         .hero-content h1 {
           font-size: 2.5rem;
@@ -113,7 +110,7 @@
           font-size: 1rem;
         }
       }
-
+      
       /* ===== Features Section with Clickable Cards ===== */
       .features {
         padding: 20px 10px;
@@ -144,7 +141,6 @@
       .feature-item:hover {
         box-shadow: 0 6px 12px rgba(0,0,0,0.15);
       }
-      /* Icon styling: green icons */
       .feature-item i {
         font-size: 2rem;
         margin-bottom: 1rem;
@@ -159,59 +155,57 @@
         font-size: 0.95rem;
         color: #6c757d;
       }
-
-      /* ===== Modal Styles ===== */
+      
+      /* ===== Full-Page Modal Styles ===== */
       .modal {
         display: none; /* Hidden by default */
         position: fixed;
         z-index: 2000;
-        left: 0;
         top: 0;
+        left: 0;
         width: 100%;
         height: 100%;
-        overflow: auto;
-        background-color: rgba(0,0,0,0.7);
+        overflow-y: auto;
+        background-color: #fff;
       }
       .modal-content {
-        background-color: #fff;
-        margin: 10% auto;
+        max-width: 800px;
+        margin: 0 auto;
         padding: 20px;
-        border-radius: 8px;
-        width: 90%;
-        max-width: 600px;
+      }
+      .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .modal-header h2 {
+        margin: 0;
+        font-size: 2rem;
+      }
+      .modal-close {
+        font-size: 2rem;
+        cursor: pointer;
+      }
+      .modal-body {
+        margin-top: 20px;
+        font-size: 1.1rem;
+        line-height: 1.6;
+      }
+      .modal-footer {
+        margin-top: 30px;
         text-align: center;
-        position: relative;
       }
-      .modal-content h2 {
-        margin-bottom: 10px;
-      }
-      .modal-content p {
-        margin-bottom: 20px;
-      }
-      .modal-content .cta {
+      .modal-footer button {
         padding: 10px 20px;
         background-color: #007BFF;
         border: none;
         border-radius: 4px;
         color: #fff;
+        font-size: 1rem;
         cursor: pointer;
       }
-      .modal-content .cta:hover {
+      .modal-footer button:hover {
         background-color: #0056b3;
-      }
-      .modal .close {
-        position: absolute;
-        top: 10px;
-        right: 20px;
-        color: #aaa;
-        font-size: 28px;
-        font-weight: bold;
-        cursor: pointer;
-      }
-      .modal .close:hover,
-      .modal .close:focus {
-        color: black;
-        text-decoration: none;
       }
     </style>
     <script src="script.js" defer></script>
@@ -245,23 +239,23 @@
         <div class="container">
           <h2>Our Exclusive Features</h2>
           <div class="features-grid">
-            <!-- Card for Secure Payments -->
+            <!-- Card for Secure Payments (Content remains unchanged) -->
             <div class="feature-item" onclick="openModal('secure')">
               <i class="fas fa-lock"></i>
               <h3>Secure Payments</h3>
-              <p>Our secure payments system boosts customer trust. With our robust security measures, you can review our analytics to verify performance and safety.</p>
+              <p>State-of-the-art security for your transactions.</p>
             </div>
             <!-- Card for Fast Delivery -->
             <div class="feature-item" onclick="openModal('delivery')">
               <i class="fas fa-truck"></i>
               <h3>Fast Delivery</h3>
-              <p>Experience our lightning-fast delivery service that brings your orders right to your doorstep, ensuring timely and reliable delivery.</p>
+              <p>Reliable, door-to-door delivery service.</p>
             </div>
             <!-- Card for Exclusive Deals -->
             <div class="feature-item" onclick="openModal('deals')">
               <i class="fas fa-tags"></i>
               <h3>Exclusive Deals</h3>
-              <p>Discover hand-picked exclusive deals and premium discounts tailored just for you, ensuring a unique and enjoyable shopping experience.</p>
+              <p>Premium discounts and seasonal offers.</p>
             </div>
           </div>
         </div>
@@ -271,13 +265,19 @@
     <!-- External Footer -->
     <div id="footer-placeholder"></div>
     
-    <!-- Modal for Feature Details -->
+    <!-- Full-Page Modal for Detailed Feature Information -->
     <div id="modal" class="modal">
       <div class="modal-content">
-        <span class="close" onclick="closeModal()">&times;</span>
-        <h2 id="modalTitle"></h2>
-        <p id="modalMessage"></p>
-        <button id="modalCTA" class="cta">Learn More</button>
+        <div class="modal-header">
+          <h2 id="modalTitle"></h2>
+          <span class="modal-close" onclick="closeModal()">&times;</span>
+        </div>
+        <div class="modal-body" id="modalBody">
+          <!-- Detailed content will be inserted here -->
+        </div>
+        <div class="modal-footer">
+          <button id="modalCTA" onclick="redirectModal()">Learn More</button>
+        </div>
       </div>
     </div>
     
@@ -305,29 +305,32 @@
       
       function openModal(feature) {
         let title = "";
-        let message = "";
+        let body = "";
         let ctaText = "";
         let ctaLink = "#";
         
         if (feature === "secure") {
           title = "Secure Payments";
-          message = "Our secure payments system not only boosts customer trust but also ensures every transaction is protected. You can check our detailed analytics to see how our system consistently delivers reliability.";
+          body = `<p>Our secure payments system is engineered with state-of-the-art encryption and multi-factor authentication to ensure every transaction is protected. This robust system not only builds customer confidence but also enables our team to monitor and analyze data to continually improve security.</p>
+                  <p>Our comprehensive analytics dashboard allows you to review performance metrics, ensuring transparency and reliability in every payment.</p>`;
           ctaText = "View Analytics";
           ctaLink = "analytics.html";
         } else if (feature === "delivery") {
           title = "Fast Delivery";
-          message = "Experience our efficient and fast delivery service. We ensure your orders reach you quickly, with reliable logistics and prompt service that keeps our customers satisfied.";
+          body = `<p>Experience our lightning-fast delivery service that guarantees your orders reach you in record time. Our optimized logistics network ensures that your items are handled with care and delivered promptly.</p>
+                  <p>Discover how our efficient processes and trusted delivery partners consistently exceed customer expectations.</p>`;
           ctaText = "View Offers";
           ctaLink = "offers.html";
         } else if (feature === "deals") {
           title = "Exclusive Deals";
-          message = "Discover our curated selection of exclusive deals and premium discounts. Enjoy a unique shopping experience with offers tailored specifically to your needs.";
+          body = `<p>Explore our exclusive deals, carefully curated to offer you premium discounts and unparalleled value. Each deal is hand-picked to provide a unique shopping experience tailored just for you.</p>
+                  <p>Take advantage of our limited-time offers and discover products that combine quality with competitive pricing.</p>`;
           ctaText = "Shop Now";
           ctaLink = "ecommerce.html";
         }
         
         document.getElementById("modalTitle").innerText = title;
-        document.getElementById("modalMessage").innerText = message;
+        document.getElementById("modalBody").innerHTML = body;
         document.getElementById("modalCTA").innerText = ctaText;
         modalCTALink = ctaLink;
         document.getElementById("modal").style.display = "block";
@@ -340,8 +343,6 @@
       function redirectModal() {
         window.location.href = modalCTALink;
       }
-      
-      document.getElementById("modalCTA").addEventListener("click", redirectModal);
       
       document.addEventListener("DOMContentLoaded", function() {
         loadHTML('header-placeholder', 'header.html');
