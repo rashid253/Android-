@@ -5,7 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MyBusiness Cart</title>
     <!-- Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
     <link rel="stylesheet" href="style.css" />
     <style>
       html, body {
@@ -276,7 +279,7 @@
       let updateTimer;
       const DEBOUNCE_DELAY = 300;
 
-      // Function to remove any items with invalid quantity.
+      // Remove any items with invalid quantity
       function cleanCart() {
         cartItems = cartItems.filter(item => {
           const qty = Number(item.quantity);
@@ -370,7 +373,6 @@
         document.getElementById("trash-count").innerText = checked.length;
       }
       
-      // Delete function that cleans invalid items first.
       function deleteSelectedItems() {
         cleanCart();
         const checked = document.querySelectorAll(".delete-checkbox:checked");
@@ -422,16 +424,23 @@
         updateTotals();
         loadHTML("header-placeholder", "header.html");
         loadHTML("footer-placeholder", "footer.html");
+
+        // Track any checkbox changes for trash icon count
         document.addEventListener("change", event => {
           if (event.target.classList.contains("delete-checkbox")) {
             updateTrashCount();
           }
         });
+
+        // Handle trash bin deletion
         document.getElementById("trash-bin-container").addEventListener("click", deleteSelectedItems);
+        // Handle tokens
         document.getElementById("apply-tokens").addEventListener("click", applyTokens);
+        // Checkout
         document.getElementById("checkout-button").addEventListener("click", () => {
           window.location.href = "checkout.html";
         });
+        // Display user tokens if present
         if (document.getElementById("user-tokens")) {
           document.getElementById("user-tokens").innerText = userTokens;
         }
