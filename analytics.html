@@ -3,219 +3,129 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Analytics - Sales Trends & Personalized Suggestions</title>
-  <!-- Bootstrap CSS for professional styling -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Chart.js CDN for graphical charts -->
+  <title>Analytics - Purchase Decision Helper</title>
+  <!-- FontAwesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <!-- Bootstrap CSS for mobile responsiveness -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+  <!-- Chart.js for graphical charts -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
-    /* Custom styles for additional engagement and visual appeal */
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f8f9fa;
+      font-family: Arial, sans-serif;
+      background: #f7f7f7;
       margin: 0;
       padding: 0;
     }
+    header, footer {
+      background-color: #343a40;
+      color: #fff;
+      padding: 10px 15px;
+      text-align: center;
+    }
+    .analytics-icon {
+      font-size: 48px;
+      color: #28a745;
+    }
+    .section-title {
+      text-align: center;
+      margin: 20px 0;
+      color: #343a40;
+    }
     .chart-container {
       position: relative;
-      height: 400px;
+      margin: auto;
+      height: 300px;
       width: 100%;
     }
-    /* Smooth hover effects on cards */
-    .card:hover {
-      transform: translateY(-5px);
-      transition: transform 0.3s ease;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    .suggestions {
+      background-color: #fff;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
     }
-    /* Back-to-top button */
-    #backToTop {
-      position: fixed;
-      bottom: 40px;
-      right: 40px;
-      display: none;
-      z-index: 100;
+    .suggestions h5 {
+      color: #007bff;
     }
   </style>
 </head>
 <body>
-  <!-- External Header (loaded from header.html) -->
-  <div id="header-placeholder"></div>
+  <!-- Header with Analytics Icon -->
+  <header>
+    <h1>
+      <i class="fas fa-chart-line analytics-icon"></i>
+      Analytics
+    </h1>
+  </header>
+  
+  <!-- Main Content -->
+  <div class="container my-4">
+    <!-- Page Description -->
+    <div class="row">
+      <div class="col-12">
+        <h2 class="section-title">Data-Driven Insights for Informed Purchases</h2>
+        <p class="text-center">
+          Use real-time analytics to explore market trends and personalized product suggestions that empower your next purchase decision.
+        </p>
+      </div>
+    </div>
 
-  <div class="container my-5">
-    <!-- Search bar for product filtering -->
+    <!-- Overall Selling Trends Section -->
     <div class="row mb-4">
-      <div class="col">
-        <div class="input-group">
-          <input type="text" class="form-control" placeholder="Search products..." id="search-input">
-          <button class="btn btn-primary" id="search-btn" type="button">Search</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Section: Personalized Buying Suggestions -->
-    <section id="personalized-suggestions" class="mb-5">
-      <h2 class="text-center mb-4">Personalized Buying Suggestions</h2>
-      <div class="row" id="product-cards">
-        <!-- Dynamic product cards will be inserted here -->
-      </div>
-    </section>
-
-    <!-- Section: Overall Selling Trends -->
-    <section id="selling-trends" class="mb-5">
-      <h2 class="text-center mb-4">Overall Selling Trends & Suggestions</h2>
-      <div class="chart-container">
-        <canvas id="salesChart"></canvas>
-      </div>
-    </section>
-  </div>
-
-  <!-- Product Details Modal -->
-  <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="productModalLabel">Product Details</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body" id="modal-body-content">
-          <!-- Product details will be loaded here -->
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Buy Now</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- External Footer (loaded from footer.html) -->
-  <div id="footer-placeholder"></div>
-
-  <!-- Back-to-top button -->
-  <button id="backToTop" class="btn btn-primary">↑ Top</button>
-
-  <!-- Bootstrap Bundle JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <script>
-    // Load external header and footer using fetch (simulate external includes)
-    document.addEventListener("DOMContentLoaded", function() {
-      fetch('header.html')
-        .then(response => response.text())
-        .then(data => {
-          document.getElementById('header-placeholder').innerHTML = data;
-        })
-        .catch(error => console.error('Error loading header:', error));
-
-      fetch('footer.html')
-        .then(response => response.text())
-        .then(data => {
-          document.getElementById('footer-placeholder').innerHTML = data;
-        })
-        .catch(error => console.error('Error loading footer:', error));
-    });
-
-    /**
-     * Dummy function to simulate fetching product data.
-     * This will later be replaced with Firebase Firestore API calls.
-     * Authentication and data persistence will be handled via Firebase.
-     */
-    function fetchProducts() {
-      return new Promise((resolve) => {
-        setTimeout(() => {
-          const products = [
-            {
-              id: 1,
-              image: 'images/product1.jpg',
-              name: 'Wireless Earbuds',
-              description: 'Experience true wireless freedom with crystal clear sound.',
-              details: 'High quality sound, long battery life, and a sleek, modern design.'
-            },
-            {
-              id: 2,
-              image: 'images/product2.jpg',
-              name: 'Smartwatch Series 5',
-              description: 'Stay connected and monitor your fitness with ease.',
-              details: 'Features include heart rate monitoring, GPS, and customizable watch faces.'
-            },
-            {
-              id: 3,
-              image: 'images/product3.jpg',
-              name: 'Portable Speaker',
-              description: 'Take your music anywhere with powerful, portable sound.',
-              details: 'Compact, water-resistant design with impressive battery life.'
-            }
-          ];
-          resolve(products);
-        }, 500); // Simulate network delay
-      });
-    }
-
-    // Render product cards using Bootstrap grid
-    function displayProducts(products) {
-      const container = document.getElementById('product-cards');
-      container.innerHTML = '';
-      products.forEach(product => {
-        const col = document.createElement('div');
-        col.className = 'col-md-4 mb-4';
-        col.innerHTML = `
-          <div class="card h-100 shadow-sm">
-            <img src="${product.image}" class="card-img-top" alt="${product.name}">
-            <div class="card-body d-flex flex-column">
-              <h5 class="card-title">${product.name}</h5>
-              <p class="card-text">${product.description}</p>
-              <button class="btn btn-outline-primary mt-auto" onclick="openProductModal(${product.id})">View Details</button>
+      <div class="col-12">
+        <div class="card shadow-sm">
+          <div class="card-header bg-primary text-white">
+            Overall Selling Trends
+          </div>
+          <div class="card-body">
+            <div class="chart-container">
+              <canvas id="salesChart"></canvas>
             </div>
           </div>
-        `;
-        container.appendChild(col);
-      });
-    }
-
-    // Open modal with product details
-    function openProductModal(productId) {
-      fetchProducts().then(products => {
-        const product = products.find(p => p.id === productId);
-        if (product) {
-          document.getElementById('productModalLabel').innerText = product.name;
-          document.getElementById('modal-body-content').innerHTML = `
-            <img src="${product.image}" class="img-fluid mb-3" alt="${product.name}">
-            <p>${product.details}</p>
-          `;
-          const productModal = new bootstrap.Modal(document.getElementById('productModal'));
-          productModal.show();
-        }
-      });
-    }
-
-    // Initial load of products
-    fetchProducts().then(displayProducts);
-
-    // Dummy search functionality for filtering products
-    document.getElementById('search-btn').addEventListener('click', function() {
-      const query = document.getElementById('search-input').value.toLowerCase();
-      fetchProducts().then(products => {
-        const filtered = products.filter(product =>
-          product.name.toLowerCase().includes(query) ||
-          product.description.toLowerCase().includes(query)
-        );
-        displayProducts(filtered);
-      });
-    });
-
-    // Setup Chart.js for overall selling trends using dummy data
+        </div>
+      </div>
+    </div>
+    
+    <!-- Personalized Suggestions Section -->
+    <div class="row">
+      <div class="col-12">
+        <div class="suggestions shadow-sm">
+          <h5>Personalized Product Suggestions</h5>
+          <ul class="list-group list-group-flush" id="suggestions-list">
+            <!-- Suggestions will be dynamically inserted here -->
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Footer with Icons (search bar is omitted here as it's already present in the actual footer) -->
+  <footer>
+    <p>
+      &copy; 2025 Shopping App. All rights reserved. <br />
+      <i class="fas fa-home"></i> Home &nbsp;
+      <i class="fas fa-shopping-cart"></i> Cart &nbsp;
+      <i class="fas fa-user"></i> Account &nbsp;
+      <i class="fas fa-chart-line"></i> Analytics
+    </p>
+  </footer>
+  
+  <!-- JavaScript for Chart.js and Dummy Data -->
+  <script>
+    // Dummy data for overall selling trends using Chart.js
     const ctx = document.getElementById('salesChart').getContext('2d');
     const salesChart = new Chart(ctx, {
       type: 'line',
       data: {
         labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
         datasets: [{
-          label: 'Monthly Sales',
+          label: 'Monthly Sales ($)',
           data: [3000, 4500, 4000, 6000, 7000, 6500],
-          backgroundColor: 'rgba(54, 162, 235, 0.2)',
-          borderColor: 'rgba(54, 162, 235, 1)',
+          backgroundColor: 'rgba(40, 167, 69, 0.2)',
+          borderColor: 'rgba(40, 167, 69, 1)',
           borderWidth: 2,
           fill: true,
-          tension: 0.3
+          tension: 0.4
         }]
       },
       options: {
@@ -225,20 +135,38 @@
           y: {
             beginAtZero: true,
             ticks: {
-              callback: value => '$' + value
+              callback: function(value) {
+                return '$' + value;
+              }
             }
           }
         }
       }
     });
 
-    // Back-to-top button functionality
-    const backToTopBtn = document.getElementById('backToTop');
-    window.addEventListener('scroll', function() {
-      backToTopBtn.style.display = window.scrollY > 300 ? 'block' : 'none';
-    });
-    backToTopBtn.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+    // Dummy function to simulate fetching personalized product suggestions.
+    // Later, replace with Firebase Firestore API calls for dynamic data and secure authentication.
+    function fetchSuggestions() {
+      return new Promise(resolve => {
+        setTimeout(() => {
+          resolve([
+            { id: 1, name: 'Wireless Earbuds', desc: 'Experience high quality sound on the go.' },
+            { id: 2, name: 'Smartwatch', desc: 'Keep track of your health and notifications.' },
+            { id: 3, name: 'Portable Speaker', desc: 'Bring your music anywhere with powerful sound.' }
+          ]);
+        }, 500);
+      });
+    }
+
+    // Display personalized suggestions in the list
+    fetchSuggestions().then(suggestions => {
+      const list = document.getElementById('suggestions-list');
+      suggestions.forEach(item => {
+        const li = document.createElement('li');
+        li.className = 'list-group-item';
+        li.innerHTML = `<strong>${item.name}</strong>: ${item.desc}`;
+        list.appendChild(li);
+      });
     });
   </script>
 </body>
