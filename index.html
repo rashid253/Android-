@@ -212,7 +212,7 @@
     <!-- External Footer -->
     <div id="footer-placeholder"></div>
     
-    <!-- Inline Script to Load External Header and Footer and Handle Video Error -->
+    <!-- Inline Script to Load External Header and Footer and Handle Video Fallback -->
     <script>
       function loadHTML(elementId, filePath) {
         fetch(filePath)
@@ -236,15 +236,24 @@
         loadHTML('header-placeholder', 'header.html');
         loadHTML('footer-placeholder', 'footer.html');
         
-        // Add an event listener to detect video load errors.
         const heroVideo = document.querySelector('.hero-video');
+        const heroContainer = heroVideo.parentNode;
+        
+        // Attach error event listener to the video.
         if (heroVideo) {
           heroVideo.addEventListener('error', function() {
-            // Hide the video and apply the green gradient fallback.
             heroVideo.style.display = 'none';
-            heroVideo.parentNode.style.background = 'linear-gradient(135deg, #006400, #00FF00)';
+            heroContainer.style.background = 'linear-gradient(135deg, #006400, #00FF00)';
           });
         }
+        
+        // Fallback: if the video doesn't load or play within 5 seconds, apply fallback background.
+        setTimeout(() => {
+          if (heroVideo && heroVideo.readyState < 3) { // HAVE_FUTURE_DATA = 3
+            heroVideo.style.display = 'none';
+            heroContainer.style.background = 'linear-gradient(135deg, #006400, #00FF00)';
+          }
+        }, 5000);
       });
     </script>
   </body>
