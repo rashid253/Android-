@@ -8,7 +8,12 @@
   <style>
     /* Global Reset & Base */
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Roboto', sans-serif; background: #f4f4f4; color: #333; line-height: 1.6; }
+    body { 
+      font-family: 'Roboto', sans-serif; 
+      background: #f4f4f4; 
+      color: #333; 
+      line-height: 1.6; 
+    }
     
     /* ===== Hero Section ===== */
     .hero {
@@ -20,6 +25,7 @@
       justify-content: center;
       text-align: center;
       color: #fff;
+      perspective: 1000px;
     }
     .hero::after {
       content: '';
@@ -44,9 +50,13 @@
       border-radius: 5px;
       color: #fff;
       cursor: pointer;
-      transition: background 0.3s ease;
+      transition: background 0.3s ease, transform 0.3s ease;
+      transform: perspective(500px);
     }
-    .hero-content .cta-btn:hover { background: #218838; }
+    .hero-content .cta-btn:hover { 
+      background: #218838;
+      transform: perspective(500px) rotateX(3deg) rotateY(3deg);
+    }
     @keyframes fadeInDown {
       from { opacity: 0; transform: translateY(-20px); }
       to { opacity: 1; transform: translateY(0); }
@@ -57,7 +67,7 @@
       flex: 1;
       position: relative;
       overflow-y: auto;
-      padding-top: 20px;  /* Added top padding */
+      padding-top: 20px;
       padding-bottom: 60px;
     }
     
@@ -81,6 +91,11 @@
       border-radius: 8px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
       text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .delivery-text:hover {
+      transform: translateY(-5px) scale(1.01);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
     }
     .delivery-text h3 { font-size: 2rem; color: #28a745; margin-bottom: 10px; }
     .delivery-text p { font-size: 1rem; margin-bottom: 20px; }
@@ -106,7 +121,12 @@
     .testimonial { text-align: center; font-size: 1rem; margin-bottom: 20px; color: #555; }
     
     /* ===== CTA Section ===== */
-    .cta-section { text-align: center; margin: 40px 0; }
+    .cta-section {
+      text-align: center;
+      margin: 40px 0 80px 0;
+      position: relative;
+      z-index: 10;
+    }
     .cta-section a {
       padding: 14px 30px;
       background: #007BFF;
@@ -114,12 +134,16 @@
       text-decoration: none;
       border-radius: 5px;
       font-size: 1.2rem;
-      transition: background 0.3s ease;
+      transition: background 0.3s ease, transform 0.3s ease;
+      transform: perspective(500px);
     }
-    .cta-section a:hover { background: #0056b3; }
+    .cta-section a:hover {
+      background: #0056b3;
+      transform: perspective(500px) rotateX(5deg) rotateY(5deg);
+    }
     
-    /* ===== Footer Styling via External File ===== */
-    /* External footer styles are loaded from footer.html */
+    /* ===== Footer ===== */
+    /* External footer styling is loaded from footer.html */
     
     @media (max-width: 768px) {
       .hero-content h2 { font-size: 2.5rem; }
