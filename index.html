@@ -166,43 +166,65 @@
         width: 100%;
         height: 100%;
         overflow-y: auto;
-        background-color: #fff;
+        background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent dark overlay */
+        animation: fadeIn 0.3s ease;
       }
       .modal-content {
+        background-color: #fff;
+        margin: 5% auto;
+        padding: 30px;
+        border-radius: 10px;
         max-width: 800px;
-        margin: 0 auto;
-        padding: 20px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        animation: slideIn 0.3s ease;
+      }
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+      @keyframes slideIn {
+        from { transform: translateY(-50px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
       }
       .modal-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 10px;
       }
       .modal-header h2 {
         margin: 0;
-        font-size: 2rem;
+        font-size: 2.5rem;
+        color: #333;
       }
       .modal-close {
         font-size: 2rem;
         cursor: pointer;
+        color: #aaa;
+      }
+      .modal-close:hover {
+        color: #333;
       }
       .modal-body {
         margin-top: 20px;
         font-size: 1.1rem;
         line-height: 1.6;
+        color: #555;
       }
       .modal-footer {
         margin-top: 30px;
         text-align: center;
       }
       .modal-footer button {
-        padding: 10px 20px;
+        padding: 12px 25px;
         background-color: #007BFF;
         border: none;
-        border-radius: 4px;
+        border-radius: 6px;
         color: #fff;
         font-size: 1rem;
         cursor: pointer;
+        transition: background 0.3s ease;
       }
       .modal-footer button:hover {
         background-color: #0056b3;
@@ -311,20 +333,20 @@
         
         if (feature === "secure") {
           title = "Secure Payments";
-          body = `<p>Our secure payments system is engineered with state-of-the-art encryption and multi-factor authentication to ensure every transaction is protected. This robust system not only builds customer confidence but also enables our team to monitor and analyze data to continually improve security.</p>
-                  <p>Our comprehensive analytics dashboard allows you to review performance metrics, ensuring transparency and reliability in every payment.</p>`;
+          body = `<p>Our secure payments system is engineered with state-of-the-art encryption and multi-factor authentication to ensure every transaction is protected. This robust system builds customer trust, allowing you to review detailed analytics on transaction performance and security.</p>
+                  <p>Experience transparency and peace of mind as our analytics dashboard showcases our commitment to safety.</p>`;
           ctaText = "View Analytics";
           ctaLink = "analytics.html";
         } else if (feature === "delivery") {
           title = "Fast Delivery";
-          body = `<p>Experience our lightning-fast delivery service that guarantees your orders reach you in record time. Our optimized logistics network ensures that your items are handled with care and delivered promptly.</p>
-                  <p>Discover how our efficient processes and trusted delivery partners consistently exceed customer expectations.</p>`;
+          body = `<p>Experience our lightning-fast delivery service that guarantees your orders reach you in record time. Our optimized logistics network ensures timely and reliable delivery, delighting our customers with efficiency.</p>
+                  <p>Discover our seamless process that keeps you ahead in today's fast-paced world.</p>`;
           ctaText = "View Offers";
           ctaLink = "offers.html";
         } else if (feature === "deals") {
           title = "Exclusive Deals";
-          body = `<p>Explore our exclusive deals, carefully curated to offer you premium discounts and unparalleled value. Each deal is hand-picked to provide a unique shopping experience tailored just for you.</p>
-                  <p>Take advantage of our limited-time offers and discover products that combine quality with competitive pricing.</p>`;
+          body = `<p>Explore our hand-picked exclusive deals and premium discounts designed to offer you unparalleled value. Each offer is carefully curated to provide a unique shopping experience tailored just for you.</p>
+                  <p>Take advantage of limited-time promotions and enjoy the best in quality and pricing.</p>`;
           ctaText = "Shop Now";
           ctaLink = "ecommerce.html";
         }
