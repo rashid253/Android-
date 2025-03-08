@@ -4,10 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Analytics - Purchase Decision Helper</title>
+  <!-- Bootstrap CSS for mobile responsiveness -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
   <!-- FontAwesome for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-  <!-- Bootstrap CSS for mobile responsiveness -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
   <!-- Chart.js for graphical charts -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
@@ -17,55 +17,35 @@
       margin: 0;
       padding: 0;
     }
-    header, footer {
-      background-color: #343a40;
-      color: #fff;
-      padding: 10px 15px;
-      text-align: center;
-    }
-    .analytics-icon {
-      font-size: 48px;
-      color: #28a745;
-    }
-    .section-title {
-      text-align: center;
-      margin: 20px 0;
-      color: #343a40;
+    /* Container styling for main content */
+    .container {
+      padding-top: 20px;
+      padding-bottom: 20px;
     }
     .chart-container {
       position: relative;
-      margin: auto;
       height: 300px;
       width: 100%;
     }
-    .suggestions {
-      background-color: #fff;
-      padding: 15px;
-      border-radius: 8px;
-      margin-bottom: 20px;
-    }
-    .suggestions h5 {
-      color: #007bff;
+    .section-title {
+      color: #343a40;
+      margin-bottom: 15px;
+      text-align: center;
     }
   </style>
 </head>
 <body>
-  <!-- Header with Analytics Icon -->
-  <header>
-    <h1>
-      <i class="fas fa-chart-line analytics-icon"></i>
-      Analytics
-    </h1>
-  </header>
-  
+  <!-- External Header -->
+  <div id="header-placeholder"></div>
+
   <!-- Main Content -->
-  <div class="container my-4">
+  <div class="container">
     <!-- Page Description -->
-    <div class="row">
+    <div class="row mb-4">
       <div class="col-12">
         <h2 class="section-title">Data-Driven Insights for Informed Purchases</h2>
         <p class="text-center">
-          Use real-time analytics to explore market trends and personalized product suggestions that empower your next purchase decision.
+          Leverage real-time analytics and personalized suggestions to guide your purchase decisions.
         </p>
       </div>
     </div>
@@ -85,34 +65,49 @@
         </div>
       </div>
     </div>
-    
+
     <!-- Personalized Suggestions Section -->
     <div class="row">
       <div class="col-12">
-        <div class="suggestions shadow-sm">
-          <h5>Personalized Product Suggestions</h5>
-          <ul class="list-group list-group-flush" id="suggestions-list">
-            <!-- Suggestions will be dynamically inserted here -->
-          </ul>
+        <div class="card shadow-sm">
+          <div class="card-header bg-info text-white">
+            Personalized Product Suggestions
+          </div>
+          <div class="card-body">
+            <ul class="list-group" id="suggestions-list">
+              <!-- Suggestions will be dynamically inserted here -->
+            </ul>
+          </div>
         </div>
       </div>
     </div>
   </div>
+
+  <!-- External Footer -->
+  <div id="footer-placeholder"></div>
+
+  <!-- Bootstrap Bundle JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   
-  <!-- Footer with Icons (search bar is omitted here as it's already present in the actual footer) -->
-  <footer>
-    <p>
-      &copy; 2025 Shopping App. All rights reserved. <br />
-      <i class="fas fa-home"></i> Home &nbsp;
-      <i class="fas fa-shopping-cart"></i> Cart &nbsp;
-      <i class="fas fa-user"></i> Account &nbsp;
-      <i class="fas fa-chart-line"></i> Analytics
-    </p>
-  </footer>
-  
-  <!-- JavaScript for Chart.js and Dummy Data -->
   <script>
-    // Dummy data for overall selling trends using Chart.js
+    // Load external header and footer from separate files
+    document.addEventListener("DOMContentLoaded", function() {
+      fetch('header.html')
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById('header-placeholder').innerHTML = data;
+        })
+        .catch(error => console.error('Error loading header:', error));
+
+      fetch('footer.html')
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById('footer-placeholder').innerHTML = data;
+        })
+        .catch(error => console.error('Error loading footer:', error));
+    });
+
+    // Dummy data for overall selling trends (to be replaced by Firebase integration)
     const ctx = document.getElementById('salesChart').getContext('2d');
     const salesChart = new Chart(ctx, {
       type: 'line',
@@ -121,11 +116,11 @@
         datasets: [{
           label: 'Monthly Sales ($)',
           data: [3000, 4500, 4000, 6000, 7000, 6500],
-          backgroundColor: 'rgba(40, 167, 69, 0.2)',
-          borderColor: 'rgba(40, 167, 69, 1)',
+          backgroundColor: 'rgba(54, 162, 235, 0.2)',
+          borderColor: 'rgba(54, 162, 235, 1)',
           borderWidth: 2,
           fill: true,
-          tension: 0.4
+          tension: 0.3
         }]
       },
       options: {
@@ -144,8 +139,10 @@
       }
     });
 
-    // Dummy function to simulate fetching personalized product suggestions.
-    // Later, replace with Firebase Firestore API calls for dynamic data and secure authentication.
+    /**
+     * Dummy function to simulate fetching personalized product suggestions.
+     * This will later be replaced by Firebase Firestore API calls for dynamic data and secure authentication.
+     */
     function fetchSuggestions() {
       return new Promise(resolve => {
         setTimeout(() => {
@@ -158,7 +155,7 @@
       });
     }
 
-    // Display personalized suggestions in the list
+    // Render personalized suggestions in the suggestions list
     fetchSuggestions().then(suggestions => {
       const list = document.getElementById('suggestions-list');
       suggestions.forEach(item => {
