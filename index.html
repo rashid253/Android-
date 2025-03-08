@@ -35,8 +35,7 @@
         position: relative;
         overflow: hidden;
         height: 100%;
-        /* Green fallback gradient in case the video fails to load */
-        background: linear-gradient(135deg, #006400, #00FF00);
+        /* No permanent background set here; fallback will be applied via JS if the video fails */
       }
       .hero-video {
         position: absolute;
@@ -61,12 +60,17 @@
         padding: 10px;
         text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
       }
+      /* Updated title style */
       .hero-content h1 {
-        font-size: 2rem;
+        font-size: 3rem;
+        line-height: 1.2;
         margin-bottom: 10px;
+        font-weight: bold;
       }
+      /* Updated description style */
       .hero-content p {
-        font-size: 1rem;
+        font-size: 1.25rem;
+        line-height: 1.4;
         margin-bottom: 10px;
       }
       .cta-buttons {
@@ -91,6 +95,24 @@
       .cta-buttons button:last-child {
         background-color: #28a745;
         color: #fff;
+      }
+
+      /* Mobile responsive adjustments for hero section title and description */
+      @media (max-width: 768px) {
+        .hero-content h1 {
+          font-size: 2.5rem;
+        }
+        .hero-content p {
+          font-size: 1.1rem;
+        }
+      }
+      @media (max-width: 576px) {
+        .hero-content h1 {
+          font-size: 2rem;
+        }
+        .hero-content p {
+          font-size: 1rem;
+        }
       }
 
       /* ===== Features Section with Cards in Single Column ===== */
@@ -144,7 +166,7 @@
     <main>
       <!-- Hero Section with Video Background -->
       <section class="hero">
-        <video autoplay muted loop playsinline class="hero-video">
+        <video autoplay muted loop playsinline class="hero-video" onerror="handleVideoError(this)">
           <source src="https://i.imgur.com/OXCPyAw.mp4" type="video/mp4">
           Your browser does not support the video tag.
         </video>
@@ -191,7 +213,7 @@
     <!-- External Footer -->
     <div id="footer-placeholder"></div>
     
-    <!-- Inline Script to Load External Header and Footer -->
+    <!-- Inline Script to Load External Header and Footer and Handle Video Error -->
     <script>
       function loadHTML(elementId, filePath) {
         fetch(filePath)
@@ -209,6 +231,12 @@
       
       function openPage(page) {
         window.location.href = page;
+      }
+      
+      // If the video fails to load, hide it and apply a green gradient as fallback
+      function handleVideoError(video) {
+        video.style.display = 'none';
+        video.parentNode.style.background = 'linear-gradient(135deg, #006400, #00FF00)';
       }
       
       document.addEventListener("DOMContentLoaded", function() {
