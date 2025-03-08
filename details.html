@@ -19,14 +19,14 @@
     <!-- Custom JavaScript -->
     <script src="script.js" defer></script>
     <style>
-      /* Additional overrides for details.html */
+      /* Overall layout unchanged */
       body {
         margin-top: 70px;
         scroll-behavior: smooth;
       }
       .section-nav {
         background: #fff;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         position: sticky;
         top: 0;
         z-index: 999;
@@ -46,8 +46,6 @@
       .section-nav .nav-link:hover {
         color: #0056b3;
       }
-
-      /* Description read-more transitions */
       .description-content {
         max-height: 150px;
         overflow: hidden;
@@ -57,7 +55,7 @@
         max-height: 1000px;
       }
 
-      /* Reviews styling */
+      /* Reviews styling as per Play Store – no box borders, 3-review limit, etc. */
       .review-item {
         margin-bottom: 1rem;
         border-bottom: 1px solid #ddd;
@@ -76,7 +74,7 @@
         margin-bottom: 0.5rem;
       }
       .review-full {
-        display: none; /* hidden until user clicks "Read more" */
+        display: none;
       }
       .review-full.expanded {
         display: block;
@@ -86,22 +84,34 @@
         cursor: pointer;
         font-size: 0.9rem;
       }
+      /* "Was this review helpful?" with small, neat buttons (straight corners) */
       .review-helpful {
+        margin-top: 0.5rem;
         font-size: 0.85rem;
         color: #666;
       }
-      .review-helpful a {
+      .helpful-btn {
+        border: 1px solid #c0c0c0;
+        background: #fff;
+        border-radius: 0; /* straight corners */
+        padding: 2px 8px;
         margin-left: 8px;
-        color: #007bff;
+        color: #202124;
+        font-size: 0.8rem;
         cursor: pointer;
       }
+      .helpful-btn:hover {
+        background-color: #f1f3f4;
+      }
 
-      /* Star icons for rating input (Write a Review) */
-      .star-icon {
+      /* Rating stars for "Write a Review" – small and neat */
+      #ratingStars .star-icon {
+        font-size: 16px;
+        margin-right: 4px;
         cursor: pointer;
         color: #ccc;
       }
-      .star-icon.selected {
+      #ratingStars .star-icon.selected {
         color: #f5c518;
       }
     </style>
@@ -110,17 +120,12 @@
     <!-- External Header will be loaded here -->
     <div id="header-placeholder"></div>
 
-    <!-- Product Details Section with extra top and bottom spacing -->
+    <!-- Product Details Section -->
     <div class="container mt-5 mb-5">
       <div class="row">
         <!-- Product Image -->
         <div class="col-md-5 text-center mb-3">
-          <img
-            id="productImage"
-            src="https://via.placeholder.com/400x300?text=Product+Image"
-            alt="Product Image"
-            class="img-fluid rounded"
-          />
+          <img id="productImage" src="https://via.placeholder.com/400x300?text=Product+Image" alt="Product Image" class="img-fluid rounded" />
         </div>
         <!-- Product Info -->
         <div class="col-md-7">
@@ -158,30 +163,17 @@
       <h3>Description</h3>
       <div class="description-content" id="descriptionContent">
         <p id="productDescription">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
-          mauris quam. Praesent sed nisi eleifend, varius nulla eu, auctor urna.
-          Vestibulum ante ipsum primis in faucibus orci luctus et ultrices
-          posuere cubilia curae; Suspendisse potenti. Proin ut tincidunt mauris,
-          vel dapibus nulla. Nulla facilisi. Sed nec nulla vitae eros aliquet
-          fermentum.
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel mauris quam. Praesent sed nisi eleifend, varius nulla eu, auctor urna. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Suspendisse potenti. Proin ut tincidunt mauris, vel dapibus nulla. Nulla facilisi. Sed nec nulla vitae eros aliquet fermentum.
         </p>
       </div>
-      <button class="btn btn-sm btn-outline-primary mt-2" id="descReadMore">
-        Read More
-      </button>
+      <button class="btn btn-sm btn-outline-primary mt-2" id="descReadMore">Read More</button>
     </section>
 
     <!-- Reviews Section -->
     <section id="section-reviews" class="container mb-5">
       <h3>Reviews</h3>
-      <!-- The reviews will go here -->
       <div id="reviewsContainer"></div>
-      <!-- "See All Reviews" link -->
-      <div
-        id="seeAllReviewsLink"
-        class="text-primary mt-2"
-        style="cursor: pointer; display: none;"
-      >
+      <div id="seeAllReviewsLink" class="text-primary mt-2" style="cursor: pointer; display: none;">
         See all reviews
       </div>
 
@@ -195,11 +187,7 @@
           <i class="fa fa-star star-icon" data-value="4"></i>
           <i class="fa fa-star star-icon" data-value="5"></i>
         </div>
-        <textarea
-          class="form-control mb-2"
-          rows="3"
-          placeholder="Share your experience after purchasing"
-        ></textarea>
+        <textarea class="form-control mb-2" rows="3" placeholder="Share your experience after purchasing"></textarea>
         <button class="btn btn-success">Submit Review</button>
       </div>
     </section>
@@ -210,11 +198,7 @@
       <div class="row" id="relatedItemsContainer">
         <div class="col-6 col-md-3 mb-3">
           <div class="card text-center">
-            <img
-              src="https://via.placeholder.com/140x100?text=Item+1"
-              alt="Item 1"
-              class="card-img-top"
-            />
+            <img src="https://via.placeholder.com/140x100?text=Item+1" alt="Item 1" class="card-img-top" />
             <div class="card-body p-2">
               <p class="small mb-0">Item 1</p>
             </div>
@@ -222,11 +206,7 @@
         </div>
         <div class="col-6 col-md-3 mb-3">
           <div class="card text-center">
-            <img
-              src="https://via.placeholder.com/140x100?text=Item+2"
-              alt="Item 2"
-              class="card-img-top"
-            />
+            <img src="https://via.placeholder.com/140x100?text=Item+2" alt="Item 2" class="card-img-top" />
             <div class="card-body p-2">
               <p class="small mb-0">Item 2</p>
             </div>
@@ -234,11 +214,7 @@
         </div>
         <div class="col-6 col-md-3 mb-3">
           <div class="card text-center">
-            <img
-              src="https://via.placeholder.com/140x100?text=Item+3"
-              alt="Item 3"
-              class="card-img-top"
-            />
+            <img src="https://via.placeholder.com/140x100?text=Item+3" alt="Item 3" class="card-img-top" />
             <div class="card-body p-2">
               <p class="small mb-0">Item 3</p>
             </div>
@@ -246,11 +222,7 @@
         </div>
         <div class="col-6 col-md-3 mb-3">
           <div class="card text-center">
-            <img
-              src="https://via.placeholder.com/140x100?text=Item+4"
-              alt="Item 4"
-              class="card-img-top"
-            />
+            <img src="https://via.placeholder.com/140x100?text=Item+4" alt="Item 4" class="card-img-top" />
             <div class="card-body p-2">
               <p class="small mb-0">Item 4</p>
             </div>
@@ -262,7 +234,6 @@
     <!-- External Footer will be loaded here -->
     <div id="footer-placeholder"></div>
 
-    <!-- Bootstrap JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
       // ==============================
@@ -291,6 +262,7 @@
       document.getElementById("productDescription").innerText = product.description;
       document.getElementById("productImage").src = product.image;
       document.getElementById("productStats").innerText = product.added + " Added | " + product.sold + " Sold";
+      document.getElementById("productRating").innerHTML = generateStars(product.rating);
 
       function generateStars(rating) {
         let html = "";
@@ -304,7 +276,6 @@
         }
         return html;
       }
-      document.getElementById("productRating").innerHTML = generateStars(product.rating);
 
       // Description "Read More"
       const descReadMoreBtn = document.getElementById("descReadMore");
@@ -319,7 +290,6 @@
       // ==============================
       // 2. REVIEWS DATA & RENDERING
       // ==============================
-      // Example reviews array (replace with your real data from DB/Firebase)
       const reviewsData = [
         {
           user: "User1",
@@ -349,21 +319,15 @@
 
       const reviewsContainer = document.getElementById("reviewsContainer");
       const seeAllReviewsLink = document.getElementById("seeAllReviewsLink");
-      let showAllReviews = false; // track if user clicked "See all reviews"
-
+      let showAllReviews = false;
       function renderReviews() {
         reviewsContainer.innerHTML = "";
-
-        // Show either all or up to 3
         const limit = 3;
         const toShow = showAllReviews ? reviewsData : reviewsData.slice(0, limit);
-
-        toShow.forEach((rev, index) => {
-          // Create a container
+        toShow.forEach((rev) => {
           const reviewDiv = document.createElement("div");
           reviewDiv.className = "review-item";
 
-          // User name, rating, date
           const headerDiv = document.createElement("div");
           headerDiv.innerHTML = `
             <span class="review-user">${rev.user}</span>
@@ -374,85 +338,62 @@
           `;
           reviewDiv.appendChild(headerDiv);
 
-          // Review text snippet with "Read more"
           const textP = document.createElement("p");
           textP.className = "review-text";
           textP.innerHTML = `
             <span class="review-snippet">${rev.text.substring(0, 100)}</span>
-            ${
-              rev.text.length > 100
-                ? `<span class="review-read-more">...Read more</span>`
-                : ""
-            }
+            ${rev.text.length > 100 ? `<span class="review-read-more">...Read more</span>` : ""}
           `;
           reviewDiv.appendChild(textP);
 
-          // Full text (hidden by default)
           if (rev.text.length > 100) {
             const fullTextP = document.createElement("p");
             fullTextP.className = "review-full";
-            fullTextP.textContent = rev.text; // entire text
+            fullTextP.textContent = rev.text;
             reviewDiv.appendChild(fullTextP);
           }
 
-          // "Was this review helpful? Yes / No"
           const helpfulDiv = document.createElement("div");
           helpfulDiv.className = "review-helpful";
           helpfulDiv.innerHTML = `
             Was this review helpful?
-            <a class="helpful-yes">Yes</a>
-            <a class="helpful-no">No</a>
+            <button class="helpful-btn">Yes</button>
+            <button class="helpful-btn">No</button>
           `;
           reviewDiv.appendChild(helpfulDiv);
 
-          // Append to container
           reviewsContainer.appendChild(reviewDiv);
         });
-
-        // Show/hide "See all reviews" link
-        if (reviewsData.length > limit && !showAllReviews) {
-          seeAllReviewsLink.style.display = "block";
-        } else {
-          seeAllReviewsLink.style.display = "none";
-        }
+        seeAllReviewsLink.style.display = (reviewsData.length > limit && !showAllReviews) ? "block" : "none";
       }
 
-      // Handle "See all reviews" link
       seeAllReviewsLink.addEventListener("click", () => {
         showAllReviews = true;
         renderReviews();
       });
 
-      // Toggle "Read more" text
       document.addEventListener("click", function (e) {
         if (e.target && e.target.classList.contains("review-read-more")) {
           const parent = e.target.closest(".review-item");
           const fullReview = parent.querySelector(".review-full");
           if (fullReview) {
             fullReview.classList.toggle("expanded");
-            if (fullReview.classList.contains("expanded")) {
-              e.target.textContent = " Show less";
-            } else {
-              e.target.textContent = "...Read more";
-            }
+            e.target.textContent = fullReview.classList.contains("expanded") ? " Show less" : "...Read more";
           }
         }
       });
 
-      // Initial render
       renderReviews();
 
       // ==============================
-      // 3. STAR RATING FOR "WRITE A REVIEW"
+      // 3. STAR RATING (WRITE A REVIEW)
       // ==============================
       const starIcons = document.querySelectorAll("#ratingStars .star-icon");
       starIcons.forEach((star) => {
         star.addEventListener("click", function () {
           const rating = this.getAttribute("data-value");
           starIcons.forEach((s) => {
-            s.getAttribute("data-value") <= rating
-              ? s.classList.add("selected")
-              : s.classList.remove("selected");
+            s.getAttribute("data-value") <= rating ? s.classList.add("selected") : s.classList.remove("selected");
           });
         });
       });
@@ -463,15 +404,8 @@
       document.querySelector(".add-to-cart-btn").addEventListener("click", function () {
         let cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
         let productToAdd = { ...product };
-        // Convert price to numeric again
-        productToAdd.price = parseFloat(
-          productToAdd.price.toString().replace(/[^\d.-]/g, "")
-        ) || productToAdd.price;
-
-        // Check if product with same ID is in cart
-        const existingIndex = cartItems.findIndex(
-          (item) => item.id === productToAdd.id
-        );
+        productToAdd.price = parseFloat(productToAdd.price.toString().replace(/[^\d.-]/g, "")) || productToAdd.price;
+        const existingIndex = cartItems.findIndex((item) => item.id === productToAdd.id);
         if (existingIndex > -1) {
           cartItems[existingIndex].quantity += 1;
         } else {
