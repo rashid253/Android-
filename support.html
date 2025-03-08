@@ -20,7 +20,7 @@
         font-family: 'Roboto', sans-serif;
         background: #f7f8fa;
         color: #333;
-        padding: 70px 10px; /* If you have a fixed header, ensure space on top */
+        padding: 70px 10px; /* Space for fixed header */
       }
       .container {
         max-width: 1000px;
@@ -161,8 +161,8 @@
     </style>
   </head>
   <body>
-    <!-- Optional: If you load header externally, remove the below placeholder -->
-    <!-- <div id="header-placeholder"></div> -->
+    <!-- External Header -->
+    <div id="header-placeholder"></div>
 
     <div class="container">
       <h1>Customer Support</h1>
@@ -243,16 +243,32 @@
       </div>
     </div>
 
-    <!-- Optional: If you load footer externally, remove the below placeholder -->
-    <!-- <div id="footer-placeholder"></div> -->
+    <!-- External Footer -->
+    <div id="footer-placeholder"></div>
 
     <script>
+      // Load external header and footer from separate files
+      document.addEventListener("DOMContentLoaded", function() {
+        fetch('header.html')
+          .then(response => response.text())
+          .then(data => {
+            document.getElementById('header-placeholder').innerHTML = data;
+          })
+          .catch(error => console.error('Error loading header:', error));
+
+        fetch('footer.html')
+          .then(response => response.text())
+          .then(data => {
+            document.getElementById('footer-placeholder').innerHTML = data;
+          })
+          .catch(error => console.error('Error loading footer:', error));
+      });
+
       // Toggle FAQ answer visibility
       function toggleFAQ(questionElement) {
         const answerElement = questionElement.nextElementSibling;
         if (!answerElement) return;
 
-        // Expand or collapse
         const icon = questionElement.querySelector("i");
         if (answerElement.style.display === "block") {
           answerElement.style.display = "none";
@@ -266,19 +282,16 @@
       // Placeholder for chat
       function openChat() {
         alert("Opening chat with supplier (placeholder).");
-        // Implement actual chat logic or redirect here
       }
 
       // Placeholder for order tracking
       function openOrderTracking() {
         alert("Navigating to Order Tracking (placeholder).");
-        // Implement actual order tracking logic or redirect here
       }
 
-      // Placeholder for extra support
+      // Placeholder for live support
       function openExtraService() {
         alert("Connecting you to live support (placeholder).");
-        // Implement actual live support or redirect here
       }
 
       // Placeholder for form submission
@@ -292,7 +305,6 @@
           return;
         }
         alert("Thank you for contacting us! We'll respond soon.");
-        // Here you could send form data via fetch/AJAX to your backend
       }
     </script>
   </body>
