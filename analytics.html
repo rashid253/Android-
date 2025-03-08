@@ -3,153 +3,196 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Analytics - NextGen E-commerce</title>
-  <!-- External CSS -->
-  <link rel="stylesheet" href="style.css" />
-  <!-- Font Awesome for Icons -->
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-  />
+  <title>Analytics - Sales Trends & Suggestions</title>
+  <!-- External CSS file can be linked here -->
+  <link rel="stylesheet" href="styles.css" />
   <style>
-    /* Reset & Base */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    /* Basic inline styling for demonstration. For production, use an external stylesheet. */
     body {
-      font-family: "Roboto", sans-serif;
-      background: #f0f2f5;
-      color: #444;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background-color: #f4f4f4;
     }
-    main {
-      max-width: 1200px;
-      margin: 80px auto 80px;
-      padding: 20px;
-    }
-    /* ANALYTICS DASHBOARD */
-    .analytics-container {
-      background: #fff;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      margin-bottom: 40px;
-    }
-    .analytics-container h1 {
-      margin-bottom: 20px;
-      font-size: 2rem;
-      color: #2575fc;
-    }
-    /* HISTORY & RECOMMENDATIONS SECTION */
-    .history-section {
-      background: #fff;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    }
-    .history-section h2 {
+    #header, #footer {
+      background-color: #333;
+      color: #fff;
+      padding: 15px;
       text-align: center;
-      font-size: 2.5rem;
-      color: #2575fc;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 20px auto;
+      padding: 0 20px;
+    }
+    .section {
+      margin: 40px 0;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+    }
+    .section h2 {
+      text-align: center;
       margin-bottom: 20px;
     }
-    .history-content {
+    #personalized-suggestions .cards {
       display: flex;
       flex-wrap: wrap;
-      gap: 20px;
       justify-content: center;
+      gap: 20px;
     }
-    .history-item {
-      flex: 1;
-      min-width: 280px;
-      background: #f9f9f9;
-      border-radius: 5px;
-      padding: 15px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    .card {
+      background: #fafafa;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      width: 280px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
       text-align: center;
       overflow: hidden;
-      word-break: break-word;  /* Prevents text from overflowing */
     }
-    .history-item h3 {
-      font-size: 1.5rem;
-      color: #333;
-      margin-bottom: 10px;
+    .card img {
+      width: 100%;
+      height: auto;
     }
-    .history-item p {
-      font-size: 1rem;
-      color: #666;
-      line-height: 1.5;
+    .card h3 {
+      margin: 10px 0;
     }
-    /* Responsive Adjustments */
-    @media (max-width: 768px) {
-      .history-content {
-        flex-direction: column;
-        align-items: center;
-      }
+    .chart-container {
+      position: relative;
+      margin: auto;
+      height: 400px;
+      width: 80%;
     }
   </style>
+  <!-- Chart.js CDN for graphical charts -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-  <!-- Load External Header -->
-  <div id="header-placeholder"></div>
-  <script>
-    function loadHTML(url, containerId, callback) {
-      fetch(url)
-        .then(response => response.text())
-        .then(html => {
-          document.getElementById(containerId).innerHTML = html;
-          const scripts = document.getElementById(containerId).querySelectorAll("script");
-          scripts.forEach(oldScript => {
-            const newScript = document.createElement("script");
-            if (oldScript.src) {
-              newScript.src = oldScript.src;
-            } else {
-              newScript.textContent = oldScript.textContent;
-            }
-            document.head.appendChild(newScript);
-          });
-          if (callback) callback();
-        })
-        .catch(err => console.error("Error loading " + url, err));
-    }
-    loadHTML("header.html", "header-placeholder");
-  </script>
-  
-  <main>
-    <!-- ANALYTICS DASHBOARD -->
-    <div class="analytics-container">
-      <h1>Analytics Dashboard</h1>
-      <p>
-        Welcome to the analytics page. Here you can view insights about your e-commerce performance.
+  <!-- External Header (can be loaded from header.html) -->
+  <div id="header">
+    <header>
+      <h1>Shopping App</h1>
+      <nav>
+        <a href="home.html" style="color:#fff; margin: 0 10px;">Home</a>
+        <a href="products.html" style="color:#fff; margin: 0 10px;">Products</a>
+        <a href="analytics.html" style="color:#fff; margin: 0 10px;">Analytics</a>
+      </nav>
+    </header>
+  </div>
+
+  <div class="container">
+    <!-- Section: Personalized Buying Suggestions -->
+    <section class="section" id="personalized-suggestions">
+      <h2>Personalized Buying Suggestions</h2>
+      <p style="text-align:center;">
+        Based on your purchasing and search history, these products are recommended for you.
       </p>
-      <!-- Additional analytics content goes here -->
-    </div>
-    
-    <!-- HISTORY & RECOMMENDATIONS SECTION -->
-    <div class="history-section">
-      <h2>Your History & Recommendations</h2>
-      <div class="history-content">
-        <div class="history-item">
-          <h3>Previous Shopping History</h3>
-          <p>Your recent purchases will appear here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum.</p>
-        </div>
-        <div class="history-item">
-          <h3>Search History</h3>
-          <p>Your recent search queries will appear here. Donec ac orci condimentum, blandit lacus eget, ultricies nisl.</p>
-        </div>
-        <div class="history-item">
-          <h3>Recommended for You</h3>
-          <p>Based on your history, we recommend these products for you. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
-        </div>
+      <div class="cards" id="product-cards">
+        <!-- Product cards will be dynamically inserted here -->
       </div>
-    </div>
-  </main>
-  
-  <!-- Load External Footer -->
-  <div id="footer-placeholder"></div>
+    </section>
+
+    <!-- Section: Overall Selling Trends & Suggestions -->
+    <section class="section" id="selling-trends">
+      <h2>Overall Selling Trends & Suggestions</h2>
+      <p style="text-align:center;">
+        Check out the market trends and gain insights for your next shopping spree:
+      </p>
+      <div class="chart-container">
+        <canvas id="salesChart"></canvas>
+      </div>
+    </section>
+  </div>
+
+  <!-- External Footer (can be loaded from footer.html) -->
+  <div id="footer">
+    <footer>
+      <p>&copy; 2025 Shopping App. All rights reserved.</p>
+    </footer>
+  </div>
+
   <script>
-    loadHTML("footer.html", "footer-placeholder");
+    /**
+     * Dummy function to simulate fetching product data.
+     * This function will later be replaced with Firebase Firestore API calls.
+     * Authentication and data persistence will be handled via Firebase for dynamic, secure data management.
+     */
+    function fetchProducts() {
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          // Dummy data for personalized product suggestions
+          const products = [
+            {
+              image: 'images/product1.jpg',
+              name: 'Product 1',
+              description: 'Enhance your lifestyle with Product 1.',
+            },
+            {
+              image: 'images/product2.jpg',
+              name: 'Product 2',
+              description: 'A perfect choice to complement your needs.',
+            },
+            {
+              image: 'images/product3.jpg',
+              name: 'Product 3',
+              description: 'Trending now! Try Product 3 today.',
+            },
+          ];
+          resolve(products);
+        }, 500); // Simulate network delay
+      });
+    }
+
+    // Display product cards on the page
+    function displayProducts() {
+      fetchProducts().then((products) => {
+        const container = document.getElementById('product-cards');
+        products.forEach((product) => {
+          const card = document.createElement('div');
+          card.className = 'card';
+          card.innerHTML = `
+            <img src="${product.image}" alt="${product.name}" />
+            <h3>${product.name}</h3>
+            <p>${product.description}</p>
+          `;
+          container.appendChild(card);
+        });
+      });
+    }
+
+    // Call displayProducts() to load the dummy product data
+    displayProducts();
+
+    // Setup Chart.js to display overall selling trends using dummy data
+    const ctx = document.getElementById('salesChart').getContext('2d');
+    const salesChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+        datasets: [{
+          label: 'Monthly Sales',
+          data: [3000, 4500, 4000, 6000, 7000, 6500],
+          backgroundColor: 'rgba(39, 174, 96, 0.2)',
+          borderColor: 'rgba(39, 174, 96, 1)',
+          borderWidth: 2,
+          fill: true,
+          tension: 0.3
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              callback: function(value) {
+                return '$' + value;
+              }
+            }
+          }
+        }
+      }
+    });
   </script>
 </body>
 </html>
