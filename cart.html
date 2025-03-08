@@ -276,9 +276,12 @@
       let updateTimer;
       const DEBOUNCE_DELAY = 300;
 
-      // New function to clean out items with invalid (NaN or null) quantity.
+      // Function to remove any items with invalid quantity.
       function cleanCart() {
-        cartItems = cartItems.filter(item => !isNaN(item.quantity) && item.quantity !== null);
+        cartItems = cartItems.filter(item => {
+          const qty = Number(item.quantity);
+          return !isNaN(qty) && qty !== null;
+        });
         localStorage.setItem("cartItems", JSON.stringify(cartItems));
       }
 
@@ -367,7 +370,7 @@
         document.getElementById("trash-count").innerText = checked.length;
       }
       
-      // Updated delete function: clean out any invalid items first.
+      // Delete function that cleans invalid items first.
       function deleteSelectedItems() {
         cleanCart();
         const checked = document.querySelectorAll(".delete-checkbox:checked");
@@ -429,7 +432,7 @@
         document.getElementById("checkout-button").addEventListener("click", () => {
           window.location.href = "checkout.html";
         });
-        if(document.getElementById("user-tokens")){
+        if (document.getElementById("user-tokens")) {
           document.getElementById("user-tokens").innerText = userTokens;
         }
       });
