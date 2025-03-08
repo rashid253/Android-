@@ -229,139 +229,172 @@
     <!-- Bootstrap JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-      // Basic loadHTML function to load external HTML content.
+      // Load cart items from localStorage.
+      let cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+      let userTokens = 50;
+      let appliedTokens = 0;
+      let updateTimer;
+      const DEBOUNCE_DELAY = 300;
+
+      // New function to remove items with invalid (NaN or null) quantity.
+      function cleanCart() {
+        cartItems = cartItems.filter(item => {
+          const qty = Number(item.quantity);
+          return !isNaN(qty) && qty !== null;
+        });
+        localStorage.setItem("cartItems", JSON.stringify(cartItems));
+      }
+
+      function renderCartItems() {
+        const container = document.getElementById("cart-items");
+        if (cartItems.length === 0) {
+          container.innerHTML = '<p class="empty-cart">Your cart is empty.</p>';
+          return;
+        }
+        container.innerHTML = "";
+        cartItems.forEach(item => {
+          const div = document.createElement("div");
+          div.className = "cart-item";
+          div.innerHTML = `
+            <input type="checkbox" class="delete-checkbox" data-id="${item.id}" />
+            <img src="${item.image}" alt="${item.name}">
+            <div class="cart-item-details">
+              <h3>${item.name}</h3>
+              <p>Price: Rs ${parseFloat(item.price).toFixed(2)} | Qty: <span id="quantity-${item.id}">${item.quantity}</span></p>
+            </div>
+            <div class="quantity-vertical">
+              <button onclick="increaseQuantity(${item.id})" title="Increase Quantity">
+                <i class="fas fa-plus"></i>
+              </button>
+              <span id="vertical-qty-${item.id}">${item.quantity}</span>
+              <button onclick="decreaseQuantity(${item.id})" title="Decrease Quantity">
+                <i class="fas fa-minus"></i>
+              </button>
+            </div>
+          `;
+          container.appendChild(div);
+        });
+      }
+      
+      function increaseQuantity(itemId) {
+        const index = cartItems.findIndex(item => item.id === itemId);
+        if (index > -1) {
+          updateQuantity(itemId, cartItems[index].quantity + 1);
+        }
+      }
+      
+      function decreaseQuantity(itemId) {
+        const index = cartItems.findIndex(item => item.id === itemId);
+        if (index > -1 && cartItems[index].quantity > 1) {
+          updateQuantity(itemId, cartItems[index].quantity - 1);
+        }
+      }
+      
+      function updateQuantity(itemId, newQuantity) {
+        if (newQuantity < 1) return;
+        const index = cartItems.findIndex(item => item.id === itemId);
+        if (index > -1) {
+          cartItems[index].quantity = newQuantity;
+          document.getElementById("quantity-" + itemId).innerText = newQuantity;
+          document.getElementById("vertical-qty-" + itemId).innerText = newQuantity;
+          clearTimeout(updateTimer);
+          updateTimer = setTimeout(updateTotals, DEBOUNCE_DELAY);
+        }
+      }
+      
+      function updateTotals() {
+        const totalContainer = document.getElementById("cart-total");
+        const receiptBody = document.getElementById("receipt-body");
+        let total = 0;
+        receiptBody.innerHTML = "";
+        cartItems.forEach(item => {
+          const lineTotal = parseFloat(item.price) * item.quantity;
+          total += lineTotal;
+          const row = document.createElement("tr");
+          row.innerHTML = `
+            <td>${item.name}</td>
+            <td>${item.quantity}</td>
+            <td>Rs ${parseFloat(item.price).toFixed(2)}</td>
+            <td>Rs ${lineTotal.toFixed(2)}</td>
+          `;
+          receiptBody.appendChild(row);
+        });
+        const tokenDiscount = appliedTokens * 0.10;
+        const finalTotal = Math.max(total - tokenDiscount, 0);
+        totalContainer.innerText = "Total: Rs " + finalTotal.toFixed(2);
+        localStorage.setItem("cartItems", JSON.stringify(cartItems));
+      }
+      
+      function updateTrashCount() {
+        const checked = document.querySelectorAll(".delete-checkbox:checked");
+        document.getElementById("trash-count").innerText = checked.length;
+      }
+      
+      // Updated delete function: clean invalid items first.
+      function deleteSelectedItems() {
+        cleanCart();
+        const checked = document.querySelectorAll(".delete-checkbox:checked");
+        if (checked.length === 0) {
+          alert("Please select at least one item to delete.");
+          return;
+        }
+        if (!confirm("Are you sure you want to delete the selected items?")) return;
+        const ids = Array.from(checked).map(cb => Number(cb.getAttribute("data-id")));
+        cartItems = cartItems.filter(item => !ids.includes(item.id));
+        renderCartItems();
+        updateTotals();
+        updateTrashCount();
+        localStorage.setItem("cartItems", JSON.stringify(cartItems));
+      }
+      
       function loadHTML(elementId, filePath) {
         return fetch(filePath)
-          .then((response) => {
-            if (!response.ok) {
-              throw new Error("Network response was not ok for " + filePath);
-            }
+          .then(response => {
+            if (!response.ok) throw new Error("Error fetching " + filePath);
             return response.text();
           })
-          .then((htmlText) => {
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(htmlText, "text/html");
-            doc.querySelectorAll("style").forEach((styleTag) => {
-              document.head.appendChild(styleTag.cloneNode(true));
-            });
-            doc.querySelectorAll("script").forEach((scriptTag) => {
-              const newScript = document.createElement("script");
-              if (scriptTag.src) {
-                newScript.src = scriptTag.src;
-                newScript.async = false;
-              } else {
-                newScript.textContent = scriptTag.textContent;
-              }
-              document.head.appendChild(newScript);
-            });
-            doc.querySelectorAll("script, style").forEach((el) => el.remove());
-            document.getElementById(elementId).innerHTML = doc.body.innerHTML;
+          .then(html => {
+            document.getElementById(elementId).innerHTML = html;
           })
-          .catch((error) => console.error("Error loading " + filePath + ":", error));
+          .catch(error => console.error(error));
       }
-
-      // Observe header placeholder to attach menu toggle if available.
-      function observeHeaderAndAttachToggle() {
-        const targetNode = document.getElementById("header-placeholder");
-        if (!targetNode) return;
-        const observer = new MutationObserver((mutationsList, observer) => {
-          if (targetNode.innerHTML.trim().length > 0) {
-            const menuToggle = document.querySelector(".menu-toggle");
-            if (menuToggle) {
-              menuToggle.addEventListener("click", function () {
-                const sideMenu = document.getElementById("side-menu");
-                if (sideMenu) {
-                  sideMenu.classList.toggle("visible");
-                }
-              });
-              observer.disconnect();
-            }
-          }
-        });
-        observer.observe(targetNode, { childList: true, subtree: true });
+      
+      function applyTokens() {
+        const tokenInput = document.getElementById("token-input");
+        const tokens = parseInt(tokenInput.value);
+        const tokenMsg = document.getElementById("token-message");
+        if (isNaN(tokens) || tokens < 0) {
+          tokenMsg.innerText = "Please enter a valid number of tokens.";
+          return;
+        }
+        if (tokens > userTokens) {
+          tokenMsg.innerText = "You do not have enough tokens.";
+          return;
+        }
+        appliedTokens = tokens;
+        tokenMsg.innerText = "Tokens applied: " + appliedTokens;
+        updateTotals();
       }
-
-      document.addEventListener("DOMContentLoaded", function () {
-        loadHTML("header-placeholder", "header.html").then(() => {
-          observeHeaderAndAttachToggle();
-        });
+      
+      document.addEventListener("DOMContentLoaded", () => {
+        cleanCart();
+        renderCartItems();
+        updateTotals();
+        loadHTML("header-placeholder", "header.html");
         loadHTML("footer-placeholder", "footer.html");
-      });
-
-      // Use numeric price and default quantity 1.
-      const product = JSON.parse(localStorage.getItem("selectedProduct")) || {
-        name: "Default Product",
-        price: 0,
-        description: "No description available.",
-        image: "https://via.placeholder.com/400x300?text=Product+Image",
-        rating: 0,
-        added: 0,
-        sold: 0,
-        quantity: 1
-      };
-
-      // Populate product details.
-      document.getElementById("productName").innerText = product.name;
-      document.getElementById("productPrice").innerText = "PKR " + product.price;
-      document.getElementById("productDescription").innerText = product.description;
-      document.getElementById("productImage").src = product.image;
-      document.getElementById("productRating").innerHTML = generateStars(product.rating);
-      document.getElementById("productStats").innerText = product.added + " Added | " + product.sold + " Sold";
-
-      function generateStars(rating) {
-        let html = "";
-        const fullStars = Math.floor(rating);
-        const halfStar = rating - fullStars >= 0.5 ? 1 : 0;
-        for (let i = 0; i < fullStars; i++) {
-          html += '<i class="fa fa-star text-warning"></i>';
-        }
-        if (halfStar) {
-          html += '<i class="fa fa-star-half-alt text-warning"></i>';
-        }
-        return html;
-      }
-
-      const descReadMoreBtn = document.getElementById("descReadMore");
-      const descContent = document.getElementById("descriptionContent");
-      descReadMoreBtn.addEventListener("click", function () {
-        descContent.classList.toggle("expanded");
-        this.textContent = descContent.classList.contains("expanded") ? "Show Less" : "Read More";
-      });
-
-      document.addEventListener("click", function (e) {
-        if (e.target && e.target.classList.contains("review-read-more")) {
-          const fullReview = e.target.closest(".card-body").querySelector(".review-full");
-          if (fullReview) {
-            fullReview.classList.toggle("expanded");
-            e.target.textContent = fullReview.classList.contains("expanded") ? " Show less" : "...Read more";
+        document.addEventListener("change", event => {
+          if (event.target.classList.contains("delete-checkbox")) {
+            updateTrashCount();
           }
-        }
-      });
-
-      const starIcons = document.querySelectorAll("#ratingStars .star-icon");
-      starIcons.forEach((star) => {
-        star.addEventListener("click", function () {
-          const rating = this.getAttribute("data-value");
-          starIcons.forEach((s) => {
-            s.getAttribute("data-value") <= rating ? s.classList.add("selected") : s.classList.remove("selected");
-          });
         });
-      });
-
-      // Add to Cart integration.
-      document.querySelector('.add-to-cart-btn').addEventListener('click', function() {
-        let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-        // Create a copy of the product with a unique id if not set.
-        let productToAdd = { ...product };
-        if (!productToAdd.id) {
-          productToAdd.id = new Date().getTime();
+        document.getElementById("trash-bin-container").addEventListener("click", deleteSelectedItems);
+        document.getElementById("apply-tokens").addEventListener("click", applyTokens);
+        document.getElementById("checkout-button").addEventListener("click", () => {
+          window.location.href = "checkout.html";
+        });
+        if(document.getElementById("user-tokens")){
+          document.getElementById("user-tokens").innerText = userTokens;
         }
-        // Ensure numeric price and default quantity.
-        productToAdd.price = Number(productToAdd.price);
-        productToAdd.quantity = 1;
-        cartItems.push(productToAdd);
-        localStorage.setItem('cartItems', JSON.stringify(cartItems));
-        alert("Product added to cart!");
       });
     </script>
   </body>
