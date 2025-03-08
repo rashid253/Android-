@@ -28,7 +28,7 @@
       margin: 0 auto 80px;
       padding: 20px;
     }
-    /* HERO SECTION: Professional Style without Slant and with Padding */
+    /* HERO SECTION: Updated Background and Prominent Text */
     .hero {
       position: relative;
       min-height: 40vh; /* Reduced minimum height */
@@ -38,24 +38,29 @@
       justify-content: center;
       text-align: center;
       color: #fff;
-      /* Use the specified image with a fallback to the solid background color */
-      background: url("https://i.imgur.com/67iMmMA.jpg") no-repeat center center/cover, #2575fc;
+      /* The hero background image with a fallback color */
+      background: url("https://i.imgur.com/6NZ5gsx.jpeg") no-repeat center center/cover, #2575fc;
     }
+    /* Adding a semi-transparent dark overlay to enhance text contrast */
     .hero .content {
       position: relative;
       z-index: 1;
       padding: 20px;
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 8px;
     }
     .hero h1 {
-      font-size: 2.5rem;
+      font-size: 2.8rem;
       margin-bottom: 10px;
       font-weight: 700;
       color: #fff;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
     }
     .hero p {
-      font-size: 1rem;
+      font-size: 1.1rem;
       max-width: 800px;
       margin: 0 auto 20px;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
     }
     .hero .btn {
       margin-top: 20px;
