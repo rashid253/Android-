@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- External Custom CSS -->
     <link rel="stylesheet" href="style.css">
-    <!-- Inline styles for layout, hero section, and updated card layout -->
+    <!-- Inline styles for layout, hero section, features and modal -->
     <style>
       /* ===== General Layout ===== */
       html, body {
@@ -138,6 +138,11 @@
         width: 100%;
         padding: 1.5rem;
         text-align: center;
+        cursor: pointer;
+        transition: box-shadow 0.3s;
+      }
+      .feature-item:hover {
+        box-shadow: 0 6px 12px rgba(0,0,0,0.15);
       }
       /* Icon styling: green icons */
       .feature-item i {
@@ -153,6 +158,47 @@
       .feature-item p {
         font-size: 0.95rem;
         color: #6c757d;
+      }
+
+      /* ===== Modal Styles ===== */
+      .modal {
+        display: none; /* Hidden by default */
+        position: fixed;
+        z-index: 2000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0,0,0,0.7);
+      }
+      .modal-content {
+        background-color: #fff;
+        margin: 10% auto;
+        padding: 20px;
+        border-radius: 8px;
+        width: 90%;
+        max-width: 800px;
+        position: relative;
+      }
+      .modal-content iframe {
+        width: 100%;
+        height: 500px;
+        border: none;
+      }
+      .modal .close {
+        position: absolute;
+        top: 10px;
+        right: 20px;
+        color: #aaa;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+      .modal .close:hover,
+      .modal .close:focus {
+        color: black;
+        text-decoration: none;
       }
     </style>
     <script src="script.js" defer></script>
@@ -181,25 +227,25 @@
         </div>
       </section>
       
-      <!-- Features Section with Single Column Cards -->
+      <!-- Features Section with Clickable Cards -->
       <section class="features">
         <div class="container">
           <h2>Our Exclusive Features</h2>
           <div class="features-grid">
             <!-- Card #1 -->
-            <div class="feature-item">
+            <div class="feature-item" onclick="openModal('secure-payments.html')">
               <i class="fas fa-lock"></i>
               <h3>Secure Payments</h3>
               <p>State-of-the-art security for your transactions.</p>
             </div>
             <!-- Card #2 -->
-            <div class="feature-item">
+            <div class="feature-item" onclick="openModal('fast-delivery.html')">
               <i class="fas fa-truck"></i>
               <h3>Fast Delivery</h3>
               <p>Reliable, door-to-door delivery service.</p>
             </div>
             <!-- Card #3 -->
-            <div class="feature-item">
+            <div class="feature-item" onclick="openModal('exclusive-deals.html')">
               <i class="fas fa-tags"></i>
               <h3>Exclusive Deals</h3>
               <p>Premium discounts and seasonal offers.</p>
@@ -212,7 +258,15 @@
     <!-- External Footer -->
     <div id="footer-placeholder"></div>
     
-    <!-- Inline Script to Load External Header and Footer and Handle Video Fallback -->
+    <!-- Modal for Related Page -->
+    <div id="modal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <iframe id="modalFrame" src=""></iframe>
+      </div>
+    </div>
+    
+    <!-- Inline Script to Load External Header, Footer, and Handle Video Fallback & Modal -->
     <script>
       function loadHTML(elementId, filePath) {
         fetch(filePath)
@@ -230,6 +284,20 @@
       
       function openPage(page) {
         window.location.href = page;
+      }
+      
+      function openModal(url) {
+        var modal = document.getElementById('modal');
+        var modalFrame = document.getElementById('modalFrame');
+        modalFrame.src = url;
+        modal.style.display = 'block';
+      }
+      
+      function closeModal() {
+        var modal = document.getElementById('modal');
+        var modalFrame = document.getElementById('modalFrame');
+        modalFrame.src = "";
+        modal.style.display = 'none';
       }
       
       document.addEventListener("DOMContentLoaded", function() {
