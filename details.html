@@ -101,6 +101,7 @@
           <p class="h5 text-primary" id="productPrice">PKR 0</p>
           <div id="productRating" class="star-rating mb-2"></div>
           <p id="productStats" class="text-muted mb-3">0 Added | 0 Sold</p>
+          <!-- Add to Cart CTA Button integrated with cart.html -->
           <button class="btn btn-success add-to-cart-btn mt-3">
             <i class="fa fa-shopping-cart"></i> Add to Cart
           </button>
@@ -152,11 +153,7 @@
           <div class="card-body">
             <p>
               <strong>User1:</strong> Amazing quality, highly recommended!
-              <span
-                class="review-read-more text-primary"
-                style="cursor: pointer"
-                >...Read more</span
-              >
+              <span class="review-read-more text-primary" style="cursor: pointer">...Read more</span>
             </p>
             <p class="text-muted"><small>Reviewed on July 10, 2025</small></p>
             <p class="review-full" style="margin-bottom: 0">
@@ -170,11 +167,7 @@
           <div class="card-body">
             <p>
               <strong>User2:</strong> Good value for money.
-              <span
-                class="review-read-more text-primary"
-                style="cursor: pointer"
-                >...Read more</span
-              >
+              <span class="review-read-more text-primary" style="cursor: pointer">...Read more</span>
             </p>
             <p class="text-muted"><small>Reviewed on July 8, 2025</small></p>
             <p class="review-full" style="margin-bottom: 0">
@@ -212,11 +205,7 @@
       <div class="row" id="relatedItemsContainer">
         <div class="col-6 col-md-3 mb-3">
           <div class="card text-center">
-            <img
-              src="https://via.placeholder.com/140x100?text=Item+1"
-              alt="Item 1"
-              class="card-img-top"
-            />
+            <img src="https://via.placeholder.com/140x100?text=Item+1" alt="Item 1" class="card-img-top" />
             <div class="card-body p-2">
               <p class="small mb-0">Item 1</p>
             </div>
@@ -224,11 +213,7 @@
         </div>
         <div class="col-6 col-md-3 mb-3">
           <div class="card text-center">
-            <img
-              src="https://via.placeholder.com/140x100?text=Item+2"
-              alt="Item 2"
-              class="card-img-top"
-            />
+            <img src="https://via.placeholder.com/140x100?text=Item+2" alt="Item 2" class="card-img-top" />
             <div class="card-body p-2">
               <p class="small mb-0">Item 2</p>
             </div>
@@ -236,11 +221,7 @@
         </div>
         <div class="col-6 col-md-3 mb-3">
           <div class="card text-center">
-            <img
-              src="https://via.placeholder.com/140x100?text=Item+3"
-              alt="Item 3"
-              class="card-img-top"
-            />
+            <img src="https://via.placeholder.com/140x100?text=Item+3" alt="Item 3" class="card-img-top" />
             <div class="card-body p-2">
               <p class="small mb-0">Item 3</p>
             </div>
@@ -248,11 +229,7 @@
         </div>
         <div class="col-6 col-md-3 mb-3">
           <div class="card text-center">
-            <img
-              src="https://via.placeholder.com/140x100?text=Item+4"
-              alt="Item 4"
-              class="card-img-top"
-            />
+            <img src="https://via.placeholder.com/140x100?text=Item+4" alt="Item 4" class="card-img-top" />
             <div class="card-body p-2">
               <p class="small mb-0">Item 4</p>
             </div>
@@ -322,26 +299,17 @@
         observer.observe(targetNode, { childList: true, subtree: true });
       }
 
-      document.addEventListener("DOMContentLoaded", function () {
-        loadHTML("header-placeholder", "header.html").then(() => {
-          observeHeaderAndAttachToggle();
-        });
-        loadHTML("footer-placeholder", "footer.html");
-      });
+      // Populate product details from localStorage.
+      const product = JSON.parse(localStorage.getItem("selectedProduct")) || {
+        name: "Default Product",
+        price: "PKR 0",
+        description: "No description available.",
+        image: "https://via.placeholder.com/400x300?text=Product+Image",
+        rating: 0,
+        added: "0",
+        sold: "0",
+      };
 
-      // Dummy product data (replace with Firebase integration later)
-      const product =
-        JSON.parse(localStorage.getItem("selectedProduct")) || {
-          name: "Default Product",
-          price: "PKR 0",
-          description: "No description available.",
-          image: "https://via.placeholder.com/400x300?text=Product+Image",
-          rating: 0,
-          added: "0",
-          sold: "0",
-        };
-
-      // Populate product details.
       document.getElementById("productName").innerText = product.name;
       document.getElementById("productPrice").innerText = product.price;
       document.getElementById("productDescription").innerText = product.description;
@@ -401,6 +369,43 @@
             }
           });
         });
+      });
+
+      // Add to Cart functionality:
+      const addToCartBtn = document.querySelector('.add-to-cart-btn');
+      if (addToCartBtn) {
+        addToCartBtn.addEventListener('click', function() {
+          // Retrieve the selected product (assumed saved from previous page)
+          let product = JSON.parse(localStorage.getItem("selectedProduct"));
+          if (!product) {
+            alert("Product details not available!");
+            return;
+          }
+          // Retrieve the existing cart from localStorage or initialize as empty array
+          let cart = JSON.parse(localStorage.getItem("cart")) || [];
+          // Check if product already exists in the cart (assume product has a unique 'id' property)
+          let existingProduct = cart.find(item => item.id === product.id);
+          if (existingProduct) {
+            // Increase quantity if already exists
+            existingProduct.quantity = (existingProduct.quantity || 1) + 1;
+          } else {
+            // Set quantity for new product and add to cart array
+            product.quantity = 1;
+            cart.push(product);
+          }
+          // Save the updated cart back to localStorage
+          localStorage.setItem("cart", JSON.stringify(cart));
+          // Redirect to cart.html
+          window.location.href = "cart.html";
+        });
+      }
+
+      // Load external header/footer
+      document.addEventListener("DOMContentLoaded", () => {
+        loadHTML("header-placeholder", "header.html").then(() => {
+          observeHeaderAndAttachToggle();
+        });
+        loadHTML("footer-placeholder", "footer.html");
       });
     </script>
   </body>
