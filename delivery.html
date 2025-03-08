@@ -18,7 +18,7 @@
     /* ===== Hero Section ===== */
     .hero {
       position: relative;
-      background: url('https://i.imgur.com/Ak5zmOd.jpg') no-repeat center center/cover;
+      background: url('https://i.imgur.com/KuVyZbv.jpeg') no-repeat center center/cover;
       height: 70vh;
       display: flex;
       align-items: center;
@@ -43,8 +43,8 @@
     .hero-content h2 { font-size: 3rem; margin-bottom: 20px; }
     .hero-content p { font-size: 1.2rem; margin-bottom: 30px; }
     .hero-content .cta-btn {
-      padding: 14px 30px;
-      font-size: 1.1rem;
+      padding: 10px 20px;
+      font-size: 0.9rem;
       background: #28a745;
       border: none;
       border-radius: 5px;
@@ -52,6 +52,7 @@
       cursor: pointer;
       transition: background 0.3s ease, transform 0.3s ease;
       transform: perspective(500px);
+      margin-top: -10px;
     }
     .hero-content .cta-btn:hover { 
       background: #218838;
@@ -128,12 +129,12 @@
       z-index: 10;
     }
     .cta-section a {
-      padding: 14px 30px;
+      padding: 10px 20px;
       background: #007BFF;
       color: #fff;
       text-decoration: none;
       border-radius: 5px;
-      font-size: 1.2rem;
+      font-size: 1rem;
       transition: background 0.3s ease, transform 0.3s ease;
       transform: perspective(500px);
     }
@@ -142,8 +143,8 @@
       transform: perspective(500px) rotateX(5deg) rotateY(5deg);
     }
     
-    /* ===== Footer ===== */
-    /* External footer styling is loaded from footer.html */
+    /* ===== External Footer ===== */
+    /* External footer styles loaded via loadHTML from footer.html */
     
     @media (max-width: 768px) {
       .hero-content h2 { font-size: 2.5rem; }
@@ -165,39 +166,42 @@
     </div>
   </section>
   
-  <!-- Delivery Details Section -->
-  <section id="deliveryDetails" class="section">
-    <h2>Unmatched Speed & Reliability</h2>
-    <div class="delivery-details">
-      <div class="delivery-text">
-        <h3>Experience Unrivaled Delivery</h3>
-        <p>We are contracted with the world's fastest and most reliable courier companies. Our state-of-the-art logistics network ensures that your products are delivered in the shortest possible time.</p>
-        <p>Our delivery promises include:</p>
-        <ul>
-          <li>Lightning-fast dispatch and delivery</li>
-          <li>Real-time tracking and notifications</li>
-          <li>Dedicated customer support</li>
-          <li>Hassle-free returns</li>
-        </ul>
+  <!-- Main Content -->
+  <main>
+    <!-- Delivery Details Section -->
+    <section id="deliveryDetails" class="section">
+      <h2>Unmatched Speed & Reliability</h2>
+      <div class="delivery-details">
+        <div class="delivery-text">
+          <h3>Experience Unrivaled Delivery</h3>
+          <p>We are contracted with the world's fastest and most reliable courier companies. Our state-of-the-art logistics network ensures that your products are delivered in the shortest possible time.</p>
+          <p>Our delivery promises include:</p>
+          <ul>
+            <li>Lightning-fast dispatch and delivery</li>
+            <li>Real-time tracking and notifications</li>
+            <li>Dedicated customer support</li>
+            <li>Hassle-free returns</li>
+          </ul>
+        </div>
       </div>
-    </div>
-  </section>
-  
-  <!-- Testimonials Section -->
-  <section class="section testimonials">
-    <h3>What Our Customers Say</h3>
-    <div class="testimonial">
-      <p>"I was amazed at how quickly my order arrived! The tracking feature kept me informed, and the service was truly exceptional." - Sarah K.</p>
-    </div>
-    <div class="testimonial">
-      <p>"Reliable and fast! Their delivery service exceeded my expectations, and the hassle-free returns make it even better." - Michael T.</p>
-    </div>
-  </section>
-  
-  <!-- CTA Section -->
-  <section class="cta-section">
-    <a href="offers.html">Explore Our Offers</a>
-  </section>
+    </section>
+    
+    <!-- Testimonials Section -->
+    <section class="section testimonials">
+      <h3>What Our Customers Say</h3>
+      <div class="testimonial">
+        <p>"I was amazed at how quickly my order arrived! The tracking feature kept me informed, and the service was truly exceptional." - Sarah K.</p>
+      </div>
+      <div class="testimonial">
+        <p>"Reliable and fast! Their delivery service exceeded my expectations, and the hassle-free returns make it even better." - Michael T.</p>
+      </div>
+    </section>
+    
+    <!-- CTA Section -->
+    <section class="cta-section">
+      <a href="offers.html">Explore Our Offers</a>
+    </section>
+  </main>
   
   <!-- External Footer -->
   <div id="footer-placeholder"></div>
