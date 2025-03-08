@@ -20,14 +20,10 @@
     <script src="script.js" defer></script>
     <style>
       /* Additional overrides for details.html */
-
-      /* Ensure content is pushed down by the fixed header (70px here) */
       body {
         margin-top: 70px;
         scroll-behavior: smooth;
       }
-
-      /* Sticky Section Navigation (below header) */
       .section-nav {
         background: #fff;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -50,26 +46,20 @@
       .section-nav .nav-link:hover {
         color: #0056b3;
       }
-
-      /* Description read-more transitions */
       .description-content {
         max-height: 150px;
         overflow: hidden;
         transition: max-height 0.4s ease;
       }
       .description-content.expanded {
-        max-height: 1000px; /* Adjust if needed */
+        max-height: 1000px;
       }
-
-      /* Review full text hidden by default */
       .review-full {
         display: none;
       }
       .review-full.expanded {
         display: block;
       }
-
-      /* Star icons for rating input */
       .star-icon {
         cursor: pointer;
         color: #ccc;
@@ -83,7 +73,7 @@
     <!-- External Header will be loaded here -->
     <div id="header-placeholder"></div>
 
-    <!-- Product Details Section with extra top and bottom spacing -->
+    <!-- Product Details Section -->
     <div class="container mt-5 mb-5">
       <div class="row">
         <!-- Product Image -->
@@ -126,7 +116,7 @@
       </div>
     </nav>
 
-    <!-- Description Section with modified Read More style -->
+    <!-- Description Section -->
     <section id="section-description" class="container mt-4 mb-5">
       <h3>Description</h3>
       <div class="description-content" id="descriptionContent">
@@ -152,11 +142,7 @@
           <div class="card-body">
             <p>
               <strong>User1:</strong> Amazing quality, highly recommended!
-              <span
-                class="review-read-more text-primary"
-                style="cursor: pointer"
-                >...Read more</span
-              >
+              <span class="review-read-more text-primary" style="cursor: pointer">...Read more</span>
             </p>
             <p class="text-muted"><small>Reviewed on July 10, 2025</small></p>
             <p class="review-full" style="margin-bottom: 0">
@@ -170,11 +156,7 @@
           <div class="card-body">
             <p>
               <strong>User2:</strong> Good value for money.
-              <span
-                class="review-read-more text-primary"
-                style="cursor: pointer"
-                >...Read more</span
-              >
+              <span class="review-read-more text-primary" style="cursor: pointer">...Read more</span>
             </p>
             <p class="text-muted"><small>Reviewed on July 8, 2025</small></p>
             <p class="review-full" style="margin-bottom: 0">
@@ -196,11 +178,7 @@
             <i class="fa fa-star star-icon" data-value="4"></i>
             <i class="fa fa-star star-icon" data-value="5"></i>
           </div>
-          <textarea
-            class="form-control mb-2"
-            rows="3"
-            placeholder="Share your experience after purchasing"
-          ></textarea>
+          <textarea class="form-control mb-2" rows="3" placeholder="Share your experience after purchasing"></textarea>
           <button class="btn btn-success">Submit Review</button>
         </div>
       </div>
@@ -212,11 +190,7 @@
       <div class="row" id="relatedItemsContainer">
         <div class="col-6 col-md-3 mb-3">
           <div class="card text-center">
-            <img
-              src="https://via.placeholder.com/140x100?text=Item+1"
-              alt="Item 1"
-              class="card-img-top"
-            />
+            <img src="https://via.placeholder.com/140x100?text=Item+1" alt="Item 1" class="card-img-top" />
             <div class="card-body p-2">
               <p class="small mb-0">Item 1</p>
             </div>
@@ -224,11 +198,7 @@
         </div>
         <div class="col-6 col-md-3 mb-3">
           <div class="card text-center">
-            <img
-              src="https://via.placeholder.com/140x100?text=Item+2"
-              alt="Item 2"
-              class="card-img-top"
-            />
+            <img src="https://via.placeholder.com/140x100?text=Item+2" alt="Item 2" class="card-img-top" />
             <div class="card-body p-2">
               <p class="small mb-0">Item 2</p>
             </div>
@@ -236,11 +206,7 @@
         </div>
         <div class="col-6 col-md-3 mb-3">
           <div class="card text-center">
-            <img
-              src="https://via.placeholder.com/140x100?text=Item+3"
-              alt="Item 3"
-              class="card-img-top"
-            />
+            <img src="https://via.placeholder.com/140x100?text=Item+3" alt="Item 3" class="card-img-top" />
             <div class="card-body p-2">
               <p class="small mb-0">Item 3</p>
             </div>
@@ -248,11 +214,7 @@
         </div>
         <div class="col-6 col-md-3 mb-3">
           <div class="card text-center">
-            <img
-              src="https://via.placeholder.com/140x100?text=Item+4"
-              alt="Item 4"
-              class="card-img-top"
-            />
+            <img src="https://via.placeholder.com/140x100?text=Item+4" alt="Item 4" class="card-img-top" />
             <div class="card-body p-2">
               <p class="small mb-0">Item 4</p>
             </div>
@@ -279,11 +241,9 @@
           .then((htmlText) => {
             const parser = new DOMParser();
             const doc = parser.parseFromString(htmlText, "text/html");
-            // Append style tags to head.
             doc.querySelectorAll("style").forEach((styleTag) => {
               document.head.appendChild(styleTag.cloneNode(true));
             });
-            // Append script tags to head.
             doc.querySelectorAll("script").forEach((scriptTag) => {
               const newScript = document.createElement("script");
               if (scriptTag.src) {
@@ -294,7 +254,6 @@
               }
               document.head.appendChild(newScript);
             });
-            // Remove script and style tags from fetched HTML.
             doc.querySelectorAll("script, style").forEach((el) => el.remove());
             document.getElementById(elementId).innerHTML = doc.body.innerHTML;
           })
@@ -329,28 +288,26 @@
         loadHTML("footer-placeholder", "footer.html");
       });
 
-      // Dummy product data (replace with Firebase integration later)
-      const product =
-        JSON.parse(localStorage.getItem("selectedProduct")) || {
-          name: "Default Product",
-          price: "PKR 0",
-          description: "No description available.",
-          image: "https://via.placeholder.com/400x300?text=Product+Image",
-          rating: 0,
-          added: "0",
-          sold: "0",
-        };
+      // Use numeric price and default quantity 1.
+      const product = JSON.parse(localStorage.getItem("selectedProduct")) || {
+        name: "Default Product",
+        price: 0,
+        description: "No description available.",
+        image: "https://via.placeholder.com/400x300?text=Product+Image",
+        rating: 0,
+        added: 0,
+        sold: 0,
+        quantity: 1
+      };
 
       // Populate product details.
       document.getElementById("productName").innerText = product.name;
-      document.getElementById("productPrice").innerText = product.price;
+      document.getElementById("productPrice").innerText = "PKR " + product.price;
       document.getElementById("productDescription").innerText = product.description;
       document.getElementById("productImage").src = product.image;
       document.getElementById("productRating").innerHTML = generateStars(product.rating);
-      document.getElementById("productStats").innerText =
-        product.added + " Added | " + product.sold + " Sold";
+      document.getElementById("productStats").innerText = product.added + " Added | " + product.sold + " Sold";
 
-      // Helper function to generate star rating HTML.
       function generateStars(rating) {
         let html = "";
         const fullStars = Math.floor(rating);
@@ -364,51 +321,45 @@
         return html;
       }
 
-      // "Read More" functionality for Description.
       const descReadMoreBtn = document.getElementById("descReadMore");
       const descContent = document.getElementById("descriptionContent");
       descReadMoreBtn.addEventListener("click", function () {
         descContent.classList.toggle("expanded");
-        if (descContent.classList.contains("expanded")) {
-          this.textContent = "Show Less";
-        } else {
-          this.textContent = "Read More";
-        }
+        this.textContent = descContent.classList.contains("expanded") ? "Show Less" : "Read More";
       });
 
-      // Reviews "Read More" toggle functionality.
       document.addEventListener("click", function (e) {
         if (e.target && e.target.classList.contains("review-read-more")) {
           const fullReview = e.target.closest(".card-body").querySelector(".review-full");
           if (fullReview) {
             fullReview.classList.toggle("expanded");
-            e.target.textContent =
-              fullReview.classList.contains("expanded") ? " Show less" : "...Read more";
+            e.target.textContent = fullReview.classList.contains("expanded") ? " Show less" : "...Read more";
           }
         }
       });
 
-      // Star rating functionality for "Write a Review".
       const starIcons = document.querySelectorAll("#ratingStars .star-icon");
       starIcons.forEach((star) => {
         star.addEventListener("click", function () {
           const rating = this.getAttribute("data-value");
           starIcons.forEach((s) => {
-            if (s.getAttribute("data-value") <= rating) {
-              s.classList.add("selected");
-            } else {
-              s.classList.remove("selected");
-            }
+            s.getAttribute("data-value") <= rating ? s.classList.add("selected") : s.classList.remove("selected");
           });
         });
       });
 
-      // Integration: Add to Cart button functionality.
+      // Add to Cart integration.
       document.querySelector('.add-to-cart-btn').addEventListener('click', function() {
-        // Retrieve existing cart items or initialize empty array.
         let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-        // Add the current product to the cart.
-        cartItems.push(product);
+        // Create a copy of the product with a unique id if not set.
+        let productToAdd = { ...product };
+        if (!productToAdd.id) {
+          productToAdd.id = new Date().getTime();
+        }
+        // Ensure numeric price and default quantity.
+        productToAdd.price = Number(productToAdd.price);
+        productToAdd.quantity = 1;
+        cartItems.push(productToAdd);
         localStorage.setItem('cartItems', JSON.stringify(cartItems));
         alert("Product added to cart!");
       });
