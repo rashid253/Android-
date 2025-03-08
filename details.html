@@ -121,7 +121,12 @@
       <h3>Description</h3>
       <div class="description-content" id="descriptionContent">
         <p id="productDescription">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel mauris quam. Praesent sed nisi eleifend, varius nulla eu, auctor urna. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Suspendisse potenti. Proin ut tincidunt mauris, vel dapibus nulla. Nulla facilisi. Sed nec nulla vitae eros aliquet fermentum.
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+          mauris quam. Praesent sed nisi eleifend, varius nulla eu, auctor urna.
+          Vestibulum ante ipsum primis in faucibus orci luctus et ultrices
+          posuere cubilia curae; Suspendisse potenti. Proin ut tincidunt mauris,
+          vel dapibus nulla. Nulla facilisi. Sed nec nulla vitae eros aliquet
+          fermentum.
         </p>
       </div>
       <button class="btn btn-sm btn-outline-primary mt-2" id="descReadMore">
@@ -137,11 +142,17 @@
           <div class="card-body">
             <p>
               <strong>User1:</strong> Amazing quality, highly recommended!
-              <span class="review-read-more text-primary" style="cursor: pointer">...Read more</span>
+              <span
+                class="review-read-more text-primary"
+                style="cursor: pointer"
+                >...Read more</span
+              >
             </p>
             <p class="text-muted"><small>Reviewed on July 10, 2025</small></p>
             <p class="review-full" style="margin-bottom: 0">
-              Full review text for User1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              Full review text for User1. Lorem ipsum dolor sit amet, consectetur
+              adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore
+              magna aliqua.
             </p>
           </div>
         </div>
@@ -149,11 +160,16 @@
           <div class="card-body">
             <p>
               <strong>User2:</strong> Good value for money.
-              <span class="review-read-more text-primary" style="cursor: pointer">...Read more</span>
+              <span
+                class="review-read-more text-primary"
+                style="cursor: pointer"
+                >...Read more</span
+              >
             </p>
             <p class="text-muted"><small>Reviewed on July 8, 2025</small></p>
             <p class="review-full" style="margin-bottom: 0">
-              Full review text for User2. Additional details about the product experience go here.
+              Full review text for User2. Additional details about the product
+              experience go here.
             </p>
           </div>
         </div>
@@ -170,7 +186,11 @@
             <i class="fa fa-star star-icon" data-value="4"></i>
             <i class="fa fa-star star-icon" data-value="5"></i>
           </div>
-          <textarea class="form-control mb-2" rows="3" placeholder="Share your experience after purchasing"></textarea>
+          <textarea
+            class="form-control mb-2"
+            rows="3"
+            placeholder="Share your experience after purchasing"
+          ></textarea>
           <button class="btn btn-success">Submit Review</button>
         </div>
       </div>
@@ -182,7 +202,11 @@
       <div class="row" id="relatedItemsContainer">
         <div class="col-6 col-md-3 mb-3">
           <div class="card text-center">
-            <img src="https://via.placeholder.com/140x100?text=Item+1" alt="Item 1" class="card-img-top" />
+            <img
+              src="https://via.placeholder.com/140x100?text=Item+1"
+              alt="Item 1"
+              class="card-img-top"
+            />
             <div class="card-body p-2">
               <p class="small mb-0">Item 1</p>
             </div>
@@ -190,7 +214,11 @@
         </div>
         <div class="col-6 col-md-3 mb-3">
           <div class="card text-center">
-            <img src="https://via.placeholder.com/140x100?text=Item+2" alt="Item 2" class="card-img-top" />
+            <img
+              src="https://via.placeholder.com/140x100?text=Item+2"
+              alt="Item 2"
+              class="card-img-top"
+            />
             <div class="card-body p-2">
               <p class="small mb-0">Item 2</p>
             </div>
@@ -198,7 +226,11 @@
         </div>
         <div class="col-6 col-md-3 mb-3">
           <div class="card text-center">
-            <img src="https://via.placeholder.com/140x100?text=Item+3" alt="Item 3" class="card-img-top" />
+            <img
+              src="https://via.placeholder.com/140x100?text=Item+3"
+              alt="Item 3"
+              class="card-img-top"
+            />
             <div class="card-body p-2">
               <p class="small mb-0">Item 3</p>
             </div>
@@ -206,7 +238,11 @@
         </div>
         <div class="col-6 col-md-3 mb-3">
           <div class="card text-center">
-            <img src="https://via.placeholder.com/140x100?text=Item+4" alt="Item 4" class="card-img-top" />
+            <img
+              src="https://via.placeholder.com/140x100?text=Item+4"
+              alt="Item 4"
+              class="card-img-top"
+            />
             <div class="card-body p-2">
               <p class="small mb-0">Item 4</p>
             </div>
@@ -221,7 +257,7 @@
     <!-- Bootstrap JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-      // Retrieve product from localStorage (set by ecommerce.html) or use a default sample.
+      // 1) Get the product from localStorage or use a default sample
       const storedProduct = JSON.parse(localStorage.getItem("selectedProduct"));
       const defaultProduct = {
         name: "Sample Product",
@@ -233,18 +269,26 @@
         sold: 5,
         quantity: 1
       };
-      // Use stored product if available, otherwise default.
       const product = storedProduct || defaultProduct;
-      // Convert price to a number by stripping non-numeric characters.
-      product.price = parseFloat(product.price.toString().replace(/[^\d.-]/g, '')) || defaultProduct.price;
 
-      // Populate product details.
+      // 2) Convert the price to a number (remove currency text, etc.)
+      product.price = parseFloat(
+        product.price.toString().replace(/[^\d.-]/g, "")
+      ) || defaultProduct.price;
+
+      // 3) If there's no stable ID, create one from the name
+      if (!product.id) {
+        product.id = product.name.replace(/\s+/g, "-").toLowerCase();
+      }
+
+      // 4) Populate details
       document.getElementById("productName").innerText = product.name;
       document.getElementById("productPrice").innerText = "PKR " + product.price;
       document.getElementById("productDescription").innerText = product.description;
       document.getElementById("productImage").src = product.image;
       document.getElementById("productRating").innerHTML = generateStars(product.rating);
-      document.getElementById("productStats").innerText = product.added + " Added | " + product.sold + " Sold";
+      document.getElementById("productStats").innerText =
+        product.added + " Added | " + product.sold + " Sold";
 
       function generateStars(rating) {
         let html = "";
@@ -259,54 +303,70 @@
         return html;
       }
 
+      // Description "Read More" button
       const descReadMoreBtn = document.getElementById("descReadMore");
       const descContent = document.getElementById("descriptionContent");
       descReadMoreBtn.addEventListener("click", function () {
         descContent.classList.toggle("expanded");
-        this.textContent = descContent.classList.contains("expanded") ? "Show Less" : "Read More";
+        this.textContent = descContent.classList.contains("expanded")
+          ? "Show Less"
+          : "Read More";
       });
 
+      // Reviews "Read More" toggles
       document.addEventListener("click", function (e) {
         if (e.target && e.target.classList.contains("review-read-more")) {
-          const fullReview = e.target.closest(".card-body").querySelector(".review-full");
+          const fullReview = e.target
+            .closest(".card-body")
+            .querySelector(".review-full");
           if (fullReview) {
             fullReview.classList.toggle("expanded");
-            e.target.textContent = fullReview.classList.contains("expanded") ? " Show less" : "...Read more";
+            e.target.textContent = fullReview.classList.contains("expanded")
+              ? " Show less"
+              : "...Read more";
           }
         }
       });
 
+      // Star rating selection for new review
       const starIcons = document.querySelectorAll("#ratingStars .star-icon");
       starIcons.forEach((star) => {
         star.addEventListener("click", function () {
           const rating = this.getAttribute("data-value");
           starIcons.forEach((s) => {
-            s.getAttribute("data-value") <= rating ? s.classList.add("selected") : s.classList.remove("selected");
+            s.getAttribute("data-value") <= rating
+              ? s.classList.add("selected")
+              : s.classList.remove("selected");
           });
         });
       });
 
-      // Updated Add to Cart integration.
-      // Instead of always adding a new line, check if the product already exists in the cart.
-      document.querySelector('.add-to-cart-btn').addEventListener('click', function() {
-        let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+      // 5) Add to Cart: merges with existing item if same ID is found
+      document.querySelector(".add-to-cart-btn").addEventListener("click", function () {
+        let cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+        // Make a copy of product to add
         let productToAdd = { ...product };
-        // Ensure the product has a unique id.
-        if (!productToAdd.id) {
-          productToAdd.id = new Date().getTime();
-        }
-        productToAdd.price = parseFloat(productToAdd.price.toString().replace(/[^\d.-]/g, '')) || productToAdd.price;
-        // Check if the product already exists in the cart.
-        const existingIndex = cartItems.findIndex(item => item.id === productToAdd.id);
+
+        // Convert price to numeric again, just to be safe
+        productToAdd.price = parseFloat(
+          productToAdd.price.toString().replace(/[^\d.-]/g, "")
+        ) || productToAdd.price;
+
+        // Check if product with same ID is already in the cart
+        const existingIndex = cartItems.findIndex(
+          (item) => item.id === productToAdd.id
+        );
         if (existingIndex > -1) {
-          // If exists, update its quantity.
-          cartItems[existingIndex].quantity = cartItems[existingIndex].quantity + 1;
+          // If exists, just increment quantity
+          cartItems[existingIndex].quantity += 1;
         } else {
-          // Otherwise, add as a new entry with quantity 1.
+          // Otherwise, add as new item with quantity 1
           productToAdd.quantity = 1;
           cartItems.push(productToAdd);
         }
-        localStorage.setItem('cartItems', JSON.stringify(cartItems));
+
+        // Save the cart
+        localStorage.setItem("cartItems", JSON.stringify(cartItems));
         alert("Product added to cart!");
       });
     </script>
