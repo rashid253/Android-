@@ -8,32 +8,15 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     /* Global Reset & Base */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    body {
-      font-family: 'Roboto', sans-serif;
-      background: #f4f4f4;
-      color: #333;
-      line-height: 1.6;
-    }
-    header {
-      background: #007BFF;
-      color: #fff;
-      padding: 20px;
-      text-align: center;
-    }
-    header h1 {
-      font-size: 2.5rem;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Roboto', sans-serif; background: #f4f4f4; color: #333; line-height: 1.6; }
+    header { background: #007BFF; color: #fff; padding: 20px; text-align: center; }
+    header h1 { font-size: 2.5rem; }
     
     /* ===== Hero Section ===== */
     .hero {
       position: relative;
       background: url('https://i.imgur.com/6wKXFxB.jpg') no-repeat center center/cover;
-      /* Replace with your preferred secure payment background image */
       height: 70vh;
       display: flex;
       align-items: center;
@@ -44,9 +27,7 @@
     .hero::after {
       content: '';
       position: absolute;
-      top: 0; left: 0;
-      width: 100%;
-      height: 100%;
+      top: 0; left: 0; right: 0; bottom: 0;
       background: rgba(0,0,0,0.5);
     }
     .hero-content {
@@ -56,158 +37,65 @@
       padding: 20px;
       animation: fadeInDown 1s ease;
     }
-    .hero-content h2 {
-      font-size: 3rem;
-      margin-bottom: 20px;
-    }
-    .hero-content p {
-      font-size: 1.2rem;
-      margin-bottom: 30px;
-    }
+    .hero-content h2 { font-size: 3rem; margin-bottom: 20px; }
+    .hero-content p { font-size: 1.2rem; margin-bottom: 30px; }
     .hero-content .cta-btn {
-      padding: 14px 30px;
-      font-size: 1.1rem;
-      background: #28a745;
-      border: none;
-      border-radius: 5px;
-      color: #fff;
-      cursor: pointer;
+      padding: 14px 30px; font-size: 1.1rem; background: #28a745;
+      border: none; border-radius: 5px; color: #fff; cursor: pointer;
       transition: background 0.3s ease;
     }
-    .hero-content .cta-btn:hover {
-      background: #218838;
-    }
+    .hero-content .cta-btn:hover { background: #218838; }
     @keyframes fadeInDown {
-      from { opacity: 0; transform: translateY(-20px); }
+      from { opacity: 0; transform: translateY(-20px); } 
       to { opacity: 1; transform: translateY(0); }
     }
     
     /* ===== Section Base ===== */
-    .section {
-      padding: 40px 20px;
-      max-width: 1200px;
-      margin: 20px auto;
-    }
-    .section h2 {
-      text-align: center;
-      margin-bottom: 20px;
-      font-size: 2.5rem;
-      color: #007BFF;
-    }
-    .section p {
-      text-align: center;
-      font-size: 1.1rem;
-      margin-bottom: 20px;
-    }
+    .section { padding: 40px 20px; max-width: 1200px; margin: 20px auto; }
+    .section h2 { text-align: center; margin-bottom: 20px; font-size: 2.5rem; color: #007BFF; }
+    .section p { text-align: center; font-size: 1.1rem; margin-bottom: 20px; }
     
-    /* ===== Payment Details Section ===== */
+    /* ===== Payment Details Section (No Image Card) ===== */
     .payment-details {
       display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
+      flex-direction: column;
       align-items: center;
-      justify-content: center;
+      gap: 20px;
     }
     .payment-text {
-      flex: 1 1 400px;
-      max-width: 600px;
+      max-width: 800px;
+      text-align: center;
     }
-    .payment-text h3 {
-      font-size: 2rem;
-      color: #28a745;
-      margin-bottom: 10px;
-    }
-    .payment-text p {
-      font-size: 1rem;
-      margin-bottom: 20px;
-    }
+    .payment-text h3 { font-size: 2rem; color: #28a745; margin-bottom: 10px; }
+    .payment-text p { font-size: 1rem; margin-bottom: 20px; }
     .payment-text ul {
-      text-align: left;
-      margin: 0 auto;
-      max-width: 400px;
-      list-style: disc;
-      padding-left: 20px;
-      color: #555;
-    }
-    .payment-images {
-      flex: 1 1 300px;
-      max-width: 400px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-    .payment-images img {
-      width: 100%;
-      border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      transition: transform 0.3s;
-    }
-    .payment-images img:hover {
-      transform: scale(1.03);
+      list-style: disc; padding-left: 20px; text-align: left;
+      margin: 0 auto; max-width: 400px; color: #555;
     }
     
     /* ===== Testimonials Section ===== */
     .testimonials {
-      background: #fff;
-      padding: 40px 20px;
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      max-width: 800px;
-      margin: 40px auto;
+      background: #fff; padding: 40px 20px; border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1); max-width: 800px; margin: 40px auto;
     }
-    .testimonials h3 {
-      text-align: center;
-      font-size: 2rem;
-      margin-bottom: 20px;
-      color: #007BFF;
-    }
-    .testimonial {
-      text-align: center;
-      font-size: 1rem;
-      margin-bottom: 20px;
-      color: #555;
-    }
+    .testimonials h3 { text-align: center; font-size: 2rem; margin-bottom: 20px; color: #007BFF; }
+    .testimonial { text-align: center; font-size: 1rem; margin-bottom: 20px; color: #555; }
     
     /* ===== CTA Section ===== */
-    .cta-section {
-      text-align: center;
-      margin: 40px 0;
-    }
+    .cta-section { text-align: center; margin: 40px 0; }
     .cta-section a {
-      padding: 14px 30px;
-      background: #007BFF;
-      color: #fff;
-      text-decoration: none;
-      border-radius: 5px;
-      font-size: 1.2rem;
-      transition: background 0.3s ease;
+      padding: 14px 30px; background: #007BFF; color: #fff; text-decoration: none;
+      border-radius: 5px; font-size: 1.2rem; transition: background 0.3s ease;
     }
-    .cta-section a:hover {
-      background: #0056b3;
-    }
+    .cta-section a:hover { background: #0056b3; }
     
     /* ===== Footer ===== */
-    footer {
-      background: #333;
-      color: #fff;
-      text-align: center;
-      padding: 20px;
-    }
-    footer p {
-      font-size: 0.9rem;
-    }
+    footer { background: #333; color: #fff; text-align: center; padding: 20px; }
+    footer p { font-size: 0.9rem; }
     
-    /* ===== Responsive Adjustments ===== */
     @media (max-width: 768px) {
-      .hero-content h2 {
-        font-size: 2.5rem;
-      }
-      .hero-content p {
-        font-size: 1rem;
-      }
-      .payment-details {
-        flex-direction: column;
-      }
+      .hero-content h2 { font-size: 2.5rem; }
+      .hero-content p { font-size: 1rem; }
     }
   </style>
 </head>
@@ -221,7 +109,7 @@
   <section class="hero">
     <div class="hero-content">
       <h2>Fast, Secure & Versatile Payment Solutions</h2>
-      <p>We support a variety of payment methods to keep your transactions safe and seamless.</p>
+      <p>We support multiple payment methods to ensure your transactions are safe and seamless.</p>
       <button class="cta-btn" onclick="document.getElementById('paymentDetails').scrollIntoView({ behavior: 'smooth' });">Learn More</button>
     </div>
   </section>
@@ -232,18 +120,14 @@
     <div class="payment-details">
       <div class="payment-text">
         <h3>Secure & Flexible Payments</h3>
-        <p>We offer multiple secure payment methods to cater to your needs. Our robust system ensures every transaction is encrypted and monitored, giving you peace of mind.</p>
+        <p>Our robust system ensures every transaction is encrypted and monitored, giving you complete peace of mind. We offer:</p>
         <ul>
           <li>JazzCash: Quick digital transactions</li>
           <li>EasyPaisa: Seamless mobile payments</li>
           <li>Bank Transfers: Secure and reliable</li>
           <li>Cash on Delivery: Convenience at your doorstep</li>
         </ul>
-        <p>Partnered with leading financial institutions, our system guarantees swift processing and maximum security for all your purchases.</p>
-      </div>
-      <div class="payment-images">
-        <img src="https://i.imgur.com/0eJwK1J.jpg" alt="JazzCash Payment">
-        <img src="https://i.imgur.com/RNMSxOY.jpg" alt="EasyPaisa Payment">
+        <p>Partnered with leading financial institutions, our secure payment system guarantees swift processing and maximum security.</p>
       </div>
     </div>
   </section>
@@ -252,10 +136,10 @@
   <section class="section testimonials">
     <h3>What Our Customers Say</h3>
     <div class="testimonial">
-      <p>"The secure payment options give me complete confidence when shopping. I appreciate the variety and the security measures in place." - Ayesha R.</p>
+      <p>"The secure payment options give me complete confidence when shopping. I appreciate the variety and the robust security measures." - Ayesha R.</p>
     </div>
     <div class="testimonial">
-      <p>"I love how seamless and secure my transactions are. The multiple payment options cater to all my needs!" - Imran S.</p>
+      <p>"My transactions are smooth and secure. The multiple payment methods make it very convenient." - Imran S.</p>
     </div>
   </section>
   
