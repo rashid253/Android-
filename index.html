@@ -114,7 +114,7 @@
         }
       }
 
-      /* ===== Features Section with Cards in Single Column ===== */
+      /* ===== Features Section with Clickable Cards ===== */
       .features {
         padding: 20px 10px;
         background-color: #f8f9fa;
@@ -178,13 +178,26 @@
         padding: 20px;
         border-radius: 8px;
         width: 90%;
-        max-width: 800px;
+        max-width: 600px;
+        text-align: center;
         position: relative;
       }
-      .modal-content iframe {
-        width: 100%;
-        height: 500px;
+      .modal-content h2 {
+        margin-bottom: 10px;
+      }
+      .modal-content p {
+        margin-bottom: 20px;
+      }
+      .modal-content .cta {
+        padding: 10px 20px;
+        background-color: #007BFF;
         border: none;
+        border-radius: 4px;
+        color: #fff;
+        cursor: pointer;
+      }
+      .modal-content .cta:hover {
+        background-color: #0056b3;
       }
       .modal .close {
         position: absolute;
@@ -232,23 +245,23 @@
         <div class="container">
           <h2>Our Exclusive Features</h2>
           <div class="features-grid">
-            <!-- Card #1 -->
-            <div class="feature-item" onclick="openModal('secure-payments.html')">
+            <!-- Card for Secure Payments -->
+            <div class="feature-item" onclick="openModal('secure')">
               <i class="fas fa-lock"></i>
               <h3>Secure Payments</h3>
-              <p>State-of-the-art security for your transactions.</p>
+              <p>Our secure payments system boosts customer trust. With our robust security measures, you can review our analytics to verify performance and safety.</p>
             </div>
-            <!-- Card #2 -->
-            <div class="feature-item" onclick="openModal('fast-delivery.html')">
+            <!-- Card for Fast Delivery -->
+            <div class="feature-item" onclick="openModal('delivery')">
               <i class="fas fa-truck"></i>
               <h3>Fast Delivery</h3>
-              <p>Reliable, door-to-door delivery service.</p>
+              <p>Experience our lightning-fast delivery service that brings your orders right to your doorstep, ensuring timely and reliable delivery.</p>
             </div>
-            <!-- Card #3 -->
-            <div class="feature-item" onclick="openModal('exclusive-deals.html')">
+            <!-- Card for Exclusive Deals -->
+            <div class="feature-item" onclick="openModal('deals')">
               <i class="fas fa-tags"></i>
               <h3>Exclusive Deals</h3>
-              <p>Premium discounts and seasonal offers.</p>
+              <p>Discover hand-picked exclusive deals and premium discounts tailored just for you, ensuring a unique and enjoyable shopping experience.</p>
             </div>
           </div>
         </div>
@@ -258,16 +271,20 @@
     <!-- External Footer -->
     <div id="footer-placeholder"></div>
     
-    <!-- Modal for Related Page -->
+    <!-- Modal for Feature Details -->
     <div id="modal" class="modal">
       <div class="modal-content">
         <span class="close" onclick="closeModal()">&times;</span>
-        <iframe id="modalFrame" src=""></iframe>
+        <h2 id="modalTitle"></h2>
+        <p id="modalMessage"></p>
+        <button id="modalCTA" class="cta">Learn More</button>
       </div>
     </div>
     
-    <!-- Inline Script to Load External Header, Footer, and Handle Video Fallback & Modal -->
+    <!-- Inline Script to Load External Header, Footer, Handle Video Fallback & Modal -->
     <script>
+      let modalCTALink = "#";
+      
       function loadHTML(elementId, filePath) {
         fetch(filePath)
           .then(response => {
@@ -286,19 +303,45 @@
         window.location.href = page;
       }
       
-      function openModal(url) {
-        var modal = document.getElementById('modal');
-        var modalFrame = document.getElementById('modalFrame');
-        modalFrame.src = url;
-        modal.style.display = 'block';
+      function openModal(feature) {
+        let title = "";
+        let message = "";
+        let ctaText = "";
+        let ctaLink = "#";
+        
+        if (feature === "secure") {
+          title = "Secure Payments";
+          message = "Our secure payments system not only boosts customer trust but also ensures every transaction is protected. You can check our detailed analytics to see how our system consistently delivers reliability.";
+          ctaText = "View Analytics";
+          ctaLink = "analytics.html";
+        } else if (feature === "delivery") {
+          title = "Fast Delivery";
+          message = "Experience our efficient and fast delivery service. We ensure your orders reach you quickly, with reliable logistics and prompt service that keeps our customers satisfied.";
+          ctaText = "View Offers";
+          ctaLink = "offers.html";
+        } else if (feature === "deals") {
+          title = "Exclusive Deals";
+          message = "Discover our curated selection of exclusive deals and premium discounts. Enjoy a unique shopping experience with offers tailored specifically to your needs.";
+          ctaText = "Shop Now";
+          ctaLink = "ecommerce.html";
+        }
+        
+        document.getElementById("modalTitle").innerText = title;
+        document.getElementById("modalMessage").innerText = message;
+        document.getElementById("modalCTA").innerText = ctaText;
+        modalCTALink = ctaLink;
+        document.getElementById("modal").style.display = "block";
       }
       
       function closeModal() {
-        var modal = document.getElementById('modal');
-        var modalFrame = document.getElementById('modalFrame');
-        modalFrame.src = "";
-        modal.style.display = 'none';
+        document.getElementById("modal").style.display = "none";
       }
+      
+      function redirectModal() {
+        window.location.href = modalCTALink;
+      }
+      
+      document.getElementById("modalCTA").addEventListener("click", redirectModal);
       
       document.addEventListener("DOMContentLoaded", function() {
         loadHTML('header-placeholder', 'header.html');
