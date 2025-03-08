@@ -19,7 +19,7 @@
     /* ===== Hero Section ===== */
     .hero {
       position: relative;
-      background: url('https://i.imgur.com/6wKXFxB.jpg') no-repeat center center/cover;
+      background: url('https://i.imgur.com/mZN9XTi.png') no-repeat center center/cover;
       height: 70vh;
       display: flex;
       align-items: center;
@@ -44,8 +44,8 @@
     .hero-content h2 { font-size: 3rem; margin-bottom: 20px; }
     .hero-content p { font-size: 1.2rem; margin-bottom: 30px; }
     .hero-content .cta-btn {
-      padding: 14px 30px;
-      font-size: 1.1rem;
+      padding: 10px 20px;
+      font-size: 0.9rem;
       background: #28a745;
       border: none;
       border-radius: 5px;
@@ -53,6 +53,7 @@
       cursor: pointer;
       transition: background 0.3s ease, transform 0.3s ease;
       transform: perspective(500px);
+      margin-top: -10px;
     }
     .hero-content .cta-btn:hover { 
       background: #218838;
@@ -111,12 +112,9 @@
     
     /* ===== Testimonials Section ===== */
     .testimonials {
-      background: #fff; 
-      padding: 40px 20px;
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      max-width: 800px; 
-      margin: 40px auto;
+      background: #fff; padding: 40px 20px;
+      border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      max-width: 800px; margin: 40px auto;
     }
     .testimonials h3 { text-align: center; font-size: 2rem; margin-bottom: 20px; color: #007BFF; }
     .testimonial { text-align: center; font-size: 1rem; margin-bottom: 20px; color: #555; }
@@ -124,17 +122,17 @@
     /* ===== CTA Section ===== */
     .cta-section {
       text-align: center;
-      margin: 40px 0 80px 0;  /* extra bottom margin to ensure it's above the footer */
+      margin: 40px 0 80px 0;
       position: relative;
       z-index: 10;
     }
     .cta-section a {
-      padding: 14px 30px;
+      padding: 10px 20px;
       background: #007BFF;
       color: #fff;
       text-decoration: none;
       border-radius: 5px;
-      font-size: 1.2rem;
+      font-size: 1rem;
       transition: background 0.3s ease, transform 0.3s ease;
       transform: perspective(500px);
     }
@@ -143,8 +141,8 @@
       transform: perspective(500px) rotateX(5deg) rotateY(5deg);
     }
     
-    /* ===== Footer ===== */
-    /* External footer will be loaded via loadHTML from footer.html */
+    /* ===== External Footer ===== */
+    /* External footer styles loaded from footer.html */
     
     @media (max-width: 768px) {
       .hero-content h2 { font-size: 2.5rem; }
@@ -165,39 +163,42 @@
     </div>
   </section>
   
-  <!-- Payment Details Section -->
-  <section id="paymentDetails" class="section">
-    <h2>Our Payment Options</h2>
-    <div class="payment-details">
-      <div class="payment-text">
-        <h3>Secure & Flexible Payments</h3>
-        <p>Our robust system ensures every transaction is encrypted and monitored, giving you complete peace of mind.</p>
-        <ul>
-          <li>JazzCash: Quick digital transactions</li>
-          <li>EasyPaisa: Seamless mobile payments</li>
-          <li>Bank Transfers: Secure and reliable</li>
-          <li>Cash on Delivery: Convenience at your doorstep</li>
-        </ul>
-        <p>Partnered with leading financial institutions, our secure payment system guarantees swift processing and maximum security.</p>
+  <!-- Main Content -->
+  <main>
+    <!-- Payment Details Section -->
+    <section id="paymentDetails" class="section">
+      <h2>Our Payment Options</h2>
+      <div class="payment-details">
+        <div class="payment-text">
+          <h3>Secure & Flexible Payments</h3>
+          <p>Our robust system ensures every transaction is encrypted and monitored, giving you complete peace of mind.</p>
+          <ul>
+            <li>JazzCash: Quick digital transactions</li>
+            <li>EasyPaisa: Seamless mobile payments</li>
+            <li>Bank Transfers: Secure and reliable</li>
+            <li>Cash on Delivery: Convenience at your doorstep</li>
+          </ul>
+          <p>Partnered with leading financial institutions, our secure payment system guarantees swift processing and maximum security.</p>
+        </div>
       </div>
-    </div>
-  </section>
-  
-  <!-- Testimonials Section -->
-  <section class="section testimonials">
-    <h3>What Our Customers Say</h3>
-    <div class="testimonial">
-      <p>"The secure payment options give me complete confidence when shopping. I appreciate the variety and the robust security measures." - Ayesha R.</p>
-    </div>
-    <div class="testimonial">
-      <p>"My transactions are smooth and secure. The multiple payment methods make it very convenient." - Imran S.</p>
-    </div>
-  </section>
-  
-  <!-- CTA Section -->
-  <section class="cta-section">
-    <a href="ecommerce.html">Shop Now</a>
-  </section>
+    </section>
+    
+    <!-- Testimonials Section -->
+    <section class="section testimonials">
+      <h3>What Our Customers Say</h3>
+      <div class="testimonial">
+        <p>"The secure payment options give me complete confidence when shopping. I appreciate the variety and the robust security measures." - Ayesha R.</p>
+      </div>
+      <div class="testimonial">
+        <p>"My transactions are smooth and secure. The multiple payment methods make it very convenient." - Imran S.</p>
+      </div>
+    </section>
+    
+    <!-- CTA Section -->
+    <section class="cta-section">
+      <a href="ecommerce.html">Shop Now</a>
+    </section>
+  </main>
   
   <!-- External Footer -->
   <div id="footer-placeholder"></div>
