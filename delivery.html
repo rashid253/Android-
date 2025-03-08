@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fast Delivery - MyBusiness Premium</title>
+  <title>Fast Delivery Excellence - MyBusiness Premium</title>
   <!-- Font Awesome for Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
@@ -33,8 +33,7 @@
     .hero {
       position: relative;
       background: url('https://i.imgur.com/Ak5zmOd.jpg') no-repeat center center/cover;
-      /* Replace the above URL with a fast-delivery–related background image if desired */
-      height: 60vh;
+      height: 70vh;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -48,75 +47,125 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: rgba(0,0,0,0.4);
+      background: rgba(0,0,0,0.5);
     }
     .hero-content {
       position: relative;
       z-index: 1;
+      max-width: 90%;
+      padding: 20px;
       animation: fadeInDown 1s ease;
     }
     .hero-content h2 {
-      font-size: 2.5rem;
-      margin-bottom: 10px;
+      font-size: 3rem;
+      margin-bottom: 20px;
     }
     .hero-content p {
       font-size: 1.2rem;
-      margin-bottom: 20px;
+      margin-bottom: 30px;
     }
-    .hero-content button {
-      padding: 12px 25px;
-      font-size: 1rem;
+    .hero-content .cta-btn {
+      padding: 14px 30px;
+      font-size: 1.1rem;
       background: #28a745;
       border: none;
       border-radius: 5px;
       color: #fff;
       cursor: pointer;
-      animation: fadeInUp 1s ease;
+      transition: background 0.3s ease;
+    }
+    .hero-content .cta-btn:hover {
+      background: #218838;
     }
     @keyframes fadeInDown {
       from { opacity: 0; transform: translateY(-20px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
     
-    /* ===== Main Content Sections ===== */
+    /* ===== Section Base ===== */
     .section {
       padding: 40px 20px;
       max-width: 1200px;
-      margin: auto;
+      margin: 20px auto;
     }
     .section h2 {
       text-align: center;
       margin-bottom: 20px;
-      font-size: 2rem;
+      font-size: 2.5rem;
       color: #007BFF;
     }
     .section p {
       text-align: center;
-      margin-bottom: 20px;
       font-size: 1.1rem;
+      margin-bottom: 20px;
     }
     
-    /* ===== Interactive Carousel for Visual Proofs ===== */
-    .carousel {
+    /* ===== Delivery Details Section ===== */
+    .delivery-details {
       display: flex;
-      overflow-x: auto;
-      gap: 10px;
-      padding: 20px;
-      scroll-snap-type: x mandatory;
+      flex-wrap: wrap;
+      gap: 20px;
+      align-items: center;
+      justify-content: center;
     }
-    .carousel img {
+    .delivery-text {
+      flex: 1 1 400px;
+      max-width: 600px;
+    }
+    .delivery-text h3 {
+      font-size: 2rem;
+      color: #28a745;
+      margin-bottom: 10px;
+    }
+    .delivery-text p {
+      font-size: 1rem;
+      margin-bottom: 20px;
+    }
+    .delivery-text ul {
+      text-align: left;
+      margin: 0 auto;
+      max-width: 400px;
+      list-style: disc;
+      padding-left: 20px;
+      color: #555;
+    }
+    .delivery-images {
+      flex: 1 1 300px;
+      max-width: 400px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .delivery-images img {
       width: 100%;
-      max-width: 300px;
       border-radius: 8px;
-      scroll-snap-align: center;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
       transition: transform 0.3s;
     }
-    .carousel img:hover {
-      transform: scale(1.05);
+    .delivery-images img:hover {
+      transform: scale(1.03);
+    }
+    
+    /* ===== Testimonials Section ===== */
+    .testimonials {
+      background: #fff;
+      padding: 40px 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      max-width: 800px;
+      margin: 40px auto;
+    }
+    .testimonials h3 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: #007BFF;
+    }
+    .testimonial {
+      text-align: center;
+      font-size: 1rem;
+      margin-bottom: 20px;
+      color: #555;
     }
     
     /* ===== Return Policy Section ===== */
@@ -137,20 +186,21 @@
       font-size: 1rem;
     }
     
-    /* ===== CTA Section ===== */
-    .cta {
+    /* ===== Shop Now CTA Section ===== */
+    .cta-section {
       text-align: center;
-      margin-top: 30px;
+      margin: 40px 0;
     }
-    .cta a {
-      padding: 12px 30px;
+    .cta-section a {
+      padding: 14px 30px;
       background: #007BFF;
       color: #fff;
       text-decoration: none;
       border-radius: 5px;
+      font-size: 1.2rem;
       transition: background 0.3s ease;
     }
-    .cta a:hover {
+    .cta-section a:hover {
       background: #0056b3;
     }
     
@@ -165,12 +215,16 @@
       font-size: 0.9rem;
     }
     
+    /* ===== Responsive Adjustments ===== */
     @media (max-width: 768px) {
       .hero-content h2 {
-        font-size: 2rem;
+        font-size: 2.5rem;
       }
       .hero-content p {
-        font-size: 1rem;
+        font-size: 1.1rem;
+      }
+      .delivery-details {
+        flex-direction: column;
       }
     }
   </style>
@@ -184,32 +238,54 @@
   <!-- Hero Section -->
   <section class="hero">
     <div class="hero-content">
-      <h2>Lightning-Fast Delivery</h2>
-      <p>We partner with the world's fastest and most reliable courier companies to ensure your products arrive in record time.</p>
-      <button onclick="document.getElementById('deliveryDetails').scrollIntoView({ behavior: 'smooth' });">Learn More</button>
+      <h2>Lightning-Fast Delivery at Your Fingertips</h2>
+      <p>We partner with the world's most reliable courier companies to ensure your products arrive in record time.</p>
+      <button class="cta-btn" onclick="window.location.href='ecommerce.html'">Shop Now</button>
     </div>
   </section>
   
   <!-- Delivery Details Section -->
-  <section id="deliveryDetails" class="section">
+  <section class="section">
     <h2>Unmatched Speed & Reliability</h2>
-    <p>We are contracted with the fastest, most reliable courier companies globally. Our logistics network guarantees that your products are delivered in the shortest time possible, backed by state-of-the-art tracking and customer support.</p>
-    <!-- Interactive Carousel with Visual Proofs -->
-    <div class="carousel">
-      <img src="https://i.imgur.com/3U3GJk9.jpg" alt="Fast Delivery Proof 1">
-      <img src="https://i.imgur.com/7F5gUZI.jpg" alt="Fast Delivery Proof 2">
-      <img src="https://i.imgur.com/PdYvK2z.jpg" alt="Fast Delivery Proof 3">
-      <img src="https://i.imgur.com/b5K7Zsd.jpg" alt="Fast Delivery Proof 4">
+    <div class="delivery-details">
+      <div class="delivery-text">
+        <h3>Experience Unrivaled Delivery</h3>
+        <p>We are contracted with the world's fastest, most reliable courier companies. Our state-of-the-art logistics network ensures that your products are delivered in the shortest time possible.</p>
+        <p>Our delivery promises include:</p>
+        <ul>
+          <li>Lightning-fast dispatch and delivery</li>
+          <li>Real-time tracking and notifications</li>
+          <li>Dedicated customer support</li>
+          <li>Hassle-free returns</li>
+        </ul>
+      </div>
+      <div class="delivery-images">
+        <img src="https://i.imgur.com/3U3GJk9.jpg" alt="Fast Delivery Proof 1">
+        <img src="https://i.imgur.com/7F5gUZI.jpg" alt="Fast Delivery Proof 2">
+      </div>
     </div>
-    <div class="cta">
-      <a href="offers.html">Explore Our Offers</a>
+  </section>
+  
+  <!-- Testimonials Section -->
+  <section class="section testimonials">
+    <h3>What Our Customers Say</h3>
+    <div class="testimonial">
+      <p>"I was amazed at how quickly my order arrived! The tracking feature kept me informed, and the service was truly exceptional." - Sarah K.</p>
+    </div>
+    <div class="testimonial">
+      <p>"Reliable and fast! Their delivery service exceeded my expectations, and the hassle-free returns make it even better." - Michael T.</p>
     </div>
   </section>
   
   <!-- Return Policy Section -->
   <section class="return-policy">
     <h3>Hassle-Free Returns</h3>
-    <p>If you are not completely satisfied, our comprehensive return policy makes it easy for you to return products, ensuring total peace of mind.</p>
+    <p>If you're not completely satisfied, our comprehensive return policy ensures a seamless return process, giving you total peace of mind.</p>
+  </section>
+  
+  <!-- Shop Now CTA Section -->
+  <section class="cta-section">
+    <a href="ecommerce.html">Shop Now</a>
   </section>
   
   <!-- Footer -->
