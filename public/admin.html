@@ -3,12 +3,116 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Admin Panel - Add Product</title>
-  <!-- Include Firebase libraries (compat version for easier usage) -->
+  <title>Admin Panel - Manage Site Content</title>
+  <!-- Firebase libraries (using compat versions for ease of use) -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+    header {
+      background: #007bff;
+      color: #fff;
+      padding: 15px;
+      text-align: center;
+    }
+    .container {
+      display: flex;
+      height: calc(100vh - 60px);
+    }
+    .sidebar {
+      width: 220px;
+      background: #333;
+      color: #fff;
+      padding: 10px;
+    }
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+    }
+    .sidebar ul li {
+      padding: 10px;
+      cursor: pointer;
+      border-radius: 4px;
+      margin-bottom: 5px;
+    }
+    .sidebar ul li.active {
+      background: #007bff;
+    }
+    .content {
+      flex: 1;
+      padding: 20px;
+    }
+    .content h2 {
+      margin-top: 0;
+    }
+    textarea {
+      width: 100%;
+      height: 400px;
+      padding: 10px;
+      font-family: monospace;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
+    button {
+      padding: 10px 15px;
+      background: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    .message {
+      margin-top: 10px;
+      padding: 10px;
+      display: none;
+      border-radius: 4px;
+    }
+    .message.success {
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+    .message.error {
+      background: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Admin Panel - Manage Site Content</h1>
+  </header>
+  <div class="container">
+    <div class="sidebar">
+      <ul id="pageList">
+        <li data-page="index" class="active">Index</li>
+        <li data-page="details">Details</li>
+        <li data-page="offers">Offers</li>
+        <li data-page="payments">Payments</li>
+        <li data-page="support">Support</li>
+        <li data-page="contact">Contact</li>
+        <li data-page="delivery">Delivery</li>
+        <li data-page="ecommerce">Ecommerce</li>
+        <li data-page="header">Header</li>
+        <li data-page="footer">Footer</li>
+      </ul>
+    </div>
+    <div class="content">
+      <h2 id="currentPageTitle">Index Page Content</h2>
+      <textarea id="contentEditor"></textarea>
+      <br>
+      <button id="saveButton">Save Changes</button>
+      <div id="message" class="message"></div>
+    </div>
+  </div>
+
   <script>
-    // Replace these values with your Firebase project configuration:
+    // Replace these placeholder values with your actual Firebase project configuration:
     const firebaseConfig = {
       apiKey: "YOUR_API_KEY",
       authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
@@ -17,107 +121,76 @@
       messagingSenderId: "YOUR_SENDER_ID",
       appId: "YOUR_APP_ID"
     };
+
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
-  </script>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f7f7f7;
-      margin: 0;
-      padding: 20px;
-    }
-    .container {
-      max-width: 600px;
-      background: #fff;
-      padding: 20px;
-      margin: auto;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-    h2 {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    .form-group {
-      margin-bottom: 15px;
-    }
-    label {
-      display: block;
-      margin-bottom: 5px;
-    }
-    input, textarea {
-      width: 100%;
-      padding: 8px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-    button {
-      background-color: #007bff;
-      color: #fff;
-      padding: 10px 15px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #0056b3;
-    }
-    #message {
-      margin-top: 15px;
-      font-weight: bold;
-      text-align: center;
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <h2>Admin Panel - Add Product</h2>
-    <form id="adminForm">
-      <div class="form-group">
-        <label for="name">Product Name</label>
-        <input type="text" id="name" placeholder="Enter product name" required>
-      </div>
-      <div class="form-group">
-        <label for="price">Price (PKR)</label>
-        <input type="number" id="price" placeholder="Enter price" required>
-      </div>
-      <div class="form-group">
-        <label for="description">Description</label>
-        <textarea id="description" rows="4" placeholder="Enter product description" required></textarea>
-      </div>
-      <div class="form-group">
-        <label for="image">Image URL</label>
-        <input type="url" id="image" placeholder="Enter image URL">
-      </div>
-      <button type="submit">Submit</button>
-    </form>
-    <p id="message"></p>
-  </div>
 
-  <script>
-    // Listen for form submission
-    document.getElementById('adminForm').addEventListener('submit', (e) => {
-      e.preventDefault();
-      const name = document.getElementById('name').value;
-      const price = parseFloat(document.getElementById('price').value);
-      const description = document.getElementById('description').value;
-      const image = document.getElementById('image').value;
+    const pageList = document.getElementById('pageList');
+    const contentEditor = document.getElementById('contentEditor');
+    const currentPageTitle = document.getElementById('currentPageTitle');
+    const messageDiv = document.getElementById('message');
+    const saveButton = document.getElementById('saveButton');
 
-      // Save data into a "products" collection in Firestore
-      db.collection('products').add({
-        name: name,
-        price: price,
-        description: description,
-        image: image,
-        createdAt: firebase.firestore.FieldValue.serverTimestamp()
-      }).then(() => {
-        document.getElementById('message').innerText = "Product added successfully!";
-        document.getElementById('adminForm').reset();
-      }).catch((error) => {
-        document.getElementById('message').innerText = "Error adding product: " + error.message;
+    let currentPage = "index";
+
+    // Function to load page content from Firestore
+    function loadPageContent(page) {
+      currentPage = page;
+      currentPageTitle.innerText = page.charAt(0).toUpperCase() + page.slice(1) + " Page Content";
+      db.collection('pages').doc(page).get().then(doc => {
+        if (doc.exists) {
+          // Format the JSON data for readability
+          contentEditor.value = JSON.stringify(doc.data(), null, 2);
+        } else {
+          contentEditor.value = "{}";
+        }
+      }).catch(error => {
+        showMessage("Error loading page content: " + error.message, true);
+      });
+    }
+
+    // Function to show messages
+    function showMessage(msg, isError) {
+      messageDiv.innerText = msg;
+      messageDiv.className = "message " + (isError ? "error" : "success");
+      messageDiv.style.display = "block";
+      setTimeout(() => {
+        messageDiv.style.display = "none";
+      }, 3000);
+    }
+
+    // Event listener for sidebar clicks
+    Array.from(pageList.getElementsByTagName('li')).forEach(li => {
+      li.addEventListener('click', function() {
+        Array.from(pageList.getElementsByTagName('li')).forEach(item => item.classList.remove('active'));
+        this.classList.add('active');
+        const page = this.getAttribute('data-page');
+        loadPageContent(page);
       });
     });
+
+    // Save button event listener
+    saveButton.addEventListener('click', function() {
+      let newContent;
+      try {
+        newContent = JSON.parse(contentEditor.value);
+      } catch (e) {
+        showMessage("Invalid JSON format: " + e.message, true);
+        return;
+      }
+      // Save new content to Firestore (collection "pages", document ID = currentPage)
+      db.collection('pages').doc(currentPage).set(newContent, { merge: true })
+        .then(() => {
+          showMessage("Content updated successfully!");
+        })
+        .catch(error => {
+          showMessage("Error saving content: " + error.message, true);
+        });
+    });
+
+    // Initial load of the default page ("index")
+    loadPageContent("index");
   </script>
 </body>
 </html>
