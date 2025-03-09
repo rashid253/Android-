@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Admin Panel - Manage Page Content</title>
-  <!-- Firebase libraries (compat versions for easier integration) -->
+  <title>Admin Panel – Manage Site Content</title>
+  <!-- Firebase libraries (compat versions for ease of use) -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
   <style>
@@ -46,20 +46,31 @@
       flex: 1;
       padding: 20px;
       background: #fff;
+      overflow-y: auto;
     }
     .content h2 {
       margin-top: 0;
     }
-    textarea {
+    .form-field {
+      margin-bottom: 15px;
+    }
+    .form-field label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    .form-field input, 
+    .form-field textarea {
       width: 100%;
-      height: 400px;
-      padding: 10px;
-      font-family: monospace;
-      font-size: 14px;
+      padding: 8px;
       box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .form-field textarea {
       resize: vertical;
     }
-    button {
+    #saveButton {
       padding: 10px 15px;
       background: #007bff;
       color: #fff;
@@ -68,32 +79,36 @@
       cursor: pointer;
       margin-top: 10px;
     }
-    .message {
+    #message {
       margin-top: 10px;
       padding: 10px;
-      display: none;
       border-radius: 4px;
+      display: none;
     }
-    .message.success {
+    #message.success {
       background: #d4edda;
       color: #155724;
       border: 1px solid #c3e6cb;
     }
-    .message.error {
+    #message.error {
       background: #f8d7da;
       color: #721c24;
       border: 1px solid #f5c6cb;
+    }
+    .instructions {
+      font-size: 13px;
+      color: #555;
+      margin-top: 20px;
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>Admin Panel - Manage Page Content</h1>
+    <h1>Admin Panel – Manage Site Content</h1>
   </header>
   <div class="container">
     <div class="sidebar">
       <ul id="pageList">
-        <!-- List only the pages you want to manage (exclude header and footer) -->
         <li data-page="index" class="active">Index</li>
         <li data-page="details">Details</li>
         <li data-page="offers">Offers</li>
@@ -106,21 +121,33 @@
     </div>
     <div class="content">
       <h2 id="currentPageTitle">Index Page Content</h2>
-      <!-- This text area shows the JSON content for the selected page -->
-      <textarea id="contentEditor"></textarea>
-      <br>
-      <button id="saveButton">Save Changes</button>
-      <div id="message" class="message"></div>
-      <p style="margin-top: 20px; font-size: 13px; color: #555;">
-        <strong>Instructions:</strong> Edit the JSON in the text area to update the content for the selected page.
-        The changes you save here will update the Firestore document (in the collection "pages", with document ID equal to the page name).
-        Make sure the JSON is valid.
-      </p>
+      <form id="contentForm">
+        <div id="formFields">
+          <!-- Dynamic form fields will be inserted here -->
+        </div>
+        <button type="submit" id="saveButton">Save Changes</button>
+      </form>
+      <div id="message"></div>
+      <div class="instructions">
+        <p><strong>Instructions:</strong></p>
+        <p>Each page has specific editable fields. For example:</p>
+        <ul>
+          <li><strong>Index:</strong> Hero Title, Hero Description, Background Video URL, Primary &amp; Secondary CTA texts and links.</li>
+          <li><strong>Details:</strong> Page Title, Description (for static product information).</li>
+          <li><strong>Offers:</strong> Hero Title, Hero Description, and Offers Data (enter a valid JSON array of offers).</li>
+          <li><strong>Payments:</strong> Hero Title, Hero Description, and CTA Button text.</li>
+          <li><strong>Support:</strong> Page Title, Subtitle, and FAQ Data (valid JSON array of Q&amp;A pairs).</li>
+          <li><strong>Contact:</strong> Page Title, About Text, Phone, Email, Address, Map Embed URL.</li>
+          <li><strong>Delivery:</strong> Hero Title, Hero Description, and CTA Button text.</li>
+          <li><strong>Ecommerce:</strong> Hero Title, Hero Description, CTA Button text &amp; link, and Banner Image URL.</li>
+        </ul>
+        <p>Edit the fields below and click "Save Changes" to update the content for the selected page.</p>
+      </div>
     </div>
   </div>
 
   <script>
-    // Replace these placeholder values with your actual Firebase project configuration:
+    // Replace with your actual Firebase configuration values:
     const firebaseConfig = {
       apiKey: "YOUR_API_KEY",
       authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
@@ -130,35 +157,133 @@
       appId: "YOUR_APP_ID"
     };
 
-    // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
 
+    // Define configuration for each page
+    const pageConfigs = {
+      index: {
+        title: "Index Page",
+        fields: [
+          { key: "heroTitle", label: "Hero Title", type: "text" },
+          { key: "heroDescription", label: "Hero Description", type: "textarea" },
+          { key: "backgroundVideo", label: "Background Video URL", type: "url" },
+          { key: "primaryCTAText", label: "Primary CTA Text", type: "text" },
+          { key: "primaryCTALink", label: "Primary CTA Link", type: "text" },
+          { key: "secondaryCTAText", label: "Secondary CTA Text", type: "text" },
+          { key: "secondaryCTALink", label: "Secondary CTA Link", type: "text" }
+        ]
+      },
+      details: {
+        title: "Details Page",
+        fields: [
+          { key: "pageTitle", label: "Page Title", type: "text" },
+          { key: "description", label: "Description", type: "textarea" }
+        ]
+      },
+      offers: {
+        title: "Offers Page",
+        fields: [
+          { key: "heroTitle", label: "Hero Title", type: "text" },
+          { key: "heroDescription", label: "Hero Description", type: "textarea" },
+          { key: "offersData", label: "Offers Data (JSON Array)", type: "textarea" }
+        ]
+      },
+      payments: {
+        title: "Payments Page",
+        fields: [
+          { key: "heroTitle", label: "Hero Title", type: "text" },
+          { key: "heroDescription", label: "Hero Description", type: "textarea" },
+          { key: "ctaText", label: "CTA Button Text", type: "text" }
+        ]
+      },
+      support: {
+        title: "Support Page",
+        fields: [
+          { key: "pageTitle", label: "Page Title", type: "text" },
+          { key: "subtitle", label: "Subtitle", type: "textarea" },
+          { key: "faqData", label: "FAQ Data (JSON Array)", type: "textarea" }
+        ]
+      },
+      contact: {
+        title: "Contact Page",
+        fields: [
+          { key: "pageTitle", label: "Page Title", type: "text" },
+          { key: "aboutText", label: "About Text", type: "textarea" },
+          { key: "phone", label: "Phone Number", type: "text" },
+          { key: "email", label: "Email", type: "text" },
+          { key: "address", label: "Address", type: "textarea" },
+          { key: "mapEmbed", label: "Map Embed URL", type: "text" }
+        ]
+      },
+      delivery: {
+        title: "Delivery Page",
+        fields: [
+          { key: "heroTitle", label: "Hero Title", type: "text" },
+          { key: "heroDescription", label: "Hero Description", type: "textarea" },
+          { key: "ctaText", label: "CTA Button Text", type: "text" }
+        ]
+      },
+      ecommerce: {
+        title: "Ecommerce Page",
+        fields: [
+          { key: "heroTitle", label: "Hero Title", type: "text" },
+          { key: "heroDescription", label: "Hero Description", type: "textarea" },
+          { key: "ctaText", label: "CTA Button Text", type: "text" },
+          { key: "ctaLink", label: "CTA Link", type: "text" },
+          { key: "bannerImage", label: "Banner Image URL", type: "url" }
+        ]
+      }
+    };
+
+    let currentPage = "index";
+
     const pageList = document.getElementById('pageList');
-    const contentEditor = document.getElementById('contentEditor');
+    const formFieldsDiv = document.getElementById('formFields');
     const currentPageTitle = document.getElementById('currentPageTitle');
     const messageDiv = document.getElementById('message');
-    const saveButton = document.getElementById('saveButton');
+    const contentForm = document.getElementById('contentForm');
 
-    let currentPage = "index"; // Default page
-
-    // Function to load page content from Firestore
-    function loadPageContent(page) {
+    // Function to build the form based on page configuration and current data
+    function buildForm(page) {
       currentPage = page;
-      currentPageTitle.innerText = page.charAt(0).toUpperCase() + page.slice(1) + " Page Content";
+      currentPageTitle.innerText = pageConfigs[page].title;
+      formFieldsDiv.innerHTML = ""; // Clear existing fields
+
+      // Fetch current content from Firestore
       db.collection('pages').doc(page).get().then(doc => {
+        let currentData = {};
         if (doc.exists) {
-          // Pretty-print JSON data with 2-space indentation
-          contentEditor.value = JSON.stringify(doc.data(), null, 2);
-        } else {
-          contentEditor.value = "{}"; // Empty object if no content exists
+          currentData = doc.data();
         }
+        // For each field, create a form input
+        pageConfigs[page].fields.forEach(field => {
+          const fieldDiv = document.createElement('div');
+          fieldDiv.className = "form-field";
+          const label = document.createElement('label');
+          label.innerText = field.label;
+          label.htmlFor = field.key;
+          fieldDiv.appendChild(label);
+
+          let input;
+          if (field.type === "textarea") {
+            input = document.createElement('textarea');
+          } else {
+            input = document.createElement('input');
+            input.type = field.type;
+          }
+          input.id = field.key;
+          input.name = field.key;
+          input.value = currentData[field.key] || "";
+          fieldDiv.appendChild(input);
+          formFieldsDiv.appendChild(fieldDiv);
+        });
       }).catch(error => {
         showMessage("Error loading content: " + error.message, true);
       });
     }
 
-    // Function to show a temporary message
+    // Function to show message
     function showMessage(msg, isError) {
       messageDiv.innerText = msg;
       messageDiv.className = "message " + (isError ? "error" : "success");
@@ -168,27 +293,26 @@
       }, 3000);
     }
 
-    // Set up sidebar navigation
+    // Event listener for sidebar clicks
     Array.from(pageList.getElementsByTagName('li')).forEach(li => {
       li.addEventListener('click', function() {
         Array.from(pageList.getElementsByTagName('li')).forEach(item => item.classList.remove('active'));
         this.classList.add('active');
         const page = this.getAttribute('data-page');
-        loadPageContent(page);
+        buildForm(page);
       });
     });
 
-    // Save changes when the button is clicked
-    saveButton.addEventListener('click', function() {
-      let newContent;
-      try {
-        newContent = JSON.parse(contentEditor.value);
-      } catch (e) {
-        showMessage("Invalid JSON: " + e.message, true);
-        return;
-      }
-      // Save the JSON data into Firestore (collection "pages", document ID = currentPage)
-      db.collection('pages').doc(currentPage).set(newContent, { merge: true })
+    // Handle form submission to save changes
+    contentForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      // Gather data from each field in the current page config
+      const newData = {};
+      pageConfigs[currentPage].fields.forEach(field => {
+        newData[field.key] = document.getElementById(field.key).value;
+      });
+      // Save to Firestore (merge existing document)
+      db.collection('pages').doc(currentPage).set(newData, { merge: true })
         .then(() => {
           showMessage("Content updated successfully!");
         })
@@ -198,7 +322,7 @@
     });
 
     // Initial load of the default page ("index")
-    loadPageContent("index");
+    buildForm("index");
   </script>
 </body>
 </html>
