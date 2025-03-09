@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Admin Panel – Manage Site Content</title>
-  <!-- Firebase libraries (compat versions for ease of use) -->
+  <!-- Firebase libraries (using compat versions for easier integration) -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
   <style>
@@ -109,6 +109,7 @@
   <div class="container">
     <div class="sidebar">
       <ul id="pageList">
+        <!-- List only the pages you want to manage -->
         <li data-page="index" class="active">Index</li>
         <li data-page="details">Details</li>
         <li data-page="offers">Offers</li>
@@ -123,7 +124,7 @@
       <h2 id="currentPageTitle">Index Page Content</h2>
       <form id="contentForm">
         <div id="formFields">
-          <!-- Dynamic form fields will be inserted here -->
+          <!-- Dynamic form fields will be inserted here based on the page -->
         </div>
         <button type="submit" id="saveButton">Save Changes</button>
       </form>
@@ -133,11 +134,11 @@
         <p>Each page has specific editable fields. For example:</p>
         <ul>
           <li><strong>Index:</strong> Hero Title, Hero Description, Background Video URL, Primary &amp; Secondary CTA texts and links.</li>
-          <li><strong>Details:</strong> Page Title, Description (for static product information).</li>
-          <li><strong>Offers:</strong> Hero Title, Hero Description, and Offers Data (enter a valid JSON array of offers).</li>
+          <li><strong>Details:</strong> Page Title, Product Name, Price, Description, and Image URL.</li>
+          <li><strong>Offers:</strong> Hero Title, Hero Description, and Offers Data (enter a valid JSON array).</li>
           <li><strong>Payments:</strong> Hero Title, Hero Description, and CTA Button text.</li>
-          <li><strong>Support:</strong> Page Title, Subtitle, and FAQ Data (valid JSON array of Q&amp;A pairs).</li>
-          <li><strong>Contact:</strong> Page Title, About Text, Phone, Email, Address, Map Embed URL.</li>
+          <li><strong>Support:</strong> Page Title, Subtitle, and FAQ Data (enter a valid JSON array of Q&amp;A pairs).</li>
+          <li><strong>Contact:</strong> Page Title, About Text, Phone, Email, Address, and Map Embed URL.</li>
           <li><strong>Delivery:</strong> Hero Title, Hero Description, and CTA Button text.</li>
           <li><strong>Ecommerce:</strong> Hero Title, Hero Description, CTA Button text &amp; link, and Banner Image URL.</li>
         </ul>
@@ -147,7 +148,7 @@
   </div>
 
   <script>
-    // Replace with your actual Firebase configuration values:
+    // Replace these placeholder values with your actual Firebase project configuration:
     const firebaseConfig = {
       apiKey: "YOUR_API_KEY",
       authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
@@ -157,10 +158,11 @@
       appId: "YOUR_APP_ID"
     };
 
+    // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
 
-    // Define configuration for each page
+    // Configuration object: mapping each page to its editable fields
     const pageConfigs = {
       index: {
         title: "Index Page",
@@ -178,7 +180,10 @@
         title: "Details Page",
         fields: [
           { key: "pageTitle", label: "Page Title", type: "text" },
-          { key: "description", label: "Description", type: "textarea" }
+          { key: "productName", label: "Product Name", type: "text" },
+          { key: "productPrice", label: "Product Price", type: "number" },
+          { key: "productDescription", label: "Product Description", type: "textarea" },
+          { key: "productImage", label: "Product Image URL", type: "url" }
         ]
       },
       offers: {
@@ -236,7 +241,7 @@
       }
     };
 
-    let currentPage = "index";
+    let currentPage = "index"; // Default page
 
     const pageList = document.getElementById('pageList');
     const formFieldsDiv = document.getElementById('formFields');
@@ -244,19 +249,19 @@
     const messageDiv = document.getElementById('message');
     const contentForm = document.getElementById('contentForm');
 
-    // Function to build the form based on page configuration and current data
+    // Build form fields for a given page based on its configuration and current Firestore data
     function buildForm(page) {
       currentPage = page;
       currentPageTitle.innerText = pageConfigs[page].title;
-      formFieldsDiv.innerHTML = ""; // Clear existing fields
+      formFieldsDiv.innerHTML = ""; // Clear current fields
 
-      // Fetch current content from Firestore
+      // Load current data from Firestore for this page
       db.collection('pages').doc(page).get().then(doc => {
         let currentData = {};
         if (doc.exists) {
           currentData = doc.data();
         }
-        // For each field, create a form input
+        // For each field defined in the configuration, create the corresponding input
         pageConfigs[page].fields.forEach(field => {
           const fieldDiv = document.createElement('div');
           fieldDiv.className = "form-field";
@@ -283,7 +288,7 @@
       });
     }
 
-    // Function to show message
+    // Display a temporary message (success or error)
     function showMessage(msg, isError) {
       messageDiv.innerText = msg;
       messageDiv.className = "message " + (isError ? "error" : "success");
@@ -293,7 +298,7 @@
       }, 3000);
     }
 
-    // Event listener for sidebar clicks
+    // Set up sidebar navigation: when a page is clicked, build its form
     Array.from(pageList.getElementsByTagName('li')).forEach(li => {
       li.addEventListener('click', function() {
         Array.from(pageList.getElementsByTagName('li')).forEach(item => item.classList.remove('active'));
@@ -303,15 +308,13 @@
       });
     });
 
-    // Handle form submission to save changes
+    // Handle form submission: save changes to Firestore
     contentForm.addEventListener('submit', function(e) {
       e.preventDefault();
-      // Gather data from each field in the current page config
       const newData = {};
       pageConfigs[currentPage].fields.forEach(field => {
         newData[field.key] = document.getElementById(field.key).value;
       });
-      // Save to Firestore (merge existing document)
       db.collection('pages').doc(currentPage).set(newData, { merge: true })
         .then(() => {
           showMessage("Content updated successfully!");
@@ -321,7 +324,7 @@
         });
     });
 
-    // Initial load of the default page ("index")
+    // Initial load: build form for default page ("index")
     buildForm("index");
   </script>
 </body>
