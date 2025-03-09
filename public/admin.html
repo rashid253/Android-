@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin Panel - Add Product</title>
+  <!-- Include Firebase libraries (compat version for easier usage) -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script>
+    // Replace these values with your Firebase project configuration:
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "YOUR_PROJECT_ID.appspot.com",
+      messagingSenderId: "YOUR_SENDER_ID",
+      appId: "YOUR_APP_ID"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+  </script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f7f7f7;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 600px;
+      background: #fff;
+      padding: 20px;
+      margin: auto;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button {
+      background-color: #007bff;
+      color: #fff;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    #message {
+      margin-top: 15px;
+      font-weight: bold;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Admin Panel - Add Product</h2>
+    <form id="adminForm">
+      <div class="form-group">
+        <label for="name">Product Name</label>
+        <input type="text" id="name" placeholder="Enter product name" required>
+      </div>
+      <div class="form-group">
+        <label for="price">Price (PKR)</label>
+        <input type="number" id="price" placeholder="Enter price" required>
+      </div>
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea id="description" rows="4" placeholder="Enter product description" required></textarea>
+      </div>
+      <div class="form-group">
+        <label for="image">Image URL</label>
+        <input type="url" id="image" placeholder="Enter image URL">
+      </div>
+      <button type="submit">Submit</button>
+    </form>
+    <p id="message"></p>
+  </div>
+
+  <script>
+    // Listen for form submission
+    document.getElementById('adminForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('name').value;
+      const price = parseFloat(document.getElementById('price').value);
+      const description = document.getElementById('description').value;
+      const image = document.getElementById('image').value;
+
+      // Save data into a "products" collection in Firestore
+      db.collection('products').add({
+        name: name,
+        price: price,
+        description: description,
+        image: image,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      }).then(() => {
+        document.getElementById('message').innerText = "Product added successfully!";
+        document.getElementById('adminForm').reset();
+      }).catch((error) => {
+        document.getElementById('message').innerText = "Error adding product: " + error.message;
+      });
+    });
+  </script>
+</body>
+</html>
