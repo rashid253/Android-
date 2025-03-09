@@ -2,36 +2,47 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Panel – Manage Site Content</title>
   <!-- Firebase libraries (using compat versions for easier integration) -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
   <style>
+    /* Basic reset and styling */
     body {
       margin: 0;
       font-family: Arial, sans-serif;
       background: #f2f2f2;
     }
     header {
+      display: flex;
+      align-items: center;
       background: #007bff;
       color: #fff;
       padding: 15px;
+    }
+    header h1 {
+      flex: 1;
+      margin: 0;
+      font-size: 1.2rem;
       text-align: center;
     }
     .container {
       display: flex;
       height: calc(100vh - 60px);
     }
+    /* Sidebar */
     .sidebar {
       width: 220px;
       background: #333;
       color: #fff;
       padding: 10px;
+      transition: none; /* default for large screens */
     }
     .sidebar ul {
       list-style: none;
       padding: 0;
+      margin: 0;
     }
     .sidebar ul li {
       padding: 10px;
@@ -42,6 +53,7 @@
     .sidebar ul li.active {
       background: #007bff;
     }
+    /* Content area */
     .content {
       flex: 1;
       padding: 20px;
@@ -51,6 +63,7 @@
     .content h2 {
       margin-top: 0;
     }
+    /* Form fields */
     .form-field {
       margin-bottom: 15px;
     }
@@ -59,7 +72,7 @@
       margin-bottom: 5px;
       font-weight: bold;
     }
-    .form-field input, 
+    .form-field input,
     .form-field textarea {
       width: 100%;
       padding: 8px;
@@ -100,16 +113,50 @@
       color: #555;
       margin-top: 20px;
     }
+    /* Hamburger menu button (for mobile) */
+    .menu-toggle {
+      background: #007bff;
+      color: #fff;
+      border: none;
+      font-size: 1.2rem;
+      padding: 5px 10px;
+      margin-right: 10px;
+      cursor: pointer;
+      display: none; /* hidden on larger screens by default */
+    }
+    /* Responsive styles for mobile */
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: block; /* show hamburger on small screens */
+      }
+      .sidebar {
+        position: absolute;
+        left: -220px; /* hide sidebar by default */
+        top: 60px;    /* just below the header */
+        transition: left 0.3s;
+        height: calc(100vh - 60px);
+        z-index: 999;
+      }
+      .sidebar.open {
+        left: 0; /* slide in when open */
+      }
+      .content {
+        margin-left: 0;
+      }
+    }
   </style>
 </head>
 <body>
+  <!-- Header with hamburger menu -->
   <header>
+    <button id="menuToggle" class="menu-toggle">☰</button>
     <h1>Admin Panel – Manage Site Content</h1>
   </header>
+
+  <!-- Main container: sidebar + content -->
   <div class="container">
-    <div class="sidebar">
+    <div class="sidebar" id="sidebar">
       <ul id="pageList">
-        <!-- List only the pages you want to manage -->
         <li data-page="index" class="active">Index</li>
         <li data-page="details">Details</li>
         <li data-page="offers">Offers</li>
@@ -124,7 +171,7 @@
       <h2 id="currentPageTitle">Index Page Content</h2>
       <form id="contentForm">
         <div id="formFields">
-          <!-- Dynamic form fields will be inserted here based on the page -->
+          <!-- Dynamic form fields will be inserted here -->
         </div>
         <button type="submit" id="saveButton">Save Changes</button>
       </form>
@@ -134,15 +181,15 @@
         <p>Each page has specific editable fields. For example:</p>
         <ul>
           <li><strong>Index:</strong> Hero Title, Hero Description, Background Video URL, Primary &amp; Secondary CTA texts and links.</li>
-          <li><strong>Details:</strong> Page Title, Product Name, Price, Description, and Image URL.</li>
-          <li><strong>Offers:</strong> Hero Title, Hero Description, and Offers Data (enter a valid JSON array).</li>
-          <li><strong>Payments:</strong> Hero Title, Hero Description, and CTA Button text.</li>
-          <li><strong>Support:</strong> Page Title, Subtitle, and FAQ Data (enter a valid JSON array of Q&amp;A pairs).</li>
-          <li><strong>Contact:</strong> Page Title, About Text, Phone, Email, Address, and Map Embed URL.</li>
-          <li><strong>Delivery:</strong> Hero Title, Hero Description, and CTA Button text.</li>
-          <li><strong>Ecommerce:</strong> Hero Title, Hero Description, CTA Button text &amp; link, and Banner Image URL.</li>
+          <li><strong>Details:</strong> Product Name, Price, Description, and Image URL.</li>
+          <li><strong>Offers:</strong> Hero Title, Hero Description, Offers Data (JSON array).</li>
+          <li><strong>Payments:</strong> Hero Title, Hero Description, CTA Button text.</li>
+          <li><strong>Support:</strong> Page Title, Subtitle, FAQ Data (JSON array).</li>
+          <li><strong>Contact:</strong> Page Title, About Text, Phone, Email, Address, Map Embed URL.</li>
+          <li><strong>Delivery:</strong> Hero Title, Hero Description, CTA Button text.</li>
+          <li><strong>Ecommerce:</strong> Hero Title, Hero Description, CTA Text &amp; Link, Banner Image.</li>
         </ul>
-        <p>Edit the fields below and click "Save Changes" to update the content for the selected page.</p>
+        <p>Edit the fields and click "Save Changes" to update Firestore.</p>
       </div>
     </div>
   </div>
@@ -162,7 +209,7 @@
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
 
-    // Configuration object: mapping each page to its editable fields
+    // Configuration: which fields each page has
     const pageConfigs = {
       index: {
         title: "Index Page",
@@ -179,7 +226,6 @@
       details: {
         title: "Details Page",
         fields: [
-          { key: "pageTitle", label: "Page Title", type: "text" },
           { key: "productName", label: "Product Name", type: "text" },
           { key: "productPrice", label: "Product Price", type: "number" },
           { key: "productDescription", label: "Product Description", type: "textarea" },
@@ -241,30 +287,38 @@
       }
     };
 
-    let currentPage = "index"; // Default page
+    let currentPage = "index"; // default page
 
+    const sidebar = document.getElementById('sidebar');
+    const menuToggle = document.getElementById('menuToggle');
     const pageList = document.getElementById('pageList');
     const formFieldsDiv = document.getElementById('formFields');
     const currentPageTitle = document.getElementById('currentPageTitle');
     const messageDiv = document.getElementById('message');
     const contentForm = document.getElementById('contentForm');
 
-    // Build form fields for a given page based on its configuration and current Firestore data
+    // Toggle sidebar on mobile
+    menuToggle.addEventListener('click', () => {
+      sidebar.classList.toggle('open');
+    });
+
+    // Build form for the selected page
     function buildForm(page) {
       currentPage = page;
       currentPageTitle.innerText = pageConfigs[page].title;
-      formFieldsDiv.innerHTML = ""; // Clear current fields
+      formFieldsDiv.innerHTML = ""; // clear existing fields
 
-      // Load current data from Firestore for this page
+      // Fetch existing data from Firestore
       db.collection('pages').doc(page).get().then(doc => {
         let currentData = {};
         if (doc.exists) {
           currentData = doc.data();
         }
-        // For each field defined in the configuration, create the corresponding input
+        // For each field in the config, create an input/textarea
         pageConfigs[page].fields.forEach(field => {
           const fieldDiv = document.createElement('div');
           fieldDiv.className = "form-field";
+
           const label = document.createElement('label');
           label.innerText = field.label;
           label.htmlFor = field.key;
@@ -284,11 +338,11 @@
           formFieldsDiv.appendChild(fieldDiv);
         });
       }).catch(error => {
-        showMessage("Error loading content: " + error.message, true);
+        showMessage("Error loading page data: " + error.message, true);
       });
     }
 
-    // Display a temporary message (success or error)
+    // Show a temporary message
     function showMessage(msg, isError) {
       messageDiv.innerText = msg;
       messageDiv.className = "message " + (isError ? "error" : "success");
@@ -298,17 +352,21 @@
       }, 3000);
     }
 
-    // Set up sidebar navigation: when a page is clicked, build its form
+    // Set up sidebar clicks
     Array.from(pageList.getElementsByTagName('li')).forEach(li => {
       li.addEventListener('click', function() {
+        // highlight active
         Array.from(pageList.getElementsByTagName('li')).forEach(item => item.classList.remove('active'));
         this.classList.add('active');
         const page = this.getAttribute('data-page');
         buildForm(page);
+
+        // hide sidebar on mobile after selection
+        sidebar.classList.remove('open');
       });
     });
 
-    // Handle form submission: save changes to Firestore
+    // Save changes to Firestore
     contentForm.addEventListener('submit', function(e) {
       e.preventDefault();
       const newData = {};
@@ -324,7 +382,7 @@
         });
     });
 
-    // Initial load: build form for default page ("index")
+    // Initial load: build form for the default page
     buildForm("index");
   </script>
 </body>
