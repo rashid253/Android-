@@ -3,14 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Admin Panel - Manage Site Content</title>
-  <!-- Firebase libraries (using compat versions for ease of use) -->
+  <title>Admin Panel - Manage Page Content</title>
+  <!-- Firebase libraries (compat versions for easier integration) -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
   <style>
     body {
       margin: 0;
       font-family: Arial, sans-serif;
+      background: #f2f2f2;
     }
     header {
       background: #007bff;
@@ -44,6 +45,7 @@
     .content {
       flex: 1;
       padding: 20px;
+      background: #fff;
     }
     .content h2 {
       margin-top: 0;
@@ -55,6 +57,7 @@
       font-family: monospace;
       font-size: 14px;
       box-sizing: border-box;
+      resize: vertical;
     }
     button {
       padding: 10px 15px;
@@ -85,11 +88,12 @@
 </head>
 <body>
   <header>
-    <h1>Admin Panel - Manage Site Content</h1>
+    <h1>Admin Panel - Manage Page Content</h1>
   </header>
   <div class="container">
     <div class="sidebar">
       <ul id="pageList">
+        <!-- List only the pages you want to manage (exclude header and footer) -->
         <li data-page="index" class="active">Index</li>
         <li data-page="details">Details</li>
         <li data-page="offers">Offers</li>
@@ -98,16 +102,20 @@
         <li data-page="contact">Contact</li>
         <li data-page="delivery">Delivery</li>
         <li data-page="ecommerce">Ecommerce</li>
-        <li data-page="header">Header</li>
-        <li data-page="footer">Footer</li>
       </ul>
     </div>
     <div class="content">
       <h2 id="currentPageTitle">Index Page Content</h2>
+      <!-- This text area shows the JSON content for the selected page -->
       <textarea id="contentEditor"></textarea>
       <br>
       <button id="saveButton">Save Changes</button>
       <div id="message" class="message"></div>
+      <p style="margin-top: 20px; font-size: 13px; color: #555;">
+        <strong>Instructions:</strong> Edit the JSON in the text area to update the content for the selected page.
+        The changes you save here will update the Firestore document (in the collection "pages", with document ID equal to the page name).
+        Make sure the JSON is valid.
+      </p>
     </div>
   </div>
 
@@ -132,7 +140,7 @@
     const messageDiv = document.getElementById('message');
     const saveButton = document.getElementById('saveButton');
 
-    let currentPage = "index";
+    let currentPage = "index"; // Default page
 
     // Function to load page content from Firestore
     function loadPageContent(page) {
@@ -140,17 +148,17 @@
       currentPageTitle.innerText = page.charAt(0).toUpperCase() + page.slice(1) + " Page Content";
       db.collection('pages').doc(page).get().then(doc => {
         if (doc.exists) {
-          // Format the JSON data for readability
+          // Pretty-print JSON data with 2-space indentation
           contentEditor.value = JSON.stringify(doc.data(), null, 2);
         } else {
-          contentEditor.value = "{}";
+          contentEditor.value = "{}"; // Empty object if no content exists
         }
       }).catch(error => {
-        showMessage("Error loading page content: " + error.message, true);
+        showMessage("Error loading content: " + error.message, true);
       });
     }
 
-    // Function to show messages
+    // Function to show a temporary message
     function showMessage(msg, isError) {
       messageDiv.innerText = msg;
       messageDiv.className = "message " + (isError ? "error" : "success");
@@ -160,7 +168,7 @@
       }, 3000);
     }
 
-    // Event listener for sidebar clicks
+    // Set up sidebar navigation
     Array.from(pageList.getElementsByTagName('li')).forEach(li => {
       li.addEventListener('click', function() {
         Array.from(pageList.getElementsByTagName('li')).forEach(item => item.classList.remove('active'));
@@ -170,16 +178,16 @@
       });
     });
 
-    // Save button event listener
+    // Save changes when the button is clicked
     saveButton.addEventListener('click', function() {
       let newContent;
       try {
         newContent = JSON.parse(contentEditor.value);
       } catch (e) {
-        showMessage("Invalid JSON format: " + e.message, true);
+        showMessage("Invalid JSON: " + e.message, true);
         return;
       }
-      // Save new content to Firestore (collection "pages", document ID = currentPage)
+      // Save the JSON data into Firestore (collection "pages", document ID = currentPage)
       db.collection('pages').doc(currentPage).set(newContent, { merge: true })
         .then(() => {
           showMessage("Content updated successfully!");
