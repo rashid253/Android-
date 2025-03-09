@@ -5,7 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MyBusiness Cart</title>
     <!-- Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
     <link rel="stylesheet" href="style.css" />
     <style>
       html, body {
@@ -38,8 +41,10 @@
         background: #f4f4f4;
         min-height: calc(100vh - 120px);
       }
+      /* Added high z-index so the trash icon is on top */
       #trash-bin-container {
         position: relative;
+        z-index: 10000;
         display: inline-block;
         cursor: pointer;
         margin-bottom: 10px;
@@ -160,8 +165,8 @@
       .receipt th,
       .receipt td {
         padding: 6px;
-        text-align: left;
-        border-bottom: 1px solid #ddd;
+        text-align: center;
+        border-bottom: 1px solid #ccc;
         font-size: 0.9rem;
       }
       .receipt th {
@@ -201,8 +206,13 @@
         background: #218838;
       }
       @media (min-width: 600px) {
-        .cart-container { padding: 20px 40px; }
-        .checkout-button { width: auto; float: right; }
+        .cart-container {
+          padding: 20px 40px;
+        }
+        .checkout-button {
+          width: auto;
+          float: right;
+        }
       }
     </style>
   </head>
@@ -245,7 +255,7 @@
             </tr>
           </thead>
           <tbody id="receipt-body">
-            <!-- Receipt details will be inserted here -->
+            <!-- Order summary rows inserted via JS -->
           </tbody>
         </table>
       </div>
@@ -271,7 +281,7 @@
       let updateTimer;
       const DEBOUNCE_DELAY = 300;
       
-      // Clean cart items with invalid quantity
+      // Remove any cart items with invalid quantity
       function cleanCart() {
         cartItems = cartItems.filter(item => {
           const qty = Number(item.quantity);
@@ -365,7 +375,9 @@
         document.getElementById("trash-count").innerText = checked.length;
       }
       
+      // Delete selected items; added console.log for debugging.
       function deleteSelectedItems() {
+        console.log("Trash icon clicked");
         cleanCart();
         const checked = document.querySelectorAll(".delete-checkbox:checked");
         if (checked.length === 0) {
@@ -421,7 +433,11 @@
             updateTrashCount();
           }
         });
-        document.getElementById("trash-bin-container").addEventListener("click", deleteSelectedItems);
+        // Attach click event to trash bin
+        const trashBin = document.getElementById("trash-bin-container");
+        if (trashBin) {
+          trashBin.addEventListener("click", deleteSelectedItems);
+        }
         document.getElementById("apply-tokens").addEventListener("click", applyTokens);
         document.getElementById("checkout-button").addEventListener("click", () => {
           window.location.href = "checkout.html";
