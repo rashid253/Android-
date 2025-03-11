@@ -1,0 +1,22 @@
+# Node modules
+node_modules/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Firebase local cache
+.firebase/
+
+# Sensitive GitHub OAuth file (if exists)
+.config/gh/hosts.yml
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Local environment files
+.env
