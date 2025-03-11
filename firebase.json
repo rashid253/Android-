@@ -1,19 +1,16 @@
 {
   "hosting": {
     "public": "public",
-<<<<<<< HEAD
     "ignore": [
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
-=======
-    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    ],
     "rewrites": [
       {
         "source": "**",
         "destination": "/index.html"
       }
->>>>>>> 400370d (Add firebase configuration files and .gitignore)
     ]
   }
 }
