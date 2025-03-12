@@ -1,8 +1,20 @@
-"hosting": {
-  "public": "public",
-  "ignore": [
-    "firebase.json",
-    "**/.*",
-    "**/node_modules/**"
-  ]
+{
+  "hosting": {
+    "public": "public",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "/admin-panel",
+        "destination": "/public/admin-panel.html"
+      },
+      {
+        "source": "/**",
+        "destination": "/public/index.html"
+      }
+    ]
+  }
 }
