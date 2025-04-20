@@ -211,3 +211,18 @@ canvas {
 #pieChart {
   aspect-ratio: 1 / 1;
 }
+
+/* -- Auth & App Layout -- */
+#auth-container {
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+#app-content.hidden {
+  display: none;
+}
+
+#auth-container .hidden {
+  display: none !important;
+}
