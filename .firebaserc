@@ -1,6 +1,7 @@
 {
   "projects": {
-    "firebase use e-commerce-acad9": "e-commerce-acad9"
+    "firebase use e-commerce-acad9": "e-commerce-acad9",
+    "default": "e-commerce-acad9"
   },
   "targets": {},
   "etags": {}
