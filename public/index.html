@@ -1,6 +1,6 @@
 <!-- public/index.html -->
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -9,34 +9,32 @@
 </head>
 <body>
 
-  <!-- Authentication Controls -->
+  <!-- 🔒 Authentication UI -->
   <div id="auth-container" class="row-inline">
-    <input type="email"    id="email"    placeholder="Email address" />
-    <input type="password" id="password" placeholder="Password" />
-    <button id="loginBtn">Log In</button>
-    <button id="signupBtn">Sign Up</button>
-    <button id="logoutBtn" class="hidden">Log Out</button>
+    <input  type="email"    id="email"    placeholder="Email" />
+    <input  type="password" id="password" placeholder="Password" />
+    <button id="loginBtn">Login</button>
+    <button id="signupBtn">Sign Up</button>
+    <button id="logoutBtn" class="hidden">Logout</button>
   </div>
 
-  <!-- Main Application (visible after login) -->
+  <!-- 🚀 Main App Content (hidden until logged in) -->
   <div id="app-content" class="hidden">
-    <header>
-      <h1>Attendance Management</h1>
-    </header>
+    <header><h1>Attendance Management</h1></header>
 
-    <!-- 1. Setup Section -->
+    <!-- 1. Setup -->
     <section id="teacher-setup">
       <h2>Setup</h2>
       <div id="setupForm" class="row-inline">
-        <input id="schoolNameInput"    placeholder="School Name" />
+        <input id="schoolNameInput" placeholder="School Name" />
         <select id="teacherClassSelect">
-          <option value="">--Select Class--</option>
+          <option value="">--Class--</option>
           <option>Pre‑Play</option><option>Pre‑Prep</option><option>Nursery</option><option>Pre‑One</option>
           <option>One</option><option>Two</option><option>Three</option><option>Four</option><option>Five</option>
           <option>Six</option><option>Seven</option><option>Eight</option><option>Nine</option><option>Ten</option>
         </select>
         <select id="teacherSectionSelect">
-          <option value="">--Select Section--</option><option>A</option><option>B</option><option>C</option>
+          <option value="">--Section--</option><option>A</option><option>B</option><option>C</option>
         </select>
         <button type="button" id="saveSetup">Save</button>
       </div>
@@ -46,24 +44,24 @@
       </div>
     </section>
 
-    <!-- 2. Student Registration Section -->
+    <!-- 2. Student Registration -->
     <section id="student-registration">
       <h2>Student Registration</h2>
       <div id="regForm" class="row-inline">
-        <input id="studentName"        placeholder="Student Name"      required />
-        <input id="admissionNo"        placeholder="Admission Number"   required />
-        <input id="parentName"         placeholder="Parent Name"         required />
-        <input id="parentContact"      placeholder="Parent Contact"      required />
-        <input id="parentOccupation"   placeholder="Occupation"          required />
-        <input id="parentAddress"      placeholder="Address"             required />
-        <button type="button" id="addStudent">Add Student</button>
+        <input id="studentName"    placeholder="Name"           required />
+        <input id="admissionNo"    placeholder="Adm#"            required />
+        <input id="parentName"     placeholder="Parent Name"    required />
+        <input id="parentContact"  placeholder="Parent Contact" required />
+        <input id="parentOccupation" placeholder="Occupation"  required />
+        <input id="parentAddress"  placeholder="Address"        required />
+        <button type="button" id="addStudent">Add</button>
       </div>
       <div id="studentTableWrapper" class="table-wrapper">
         <table id="studentTable">
           <thead>
             <tr>
               <th class="select-col"><input type="checkbox" id="selectAllStudents" /></th>
-              <th>Name</th><th>Admission #</th><th>Parent</th><th>Contact</th><th>Occupation</th><th>Address</th><th>Actions</th>
+              <th>Name</th><th>Adm#</th><th>Parent</th><th>Contact</th><th>Occupation</th><th>Address</th><th>Share</th>
             </tr>
           </thead>
           <tbody id="studentsBody"></tbody>
@@ -72,26 +70,26 @@
       <div class="table-actions">
         <button id="editSelected" disabled>Edit Selected</button>
         <button id="deleteSelected" disabled>Delete Selected</button>
-        <button id="saveRegistration" class="save">Save Registration</button>
-        <button id="shareRegistration" class="hidden">Share</button>
-        <button id="editRegistration" class="hidden">Modify</button>
+        <button id="saveRegistration" class="save">Save Table</button>
+        <button id="shareRegistration" class="hidden">Share Table</button>
+        <button id="editRegistration"  class="hidden">Edit Table</button>
         <button id="downloadRegistrationPDF" class="hidden">Download PDF</button>
       </div>
     </section>
 
-    <!-- 3. Attendance Marking Section -->
+    <!-- 3. Attendance Marking -->
     <section id="attendance-section">
       <h2>Mark Attendance</h2>
       <div class="row-inline">
-        <label for="dateInput">Date:</label>
+        <label for="dateInput">Select Date:</label>
         <input type="date" id="dateInput" />
-        <button id="loadAttendance">Load</button>
+        <button id="loadAttendance">Load Attendance</button>
       </div>
       <div id="attendanceList"></div>
-      <button id="saveAttendance" class="hidden">Save Attendance</button>
+      <button id="saveAttendance" class="hidden">Save</button>
     </section>
 
-    <!-- 4. Attendance Summary Section -->
+    <!-- 4. Attendance Summary -->
     <section id="attendance-result" class="hidden">
       <h2>Attendance Summary</h2>
       <div class="table-wrapper">
@@ -101,23 +99,22 @@
         </table>
       </div>
       <div class="table-actions">
-        <button id="shareAttendanceSummary">Share Summary</button>
+        <button id="shareAttendanceSummary">Share Table</button>
         <button id="downloadAttendancePDF">Download PDF</button>
         <button id="resetAttendance" class="small">Reset</button>
       </div>
     </section>
 
-    <!-- 5. Analytics Section -->
+    <!-- 5. Analytics -->
     <section id="analytics-section">
       <h2>Analytics</h2>
       <div class="row-inline">
-        <label for="analyticsTarget">Report for:</label>
+        <label for="analyticsTarget">Report For:</label>
         <select id="analyticsTarget">
-          <option value="class">Entire Class</option>
+          <option value="class">Full Class</option>
           <option value="student">Individual Student</option>
         </select>
-        <input type="text" id="studentAdmInput" placeholder="Admission #" class="hidden" />
-
+        <input type="text"    id="studentAdmInput" placeholder="Admission #" class="hidden" />
         <label for="analyticsType">Period:</label>
         <select id="analyticsType">
           <option value="" disabled selected>--Select Period--</option>
@@ -131,7 +128,7 @@
         <input type="month"  id="semesterStart"   class="hidden" />
         <input type="month"  id="semesterEnd"     class="hidden" />
         <input type="number" id="yearStart"       class="hidden" placeholder="Year" />
-        <button id="loadAnalytics">Generate</button>
+        <button id="loadAnalytics">Load Analytics</button>
         <button id="resetAnalytics" class="small hidden">Change</button>
       </div>
       <div id="instructions" class="summary-block hidden"></div>
@@ -141,24 +138,24 @@
         <canvas id="pieChart"></canvas>
       </div>
       <div id="analyticsActions" class="row-inline hidden">
-        <button id="shareAnalytics">Share Report</button>
-        <button id="downloadAnalytics">Download PDF</button>
+        <button id="shareAnalytics">Share as Text</button>
+        <button id="downloadAnalytics">Download Analytics PDF</button>
       </div>
     </section>
 
-    <!-- 6. Monthly Register Section -->
+    <!-- 6. Attendance Register -->
     <section id="register-section">
-      <h2>Monthly Register</h2>
+      <h2>Attendance Register</h2>
       <div class="row-inline">
-        <label for="registerMonth">Month:</label>
+        <label for="registerMonth">Select Month:</label>
         <input type="month" id="registerMonth" />
         <button id="loadRegister" class="save">Load Register</button>
-        <button id="changeRegister" class="small hidden">Change Month</button>
+        <button id="changeRegister" class="small hidden">Change Period</button>
       </div>
       <div id="registerTableWrapper" class="table-wrapper hidden">
         <table id="registerTable">
           <thead>
-            <tr><th>Sr#</th><th>Admission #</th><th>Name</th></tr>
+            <tr><th>Sr#</th><th>Adm#</th><th>Name</th></tr>
           </thead>
           <tbody id="registerBody"></tbody>
         </table>
@@ -167,7 +164,9 @@
         <h3>Summary</h3>
         <div class="table-wrapper">
           <table>
-            <thead><tr><th>Name</th><th>P</th><th>A</th><th>Lt</th><th>HD</th><th>L</th><th>%</th></tr></thead>
+            <thead>
+              <tr><th>Name</th><th>P</th><th>A</th><th>Lt</th><th>HD</th><th>L</th><th>%</th></tr>
+            </thead>
             <tbody id="registerSummaryBody"></tbody>
           </table>
         </div>
@@ -184,7 +183,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js" defer></script>
 
-  <!-- Firebase SDK & Config -->
+  <!-- 🔌 Firebase SDK & Config -->
   <script type="module" defer>
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
     import {
@@ -196,6 +195,7 @@
     } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
     import { getFirestore } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
 
+    // Your Firebase config
     const firebaseConfig = {
       apiKey:            "AIzaSyA4QhGNwxn7lmvIzU6mpFL2Mz4B8134h6A",
       authDomain:        "e-commerce-acad9.firebaseapp.com",
@@ -206,10 +206,12 @@
       measurementId:     "G-NV1MG7R55W"
     };
 
+    // Initialize Firebase
     const app  = initializeApp(firebaseConfig);
     const auth = getAuth(app);
     const db   = getFirestore(app);
 
+    // Make available in app.js
     window.auth                           = auth;
     window.db                             = db;
     window.onAuthStateChanged             = onAuthStateChanged;
@@ -218,7 +220,7 @@
     window.signOut                        = signOut;
   </script>
 
-  <!-- Application Logic -->
+  <!-- Your Attendance App Logic -->
   <script src="app.js" defer></script>
 </body>
 </html>
