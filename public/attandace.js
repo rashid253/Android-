@@ -1,74 +1,76 @@
-// public/share-pdf.js
+// public/attendance.js
 
 const $ = id => document.getElementById(id);
 
 window.addEventListener('DOMContentLoaded', () => {
-  // Students PDF & Share
-  $('shareRegistration').onclick = ev => {
+  let attendanceData = JSON.parse(localStorage.getItem('attendanceData')||'{}');
+  const dateInput   = $('dateInput');
+  const loadAtt     = $('loadAttendance');
+  const attList     = $('attendanceList');
+  const saveAtt     = $('saveAttendance');
+  const resultSec   = $('attendance-result');
+  const summaryBody = $('summaryBody');
+
+  window.attendanceData = attendanceData;  // expose globally
+
+  loadAtt.onclick = ev => {
     ev.preventDefault();
-    const hdr = `School: ${localStorage.getItem('schoolName')} | Class: ${localStorage.getItem('teacherClass')} | Section: ${localStorage.getItem('teacherSection')}`;
-    const lines = students.map(s=>
-      `Name: ${s.name}, Adm#: ${s.adm}, Parent: ${s.parent}, Contact: ${s.contact}, Occupation: ${s.occupation}, Address: ${s.address}`
-    ).join('\n');
-    window.open(`https://wa.me/?text=${encodeURIComponent(hdr+'\n\n'+lines)}`, '_blank');
-  };
-  $('downloadRegistrationPDF').onclick = ev => {
-    ev.preventDefault();
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
-    doc.setFontSize(16); doc.text('Student Registration',10,10);
-    doc.setFontSize(12); doc.text(`Date: ${new Date().toLocaleDateString()}`,10,20);
-    doc.autoTable({ html:'#studentTable', startY:30 });
-    doc.save('student_registration.pdf');
+    if (!dateInput.value) return alert('براہِ مہربانی تاریخ منتخب کریں۔');
+    attList.innerHTML = '';
+    students.forEach(s => {
+      const row = document.createElement('div');
+      row.className = 'attendance-item'; row.textContent = s.name;
+      const btns = document.createElement('div');
+      btns.className = 'attendance-actions';
+      ['P','A','Lt','HD','L'].forEach(code => {
+        const b = document.createElement('button');
+        b.type='button'; b.className='att-btn'; b.dataset.code=code; b.textContent=code;
+        if (attendanceData[dateInput.value]?.[s.roll]===code) {
+          b.style.background=colors[code]; b.style.color='#fff';
+        }
+        b.onclick = e2 => {
+          e2.preventDefault();
+          btns.querySelectorAll('.att-btn').forEach(x=>{x.style.background='';x.style.color='#333';});
+          b.style.background=colors[code]; b.style.color='#fff';
+        };
+        btns.append(b);
+      });
+      attList.append(row,btns);
+    });
+    saveAtt.classList.remove('hidden');
   };
 
-  // Attendance Summary Share/PDF
-  $('shareAttendanceSummary').onclick = ev => {
+  saveAtt.onclick = ev => {
     ev.preventDefault();
-    const rows = Array.from(document.querySelectorAll('#attendanceSummaryTable tbody tr'))
-      .map(tr=>[...tr.children].map(td=>td.textContent).join(' – '));
-    window.open(`https://wa.me/?text=${encodeURIComponent(rows.join('\n'))}`, '_blank');
-  };
-  $('downloadAttendancePDF').onclick = ev => {
-    ev.preventDefault();
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
-    doc.autoTable({ html:'#attendanceSummaryTable', startY:10 });
-    doc.save('attendance_summary.pdf');
-  };
-
-  // Analytics Share/PDF
-  $('shareAnalytics').onclick = ev => {
-    ev.preventDefault();
-    const hdr = $('instructions').textContent;
-    const rows = Array.from(document.querySelectorAll('#analyticsContainer tbody tr'))
-      .map(tr=>[...tr.children].map(td=>td.textContent).join(' – '));
-    window.open(`https://wa.me/?text=${encodeURIComponent(hdr+'\n\n'+rows.join('\n'))}`, '_blank');
-  };
-  $('downloadAnalytics').onclick = ev => {
-    ev.preventDefault();
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
-    doc.autoTable({ html:'#analyticsContainer table', startY:10 });
-    doc.addImage(window.barChart.toBase64Image(), 'PNG', 10, doc.lastAutoTable.finalY+10, 80,60);
-    doc.addImage(window.pieChart.toBase64Image(), 'PNG', 100, doc.lastAutoTable.finalY+10, 80,60);
-    doc.save('attendance_analytics.pdf');
+    const d = dateInput.value; if (!d) return alert('براہِ مہربانی تاریخ منتخب کریں۔');
+    attendanceData[d] = {};
+    document.querySelectorAll('.attendance-actions').forEach((btns,i) => {
+      const sel = btns.querySelector('.att-btn[style*="background"]');
+      attendanceData[d][students[i].roll] = sel?sel.dataset.code:'A';
+    });
+    localStorage.setItem('attendanceData', JSON.stringify(attendanceData));
+    $('attendance-section').classList.add('hidden');
+    resultSec.classList.remove('hidden');
+    summaryBody.innerHTML = '';
+    const hdr = `Date: ${d} | School: ${localStorage.getItem('schoolName')} | Class: ${localStorage.getItem('teacherClass')} | Section: ${localStorage.getItem('teacherSection')}`;
+    summaryBody.insertAdjacentHTML('beforeend', `<tr><td colspan="3"><em>${hdr}</em></td></tr>`);
+    students.forEach(s => {
+      const code = attendanceData[d][s.roll]||'A';
+      const status = {P:'Present',A:'Absent',Lt:'Late',HD:'Half Day',L:'Leave'}[code];
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td>${s.name}</td><td>${status}</td><td><button class="send-btn">Send</button></td>`;
+      tr.querySelector('.send-btn').onclick = e2 => {
+        e2.preventDefault();
+        window.open(`https://wa.me/${s.contact}?text=${encodeURIComponent(hdr+"\n\nName: "+s.name+"\nStatus: "+status)}`, '_blank');
+      };
+      summaryBody.appendChild(tr);
+    });
   };
 
-  // Register Share/PDF
-  $('shareRegister').onclick = ev => {
+  $('resetAttendance').onclick = ev => {
     ev.preventDefault();
-    const month = $('registerMonth').value;
-    const rows = Array.from(document.querySelectorAll('#registerSummarySection tbody tr'))
-      .map(tr=>[...tr.children].map(td=>td.textContent).join(' – '));
-    window.open(`https://wa.me/?text=${encodeURIComponent('Register '+month+'\n\n'+rows.join('\n'))}`, '_blank');
-  };
-  $('downloadRegisterPDF').onclick = ev => {
-    ev.preventDefault();
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF('landscape');
-    doc.autoTable({ html:'#registerTable', startY:10, styles:{fontSize:6} });
-    doc.autoTable({ html:'#registerSummarySection table', startY:doc.lastAutoTable.finalY+10, styles:{fontSize:8} });
-    doc.save('attendance_register.pdf');
+    resultSec.classList.add('hidden');
+    $('attendance-section').classList.remove('hidden');
+    summaryBody.innerHTML = '';
   };
 });
