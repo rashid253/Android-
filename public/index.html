@@ -7,7 +7,7 @@
   <title>Attendance Management</title>
   <link rel="stylesheet" href="style.css" />
 
-  <!-- Firebase compat SDKs (deferred) -->
+  <!-- Firebase SDKs (deferred) -->
   <script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-app-compat.js" defer></script>
   <script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-auth-compat.js" defer></script>
   <script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore-compat.js" defer></script>
@@ -30,9 +30,9 @@
   <div id="auth-container">
     <input type="email" id="email" placeholder="Email" />
     <input type="password" id="password" placeholder="Password" />
-    <button id="signupBtn">Sign Up</button>
+    <button id="signupBtn">Sign Up</button>
     <button id="loginBtn">Login</button>
-    <button id="resetPasswordBtn">Forgot Password?</button>
+    <button id="resetPasswordBtn">Forgot Password?</button>
   </div>
 
   <!-- MAIN APP (hidden until login) -->
@@ -207,9 +207,6 @@
   <script src="register.js" defer></script>    <!-- monthly register -->
   <script src="share-pdf.js" defer></script>   <!-- share & PDF -->
 
-  <!--  
-    All scripts deferred, full sections present, no placeholders.
-    Now test your Save/Load buttons and login flow again.
-  -->
+  <!-- All scripts deferred to bind event handlers after DOM load -->
 </body>
 </html>
