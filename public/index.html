@@ -1,71 +1,84 @@
 <!-- public/index.html -->
 <!DOCTYPE html>
-<html lang="ur" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Attendance App — Auth Flow</title>
+  <title>Attendance Management System</title>
   <link rel="stylesheet" href="style.css" />
   <style>
-    body { direction: rtl; font-family: Arial, sans-serif; padding: 10px; }
+    body { font-family: Arial, sans-serif; padding: 10px; max-width: 600px; margin: auto; }
     .hidden { display: none; }
-    .auth-section { max-width: 400px; margin: 0 auto 20px; padding: 20px; border: 1px solid #ccc; border-radius: 6px; background: #f9f9f9; }
-    .auth-section h2 { text-align: center; margin-bottom: 15px; }
-    .auth-section input, .auth-section button { width: 100%; padding: 8px; margin-bottom: 10px; }
+    .auth-section { border: 1px solid #ccc; border-radius: 6px; background: #f9f9f9; padding: 20px; margin-bottom: 20px; }
+    .auth-section h2 { margin-top: 0; text-align: center; }
+    .auth-section input,
+    .auth-section button { width: 100%; padding: 10px; margin: 8px 0; box-sizing: border-box; }
     header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-    header h1 { margin: 0; }
+    header h1 { margin: 0; font-size: 1.5em; }
+    header button { padding: 8px 12px; }
+    a { color: #0066cc; text-decoration: none; }
+    a:hover { text-decoration: underline; }
   </style>
 </head>
 <body>
 
   <header>
     <h1>Attendance Management</h1>
-    <button id="logoutBtn" class="hidden">لاگ آؤٹ</button>
+    <button id="logoutBtn" class="hidden">Logout</button>
   </header>
 
   <!-- Sign-Up Section -->
   <div id="signupSection" class="auth-section">
-    <h2>نیا اکاؤنٹ بنائیں</h2>
-    <input type="email"    id="suEmail"    placeholder="ای میل" />
-    <input type="password" id="suPwd"      placeholder="پاس ورڈ (کم از کم 6 حروف)" />
-    <input type="password" id="suPwdConf"  placeholder="پاس ورڈ دوبارہ درج کریں" />
-    <button id="signupBtn">سائن اپ کریں</button>
-    <p>اکاؤنٹ ہے؟ <a href="#" id="toLoginLink">لاگ ان کریں</a></p>
+    <h2>Create New Account</h2>
+    <input type="email"    id="suEmail"    placeholder="Email address" />
+    <input type="password" id="suPwd"      placeholder="Password (minimum 6 characters)" />
+    <input type="password" id="suPwdConf"  placeholder="Confirm password" />
+    <button id="signupBtn">Sign Up</button>
+    <p style="text-align:center;">
+      Already have an account?
+      <a href="#" id="toLoginLink">Log In</a>
+    </p>
   </div>
 
   <!-- Login Section -->
   <div id="loginSection" class="auth-section hidden">
-    <h2>لاگ ان</h2>
-    <input type="email"    id="liEmail"    placeholder="ای میل" />
-    <input type="password" id="liPwd"      placeholder="پاس ورڈ" />
-    <button id="loginBtn">لاگ ان کریں</button>
-    <p><a href="#" id="toSignupLink">اکاؤنٹ بنائیں</a> | <a href="#" id="forgotPwdLink">پاس ورڈ بھول گئے؟</a></p>
+    <h2>Log In</h2>
+    <input type="email"    id="liEmail"    placeholder="Email address" />
+    <input type="password" id="liPwd"      placeholder="Password" />
+    <button id="loginBtn">Log In</button>
+    <p style="text-align:center;">
+      <a href="#" id="toSignupLink">Create account</a> |
+      <a href="#" id="forgotPwdLink">Forgot password?</a>
+    </p>
   </div>
 
-  <!-- Verify Email Notice -->
+  <!-- Email Verification Notice -->
   <div id="verifyNotice" class="auth-section hidden">
-    <h2>تصدیقی میل بھیج دی گئی</h2>
-    <p>براہ کرم اپنا ان باکس چیک کریں اور اپنا ای میل verify کریں۔</p>
-    <button id="resendVerifyBtn">دوبارہ بھیجیں</button>
+    <h2>Verify Your Email</h2>
+    <p>We have sent a verification link to your email. Please check your inbox and click the link to continue.</p>
+    <button id="resendVerifyBtn">Resend Verification Email</button>
   </div>
 
   <!-- Forgot Password Section -->
   <div id="forgotSection" class="auth-section hidden">
-    <h2>پاس ورڈ ریسٹ کریں</h2>
-    <input type="email" id="fpEmail" placeholder="اپنا ای میل درج کریں" />
-    <button id="sendResetBtn">ری سیٹ میل بھیجیں</button>
-    <p><a href="#" id="backToLogin">لاگ ان پر واپس</a></p>
+    <h2>Reset Password</h2>
+    <input type="email" id="fpEmail" placeholder="Enter your email address" />
+    <button id="sendResetBtn">Send Reset Link</button>
+    <p style="text-align:center;">
+      <a href="#" id="backToLogin">Back to Log In</a>
+    </p>
   </div>
 
-  <!-- Main App Content -->
+  <!-- Main Application Content -->
   <div id="app-content" class="hidden">
-    <p>مبارک ہو! آپ لاگ ان ہو چکے ہیں اور ای میل verify ہے۔</p>
-    <!-- آپ کی باقی Attendance App یہاں آئے گی -->
+    <p>Welcome! You are now logged in and your email has been verified.</p>
+    <!-- Your attendance app interface goes here -->
   </div>
 
-  <!-- Firebase & App Scripts -->
+  <!-- Firebase Initialization & App Logic -->
   <script type="module" src="firebase-init.js"></script>
   <script type="module" src="app.js" defer></script>
   <script src="attendance.js" defer></script>
+
 </body>
 </html>
