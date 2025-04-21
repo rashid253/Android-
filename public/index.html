@@ -1,226 +1,71 @@
 <!-- public/index.html -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ur" dir="rtl">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Classwise Attendance Management</title>
+  <title>Attendance App — Auth Flow</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    body { direction: rtl; font-family: Arial, sans-serif; padding: 10px; }
+    .hidden { display: none; }
+    .auth-section { max-width: 400px; margin: 0 auto 20px; padding: 20px; border: 1px solid #ccc; border-radius: 6px; background: #f9f9f9; }
+    .auth-section h2 { text-align: center; margin-bottom: 15px; }
+    .auth-section input, .auth-section button { width: 100%; padding: 8px; margin-bottom: 10px; }
+    header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+    header h1 { margin: 0; }
+  </style>
 </head>
 <body>
 
-  <!-- 🔒 Authentication UI -->
-  <div id="auth-container" class="row-inline">
-    <input  type="email"    id="email"    placeholder="Email" />
-    <input  type="password" id="password" placeholder="Password" />
-    <button id="loginBtn">Login</button>
-    <button id="signupBtn">Sign Up</button>
-    <button id="logoutBtn" class="hidden">Logout</button>
+  <header>
+    <h1>Attendance Management</h1>
+    <button id="logoutBtn" class="hidden">لاگ آؤٹ</button>
+  </header>
+
+  <!-- Sign-Up Section -->
+  <div id="signupSection" class="auth-section">
+    <h2>نیا اکاؤنٹ بنائیں</h2>
+    <input type="email"    id="suEmail"    placeholder="ای میل" />
+    <input type="password" id="suPwd"      placeholder="پاس ورڈ (کم از کم 6 حروف)" />
+    <input type="password" id="suPwdConf"  placeholder="پاس ورڈ دوبارہ درج کریں" />
+    <button id="signupBtn">سائن اپ کریں</button>
+    <p>اکاؤنٹ ہے؟ <a href="#" id="toLoginLink">لاگ ان کریں</a></p>
   </div>
 
-  <!-- 🚀 Main App Content (hidden until logged in) -->
+  <!-- Login Section -->
+  <div id="loginSection" class="auth-section hidden">
+    <h2>لاگ ان</h2>
+    <input type="email"    id="liEmail"    placeholder="ای میل" />
+    <input type="password" id="liPwd"      placeholder="پاس ورڈ" />
+    <button id="loginBtn">لاگ ان کریں</button>
+    <p><a href="#" id="toSignupLink">اکاؤنٹ بنائیں</a> | <a href="#" id="forgotPwdLink">پاس ورڈ بھول گئے؟</a></p>
+  </div>
+
+  <!-- Verify Email Notice -->
+  <div id="verifyNotice" class="auth-section hidden">
+    <h2>تصدیقی میل بھیج دی گئی</h2>
+    <p>براہ کرم اپنا ان باکس چیک کریں اور اپنا ای میل verify کریں۔</p>
+    <button id="resendVerifyBtn">دوبارہ بھیجیں</button>
+  </div>
+
+  <!-- Forgot Password Section -->
+  <div id="forgotSection" class="auth-section hidden">
+    <h2>پاس ورڈ ریسٹ کریں</h2>
+    <input type="email" id="fpEmail" placeholder="اپنا ای میل درج کریں" />
+    <button id="sendResetBtn">ری سیٹ میل بھیجیں</button>
+    <p><a href="#" id="backToLogin">لاگ ان پر واپس</a></p>
+  </div>
+
+  <!-- Main App Content -->
   <div id="app-content" class="hidden">
-    <header><h1>Attendance Management</h1></header>
-
-    <!-- 1. Setup -->
-    <section id="teacher-setup">
-      <h2>Setup</h2>
-      <div id="setupForm" class="row-inline">
-        <input id="schoolNameInput" placeholder="School Name" />
-        <select id="teacherClassSelect">
-          <option value="">--Class--</option>
-          <option>Pre‑Play</option><option>Pre‑Prep</option><option>Nursery</option><option>Pre‑One</option>
-          <option>One</option><option>Two</option><option>Three</option><option>Four</option><option>Five</option>
-          <option>Six</option><option>Seven</option><option>Eight</option><option>Nine</option><option>Ten</option>
-        </select>
-        <select id="teacherSectionSelect">
-          <option value="">--Section--</option><option>A</option><option>B</option><option>C</option>
-        </select>
-        <button type="button" id="saveSetup">Save</button>
-      </div>
-      <div id="setupDisplay" class="hidden">
-        <h3 id="setupText"></h3>
-        <button type="button" id="editSetup" class="small">Edit</button>
-      </div>
-    </section>
-
-    <!-- 2. Student Registration -->
-    <section id="student-registration">
-      <h2>Student Registration</h2>
-      <div id="regForm" class="row-inline">
-        <input id="studentName"    placeholder="Name"           required />
-        <input id="admissionNo"    placeholder="Adm#"            required />
-        <input id="parentName"     placeholder="Parent Name"    required />
-        <input id="parentContact"  placeholder="Parent Contact" required />
-        <input id="parentOccupation" placeholder="Occupation"  required />
-        <input id="parentAddress"  placeholder="Address"        required />
-        <button type="button" id="addStudent">Add</button>
-      </div>
-      <div id="studentTableWrapper" class="table-wrapper">
-        <table id="studentTable">
-          <thead>
-            <tr>
-              <th class="select-col"><input type="checkbox" id="selectAllStudents" /></th>
-              <th>Name</th><th>Adm#</th><th>Parent</th><th>Contact</th><th>Occupation</th><th>Address</th><th>Share</th>
-            </tr>
-          </thead>
-          <tbody id="studentsBody"></tbody>
-        </table>
-      </div>
-      <div class="table-actions">
-        <button id="editSelected" disabled>Edit Selected</button>
-        <button id="deleteSelected" disabled>Delete Selected</button>
-        <button id="saveRegistration" class="save">Save Table</button>
-        <button id="shareRegistration" class="hidden">Share Table</button>
-        <button id="editRegistration"  class="hidden">Edit Table</button>
-        <button id="downloadRegistrationPDF" class="hidden">Download PDF</button>
-      </div>
-    </section>
-
-    <!-- 3. Attendance Marking -->
-    <section id="attendance-section">
-      <h2>Mark Attendance</h2>
-      <div class="row-inline">
-        <label for="dateInput">Select Date:</label>
-        <input type="date" id="dateInput" />
-        <button id="loadAttendance">Load Attendance</button>
-      </div>
-      <div id="attendanceList"></div>
-      <button id="saveAttendance" class="hidden">Save</button>
-    </section>
-
-    <!-- 4. Attendance Summary -->
-    <section id="attendance-result" class="hidden">
-      <h2>Attendance Summary</h2>
-      <div class="table-wrapper">
-        <table id="attendanceSummaryTable">
-          <thead><tr><th>Name</th><th>Status</th><th>Send</th></tr></thead>
-          <tbody id="summaryBody"></tbody>
-        </table>
-      </div>
-      <div class="table-actions">
-        <button id="shareAttendanceSummary">Share Table</button>
-        <button id="downloadAttendancePDF">Download PDF</button>
-        <button id="resetAttendance" class="small">Reset</button>
-      </div>
-    </section>
-
-    <!-- 5. Analytics -->
-    <section id="analytics-section">
-      <h2>Analytics</h2>
-      <div class="row-inline">
-        <label for="analyticsTarget">Report For:</label>
-        <select id="analyticsTarget">
-          <option value="class">Full Class</option>
-          <option value="student">Individual Student</option>
-        </select>
-        <input type="text"    id="studentAdmInput" placeholder="Admission #" class="hidden" />
-        <label for="analyticsType">Period:</label>
-        <select id="analyticsType">
-          <option value="" disabled selected>--Select Period--</option>
-          <option value="date">Specific Date</option>
-          <option value="month">Month</option>
-          <option value="semester">Semester</option>
-          <option value="year">Year</option>
-        </select>
-        <input type="date"   id="analyticsDate"   class="hidden" />
-        <input type="month"  id="analyticsMonth"  class="hidden" />
-        <input type="month"  id="semesterStart"   class="hidden" />
-        <input type="month"  id="semesterEnd"     class="hidden" />
-        <input type="number" id="yearStart"       class="hidden" placeholder="Year" />
-        <button id="loadAnalytics">Load Analytics</button>
-        <button id="resetAnalytics" class="small hidden">Change</button>
-      </div>
-      <div id="instructions" class="summary-block hidden"></div>
-      <div id="analyticsContainer" class="table-container hidden"></div>
-      <div id="graphs" class="graph-container hidden">
-        <canvas id="barChart"></canvas>
-        <canvas id="pieChart"></canvas>
-      </div>
-      <div id="analyticsActions" class="row-inline hidden">
-        <button id="shareAnalytics">Share as Text</button>
-        <button id="downloadAnalytics">Download Analytics PDF</button>
-      </div>
-    </section>
-
-    <!-- 6. Attendance Register -->
-    <section id="register-section">
-      <h2>Attendance Register</h2>
-      <div class="row-inline">
-        <label for="registerMonth">Select Month:</label>
-        <input type="month" id="registerMonth" />
-        <button id="loadRegister" class="save">Load Register</button>
-        <button id="changeRegister" class="small hidden">Change Period</button>
-      </div>
-      <div id="registerTableWrapper" class="table-wrapper hidden">
-        <table id="registerTable">
-          <thead>
-            <tr><th>Sr#</th><th>Adm#</th><th>Name</th></tr>
-          </thead>
-          <tbody id="registerBody"></tbody>
-        </table>
-      </div>
-      <div id="registerSummarySection" class="hidden">
-        <h3>Summary</h3>
-        <div class="table-wrapper">
-          <table>
-            <thead>
-              <tr><th>Name</th><th>P</th><th>A</th><th>Lt</th><th>HD</th><th>L</th><th>%</th></tr>
-            </thead>
-            <tbody id="registerSummaryBody"></tbody>
-          </table>
-        </div>
-      </div>
-      <div class="table-actions">
-        <button id="shareRegister" class="save">Share Summary</button>
-        <button id="downloadRegisterPDF" class="save">Download PDF</button>
-      </div>
-    </section>
+    <p>مبارک ہو! آپ لاگ ان ہو چکے ہیں اور ای میل verify ہے۔</p>
+    <!-- آپ کی باقی Attendance App یہاں آئے گی -->
   </div>
 
-  <!-- External Libraries -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js" defer></script>
-
-  <!-- 🔌 Firebase SDK & Config -->
-  <script type="module" defer>
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
-    import {
-      getAuth,
-      onAuthStateChanged,
-      signInWithEmailAndPassword,
-      createUserWithEmailAndPassword,
-      signOut
-    } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
-    import { getFirestore } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
-
-    // Your Firebase config
-    const firebaseConfig = {
-      apiKey:            "AIzaSyA4QhGNwxn7lmvIzU6mpFL2Mz4B8134h6A",
-      authDomain:        "e-commerce-acad9.firebaseapp.com",
-      projectId:         "e-commerce-acad9",
-      storageBucket:     "e-commerce-acad9.firebasestorage.app",
-      messagingSenderId: "228138409600",
-      appId:             "1:228138409600:web:0a122885f7dbe08eb95065",
-      measurementId:     "G-NV1MG7R55W"
-    };
-
-    // Initialize Firebase
-    const app  = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db   = getFirestore(app);
-
-    // Make available in app.js
-    window.auth                           = auth;
-    window.db                             = db;
-    window.onAuthStateChanged             = onAuthStateChanged;
-    window.signInWithEmailAndPassword     = signInWithEmailAndPassword;
-    window.createUserWithEmailAndPassword = createUserWithEmailAndPassword;
-    window.signOut                        = signOut;
-  </script>
-
-  <!-- Your Attendance App Logic -->
-  <script src="app.js" defer></script>
+  <!-- Firebase & App Scripts -->
+  <script type="module" src="firebase-init.js"></script>
+  <script type="module" src="app.js" defer></script>
+  <script src="attendance.js" defer></script>
 </body>
 </html>
