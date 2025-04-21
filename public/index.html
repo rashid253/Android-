@@ -9,16 +9,16 @@
 </head>
 <body>
 
-  <!-- 🔒 AUTH UI -->
+  <!-- 🔒 Authentication UI -->
   <div id="auth-container" class="row-inline">
-    <input type="email"    id="email"    placeholder="Email" />
-    <input type="password" id="password" placeholder="Password" />
+    <input  type="email"    id="email"    placeholder="Email" />
+    <input  type="password" id="password" placeholder="Password" />
     <button id="loginBtn">Login</button>
     <button id="signupBtn">Sign Up</button>
     <button id="logoutBtn" class="hidden">Logout</button>
   </div>
 
-  <!-- 🚀 MAIN APP (hidden until logged in) -->
+  <!-- 🚀 Main App Content (hidden until logged in) -->
   <div id="app-content" class="hidden">
     <header><h1>Attendance Management</h1></header>
 
@@ -26,7 +26,7 @@
     <section id="teacher-setup">
       <h2>Setup</h2>
       <div id="setupForm" class="row-inline">
-        <input id="schoolNameInput" placeholder="School Name">
+        <input id="schoolNameInput" placeholder="School Name" />
         <select id="teacherClassSelect">
           <option value="">--Class--</option>
           <option>Pre‑Play</option><option>Pre‑Prep</option><option>Nursery</option><option>Pre‑One</option>
@@ -48,19 +48,19 @@
     <section id="student-registration">
       <h2>Student Registration</h2>
       <div id="regForm" class="row-inline">
-        <input id="studentName" placeholder="Name" required>
-        <input id="admissionNo" placeholder="Adm#" required>
-        <input id="parentName" placeholder="Parent Name" required>
-        <input id="parentContact" placeholder="Parent Contact" required>
-        <input id="parentOccupation" placeholder="Occupation" required>
-        <input id="parentAddress" placeholder="Address" required>
+        <input id="studentName"    placeholder="Name"           required />
+        <input id="admissionNo"    placeholder="Adm#"            required />
+        <input id="parentName"     placeholder="Parent Name"    required />
+        <input id="parentContact"  placeholder="Parent Contact" required />
+        <input id="parentOccupation" placeholder="Occupation"  required />
+        <input id="parentAddress"  placeholder="Address"        required />
         <button type="button" id="addStudent">Add</button>
       </div>
-      <div class="table-wrapper" id="studentTableWrapper">
+      <div id="studentTableWrapper" class="table-wrapper">
         <table id="studentTable">
           <thead>
             <tr>
-              <th class="select-col"><input type="checkbox" id="selectAllStudents"></th>
+              <th class="select-col"><input type="checkbox" id="selectAllStudents" /></th>
               <th>Name</th><th>Adm#</th><th>Parent</th><th>Contact</th><th>Occupation</th><th>Address</th><th>Share</th>
             </tr>
           </thead>
@@ -68,12 +68,12 @@
         </table>
       </div>
       <div class="table-actions">
-        <button type="button" id="editSelected" disabled>Edit Selected</button>
-        <button type="button" id="deleteSelected" disabled>Delete Selected</button>
-        <button type="button" id="saveRegistration" class="save">Save Table</button>
-        <button type="button" id="shareRegistration" class="hidden">Share Table</button>
-        <button type="button" id="editRegistration" class="hidden">Edit Table</button>
-        <button type="button" id="downloadRegistrationPDF" class="hidden">Download PDF</button>
+        <button id="editSelected" disabled>Edit Selected</button>
+        <button id="deleteSelected" disabled>Delete Selected</button>
+        <button id="saveRegistration" class="save">Save Table</button>
+        <button id="shareRegistration" class="hidden">Share Table</button>
+        <button id="editRegistration"  class="hidden">Edit Table</button>
+        <button id="downloadRegistrationPDF" class="hidden">Download PDF</button>
       </div>
     </section>
 
@@ -82,11 +82,11 @@
       <h2>Mark Attendance</h2>
       <div class="row-inline">
         <label for="dateInput">Select Date:</label>
-        <input type="date" id="dateInput">
-        <button type="button" id="loadAttendance">Load Attendance</button>
+        <input type="date" id="dateInput" />
+        <button id="loadAttendance">Load Attendance</button>
       </div>
       <div id="attendanceList"></div>
-      <button type="button" id="saveAttendance" class="hidden">Save</button>
+      <button id="saveAttendance" class="hidden">Save</button>
     </section>
 
     <!-- 4. Attendance Summary -->
@@ -99,9 +99,9 @@
         </table>
       </div>
       <div class="table-actions">
-        <button type="button" id="shareAttendanceSummary">Share Table</button>
-        <button type="button" id="downloadAttendancePDF">Download PDF</button>
-        <button type="button" id="resetAttendance" class="small">Reset</button>
+        <button id="shareAttendanceSummary">Share Table</button>
+        <button id="downloadAttendancePDF">Download PDF</button>
+        <button id="resetAttendance" class="small">Reset</button>
       </div>
     </section>
 
@@ -114,7 +114,7 @@
           <option value="class">Full Class</option>
           <option value="student">Individual Student</option>
         </select>
-        <input type="text" id="studentAdmInput" placeholder="Admission #" class="hidden">
+        <input type="text"    id="studentAdmInput" placeholder="Admission #" class="hidden" />
         <label for="analyticsType">Period:</label>
         <select id="analyticsType">
           <option value="" disabled selected>--Select Period--</option>
@@ -123,13 +123,13 @@
           <option value="semester">Semester</option>
           <option value="year">Year</option>
         </select>
-        <input type="date" id="analyticsDate" class="hidden">
-        <input type="month" id="analyticsMonth" class="hidden">
-        <input type="month" id="semesterStart" class="hidden">
-        <input type="month" id="semesterEnd" class="hidden">
-        <input type="number" id="yearStart" class="hidden" placeholder="Year">
-        <button type="button" id="loadAnalytics">Load Analytics</button>
-        <button type="button" id="resetAnalytics" class="small hidden">Change</button>
+        <input type="date"   id="analyticsDate"   class="hidden" />
+        <input type="month"  id="analyticsMonth"  class="hidden" />
+        <input type="month"  id="semesterStart"   class="hidden" />
+        <input type="month"  id="semesterEnd"     class="hidden" />
+        <input type="number" id="yearStart"       class="hidden" placeholder="Year" />
+        <button id="loadAnalytics">Load Analytics</button>
+        <button id="resetAnalytics" class="small hidden">Change</button>
       </div>
       <div id="instructions" class="summary-block hidden"></div>
       <div id="analyticsContainer" class="table-container hidden"></div>
@@ -138,8 +138,8 @@
         <canvas id="pieChart"></canvas>
       </div>
       <div id="analyticsActions" class="row-inline hidden">
-        <button type="button" id="shareAnalytics">Share as Text</button>
-        <button type="button" id="downloadAnalytics">Download Analytics PDF</button>
+        <button id="shareAnalytics">Share as Text</button>
+        <button id="downloadAnalytics">Download Analytics PDF</button>
       </div>
     </section>
 
@@ -148,11 +148,11 @@
       <h2>Attendance Register</h2>
       <div class="row-inline">
         <label for="registerMonth">Select Month:</label>
-        <input type="month" id="registerMonth">
-        <button type="button" id="loadRegister" class="save">Load Register</button>
-        <button type="button" id="changeRegister" class="small hidden">Change Period</button>
+        <input type="month" id="registerMonth" />
+        <button id="loadRegister" class="save">Load Register</button>
+        <button id="changeRegister" class="small hidden">Change Period</button>
       </div>
-      <div class="table-wrapper hidden" id="registerTableWrapper">
+      <div id="registerTableWrapper" class="table-wrapper hidden">
         <table id="registerTable">
           <thead>
             <tr><th>Sr#</th><th>Adm#</th><th>Name</th></tr>
@@ -172,53 +172,55 @@
         </div>
       </div>
       <div class="table-actions">
-        <button type="button" id="shareRegister" class="save">Share Summary</button>
-        <button type="button" id="downloadRegisterPDF" class="save">Download PDF</button>
+        <button id="shareRegister" class="save">Share Summary</button>
+        <button id="downloadRegisterPDF" class="save">Download PDF</button>
       </div>
     </section>
   </div>
 
-  <!-- LIBRARIES -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+  <!-- External Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js" defer></script>
 
-  <!-- 🔌 FIREBASE SDK & CONFIG -->
-  <script type="module">
-    import { initializeApp }                from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+  <!-- 🔌 Firebase SDK & Config -->
+  <script type="module" defer>
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
     import {
       getAuth,
       onAuthStateChanged,
       signInWithEmailAndPassword,
       createUserWithEmailAndPassword,
       signOut
-    }                                        from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
-    import { getFirestore }                  from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
+    } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
+    import { getFirestore } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
 
-    // 🚨 TODO: replace with YOUR Firebase config
+    // Your Firebase config
     const firebaseConfig = {
-      apiKey:            "YOUR_API_KEY",
-      authDomain:        "YOUR_PROJECT_ID.firebaseapp.com",
-      projectId:         "YOUR_PROJECT_ID",
-      storageBucket:     "YOUR_PROJECT_ID.appspot.com",
-      messagingSenderId: "YOUR_SENDER_ID",
-      appId:             "YOUR_APP_ID"
+      apiKey:            "AIzaSyA4QhGNwxn7lmvIzU6mpFL2Mz4B8134h6A",
+      authDomain:        "e-commerce-acad9.firebaseapp.com",
+      projectId:         "e-commerce-acad9",
+      storageBucket:     "e-commerce-acad9.firebasestorage.app",
+      messagingSenderId: "228138409600",
+      appId:             "1:228138409600:web:0a122885f7dbe08eb95065",
+      measurementId:     "G-NV1MG7R55W"
     };
 
+    // Initialize Firebase
     const app  = initializeApp(firebaseConfig);
     const auth = getAuth(app);
     const db   = getFirestore(app);
 
-    // Expose globally
-    window.auth               = auth;
-    window.db                 = db;
-    window.onAuthStateChanged = onAuthStateChanged;
+    // Make available in app.js
+    window.auth                           = auth;
+    window.db                             = db;
+    window.onAuthStateChanged             = onAuthStateChanged;
     window.signInWithEmailAndPassword     = signInWithEmailAndPassword;
     window.createUserWithEmailAndPassword = createUserWithEmailAndPassword;
     window.signOut                        = signOut;
   </script>
 
-  <!-- Your attendance app logic -->
-  <script src="app.js"></script>
+  <!-- Your Attendance App Logic -->
+  <script src="app.js" defer></script>
 </body>
 </html>
