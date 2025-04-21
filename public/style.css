@@ -1,4 +1,4 @@
-/* style.css */
+/* public/style.css */
 :root {
   --primary: #2196F3;
   --success: #4CAF50;
@@ -10,7 +10,6 @@
   --dark: #333;
 }
 
-/* prevent flicker */
 * {
   -webkit-tap-highlight-color: transparent;
   outline: none;
