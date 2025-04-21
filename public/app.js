@@ -22,10 +22,13 @@ window.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Login
+  // Login with validation
   loginBtn.onclick = async () => {
-    const email = document.getElementById('email').value;
+    const email = document.getElementById('email').value.trim();
     const pwd   = document.getElementById('password').value;
+    if (!email || !pwd) {
+      return alert('Please enter both email and password');
+    }
     try {
       await signInWithEmailAndPassword(auth, email, pwd);
     } catch (err) {
@@ -33,10 +36,13 @@ window.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  // Sign Up
+  // Sign‑Up with validation
   signupBtn.onclick = async () => {
-    const email = document.getElementById('email').value;
+    const email = document.getElementById('email').value.trim();
     const pwd   = document.getElementById('password').value;
+    if (!email || !pwd) {
+      return alert('Please enter both email and password');
+    }
     try {
       await createUserWithEmailAndPassword(auth, email, pwd);
     } catch (err) {
@@ -128,7 +134,7 @@ window.addEventListener('DOMContentLoaded', () => {
       if (regSaved) {
         tr.querySelector('.share-one').onclick = ev => {
           ev.preventDefault();
-          const hdr = `School: ${localStorage.getItem('schoolName')}\nClass: ${localStorage.getItem('teacherClass')}\nSection: ${localStorage.getItem('teacherSection')}`;
+          const hdr = `School: ${localStorage.getItem('schoolName')} | Class: ${localStorage.getItem('teacherClass')} | Section: ${localStorage.getItem('teacherSection')}`;
           const msg = `${hdr}\n\nName: ${s.name}\nAdm#: ${s.adm}\nParent: ${s.parent}\nContact: ${s.contact}\nOccupation: ${s.occupation}\nAddress: ${s.address}`;
           window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
         };
@@ -250,7 +256,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
   shareRegBtn.onclick = ev => {
     ev.preventDefault();
-    const hdr = `School: ${localStorage.getItem('schoolName')}\nClass: ${localStorage.getItem('teacherClass')}\nSection: ${localStorage.getItem('teacherSection')}`;
+    const hdr = `School: ${localStorage.getItem('schoolName')} | Class: ${localStorage.getItem('teacherClass')} | Section: ${localStorage.getItem('teacherSection')}`;
     const lines = students.map(s =>
       `Name: ${s.name}\nAdm#: ${s.adm}\nParent: ${s.parent}\nContact: ${s.contact}\nOccupation: ${s.occupation}\nAddress: ${s.address}`
     ).join('\n---\n');
@@ -330,7 +336,7 @@ window.addEventListener('DOMContentLoaded', () => {
     $('attendance-section').classList.add('hidden');
     resultSection.classList.remove('hidden');
     summaryBody.innerHTML = '';
-    const hdr = `Date: ${d}\nSchool: ${localStorage.getItem('schoolName')}\nClass: ${localStorage.getItem('teacherClass')}\nSection: ${localStorage.getItem('teacherSection')}`;
+    const hdr = `Date: ${d}\nSchool: ${localStorage.getItem('schoolName')} | Class: ${localStorage.getItem('teacherClass')} | Section: ${localStorage.getItem('teacherSection')}`;
     summaryBody.insertAdjacentHTML('beforebegin', `<tr><td colspan="3"><em>${hdr}</em></td></tr>`);
     students.forEach(s=>{
       const code = attendanceData[d][s.roll]||'A';
@@ -536,7 +542,7 @@ window.addEventListener('DOMContentLoaded', () => {
   shareAnalyticsBtn.onclick = ev => {
     ev.preventDefault();
     const period = instructionsEl.textContent.replace(/.*\|\s*/, '');
-    const hdr = `Period: ${period}\nSchool: ${localStorage.getItem('schoolName')}\nClass: ${localStorage.getItem('teacherClass')}\nSection: ${localStorage.getItem('teacherSection')}`;
+    const hdr = `Period: ${period}\nSchool: ${localStorage.getItem('schoolName')} | Class: ${localStorage.getItem('teacherClass')} | Section: ${localStorage.getItem('teacherSection')}`;
     const rows = Array.from(analyticsContainer.querySelectorAll('tbody tr')).map(r=>{
       const tds = r.querySelectorAll('td');
       return `${tds[0].textContent} P:${tds[1].textContent} A:${tds[2].textContent} Lt:${tds[3].textContent} HD:${tds[4].textContent} L:${tds[5].textContent} Total:${tds[6].textContent} %:${tds[7].textContent}`;
@@ -553,8 +559,7 @@ window.addEventListener('DOMContentLoaded', () => {
     doc.text(`Generated on: ${new Date().toLocaleDateString()}`,10,20);
     const period = instructionsEl.textContent.replace(/^.*\|\s*/,'');
     doc.text(`Period: ${period}`,10,26);
-    doc.text(`School: ${localStorage.getItem('schoolName')}`,10,32);
-    doc.text(`Class: ${localStorage.getItem('teacherClass')} | Section: ${localStorage.getItem('teacherSection')}`,10,38);
+    doc.text(`School: ${localStorage.getItem('schoolName')} | Class: ${localStorage.getItem('teacherClass')} | Section: ${localStorage.getItem('teacherSection')}`,10,32);
     doc.autoTable({
       head:[['Name','P','A','Lt','HD','L','Total','%']],
       body:Array.from(analyticsContainer.querySelectorAll('tbody tr')).map(r=>
@@ -569,21 +574,20 @@ window.addEventListener('DOMContentLoaded', () => {
   };
 
   // 5. ATTENDANCE REGISTER
-  const regMonthIn    = $('registerMonth');
-  const loadReg       = $('loadRegister');
-  const changeReg     = $('changeRegister');
-  const regTableWrapper = $('registerTableWrapper');
-  const regTable      = $('registerTable');
-  const regBody       = $('registerBody');
-  const regSummarySec = $('registerSummarySection');
-  const regSummaryBody= $('registerSummaryBody');
-  const shareReg2     = $('shareRegister');
-  const downloadReg2  = $('downloadRegisterPDF');
-  const headerRow     = regTable.querySelector('thead tr');
+  const regMonthIn     = $('registerMonth');
+  const loadReg        = $('loadRegister');
+  const changeReg      = $('changeRegister');
+  const regTableWrapper= $('registerTableWrapper');
+  const regBody        = $('registerBody');
+  const regSummarySec  = $('registerSummarySection');
+  const regSummaryBody = $('registerSummaryBody');
+  const shareReg2      = $('shareRegister');
+  const downloadReg2   = $('downloadRegisterPDF');
+  const headerRow      = document.querySelector('#registerTable thead tr');
 
   function generateRegisterHeader(daysInMonth) {
-    headerRow.innerHTML = `<th>#</th><th>Adm#</th><th>Name</th>`;
-    for (let d=1; d<=daysInMonth; d++) {
+    headerRow.innerHTML = `<th>Sr#</th><th>Adm#</th><th>Name</th>`;
+    for (let d=1; d<=daysInMonth; d++){
       const th = document.createElement('th');
       th.textContent = d;
       headerRow.appendChild(th);
@@ -643,7 +647,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
   shareReg2.onclick = e => {
     e.preventDefault();
-    const hdr = `Register for ${regMonthIn.value}\nSchool: ${localStorage.getItem('schoolName')}\nClass: ${localStorage.getItem('teacherClass')}\nSection: ${localStorage.getItem('teacherSection')}`;
+    const hdr = `Register for ${regMonthIn.value}\nSchool: ${localStorage.getItem('schoolName')} | Class: ${localStorage.getItem('teacherClass')} | Section: ${localStorage.getItem('teacherSection')}`;
     const lines = Array.from(regSummaryBody.querySelectorAll('tr')).map(r=>{
       const tds = r.querySelectorAll('td');
       return `${tds[0].textContent}: P:${tds[1].textContent}, A:${tds[2].textContent}, Lt:${tds[3].textContent}, HD:${tds[4].textContent}, L:${tds[5].textContent}, %:${tds[6].textContent}`;
@@ -659,13 +663,12 @@ window.addEventListener('DOMContentLoaded', () => {
     doc.setFontSize(12);
     doc.text(`Month: ${regMonthIn.value}`,10,20);
     doc.text(`Generated on: ${new Date().toLocaleDateString()}`,10,26);
-    doc.text(`School: ${localStorage.getItem('schoolName')}`,10,32);
-    doc.text(`Class: ${localStorage.getItem('teacherClass')} | Section: ${localStorage.getItem('teacherSection')}`,10,38);
+    doc.text(`School: ${localStorage.getItem('schoolName')} | Class: ${localStorage.getItem('teacherClass')} | Section: ${localStorage.getItem('teacherSection')}`,10,32);
     doc.autoTable({
       html: '#registerTable',
       startY:44,
       styles:{ fontSize:6 },
-      columnStyles:{ 0:{cellWidth:10},1:{cellWidth:15},2:{cellWidth:30} }
+      columnStyles:{ 0:{cellWidth:12},1:{cellWidth:15},2:{cellWidth:30} }
     });
     doc.autoTable({
       html: '#registerSummarySection table',
