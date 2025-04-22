@@ -14,8 +14,8 @@
 </head>
 <body>
 
-  <!-- Eruda console for mobile -->
-  <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
+  <!-- Eruda console for mobile debugging (correct URL!) -->
+  <script src="https://cdn.jsdelivr.net/npm/eruda/dist/eruda.min.js"></script>
   <script>eruda.init();</script>
 
   <!-- AUTH UI -->
@@ -75,28 +75,20 @@
 
     // LOGIN
     loginBtn.addEventListener('click', function() {
-      var email = emailEl.value.trim();
-      var pwd   = pwdEl.value;
-      auth.signInWithEmailAndPassword(email, pwd)
-        .catch(function(err) {
-          console.error(err);
-          alert(err.message);
-        });
+      auth.signInWithEmailAndPassword(emailEl.value.trim(), pwdEl.value)
+        .catch(function(err) { eruda.get().console.error(err); alert(err.message); });
     });
 
     // SIGN UP
     signupBtn.addEventListener('click', function() {
-      var email = emailEl.value.trim();
-      var pwd   = pwdEl.value;
-      auth.createUserWithEmailAndPassword(email, pwd)
+      auth.createUserWithEmailAndPassword(emailEl.value.trim(), pwdEl.value)
         .then(function(cred) {
-          cred.user.sendEmailVerification();
+          return cred.user.sendEmailVerification();
+        })
+        .then(function() {
           alert('Verification email sent. Please verify before login.');
         })
-        .catch(function(err) {
-          console.error(err);
-          alert(err.message);
-        });
+        .catch(function(err) { eruda.get().console.error(err); alert(err.message); });
     });
 
     // PASSWORD RESET
@@ -104,13 +96,8 @@
       var email = emailEl.value.trim();
       if (!email) { alert('Enter your email'); return; }
       auth.sendPasswordResetEmail(email)
-        .then(function() {
-          alert('Password reset email sent.');
-        })
-        .catch(function(err) {
-          console.error(err);
-          alert(err.message);
-        });
+        .then(function() { alert('Password reset email sent.'); })
+        .catch(function(err) { eruda.get().console.error(err); alert(err.message); });
     });
 
     // LOGOUT
