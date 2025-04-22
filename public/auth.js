@@ -1,88 +1,96 @@
 // public/auth.js
 
-// Helper to get elements by ID
-const $ = id => document.getElementById(id);
+// Import Firebase modules
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+import {
+  getAuth,
+  onAuthStateChanged,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  sendEmailVerification,
+  sendPasswordResetEmail,
+  signOut,
+  updateProfile
+} from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
 
-// Firebase Auth instance
-const auth = firebase.auth();
+// TODO: Replace with your actual Firebase config
+const firebaseConfig = {
+  apiKey:            "AIzaSyA4QhGNwxn7lmvIzU6mpFL2Mz4B8134h6A",
+  authDomain:        "e-commerce-acad9.firebaseapp.com",
+  projectId:         "e-commerce-acad9",
+  storageBucket:     "e-commerce-acad9.firebasestorage.app",
+  messagingSenderId: "228138409600",
+  appId:             "1:228138409600:web:0a122885f7dbe08eb95065",
+  measurementId:     "G-NV1MG7R55W"
+};
 
-// UI elements
-const emailInput        = $('email');
-const passwordInput     = $('password');
-const signupBtn         = $('signupBtn');
-const loginBtn          = $('loginBtn');
-const resetPasswordBtn  = $('resetPasswordBtn');
-const logoutBtn         = $('logoutBtn');
-const authContainer     = $('auth-container');
-const appContainer      = $('app-content');
+// Initialize Firebase App & Auth
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 
-// Monitor auth state: show auth UI or main app
-auth.onAuthStateChanged(user => {
-  if (user) {
-    if (!user.emailVerified) {
-      alert('Please verify your email before continuing.');
-      auth.signOut();
-      return;
-    }
-    authContainer.classList.add('hidden');
-    appContainer.classList.remove('hidden');
-  } else {
-    authContainer.classList.remove('hidden');
-    appContainer.classList.add('hidden');
-  }
-});
+/**
+ * Sign up a new user and send email verification.
+ * @param {string} email
+ * @param {string} password
+ * @param {string} displayName
+ * @returns {Promise<import("firebase/auth").User>}
+ */
+export async function signUp(email, password, displayName) {
+  const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+  const user = userCredential.user;
+  // Set display name
+  await updateProfile(user, { displayName });
+  // Send verification email
+  await sendEmailVerification(user);
+  return user;
+}
 
-// Sign‑Up handler
-signupBtn.addEventListener('click', async () => {
-  const email = emailInput.value.trim();
-  const pwd   = passwordInput.value;
-  if (!email || !pwd) {
-    return alert('Enter both email & password.');
+/**
+ * Sign in an existing user.
+ * @param {string} email
+ * @param {string} password
+ * @returns {Promise<import("firebase/auth").User>}
+ */
+export async function signIn(email, password) {
+  const userCredential = await signInWithEmailAndPassword(auth, email, password);
+  const user = userCredential.user;
+  if (!user.emailVerified) {
+    await signOut(auth);
+    throw new Error('Please verify your email before logging in.');
   }
-  if (pwd.length < 6) {
-    return alert('Password must be at least 6 characters.');
-  }
-  try {
-    const cred = await auth.createUserWithEmailAndPassword(email, pwd);
-    await cred.user.sendEmailVerification();
-    alert('Signed up! Check your email to verify.');
-    await auth.signOut();
-  } catch (err) {
-    if (err.code === 'auth/email-already-in-use') {
-      alert('This email is already registered. Please log in or reset your password.');
-    } else {
-      alert('Sign‑Up Error: ' + err.message);
-    }
-  }
-});
+  return user;
+}
 
-// Login handler
-loginBtn.addEventListener('click', async () => {
-  const email = emailInput.value.trim();
-  const pwd   = passwordInput.value;
-  if (!email || !pwd) {
-    return alert('Enter both email & password.');
-  }
-  try {
-    await auth.signInWithEmailAndPassword(email, pwd);
-  } catch (err) {
-    alert('Login Error: ' + err.message);
-  }
-});
+/**
+ * Send a password reset email.
+ * @param {string} email
+ * @returns {Promise<void>}
+ */
+export async function resetPassword(email) {
+  await sendPasswordResetEmail(auth, email);
+}
 
-// Password Reset handler
-resetPasswordBtn.addEventListener('click', async () => {
-  const email = emailInput.value.trim();
-  if (!email) return alert('Enter your email to reset password.');
-  try {
-    await auth.sendPasswordResetEmail(email);
-    alert('Password reset email sent! Check your inbox.');
-  } catch (err) {
-    alert('Reset Error: ' + err.message);
-  }
-});
+/**
+ * Sign out the current user.
+ * @returns {Promise<void>}
+ */
+export async function signOutUser() {
+  await signOut(auth);
+}
 
-// Logout handler
-logoutBtn.addEventListener('click', () => {
-  auth.signOut();
-});
+/**
+ * Observe auth state changes.
+ * @param {(user: import("firebase/auth").User|null) => void} callback
+ * @returns {() => void} unsubscribe
+ */
+export function onAuthState(cb) {
+  return onAuthStateChanged(auth, cb);
+}
+
+/**
+ * Get the currently signed-in user (if any).
+ * @returns {import("firebase/auth").User|null}
+ */
+export function getCurrentUser() {
+  return auth.currentUser;
+}
