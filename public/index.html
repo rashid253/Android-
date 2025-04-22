@@ -8,6 +8,10 @@
 </head>
 <body>
 
+  <!-- Eruda – in‑page console for mobile debugging -->
+  <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
+  <script>eruda.init();</script>
+
   <!-- 🔒 Authentication UI -->
   <div id="auth-container" class="row-inline">
     <input  type="email"    id="email"    placeholder="Email" />
@@ -18,27 +22,87 @@
     <button type="button" id="logoutBtn" class="hidden">Logout</button>
   </div>
 
-  <!-- 🚀 Main App Content (hidden until logged in) -->
+  <!-- 🚀 Main App Content -->
   <div id="app-content" class="hidden">
-    <header><h1>Attendance Management</h1></header>
-    <!-- all other sections unchanged... -->
+    <h1>Welcome to Attendance Management</h1>
+    <!-- Your app sections go here... -->
   </div>
 
-  <!-- External Libraries (deferred) -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js" defer></script>
+  <!-- Firebase (compat mode for simple global namespace) -->
+  <script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-auth-compat.js"></script>
 
-  <!-- Module Loader -->
-  <script type="module" defer>
-    console.log('Loading modules...');
-    import './auth.js';
-    import './app.js';
+  <!-- Your Application Logic -->
+  <script>
+  // Your Firebase config
+  const firebaseConfig = {
+    apiKey:            "AIzaSyA4QhGNwxn7lmvIzU6mpFL2Mz4B8134h6A",
+    authDomain:        "e-commerce-acad9.firebaseapp.com",
+    projectId:         "e-commerce-acad9",
+    storageBucket:     "e-commerce-acad9.firebasestorage.app",
+    messagingSenderId: "228138409600",
+    appId:             "1:228138409600:web:0a122885f7dbe08eb95065",
+    measurementId:     "G-NV1MG7R55W"
+  };
+
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+
+  // UI elements
+  const emailEl = document.getElementById('email');
+  const pwdEl   = document.getElementById('password');
+  const loginBtn= document.getElementById('loginBtn');
+  const signupBtn = document.getElementById('signupBtn');
+  const resetBtn  = document.getElementById('resetPasswordBtn');
+  const logoutBtn = document.getElementById('logoutBtn');
+  const authBar   = document.getElementById('auth-container');
+  const appDiv    = document.getElementById('app-content');
+
+  // Auth state observer
+  auth.onAuthStateChanged(user => {
+    if (user) {
+      authBar.classList.add('hidden');
+      appDiv.classList.remove('hidden');
+    } else {
+      authBar.classList.remove('hidden');
+      appDiv.classList.add('hidden');
+    }
+  });
+
+  // Login
+  loginBtn.addEventListener('click', () => {
+    const email = emailEl.value.trim();
+    const pwd   = pwdEl.value;
+    auth.signInWithEmailAndPassword(email, pwd)
+      .catch(err => alert(err.message));
+  });
+
+  // Sign Up
+  signupBtn.addEventListener('click', () => {
+    const email = emailEl.value.trim();
+    const pwd   = pwdEl.value;
+    auth.createUserWithEmailAndPassword(email, pwd)
+      .then(cred => {
+        cred.user.sendEmailVerification();
+        alert('Verification email sent. Please verify before login.');
+      })
+      .catch(err => alert(err.message));
+  });
+
+  // Password Reset
+  resetBtn.addEventListener('click', () => {
+    const email = emailEl.value.trim();
+    if (!email) return alert('Enter your email.');
+    auth.sendPasswordResetEmail(email)
+      .then(() => alert('Password reset email sent.'))
+      .catch(err => alert(err.message));
+  });
+
+  // Logout
+  logoutBtn.addEventListener('click', () => {
+    auth.signOut();
+  });
   </script>
-  <!-- Add this just before your closing </body> tag in index.html -->
-
-<!-- Eruda: in‑page developer console for mobile browsers -->
-<script src="https://cdn.jsdelivr.net/npm/eruda"></script>
-<script>eruda.init();</script>
 </body>
 </html>
