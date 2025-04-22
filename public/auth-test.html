@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Test Auth Only</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 1em; }
+    .hidden { display: none; }
+    .row-inline { display: flex; gap: .5em; flex-wrap: wrap; margin-bottom: 1em; }
+    input, button { padding: .5em; }
+    button { cursor: pointer; }
+  </style>
+</head>
+<body>
+
+  <!-- Eruda console for mobile -->
+  <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
+  <script>eruda.init();</script>
+
+  <!-- AUTH UI -->
+  <div id="auth-container" class="row-inline">
+    <input  type="email"    id="email"    placeholder="Email" />
+    <input  type="password" id="password" placeholder="Password" />
+    <button type="button" id="loginBtn">Login</button>
+    <button type="button" id="signupBtn">Sign Up</button>
+    <button type="button" id="resetBtn" class="small">Forgot Password?</button>
+    <button type="button" id="logoutBtn" class="hidden">Logout</button>
+  </div>
+
+  <!-- CONTENT SHOWN AFTER LOGIN -->
+  <div id="app-content" class="hidden">
+    <h1>You are logged in!</h1>
+  </div>
+
+  <!-- Firebase Compat SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-auth-compat.js"></script>
+
+  <script>
+    // YOUR Firebase config
+    var firebaseConfig = {
+      apiKey:            "AIzaSyA4QhGNwxn7lmvIzU6mpFL2Mz4B8134h6A",
+      authDomain:        "e-commerce-acad9.firebaseapp.com",
+      projectId:         "e-commerce-acad9",
+      storageBucket:     "e-commerce-acad9.firebasestorage.app",
+      messagingSenderId: "228138409600",
+      appId:             "1:228138409600:web:0a122885f7dbe08eb95065",
+      measurementId:     "G-NV1MG7R55W"
+    };
+    // Initialize
+    firebase.initializeApp(firebaseConfig);
+    var auth = firebase.auth();
+
+    // UI refs
+    var emailEl   = document.getElementById('email');
+    var pwdEl     = document.getElementById('password');
+    var loginBtn  = document.getElementById('loginBtn');
+    var signupBtn = document.getElementById('signupBtn');
+    var resetBtn  = document.getElementById('resetBtn');
+    var logoutBtn = document.getElementById('logoutBtn');
+    var authBar   = document.getElementById('auth-container');
+    var appDiv    = document.getElementById('app-content');
+
+    // Toggle UI on auth state change
+    auth.onAuthStateChanged(function(user) {
+      if (user) {
+        authBar.classList.add('hidden');
+        appDiv.classList.remove('hidden');
+      } else {
+        authBar.classList.remove('hidden');
+        appDiv.classList.add('hidden');
+      }
+    });
+
+    // LOGIN
+    loginBtn.addEventListener('click', function() {
+      var email = emailEl.value.trim();
+      var pwd   = pwdEl.value;
+      auth.signInWithEmailAndPassword(email, pwd)
+        .catch(function(err) {
+          console.error(err);
+          alert(err.message);
+        });
+    });
+
+    // SIGN UP
+    signupBtn.addEventListener('click', function() {
+      var email = emailEl.value.trim();
+      var pwd   = pwdEl.value;
+      auth.createUserWithEmailAndPassword(email, pwd)
+        .then(function(cred) {
+          cred.user.sendEmailVerification();
+          alert('Verification email sent. Please verify before login.');
+        })
+        .catch(function(err) {
+          console.error(err);
+          alert(err.message);
+        });
+    });
+
+    // PASSWORD RESET
+    resetBtn.addEventListener('click', function() {
+      var email = emailEl.value.trim();
+      if (!email) { alert('Enter your email'); return; }
+      auth.sendPasswordResetEmail(email)
+        .then(function() {
+          alert('Password reset email sent.');
+        })
+        .catch(function(err) {
+          console.error(err);
+          alert(err.message);
+        });
+    });
+
+    // LOGOUT
+    logoutBtn.addEventListener('click', function() {
+      auth.signOut();
+    });
+  </script>
+</body>
+</html>
