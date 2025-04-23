@@ -1,161 +1,77 @@
 /* style.css */
 
-/* Color Variables */
+/* Colors */
 :root {
   --primary: #2196F3;
   --success: #4CAF50;
-  --danger: #f44336;
-  --warning: #FFEB3B;
-  --orange: #FF9800;
-  --info: #03a9f4;
-  --light: #f2f2f2;
   --dark: #333;
+  --light: #f2f2f2;
+  --danger: #f44336;
 }
 
-/* Prevent Tap Highlight Flicker */
-* {
-  -webkit-tap-highlight-color: transparent;
-  outline: none;
-}
-
-/* Base Styles */
+/* Base */
+* { box-sizing: border-box; }
 body {
   font-family: Arial, sans-serif;
-  color: var(--dark);
-  padding: 10px;
+  margin: 0; padding: 10px;
   background: var(--light);
+  color: var(--dark);
 }
 
-header {
-  background: var(--primary);
-  color: #fff;
-  padding: 15px;
-  text-align: center;
-  margin-bottom: 10px;
-}
+/* Utility */
+.hidden { display: none; }
+.row-inline { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
+.small { font-size: 0.85em; padding: 4px 8px; }
 
-/* Section Panels */
-section {
-  background: #fff;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  margin-bottom: 20px;
-  padding: 15px;
-}
-
-/* Utility Classes */
-.row-inline {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.hidden {
-  display: none !important;
-}
-
-/* Typography */
-label {
-  font-weight: bold;
-}
-
-/* Form & Authentication Styles */
-.auth-container {
-  max-width: 400px;
-  margin: 0 auto 20px auto;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 10px;
-}
-
-input,
-select,
+/* Buttons */
 button {
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 1em;
-}
-
-input:invalid {
-  border-color: var(--danger);
-}
-
-input:focus {
-  outline: 2px solid var(--orange);
-}
-
-button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-button {
+  padding: 8px 12px;
+  border: none;
   background: var(--primary);
   color: #fff;
   cursor: pointer;
+  border-radius: 4px;
 }
+button:hover { opacity: 0.9; }
 
-button:hover {
-  opacity: 0.9;
+/* Form */
+.auth-container, section {
+  background: #fff;
+  border-radius: 6px;
+  padding: 15px;
+  margin-bottom: 20px;
 }
-
-button.save {
-  background: var(--success);
-}
-
-button.small {
-  background: var(--info);
-  padding: 4px 8px;
-  font-size: 0.9em;
-}
-
-/* Table Styling */
-.table-wrapper {
-  overflow-x: auto;
-  margin-top: 10px;
+.auth-container { max-width: 400px; margin: 20px auto; }
+.form-group { margin-bottom: 10px; }
+input, select {
+  width: 100%;
+  padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
 }
+input:focus { outline: 2px solid var(--primary); }
 
-.table-wrapper.saved {
-  border: 2px solid var(--success);
-  background: var(--light);
+/* Header */
+header {
+  display: flex; justify-content: space-between; align-items: center;
+  background: var(--primary);
+  color: #fff;
+  padding: 10px;
+  border-radius: 6px;
+  margin-bottom: 20px;
 }
 
+/* Tables */
+.table-wrapper {
+  overflow-x: auto; margin-top: 10px;
+}
 table {
   width: 100%;
   border-collapse: collapse;
 }
-
-th,
-td {
+th, td {
   border: 1px solid #ccc;
   padding: 8px;
-  white-space: nowrap;
   text-align: left;
 }
-
-th {
-  background: var(--light);
-}
-
-.table-actions {
-  display: flex;
-  gap: 10px;
-  margin-top: 10px;
-  flex-wrap: wrap;
-}
-
-/* Simplest Button Stubs */
-#app-content button {
-  /* ensure pointer */
-  cursor: pointer;
-}
-
-/* Attendance & Analytics placeholders */
+th { background: var(--light); }
