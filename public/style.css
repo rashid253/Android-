@@ -34,6 +34,7 @@ input, select, button {
 input:focus, select:focus { outline: 2px solid var(--primary); }
 .error-msg { color: var(--danger); font-size: 0.9em; height: 1em; }
 button { background: var(--primary); color: #fff; cursor: pointer; border: none; }
+button.save { background: var(--success); }
 button.small { width: auto; }
 button:hover { opacity: 0.9; }
 .table-wrapper { overflow-x: auto; margin-top: 8px; }
