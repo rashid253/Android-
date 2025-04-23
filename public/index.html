@@ -1,4 +1,4 @@
-<!-- index.html -->
+<!-- public/index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,15 +14,15 @@
     <h2>Please Sign In / Sign Up</h2>
     <div class="form-group">
       <label for="schoolCode">School Code</label>
-      <input type="text" id="schoolCode" placeholder="Enter your School Code" required />
+      <input type="text" id="schoolCode" placeholder="Enter your School Code" />
     </div>
     <div class="form-group">
       <label for="email">Email</label>
-      <input type="email" id="email" placeholder="you@example.com" required autocomplete="email" />
+      <input type="email" id="email" placeholder="you@example.com" autocomplete="email" />
     </div>
     <div class="form-group">
       <label for="password">Password</label>
-      <input type="password" id="password" placeholder="••••••••" required minlength="6" autocomplete="current-password" />
+      <input type="password" id="password" placeholder="••••••••" minlength="6" autocomplete="current-password" />
     </div>
     <div class="row-inline">
       <button id="loginBtn">Login</button>
@@ -55,7 +55,7 @@
         <select id="sectionSelect">
           <option value="">--Section--</option><option>A</option><option>B</option><option>C</option>
         </select>
-        <button id="saveSetup">Save</button>
+        <button id="saveSetup" class="save">Save</button>
       </div>
       <div id="setupDisplay" class="hidden">
         <p id="setupText"></p>
@@ -69,7 +69,7 @@
       <div class="row-inline">
         <input type="text" id="studentName" placeholder="Name" />
         <input type="text" id="admissionNo" placeholder="Adm#" />
-        <button id="addStudent">Add</button>
+        <button id="addStudent" class="save">Add</button>
       </div>
       <div class="table-wrapper">
         <table id="studentTable">
@@ -84,20 +84,17 @@
       <h2>Mark Attendance</h2>
       <div class="row-inline">
         <input type="date" id="attDate" />
-        <button id="loadAtt">Load</button>
+        <button id="loadAtt" class="save">Load</button>
       </div>
       <div id="attList"></div>
-      <button id="saveAtt" class="hidden">Save</button>
+      <button id="saveAtt" class="save hidden">Save</button>
     </section>
 
     <!-- 4. Attendance Summary -->
     <section id="attendance-summary" class="hidden">
       <h2>Summary</h2>
       <div class="table-wrapper">
-        <table>
-          <thead><tr><th>Name</th><th>Status</th></tr></thead>
-          <tbody></tbody>
-        </table>
+        <table><thead><tr><th>Name</th><th>Status</th></tr></thead><tbody></tbody></table>
       </div>
       <button id="resetAtt" class="small">Reset</button>
     </section>
@@ -106,13 +103,10 @@
     <section id="analytics-section">
       <h2>Analytics</h2>
       <div class="row-inline">
-        <button id="loadAnalytics">Load Analytics</button>
+        <button id="loadAnalytics" class="save">Load Analytics</button>
       </div>
       <div id="analyticsContainer" class="table-wrapper hidden">
-        <table>
-          <thead><tr><th>Name</th><th>Present/Total</th><th>% Present</th></tr></thead>
-          <tbody></tbody>
-        </table>
+        <table><thead><tr><th>Name</th><th>Present/Total</th><th>% Present</th></tr></thead><tbody></tbody></table>
       </div>
     </section>
 
@@ -124,15 +118,12 @@
         <button id="loadRegister" class="save">Load Register</button>
       </div>
       <div id="registerContainer" class="table-wrapper hidden">
-        <table>
-          <thead><tr><th>Name</th><th>P</th><th>A</th><th>%</th></tr></thead>
-          <tbody></tbody>
-        </table>
+        <table><thead><tr><th>Name</th><th>P</th><th>A</th><th>%</th></tr></thead><tbody></tbody></table>
       </div>
     </section>
   </div>
 
-  <script type="module" src="auth.js"></script>
-  <script type="module" src="app.js"></script>
+  <script defer src="auth.js"></script>
+  <script defer src="app.js"></script>
 </body>
 </html>
