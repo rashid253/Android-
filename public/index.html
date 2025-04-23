@@ -94,7 +94,10 @@
     <section id="attendance-summary" class="hidden">
       <h2>Summary</h2>
       <div class="table-wrapper">
-        <table><thead><tr><th>Name</th><th>Status</th></tr></thead><tbody></tbody></table>
+        <table>
+          <thead><tr><th>Name</th><th>Status</th></tr></thead>
+          <tbody></tbody>
+        </table>
       </div>
       <button id="resetAtt" class="small">Reset</button>
     </section>
@@ -106,7 +109,10 @@
         <button id="loadAnalytics" class="save">Load Analytics</button>
       </div>
       <div id="analyticsContainer" class="table-wrapper hidden">
-        <table><thead><tr><th>Name</th><th>Present/Total</th><th>% Present</th></tr></thead><tbody></tbody></table>
+        <table>
+          <thead><tr><th>Name</th><th>Present/Total</th><th>% Present</th></tr></thead>
+          <tbody></tbody>
+        </table>
       </div>
     </section>
 
@@ -118,12 +124,17 @@
         <button id="loadRegister" class="save">Load Register</button>
       </div>
       <div id="registerContainer" class="table-wrapper hidden">
-        <table><thead><tr><th>Name</th><th>P</th><th>A</th><th>%</th></tr></thead><tbody></tbody></table>
+        <table>
+          <thead><tr><th>Name</th><th>P</th><th>A</th><th>%</th></tr></thead>
+          <tbody></tbody>
+        </table>
       </div>
     </section>
   </div>
 
-  <script defer src="auth.js"></script>
-  <script defer src="app.js"></script>
+  <!-- Ensure Firebase config loads first -->
+  <script type="module" src="firebase-config.js"></script>
+  <script type="module" src="auth.js"></script>
+  <script type="module" src="app.js"></script>
 </body>
 </html>
