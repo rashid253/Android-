@@ -8,25 +8,37 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- 🔒 Authentication Section -->
+  <!-- Authentication UI -->
   <div id="auth-container" class="auth-container">
-    <h2>Please Login or Sign Up</h2>
+    <h2>Please Sign In</h2>
     <div class="form-group">
-      <label for="auth-email">Email</label>
-      <input type="email" id="auth-email" placeholder="you@example.com" required />
+      <label for="schoolSelect">Select School</label>
+      <select id="schoolSelect">
+        <option value="">-- Choose School --</option>
+        <option value="tenant1">School A</option>
+        <option value="tenant2">School B</option>
+      </select>
     </div>
     <div class="form-group">
-      <label for="auth-password">Password</label>
-      <input type="password" id="auth-password" placeholder="••••••••" minlength="6" required />
+      <label for="email">Email</label>
+      <input type="email" id="email" placeholder="you@example.com" required autocomplete="email" />
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" id="password" placeholder="••••••••" required minlength="6" autocomplete="current-password" />
     </div>
     <div class="row-inline">
       <button id="loginBtn">Login</button>
+      <button id="googleBtn">Google Sign-In</button>
+    </div>
+    <div class="row-inline">
       <button id="signupBtn">Sign Up</button>
       <button id="resetPwdBtn" class="small">Forgot Password?</button>
     </div>
+    <p id="authMsg" class="error-msg"></p>
   </div>
 
-  <!-- 🚀 Main App Content -->
+  <!-- Main App Content -->
   <div id="app-content" class="hidden">
     <header>
       <h1>Attendance Management</h1>
@@ -37,11 +49,11 @@
     <section id="teacher-setup">
       <h2>Setup</h2>
       <div id="setupForm" class="row-inline">
-        <input type="text" id="schoolName" placeholder="School Name" />
+        <input type="text" id="schoolName" placeholder="School Name" disabled />
         <select id="classSelect">
           <option value="">--Class--</option>
           <option>One</option><option>Two</option><option>Three</option>
-          <option>Four</option><option>Five</option><option>Six</option>
+          <option>Four</option><option>Five</option>
         </select>
         <select id="sectionSelect">
           <option value="">--Section--</option><option>A</option><option>B</option><option>C</option>
@@ -58,13 +70,13 @@
     <section id="student-registration">
       <h2>Student Registration</h2>
       <div class="row-inline">
-        <input type="text" id="nameInput" placeholder="Name" />
-        <input type="text" id="admInput" placeholder="Adm #" />
+        <input type="text" id="studentName" placeholder="Name" />
+        <input type="text" id="admissionNo" placeholder="Adm#" />
         <button id="addStudent">Add</button>
       </div>
       <div class="table-wrapper">
         <table id="studentTable">
-          <thead><tr><th>#</th><th>Name</th><th>Adm #</th></tr></thead>
+          <thead><tr><th>#</th><th>Name</th><th>Adm#</th></tr></thead>
           <tbody></tbody>
         </table>
       </div>
@@ -85,12 +97,13 @@
     <section id="attendance-summary" class="hidden">
       <h2>Summary</h2>
       <div class="table-wrapper">
-        <table><thead><tr><th>Name</th><th>Status</th></tr></thead><tbody></tbody></table>
+        <table><thead><tr><th>Name</th><th>Status&nbsp;</th></tr></thead><tbody></tbody></table>
       </div>
       <button id="resetAtt" class="small">Reset</button>
     </section>
   </div>
 
-  <script src="app.js" defer></script>
+  <script type="module" src="auth.js"></script>
+  <script type="module" src="app.js"></script>
 </body>
 </html>
