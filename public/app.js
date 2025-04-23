@@ -1,165 +1,154 @@
 // app.js
-document.addEventListener('DOMContentLoaded', () => {
-  // Auth (localStorage)
-  const authDiv = document.getElementById('auth-container');
-  const appDiv  = document.getElementById('app-content');
-  const eInput  = document.getElementById('auth-email');
-  const pInput  = document.getElementById('auth-password');
-  const login   = document.getElementById('loginBtn');
-  const signup  = document.getElementById('signupBtn');
-  const reset   = document.getElementById('resetPwdBtn');
-  const logout  = document.getElementById('logoutBtn');
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+import {
+  getFirestore, collection, doc,
+  getDoc, getDocs, setDoc, addDoc
+} from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
+import { getAuth } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
 
-  function getUsers() {
-    return JSON.parse(localStorage.getItem('users')||'[]');
+// TODO: Use same Firebase config as in auth.js
+initializeApp({});
+const auth = getAuth();
+const db   = getFirestore();
+
+function schoolCollection(...path) {
+  const tenant = auth.tenantId || 'public';
+  return collection(db, 'schools', tenant, ...path);
+}
+
+// SETUP
+const schoolNameEl = document.getElementById('schoolName');
+const classEl      = document.getElementById('classSelect');
+const sectionEl    = document.getElementById('sectionSelect');
+const saveSetupBtn = document.getElementById('saveSetup');
+const setupForm    = document.getElementById('setupForm');
+const setupDisp    = document.getElementById('setupDisplay');
+const setupText    = document.getElementById('setupText');
+
+async function loadSetup() {
+  const ref = doc(db, 'schools', auth.tenantId, 'config', 'setup');
+  const snap = await getDoc(ref);
+  if (snap.exists()) {
+    const data = snap.data();
+    schoolNameEl.value = data.school;
+    setupForm.classList.add('hidden');
+    setupDisp.classList.remove('hidden');
+    setupText.textContent = `${data.school} — Class ${data.className} (${data.section})`;
   }
-  function saveUsers(u){ localStorage.setItem('users', JSON.stringify(u)); }
+}
 
-  function showApp() {
-    authDiv.classList.add('hidden');
-    appDiv.classList.remove('hidden');
-    initApp();
-  }
-  function showAuth() {
-    authDiv.classList.remove('hidden');
-    appDiv.classList.add('hidden');
-    eInput.value = pInput.value = '';
-  }
+saveSetupBtn.onclick = async () => {
+  if (!classEl.value || !sectionEl.value) return alert('Select class & section');
+  const cfg = {
+    school: schoolNameEl.value || schoolSelect.options[schoolSelect.selectedIndex].text,
+    className: classEl.value,
+    section: sectionEl.value
+  };
+  await setDoc(doc(db, 'schools', auth.tenantId, 'config', 'setup'), cfg);
+  await loadSetup();
+};
 
-  signup.addEventListener('click', () => {
-    const email = eInput.value.trim(), pwd = pInput.value;
-    if (!email||pwd.length<6) return alert('Valid email & 6+ chars password');
-    let users = getUsers();
-    if (users.find(u=>u.email===email)) return alert('Already registered');
-    users.push({ email,pwd });
-    saveUsers(users);
-    alert('Signup successful');
+document.getElementById('editSetup').onclick = () => {
+  setupForm.classList.remove('hidden');
+  setupDisp.classList.add('hidden');
+};
+
+// STUDENTS
+const nameEl  = document.getElementById('studentName');
+const admEl   = document.getElementById('admissionNo');
+const addStu  = document.getElementById('addStudent');
+const tbody   = document.querySelector('#studentTable tbody');
+
+async function loadStudents() {
+  tbody.innerHTML = '';
+  const snaps = await getDocs(schoolCollection('students'));
+  snaps.forEach((docSnap, i) => {
+    const data = docSnap.data();
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td>${i+1}</td><td>${data.name}</td><td>${data.admNo}</td>`;
+    tbody.appendChild(tr);
   });
+}
 
-  login.addEventListener('click', () => {
-    const email = eInput.value.trim(), pwd = pInput.value;
-    let user = getUsers().find(u=>u.email===email && u.pwd===pwd);
-    if (user) return showApp();
-    alert('Invalid credentials');
+addStu.onclick = async () => {
+  if (!nameEl.value || !admEl.value) return alert('Fill name & admission number');
+  await addDoc(schoolCollection('students'), {
+    name: nameEl.value,
+    admNo: admEl.value
   });
+  nameEl.value = admEl.value = '';
+  await loadStudents();
+};
 
-  reset.addEventListener('click', () => {
-    const email = prompt('Enter your registered email:');
-    let users = getUsers();
-    let idx = users.findIndex(u=>u.email===email);
-    if (idx<0) return alert('Email not found');
-    let np = prompt('Enter new password (6+ chars):');
-    if (!np||np.length<6) return alert('Password too short');
-    users[idx].pwd = np; saveUsers(users);
-    alert('Password reset successful');
+// ATTENDANCE
+const dateEl   = document.getElementById('attDate');
+const loadAtt  = document.getElementById('loadAtt');
+const attList  = document.getElementById('attList');
+const saveAtt  = document.getElementById('saveAtt');
+const sumSec   = document.getElementById('attendance-summary');
+const sumTbody = sumSec.querySelector('tbody');
+
+let currentDate = null;
+
+loadAtt.onclick = async () => {
+  if (!dateEl.value) return alert('Pick a date');
+  currentDate = dateEl.value;
+  attList.innerHTML = '';
+  const snaps = await getDocs(schoolCollection('students'));
+  snaps.forEach(docSnap => {
+    const data = docSnap.data();
+    const row = document.createElement('div');
+    row.className = 'row-inline';
+    row.innerHTML = `
+      <span>${data.name}</span>
+      <button data-id="${docSnap.id}" data-st="P">P</button>
+      <button data-id="${docSnap.id}" data-st="A">A</button>
+    `;
+    attList.appendChild(row);
   });
+  saveAtt.classList.remove('hidden');
+};
 
-  logout.addEventListener('click', showAuth);
+attList.onclick = e => {
+  if (e.target.tagName !== 'BUTTON') return;
+  const btns = e.target.parentElement.querySelectorAll('button');
+  btns.forEach(b => b.classList.remove('selected'));
+  e.target.classList.add('selected');
+};
 
-  // Attendance App Logic
-  function initApp() {
-    // Setup
-    const school = document.getElementById('schoolName');
-    const cls    = document.getElementById('classSelect');
-    const sec    = document.getElementById('sectionSelect');
-    const saveS  = document.getElementById('saveSetup');
-    const disp   = document.getElementById('setupDisplay');
-    const text   = document.getElementById('setupText');
-    const editS  = document.getElementById('editSetup');
+saveAtt.onclick = async () => {
+  const rec = {};
+  attList.querySelectorAll('button.selected').forEach(b => {
+    rec[b.dataset.id] = b.dataset.st;
+  });
+  await setDoc(doc(db, 'schools', auth.tenantId, 'attendance', currentDate), rec);
 
-    let setup = JSON.parse(localStorage.getItem('setup')||'null');
-    function renderSetup() {
-      if (setup) {
-        disp.classList.remove('hidden');
-        document.getElementById('setupForm').classList.add('hidden');
-        text.textContent = `${setup.school} — Class ${setup.cls} (${setup.sec})`;
-      }
+  // render summary
+  sumTbody.innerHTML = '';
+  const snaps = await getDocs(schoolCollection('students'));
+  snaps.forEach(docSnap => {
+    const id = docSnap.id;
+    if (rec[id]) {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td>${docSnap.data().name}</td><td>${rec[id]}</td>`;
+      sumTbody.appendChild(tr);
     }
-    renderSetup();
-    saveS.onclick = () => {
-      if (!school.value||!cls.value||!sec.value) return alert('Fill all');
-      setup = { school:school.value, cls:cls.value, sec:sec.value };
-      localStorage.setItem('setup', JSON.stringify(setup));
-      renderSetup();
-    };
-    editS.onclick = () => {
-      school.value=setup.school; cls.value=setup.cls; sec.value=setup.sec;
-      disp.classList.add('hidden');
-      document.getElementById('setupForm').classList.remove('hidden');
-    };
+  });
+  sumSec.classList.remove('hidden');
+};
 
-    // Students
-    const nInput = document.getElementById('nameInput');
-    const aInput = document.getElementById('admInput');
-    const addBtn = document.getElementById('addStudent');
-    const tbody  = document.querySelector('#studentTable tbody');
-    let students = JSON.parse(localStorage.getItem('students')||'[]');
-    function renderStudents() {
-      tbody.innerHTML = '';
-      students.forEach((s,i) => {
-        let tr = document.createElement('tr');
-        tr.innerHTML = `<td>${i+1}</td><td>${s.name}</td><td>${s.adm}</td>`;
-        tbody.appendChild(tr);
-      });
-    }
-    renderStudents();
-    addBtn.onclick = () => {
-      if (!nInput.value||!aInput.value) return alert('Fill name & adm#');
-      students.push({ name:nInput.value, adm:aInput.value });
-      localStorage.setItem('students', JSON.stringify(students));
-      nInput.value=aInput.value='';
-      renderStudents();
-    };
+document.getElementById('resetAtt').onclick = () => {
+  sumSec.classList.add('hidden');
+  attList.innerHTML = '';
+  saveAtt.classList.add('hidden');
+  dateEl.value = '';
+};
 
-    // Attendance
-    const dateIn = document.getElementById('attDate');
-    const loadB  = document.getElementById('loadAtt');
-    const list   = document.getElementById('attList');
-    const saveB  = document.getElementById('saveAtt');
-    const sumSec = document.getElementById('attendance-summary');
-    const sumTbody = sumSec.querySelector('tbody');
-
-    let records = JSON.parse(localStorage.getItem('attendance')||'{}');
-    function renderAttForm() {
-      if (!dateIn.value) return alert('Pick a date');
-      list.innerHTML = '';
-      students.forEach(s => {
-        let div = document.createElement('div');
-        div.className = 'row-inline';
-        div.innerHTML = `<span>${s.name}</span>
-          <button data-id="${s.adm}" data-st="P">P</button>
-          <button data-id="${s.adm}" data-st="A">A</button>`;
-        list.appendChild(div);
-      });
-      saveB.classList.remove('hidden');
-    }
-    loadB.onclick = renderAttForm;
-    list.onclick = e => {
-      if (e.target.tagName!=='BUTTON') return;
-      let btns = e.target.parentNode.querySelectorAll('button');
-      btns.forEach(b=>b.style.opacity=0.5);
-      e.target.style.opacity=1;
-    };
-    saveB.onclick = () => {
-      let d = dateIn.value;
-      records[d] = {};
-      list.querySelectorAll('button').forEach(b => {
-        if (b.style.opacity>0.9)
-          records[d][b.dataset.id] = b.dataset.st;
-      });
-      localStorage.setItem('attendance', JSON.stringify(records));
-      // show summary
-      sumTbody.innerHTML='';
-      Object.entries(records[d]).forEach(([adm,st]) => {
-        let tr = document.createElement('tr');
-        tr.innerHTML = `<td>${students.find(s=>s.adm===adm).name}</td><td>${st}</td>`;
-        sumTbody.appendChild(tr);
-      });
-      sumSec.classList.remove('hidden');
-    };
-    document.getElementById('resetAtt').onclick = () => {
-      sumSec.classList.add('hidden');
-      list.innerHTML=''; saveB.classList.add('hidden'); dateIn.value='';
-    };
+// Initialize after auth
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
+onAuthStateChanged(auth, user => {
+  if (user && user.emailVerified) {
+    loadSetup();
+    loadStudents();
   }
 });
