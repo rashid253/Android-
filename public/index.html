@@ -5,14 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Classwise Attendance Management</title>
   <link rel="stylesheet" href="style.css" />
-  <style>
-    /* Minimal overrides */
-    .hidden { display: none !important; }
-    .row-inline { display: flex; gap: .5em; flex-wrap: wrap; margin-bottom: 1em; }
-    input, select, button { padding: .5em; border-radius: 4px; border: 1px solid #ccc; }
-    button { cursor: pointer; background: #2196F3; color: #fff; }
-    button.small { background: #03a9f4; font-size: 0.9em; }
-  </style>
 </head>
 <body>
 
@@ -22,8 +14,8 @@
 
   <!-- 🔒 Authentication UI -->
   <div id="auth-container" class="row-inline">
-    <input type="email"    id="email"    placeholder="Email" />
-    <input type="password" id="password" placeholder="Password" />
+    <input  type="email"    id="email"    placeholder="Email" />
+    <input  type="password" id="password" placeholder="Password" />
     <button type="button" id="loginBtn">Login</button>
     <button type="button" id="signupBtn">Sign Up</button>
     <button type="button" id="resetPasswordBtn" class="small">Forgot Password?</button>
@@ -43,12 +35,15 @@
         <input type="text" id="schoolNameInput" placeholder="School Name" />
         <select id="teacherClassSelect">
           <option value="">--Class--</option>
-          <option>Pre-Play</option><option>Pre-Prep</option><option>Nursery</option><option>Pre-One</option>
-          <option>One</option><option>Two</option><option>Three</option><option>Four</option><option>Five</option>
-          <option>Six</option><option>Seven</option><option>Eight</option><option>Nine</option><option>Ten</option>
+          <option>Pre-Play</option><option>Pre-Prep</option><option>Nursery</option>
+          <option>Pre-One</option><option>One</option><option>Two</option>
+          <option>Three</option><option>Four</option><option>Five</option>
+          <option>Six</option><option>Seven</option><option>Eight</option>
+          <option>Nine</option><option>Ten</option>
         </select>
         <select id="teacherSectionSelect">
-          <option value="">--Section--</option><option>A</option><option>B</option><option>C</option>
+          <option value="">--Section--</option><option>A</option>
+          <option>B</option><option>C</option>
         </select>
         <button type="button" id="saveSetup">Save</button>
       </div>
@@ -75,19 +70,20 @@
           <thead>
             <tr>
               <th class="select-col"><input type="checkbox" id="selectAllStudents" /></th>
-              <th>Name</th><th>Adm#</th><th>Parent</th><th>Contact</th><th>Occupation</th><th>Address</th><th>Share</th>
+              <th>Name</th><th>Adm#</th><th>Parent</th><th>Contact</th>
+              <th>Occupation</th><th>Address</th><th>Share</th>
             </tr>
           </thead>
           <tbody id="studentsBody"></tbody>
         </table>
       </div>
       <div class="table-actions">
-        <button id="editSelected" disabled>Edit Selected</button>
-        <button id="deleteSelected" disabled>Delete Selected</button>
-        <button id="saveRegistration" class="save">Save Table</button>
-        <button id="shareRegistration" class="hidden">Share Table</button>
-        <button id="editRegistration" class="hidden">Edit Table</button>
-        <button id="downloadRegistrationPDF" class="hidden">Download PDF</button>
+        <button type="button" id="editSelected" disabled>Edit Selected</button>
+        <button type="button" id="deleteSelected" disabled>Delete Selected</button>
+        <button type="button" id="saveRegistration" class="save">Save Table</button>
+        <button type="button" id="shareRegistration" class="hidden">Share Table</button>
+        <button type="button" id="editRegistration" class="hidden">Edit Table</button>
+        <button type="button" id="downloadRegistrationPDF" class="hidden">Download PDF</button>
       </div>
     </section>
 
@@ -97,10 +93,10 @@
       <div class="row-inline">
         <label for="dateInput">Select Date:</label>
         <input type="date" id="dateInput" />
-        <button id="loadAttendance">Load Attendance</button>
+        <button type="button" id="loadAttendance">Load Attendance</button>
       </div>
       <div id="attendanceList"></div>
-      <button id="saveAttendance" class="hidden">Save</button>
+      <button type="button" id="saveAttendance" class="hidden">Save</button>
     </section>
 
     <!-- 4. Attendance Summary -->
@@ -113,9 +109,9 @@
         </table>
       </div>
       <div class="table-actions">
-        <button id="shareAttendanceSummary">Share Table</button>
-        <button id="downloadAttendancePDF">Download PDF</button>
-        <button id="resetAttendance" class="small">Reset</button>
+        <button type="button" id="shareAttendanceSummary">Share Table</button>
+        <button type="button" id="downloadAttendancePDF">Download PDF</button>
+        <button type="button" id="resetAttendance" class="small">Reset</button>
       </div>
     </section>
 
@@ -142,8 +138,8 @@
         <input type="month" id="semesterStart" class="hidden" />
         <input type="month" id="semesterEnd" class="hidden" />
         <input type="number" id="yearStart" class="hidden" placeholder="Year" />
-        <button id="loadAnalytics">Load Analytics</button>
-        <button id="resetAnalytics" class="small hidden">Change</button>
+        <button type="button" id="loadAnalytics">Load Analytics</button>
+        <button type="button" id="resetAnalytics" class="small hidden">Change</button>
       </div>
       <div id="instructions" class="summary-block hidden"></div>
       <div id="analyticsContainer" class="table-container hidden"></div>
@@ -152,8 +148,8 @@
         <canvas id="pieChart"></canvas>
       </div>
       <div id="analyticsActions" class="row-inline hidden">
-        <button id="shareAnalytics">Share as Text</button>
-        <button id="downloadAnalytics">Download Analytics PDF</button>
+        <button type="button" id="shareAnalytics">Share as Text</button>
+        <button type="button" id="downloadAnalytics">Download Analytics PDF</button>
       </div>
     </section>
 
@@ -163,8 +159,8 @@
       <div class="row-inline">
         <label for="registerMonth">Select Month:</label>
         <input type="month" id="registerMonth" />
-        <button id="loadRegister" class="save">Load Register</button>
-        <button id="changeRegister" class="small hidden">Change Period</button>
+        <button type="button" id="loadRegister" class="save">Load Register</button>
+        <button type="button" id="changeRegister" class="small hidden">Change Period</button>
       </div>
       <div id="registerTableWrapper" class="table-wrapper hidden">
         <table id="registerTable">
@@ -175,89 +171,21 @@
       <div id="registerSummarySection" class="hidden">
         <h3>Summary</h3>
         <div class="table-wrapper">
-          <table><thead><tr><th>Name</th><th>P</th><th>A</th><th>Lt</th><th>HD</th><th>L</th><th>%</th></tr></thead><tbody id="registerSummaryBody"></tbody></table>
+          <table>
+            <thead><tr><th>Name</th><th>P</th><th>A</th><th>Lt</th><th>HD</th><th>L</th><th>%</th></tr></thead>
+            <tbody id="registerSummaryBody"></tbody>
+          </table>
         </div>
       </div>
       <div class="table-actions">
-        <button id="shareRegister" class="save">Share Summary</button>
-        <button id="downloadRegisterPDF" class="save">Download PDF</button>
+        <button type="button" id="shareRegister" class="save">Share Summary</button>
+        <button type="button" id="downloadRegisterPDF" class="save">Download PDF</button>
       </div>
     </section>
   </div>
 
-  <!-- Firebase Compat SDKs -->
-  <script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-auth-compat.js"></script>
-
-  <script>
-    // Firebase config
-    var firebaseConfig = {
-      apiKey:            "AIzaSyA4QhGNwxn7lmvIzU6mpFL2Mz4B8134h6A",
-      authDomain:        "e-commerce-acad9.firebaseapp.com",
-      projectId:         "e-commerce-acad9",
-      storageBucket:     "e-commerce-acad9.firebasestorage.app",
-      messagingSenderId: "228138409600",
-      appId:             "1:228138409600:web:0a122885f7dbe08eb95065",
-      measurementId:     "G-NV1MG7R55W"
-    };
-    firebase.initializeApp(firebaseConfig);
-    var auth = firebase.auth();
-
-    // Simple helper
-    function $(id){ return document.getElementById(id); }
-    function logErr(err){ eruda.get().console.error(err); alert(err.message); }
-
-    // Auth UI refs
-    var emailEl   = $('email'), pwdEl = $('password'),
-        loginBtn  = $('loginBtn'), signupBtn = $('signupBtn'),
-        resetBtn  = $('resetPasswordBtn'), logoutBtn = $('logoutBtn'),
-        authBar   = $('auth-container'), appDiv = $('app-content');
-
-    // Toggle UI
-    auth.onAuthStateChanged(function(user){
-      if(user && user.emailVerified){
-        authBar.classList.add('hidden'); appDiv.classList.remove('hidden');
-        loadSetup(); renderStudents();
-      } else {
-        authBar.classList.remove('hidden'); appDiv.classList.add('hidden');
-      }
-    });
-
-    // Auth actions
-    loginBtn.onclick = function(){ auth.signInWithEmailAndPassword(emailEl.value.trim(), pwdEl.value).catch(logErr); };
-    signupBtn.onclick = function(){ auth.createUserWithEmailAndPassword(emailEl.value.trim(), pwdEl.value)
-        .then(function(cred){ return cred.user.sendEmailVerification(); }).catch(logErr);
-    };
-    resetBtn.onclick = function(){ var e = emailEl.value.trim(); if(!e){ alert('Enter email'); return;} auth.sendPasswordResetEmail(e).catch(logErr); };
-    logoutBtn.onclick= function(){ auth.signOut().catch(logErr); };
-
-    // ==== Attendance App Logic ==== 
-    var colors = { P:'#4CAF50', A:'#f44336', Lt:'#FFEB3B', HD:'#FF9800', L:'#03a9f4' };
-    function loadSetup(){
-      var school = localStorage.getItem('schoolName'), cls = localStorage.getItem('teacherClass'), sec = localStorage.getItem('teacherSection');
-      if(school && cls && sec){
-        $('schoolNameInput').value = school; $('teacherClassSelect').value = cls; $('teacherSectionSelect').value = sec;
-        $('setupText').textContent = school + ' 🏫 | Class: ' + cls + ' | Section: ' + sec;
-        $('setupForm').classList.add('hidden'); $('setupDisplay').classList.remove('hidden');
-      }
-    }
-
-    $('saveSetup').onclick = function(e){ e.preventDefault();
-      if(!$('schoolNameInput').value||!$('teacherClassSelect').value||!$('teacherSectionSelect').value){ return alert('Complete setup'); }
-      localStorage.setItem('schoolName',$('schoolNameInput').value);
-      localStorage.setItem('teacherClass',$('teacherClassSelect').value);
-      localStorage.setItem('teacherSection',$('teacherSectionSelect').value);
-      loadSetup();
-    };
-    $('editSetup').onclick = function(e){ e.preventDefault(); $('setupForm').classList.remove('hidden'); $('setupDisplay').classList.add('hidden'); };
-
-    var students = JSON.parse(localStorage.getItem('students')||'[]');
-    function saveStudents(){ localStorage.setItem('students',JSON.stringify(students)); }
-    function renderStudents(){ /* copy your full render logic here, using string concatenation */ }
-
-    $('addStudent').onclick = function(e){ /* copy addStudent logic */ };
-    // ... continue pasting rest of your JS logic, ensuring no backticks `${}` ...
-
-  </script>
+  <!-- Auth & App Logic -->
+  <script type="module" src="./auth.js" defer></script>
+  <script type="module" src="./app.js" defer></script>
 </body>
 </html>
