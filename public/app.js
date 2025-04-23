@@ -1,6 +1,4 @@
 // app.js
-import { app } from "./firebase-config.js";
-import { getAuth } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
 import {
   getFirestore,
   collection,
@@ -10,9 +8,10 @@ import {
   setDoc,
   addDoc
 } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
 
-const auth = getAuth(app);
-const db   = getFirestore(app);
+const auth = getAuth();
+const db   = getFirestore();
 
 function schoolCollection(...path) {
   const tenant = auth.tenantId || 'public';
@@ -113,12 +112,11 @@ saveAtt.onclick = async () => {
   const rec = {};
   attList.querySelectorAll('button.selected').forEach(b=>rec[b.dataset.id]=b.dataset.st);
   await setDoc(doc(db,'schools',auth.tenantId,'attendance',dateEl.value),rec);
-  alert('Attendance saved');
+  document.getElementById('attendance-summary').classList.remove('hidden');
 };
 
 // 4. Attendance Summary
-const resetAtt = document.getElementById('resetAtt');
-resetAtt.onclick = () => {
+document.getElementById('resetAtt').onclick = () => {
   document.getElementById('attendance-summary').classList.add('hidden');
   attList.innerHTML = ''; saveAtt.classList.add('hidden'); dateEl.value = '';
 };
@@ -187,9 +185,8 @@ loadRegisterBtn.onclick = async () => {
 };
 
 // Initialize after auth
-import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
 onAuthStateChanged(auth, user => {
   if (user && user.emailVerified) {
-    loadSetup(); loadStudents(); // also call these on load
+    loadSetup(); loadStudents();
   }
 });
