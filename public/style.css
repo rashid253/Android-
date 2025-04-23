@@ -115,17 +115,6 @@ button.small {
   font-size: 0.9em;
 }
 
-/* Authentication Container */
-#auth-container {
-  margin-bottom: 20px;
-  gap: 10px;
-}
-
-/* Main App Visibility */
-#app-content.hidden {
-  display: none;
-}
-
 /* Table Styling */
 .table-wrapper {
   overflow-x: auto;
