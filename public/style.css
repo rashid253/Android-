@@ -1,4 +1,6 @@
 /* style.css */
+
+/* Color Variables */
 :root {
   --primary: #2196F3;
   --success: #4CAF50;
@@ -10,16 +12,18 @@
   --dark: #333;
 }
 
-/* prevent flicker */
+/* Prevent Tap Highlight Flicker */
 * {
   -webkit-tap-highlight-color: transparent;
   outline: none;
 }
 
+/* Base Styles */
 body {
   font-family: Arial, sans-serif;
   color: var(--dark);
   padding: 10px;
+  background: var(--light);
 }
 
 header {
@@ -30,6 +34,7 @@ header {
   margin-bottom: 10px;
 }
 
+/* Section Panels */
 section {
   background: #fff;
   border: 1px solid #ccc;
@@ -38,6 +43,7 @@ section {
   padding: 15px;
 }
 
+/* Utility Classes */
 .row-inline {
   display: flex;
   gap: 10px;
@@ -46,29 +52,25 @@ section {
   margin-bottom: 10px;
 }
 
+.hidden {
+  display: none !important;
+}
+
+/* Typography */
 label {
   font-weight: bold;
 }
 
-/* Form & Accessibility Styles */
+/* Form & Authentication Styles */
 .auth-container {
   max-width: 400px;
   margin: 0 auto 20px auto;
 }
+
 .form-group {
   display: flex;
   flex-direction: column;
   margin-bottom: 10px;
-}
-input:invalid {
-  border-color: var(--danger);
-}
-input:focus {
-  outline: 2px solid var(--orange);
-}
-button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
 }
 
 input,
@@ -77,6 +79,20 @@ button {
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
+  font-size: 1em;
+}
+
+input:invalid {
+  border-color: var(--danger);
+}
+
+input:focus {
+  outline: 2px solid var(--orange);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 button {
@@ -99,10 +115,18 @@ button.small {
   font-size: 0.9em;
 }
 
-.hidden {
+/* Authentication Container */
+#auth-container {
+  margin-bottom: 20px;
+  gap: 10px;
+}
+
+/* Main App Visibility */
+#app-content.hidden {
   display: none;
 }
 
+/* Table Styling */
 .table-wrapper {
   overflow-x: auto;
   margin-top: 10px;
@@ -139,4 +163,98 @@ th {
   flex-wrap: wrap;
 }
 
-/* rest of your analytics, register, attendance styles unchanged... */
+/* Attendance Buttons */
+.attendance-item {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.attendance-item + .attendance-actions {
+  display: flex;
+  gap: 5px;
+  margin-bottom: 15px;
+}
+
+.att-btn {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  background: transparent;
+  color: var(--dark);
+  font-weight: bold;
+}
+
+/* Analytics & Graphs */
+.table-container {
+  overflow-x: auto;
+  margin-top: 15px;
+}
+
+.summary-block {
+  margin-top: 15px;
+}
+
+.graph-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 15px;
+}
+
+canvas {
+  flex: 1 1 300px;
+  max-width: 100%;
+}
+
+#pieChart {
+  aspect-ratio: 1 / 1;
+}
+
+/* Selection & Editing States */
+.selected {
+  background: var(--light);
+}
+
+.editing {
+  outline: 2px dashed var(--info);
+}
+
+/* Register Section */
+.select-col {
+  width: 40px;
+}
+
+@media (max-width: 600px) {
+  .row-inline input,
+  .row-inline select,
+  .row-inline button {
+    flex: 1 1 100%;
+  }
+}
+
+#registerTableWrapper {
+  overflow-x: auto;
+  margin-top: 10px;
+}
+
+#registerTable thead th {
+  position: sticky;
+  top: 0;
+  background: var(--light);
+  z-index: 1;
+}
+
+#register-section .row-inline > * {
+  margin-right: 8px;
+}
+
+/* Attendance Actions in Register Section */
+.attendance-actions .att-btn {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  background: transparent;
+  color: var(--dark);
+  font-weight: bold;
+  font-size: 1em;
+}
