@@ -132,9 +132,196 @@
     </section>
   </div>
 
-  <!-- Ensure Firebase config loads first -->
-  <script type="module" src="firebase-config.js"></script>
-  <script type="module" src="auth.js"></script>
-  <script type="module" src="app.js"></script>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signInWithEmailAndPassword,
+             createUserWithEmailAndPassword, sendEmailVerification,
+             sendPasswordResetEmail, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
+    import { getFirestore, collection, doc, getDoc, getDocs,
+             setDoc, addDoc } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
+
+    // --- Firebase Init ---
+    const firebaseConfig = {
+      apiKey:            "AIzaSyA4QhGNwxn7lmvIzU6mpFL2Mz4B8134h6A",
+      authDomain:        "e-commerce-acad9.firebaseapp.com",
+      projectId:         "e-commerce-acad9",
+      storageBucket:     "e-commerce-acad9.firebasestorage.app",
+      messagingSenderId: "228138409600",
+      appId:             "1:228138409600:web:0a122885f7dbe08eb95065",
+      measurementId:     "G-NV1MG7R55W"
+    };
+    const app  = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db   = getFirestore(app);
+
+    // --- DOM Elements ---
+    const schoolCode = document.getElementById('schoolCode');
+    const emailIn    = document.getElementById('email');
+    const pwdIn      = document.getElementById('password');
+    const loginBtn   = document.getElementById('loginBtn');
+    const signupBtn  = document.getElementById('signupBtn');
+    const resetBtn   = document.getElementById('resetPwdBtn');
+    const googleBtn  = document.getElementById('googleBtn');
+    const authMsg    = document.getElementById('authMsg');
+    const authDiv    = document.getElementById('auth-container');
+    const appDiv     = document.getElementById('app-content');
+
+    // Utility
+    function clearMsg(){ authMsg.textContent = ''; }
+    function showApp(){ authDiv.classList.add('hidden'); appDiv.classList.remove('hidden'); }
+    function showAuth(){ authDiv.classList.remove('hidden'); appDiv.classList.add('hidden'); }
+
+    // Multi-tenant by school code
+    function setTenant(){ auth.tenantId = schoolCode.value.trim() || null; }
+
+    // Auth state
+    onAuthStateChanged(auth, user => {
+      if(user && user.emailVerified) showApp();
+      else showAuth();
+    });
+
+    // Login
+    loginBtn.onclick = () => {
+      clearMsg();
+      setTenant();
+      signInWithEmailAndPassword(auth, emailIn.value, pwdIn.value)
+        .catch(e=>authMsg.textContent=e.message);
+    };
+
+    // Sign Up
+    signupBtn.onclick = () => {
+      clearMsg();
+      setTenant();
+      createUserWithEmailAndPassword(auth, emailIn.value, pwdIn.value)
+        .then(({user})=>sendEmailVerification(user))
+        .then(()=>authMsg.textContent='Verification email sent.')
+        .catch(e=>authMsg.textContent=e.message);
+    };
+
+    // Password Reset
+    resetBtn.onclick = () => {
+      clearMsg();
+      sendPasswordResetEmail(auth, emailIn.value)
+        .then(()=>authMsg.textContent='Password reset email sent.')
+        .catch(e=>authMsg.textContent=e.message);
+    };
+
+    // Google Sign-In
+    googleBtn.onclick = () => {
+      clearMsg();
+      setTenant();
+      const provider = new GoogleAuthProvider();
+      signInWithPopup(auth, provider)
+        .catch(e=>authMsg.textContent=e.message);
+    };
+
+    // Logout
+    document.getElementById('logoutBtn').onclick = () => auth.signOut();
+
+    // --- Helper: tenant collection ---
+    const schoolCollection = (...path) => {
+      const tenant = auth.tenantId || 'public';
+      return collection(db, 'schools', tenant, ...path);
+    };
+
+    // After login: wire up app functionality
+    onAuthStateChanged(auth, async user => {
+      if(!(user && user.emailVerified)) return;
+
+      // 1. Setup
+      const schoolNameEl = document.getElementById('schoolName');
+      const classEl      = document.getElementById('classSelect');
+      const sectionEl    = document.getElementById('sectionSelect');
+      const saveSetBtn   = document.getElementById('saveSetup');
+      const setupForm    = document.getElementById('setupForm');
+      const setupDisp    = document.getElementById('setupDisplay');
+      const setupText    = document.getElementById('setupText');
+
+      async function loadSetup(){
+        const ref = doc(db,'schools',auth.tenantId,'config','setup');
+        const snap = await getDoc(ref);
+        if(snap.exists()){
+          const d = snap.data();
+          schoolNameEl.value = d.school;
+          setupForm.classList.add('hidden');
+          setupDisp.classList.remove('hidden');
+          setupText.textContent = `${d.school} — Class ${d.className} (${d.section})`;
+        }
+      }
+      saveSetBtn.onclick = async ()=>{
+        if(!classEl.value||!sectionEl.value) return alert('Select class&section');
+        const cfg = { school: schoolNameEl.value||schoolCode.value, className:classEl.value, section:sectionEl.value };
+        await setDoc(doc(db,'schools',auth.tenantId,'config','setup'),cfg);
+        loadSetup();
+      };
+      document.getElementById('editSetup').onclick = () => {
+        setupForm.classList.remove('hidden');
+        setupDisp.classList.add('hidden');
+      };
+      loadSetup();
+
+      // 2. Students
+      const nameEl   = document.getElementById('studentName');
+      const admEl    = document.getElementById('admissionNo');
+      const addBtn   = document.getElementById('addStudent');
+      const tbody    = document.querySelector('#studentTable tbody');
+      async function loadStudents(){
+        tbody.innerHTML='';
+        const snaps = await getDocs(schoolCollection('students'));
+        snaps.forEach((ds,i)=>{
+          const d=ds.data();
+          const tr=document.createElement('tr');
+          tr.innerHTML=`<td>${i+1}</td><td>${d.name}</td><td>${d.admNo}</td>`;
+          tbody.appendChild(tr);
+        });
+      }
+      addBtn.onclick = async ()=>{
+        if(!nameEl.value||!admEl.value) return alert('Fill name&adm');
+        await addDoc(schoolCollection('students'),{name:nameEl.value,admNo:admEl.value});
+        nameEl.value=admEl.value='';
+        loadStudents();
+      };
+      loadStudents();
+
+      // 3. Attendance Marking
+      const dateEl = document.getElementById('attDate');
+      const loadAttBtn = document.getElementById('loadAtt');
+      const attList = document.getElementById('attList');
+      const saveAttBtn = document.getElementById('saveAtt');
+      loadAttBtn.onclick = async ()=>{
+        if(!dateEl.value) return alert('Pick date');
+        attList.innerHTML='';
+        const snaps=await getDocs(schoolCollection('students'));
+        snaps.forEach(ds=>{
+          const d=ds.data();
+          const div=document.createElement('div'); div.className='row-inline';
+          div.innerHTML=`<span>${d.name}</span>
+            <button data-id="${ds.id}" data-st="P">P</button>
+            <button data-id="${ds.id}" data-st="A">A</button>`;
+          attList.appendChild(div);
+        });
+        saveAttBtn.classList.remove('hidden');
+      };
+      attList.onclick=e=>{
+        if(e.target.tagName!=='BUTTON')return;
+        e.target.parentElement.querySelectorAll('button').forEach(b=>b.classList.remove('selected'));
+        e.target.classList.add('selected');
+      };
+      saveAttBtn.onclick=async()=>{
+        const rec={};
+        attList.querySelectorAll('button.selected').forEach(b=>rec[b.dataset.id]=b.dataset.st);
+        await setDoc(doc(db,'schools',auth.tenantId,'attendance',dateEl.value),rec);
+        document.getElementById('attendance-summary').classList.remove('hidden');
+      };
+
+      // 4. Attendance Summary reset
+      document.getElementById('resetAtt').onclick=()=>{
+        document.getElementById('attendance-summary').classList.add('hidden');
+        attList.innerHTML=''; saveAttBtn.classList.add('hidden'); dateEl.value='';
+      };
+
+      // 5 & 6 Analytics & Register — you can wire similarly...
+    });
+  </script>
 </body>
 </html>
