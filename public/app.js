@@ -1,287 +1,165 @@
 // app.js
-
 document.addEventListener('DOMContentLoaded', () => {
-  //
-  // ─── LOCALSTORAGE HELPERS ─────────────────────────────────────────────────────
-  //
-  const STORAGE = {
-    setup: 'attendance_setup',
-    students: 'attendance_students',
-    attendance: 'attendance_records',
-  };
+  // Auth (localStorage)
+  const authDiv = document.getElementById('auth-container');
+  const appDiv  = document.getElementById('app-content');
+  const eInput  = document.getElementById('auth-email');
+  const pInput  = document.getElementById('auth-password');
+  const login   = document.getElementById('loginBtn');
+  const signup  = document.getElementById('signupBtn');
+  const reset   = document.getElementById('resetPwdBtn');
+  const logout  = document.getElementById('logoutBtn');
 
-  function getSetup() {
-    return JSON.parse(localStorage.getItem(STORAGE.setup)) || null;
+  function getUsers() {
+    return JSON.parse(localStorage.getItem('users')||'[]');
   }
-  function saveSetup(data) {
-    localStorage.setItem(STORAGE.setup, JSON.stringify(data));
-  }
+  function saveUsers(u){ localStorage.setItem('users', JSON.stringify(u)); }
 
-  function getStudents() {
-    return JSON.parse(localStorage.getItem(STORAGE.students)) || [];
+  function showApp() {
+    authDiv.classList.add('hidden');
+    appDiv.classList.remove('hidden');
+    initApp();
   }
-  function saveStudents(arr) {
-    localStorage.setItem(STORAGE.students, JSON.stringify(arr));
-  }
-
-  function getAttendance() {
-    return JSON.parse(localStorage.getItem(STORAGE.attendance)) || {};
-  }
-  function saveAttendance(obj) {
-    localStorage.setItem(STORAGE.attendance, JSON.stringify(obj));
+  function showAuth() {
+    authDiv.classList.remove('hidden');
+    appDiv.classList.add('hidden');
+    eInput.value = pInput.value = '';
   }
 
-  //
-  // ─── SETUP SECTION ─────────────────────────────────────────────────────────────
-  //
-  const schoolNameInput      = document.getElementById('schoolNameInput');
-  const teacherClassSelect   = document.getElementById('teacherClassSelect');
-  const teacherSectionSelect = document.getElementById('teacherSectionSelect');
-  const saveSetupBtn         = document.getElementById('saveSetup');
-  const setupForm            = document.getElementById('setupForm');
-  const setupDisplay         = document.getElementById('setupDisplay');
-  const setupText            = document.getElementById('setupText');
-  const editSetupBtn         = document.getElementById('editSetup');
+  signup.addEventListener('click', () => {
+    const email = eInput.value.trim(), pwd = pInput.value;
+    if (!email||pwd.length<6) return alert('Valid email & 6+ chars password');
+    let users = getUsers();
+    if (users.find(u=>u.email===email)) return alert('Already registered');
+    users.push({ email,pwd });
+    saveUsers(users);
+    alert('Signup successful');
+  });
 
-  function renderSetup() {
-    const cfg = getSetup();
-    if (cfg) {
-      setupForm.classList.add('hidden');
-      setupDisplay.classList.remove('hidden');
-      setupText.textContent = `${cfg.school} — Class ${cfg.className} (${cfg.section})`;
-    } else {
-      setupForm.classList.remove('hidden');
-      setupDisplay.classList.add('hidden');
+  login.addEventListener('click', () => {
+    const email = eInput.value.trim(), pwd = pInput.value;
+    let user = getUsers().find(u=>u.email===email && u.pwd===pwd);
+    if (user) return showApp();
+    alert('Invalid credentials');
+  });
+
+  reset.addEventListener('click', () => {
+    const email = prompt('Enter your registered email:');
+    let users = getUsers();
+    let idx = users.findIndex(u=>u.email===email);
+    if (idx<0) return alert('Email not found');
+    let np = prompt('Enter new password (6+ chars):');
+    if (!np||np.length<6) return alert('Password too short');
+    users[idx].pwd = np; saveUsers(users);
+    alert('Password reset successful');
+  });
+
+  logout.addEventListener('click', showAuth);
+
+  // Attendance App Logic
+  function initApp() {
+    // Setup
+    const school = document.getElementById('schoolName');
+    const cls    = document.getElementById('classSelect');
+    const sec    = document.getElementById('sectionSelect');
+    const saveS  = document.getElementById('saveSetup');
+    const disp   = document.getElementById('setupDisplay');
+    const text   = document.getElementById('setupText');
+    const editS  = document.getElementById('editSetup');
+
+    let setup = JSON.parse(localStorage.getItem('setup')||'null');
+    function renderSetup() {
+      if (setup) {
+        disp.classList.remove('hidden');
+        document.getElementById('setupForm').classList.add('hidden');
+        text.textContent = `${setup.school} — Class ${setup.cls} (${setup.sec})`;
+      }
     }
-  }
-  saveSetupBtn.addEventListener('click', () => {
-    const school    = schoolNameInput.value.trim();
-    const className = teacherClassSelect.value;
-    const section   = teacherSectionSelect.value;
-    if (!school || !className || !section) {
-      return alert('Please fill School, Class & Section.');
-    }
-    saveSetup({ school, className, section });
     renderSetup();
-  });
-  editSetupBtn.addEventListener('click', () => {
-    const cfg = getSetup();
-    if (cfg) {
-      schoolNameInput.value      = cfg.school;
-      teacherClassSelect.value   = cfg.className;
-      teacherSectionSelect.value = cfg.section;
-    }
-    setupForm.classList.remove('hidden');
-    setupDisplay.classList.add('hidden');
-  });
+    saveS.onclick = () => {
+      if (!school.value||!cls.value||!sec.value) return alert('Fill all');
+      setup = { school:school.value, cls:cls.value, sec:sec.value };
+      localStorage.setItem('setup', JSON.stringify(setup));
+      renderSetup();
+    };
+    editS.onclick = () => {
+      school.value=setup.school; cls.value=setup.cls; sec.value=setup.sec;
+      disp.classList.add('hidden');
+      document.getElementById('setupForm').classList.remove('hidden');
+    };
 
-  //
-  // ─── STUDENT REGISTRATION ─────────────────────────────────────────────────────
-  //
-  const studentNameInput     = document.getElementById('studentName');
-  const admissionNoInput     = document.getElementById('admissionNo');
-  const parentNameInput      = document.getElementById('parentName');
-  const parentContactInput   = document.getElementById('parentContact');
-  const parentOccupationInput= document.getElementById('parentOccupation');
-  const parentAddressInput   = document.getElementById('parentAddress');
-  const addStudentBtn        = document.getElementById('addStudent');
-  const studentsBody         = document.getElementById('studentsBody');
-  const selectAllChk         = document.getElementById('selectAllStudents');
-  const editSelectedBtn      = document.getElementById('editSelected');
-  const deleteSelectedBtn    = document.getElementById('deleteSelected');
-  const saveRegistrationBtn  = document.getElementById('saveRegistration');
-
-  let editingStudentId = null;
-
-  function renderStudents() {
-    const list = getStudents();
-    studentsBody.innerHTML = '';
-    list.forEach(stu => {
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td><input type="checkbox" class="student-chk" data-id="${stu.id}"></td>
-        <td>${stu.name}</td>
-        <td>${stu.admissionNo}</td>
-        <td>${stu.parentName}</td>
-        <td>${stu.parentContact}</td>
-        <td>${stu.parentOccupation}</td>
-        <td>${stu.parentAddress}</td>
-        <td><button class="share-btn" data-id="${stu.id}">Share</button></td>
-      `;
-      studentsBody.appendChild(tr);
-    });
-    updateStudentActions();
-  }
-
-  function updateStudentActions() {
-    const checks = Array.from(document.querySelectorAll('.student-chk'));
-    const checked = checks.filter(c => c.checked).map(c => c.dataset.id);
-    editSelectedBtn.disabled   = checked.length !== 1;
-    deleteSelectedBtn.disabled = checked.length === 0;
-    selectAllChk.checked = checks.length > 0 && checks.every(c => c.checked);
-  }
-
-  addStudentBtn.addEventListener('click', () => {
-    const name       = studentNameInput.value.trim();
-    const adm        = admissionNoInput.value.trim();
-    const pname      = parentNameInput.value.trim();
-    const pcontact   = parentContactInput.value.trim();
-    const pocc       = parentOccupationInput.value.trim();
-    const paddr      = parentAddressInput.value.trim();
-    if (!name || !adm || !pname || !pcontact || !pocc || !paddr) {
-      return alert('Fill all student fields.');
-    }
-    let list = getStudents();
-    if (editingStudentId) {
-      // update
-      list = list.map(st => st.id === editingStudentId
-        ? { id: st.id, name, admissionNo: adm, parentName: pname, parentContact: pcontact, parentOccupation: pocc, parentAddress: paddr }
-        : st);
-      editingStudentId = null;
-      addStudentBtn.textContent = 'Add';
-    } else {
-      // new
-      list.push({
-        id: Date.now().toString(),
-        name, admissionNo: adm,
-        parentName: pname, parentContact: pcontact,
-        parentOccupation: pocc, parentAddress: paddr
+    // Students
+    const nInput = document.getElementById('nameInput');
+    const aInput = document.getElementById('admInput');
+    const addBtn = document.getElementById('addStudent');
+    const tbody  = document.querySelector('#studentTable tbody');
+    let students = JSON.parse(localStorage.getItem('students')||'[]');
+    function renderStudents() {
+      tbody.innerHTML = '';
+      students.forEach((s,i) => {
+        let tr = document.createElement('tr');
+        tr.innerHTML = `<td>${i+1}</td><td>${s.name}</td><td>${s.adm}</td>`;
+        tbody.appendChild(tr);
       });
     }
-    saveStudents(list);
-    [studentNameInput, admissionNoInput, parentNameInput, parentContactInput, parentOccupationInput, parentAddressInput]
-      .forEach(i => i.value = '');
     renderStudents();
-  });
+    addBtn.onclick = () => {
+      if (!nInput.value||!aInput.value) return alert('Fill name & adm#');
+      students.push({ name:nInput.value, adm:aInput.value });
+      localStorage.setItem('students', JSON.stringify(students));
+      nInput.value=aInput.value='';
+      renderStudents();
+    };
 
-  selectAllChk.addEventListener('change', () => {
-    document.querySelectorAll('.student-chk').forEach(c => c.checked = selectAllChk.checked);
-    updateStudentActions();
-  });
-  studentsBody.addEventListener('change', e => {
-    if (e.target.matches('.student-chk')) updateStudentActions();
-  });
+    // Attendance
+    const dateIn = document.getElementById('attDate');
+    const loadB  = document.getElementById('loadAtt');
+    const list   = document.getElementById('attList');
+    const saveB  = document.getElementById('saveAtt');
+    const sumSec = document.getElementById('attendance-summary');
+    const sumTbody = sumSec.querySelector('tbody');
 
-  editSelectedBtn.addEventListener('click', () => {
-    const id = document.querySelector('.student-chk:checked').dataset.id;
-    const stu = getStudents().find(s => s.id === id);
-    if (!stu) return;
-    studentNameInput.value       = stu.name;
-    admissionNoInput.value       = stu.admissionNo;
-    parentNameInput.value        = stu.parentName;
-    parentContactInput.value     = stu.parentContact;
-    parentOccupationInput.value  = stu.parentOccupation;
-    parentAddressInput.value     = stu.parentAddress;
-    editingStudentId = id;
-    addStudentBtn.textContent = 'Update';
-  });
-
-  deleteSelectedBtn.addEventListener('click', () => {
-    if (!confirm('Delete selected students?')) return;
-    const toRemove = Array.from(document.querySelectorAll('.student-chk:checked')).map(c => c.dataset.id);
-    let list = getStudents().filter(s => !toRemove.includes(s.id));
-    saveStudents(list);
-    renderStudents();
-  });
-
-  saveRegistrationBtn.addEventListener('click', () => {
-    alert('Student list saved.');
-  });
-
-  //
-  // ─── ATTENDANCE MARKING ────────────────────────────────────────────────────────
-  //
-  const dateInput       = document.getElementById('dateInput');
-  const loadAttendance  = document.getElementById('loadAttendance');
-  const attendanceList  = document.getElementById('attendanceList');
-  const saveAttendance  = document.getElementById('saveAttendance');
-  const attendanceResult= document.getElementById('attendance-result');
-  const summaryBody     = document.getElementById('summaryBody');
-  const resetAttendance = document.getElementById('resetAttendance');
-
-  function renderAttendanceForm() {
-    const date = dateInput.value;
-    if (!date) return alert('Select a date.');
-    const records = getAttendance();
-    const dayRec = records[date] || {};
-    const students = getStudents();
-    attendanceList.innerHTML = '';
-    students.forEach(st => {
-      const div = document.createElement('div');
-      div.className = 'attendance-item';
-      div.innerHTML = `
-        <span>${st.name}</span>
-        <div class="attendance-actions">
-          <button data-id="${st.id}" data-status="P" class="att-btn ${dayRec[st.id]==='P'? 'selected':''}">P</button>
-          <button data-id="${st.id}" data-status="A" class="att-btn ${dayRec[st.id]==='A'? 'selected':''}">A</button>
-          <button data-id="${st.id}" data-status="L" class="att-btn ${dayRec[st.id]==='L'? 'selected':''}">L</button>
-        </div>
-      `;
-      attendanceList.appendChild(div);
-    });
-    saveAttendance.classList.remove('hidden');
+    let records = JSON.parse(localStorage.getItem('attendance')||'{}');
+    function renderAttForm() {
+      if (!dateIn.value) return alert('Pick a date');
+      list.innerHTML = '';
+      students.forEach(s => {
+        let div = document.createElement('div');
+        div.className = 'row-inline';
+        div.innerHTML = `<span>${s.name}</span>
+          <button data-id="${s.adm}" data-st="P">P</button>
+          <button data-id="${s.adm}" data-st="A">A</button>`;
+        list.appendChild(div);
+      });
+      saveB.classList.remove('hidden');
+    }
+    loadB.onclick = renderAttForm;
+    list.onclick = e => {
+      if (e.target.tagName!=='BUTTON') return;
+      let btns = e.target.parentNode.querySelectorAll('button');
+      btns.forEach(b=>b.style.opacity=0.5);
+      e.target.style.opacity=1;
+    };
+    saveB.onclick = () => {
+      let d = dateIn.value;
+      records[d] = {};
+      list.querySelectorAll('button').forEach(b => {
+        if (b.style.opacity>0.9)
+          records[d][b.dataset.id] = b.dataset.st;
+      });
+      localStorage.setItem('attendance', JSON.stringify(records));
+      // show summary
+      sumTbody.innerHTML='';
+      Object.entries(records[d]).forEach(([adm,st]) => {
+        let tr = document.createElement('tr');
+        tr.innerHTML = `<td>${students.find(s=>s.adm===adm).name}</td><td>${st}</td>`;
+        sumTbody.appendChild(tr);
+      });
+      sumSec.classList.remove('hidden');
+    };
+    document.getElementById('resetAtt').onclick = () => {
+      sumSec.classList.add('hidden');
+      list.innerHTML=''; saveB.classList.add('hidden'); dateIn.value='';
+    };
   }
-
-  attendanceList.addEventListener('click', e => {
-    if (!e.target.matches('.att-btn')) return;
-    const btn = e.target;
-    const id = btn.dataset.id;
-    const status = btn.dataset.status;
-    // toggle selection
-    btn.parentElement.querySelectorAll('.att-btn').forEach(b => b.classList.remove('selected'));
-    btn.classList.add('selected');
-  });
-
-  loadAttendance.addEventListener('click', renderAttendanceForm);
-
-  saveAttendance.addEventListener('click', () => {
-    const date = dateInput.value;
-    if (!date) return;
-    const records = getAttendance();
-    const dayRec = {};
-    attendanceList.querySelectorAll('.att-btn.selected').forEach(b => {
-      dayRec[b.dataset.id] = b.dataset.status;
-    });
-    records[date] = dayRec;
-    saveAttendance(records);
-    renderAttendanceSummary(date);
-  });
-
-  function renderAttendanceSummary(date) {
-    attendanceResult.classList.remove('hidden');
-    summaryBody.innerHTML = '';
-    const rec = getAttendance()[date] || {};
-    getStudents().forEach(st => {
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td>${st.name}</td>
-        <td>${rec[st.id] || '-'}</td>
-        <td><button class="small">Send</button></td>
-      `;
-      summaryBody.appendChild(tr);
-    });
-  }
-
-  resetAttendance.addEventListener('click', () => {
-    attendanceResult.classList.add('hidden');
-    saveAttendance.classList.add('hidden');
-    attendanceList.innerHTML = '';
-    dateInput.value = '';
-  });
-
-  //
-  // ─── STUBS FOR ANALYTICS & REGISTER ───────────────────────────────────────────
-  //
-  document.getElementById('loadAnalytics').addEventListener('click', () => {
-    alert('Analytics not yet implemented.');
-  });
-  document.getElementById('loadRegister').addEventListener('click', () => {
-    alert('Register not yet implemented.');
-  });
-
-  //
-  // ─── INITIALIZATION ───────────────────────────────────────────────────────────
-  //
-  renderSetup();
-  renderStudents();
 });
