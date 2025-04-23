@@ -1,3 +1,47 @@
+// app.js
+// یہ فائل آپ کے ایپ کے بٹنوں کو فعال کرنے کے لیے ہے—بعد میں اصلی لاجک شامل کریں۔
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Setup stub
+  document.getElementById('saveSetup').addEventListener('click', () => {
+    alert('Save Setup clicked');
+  });
+  document.getElementById('editSetup').addEventListener('click', () => {
+    alert('Edit Setup clicked');
+  });
+
+  // Student Registration stub
+  document.getElementById('addStudent').addEventListener('click', () => {
+    alert('Add Student clicked');
+  });
+  document.getElementById('editSelected').addEventListener('click', () => {
+    alert('Edit Selected clicked');
+  });
+  document.getElementById('deleteSelected').addEventListener('click', () => {
+    alert('Delete Selected clicked');
+  });
+  document.getElementById('saveRegistration').addEventListener('click', () => {
+    alert('Save Registration clicked');
+  });
+
+  // Attendance Marking stub
+  document.getElementById('loadAttendance').addEventListener('click', () => {
+    alert('Load Attendance clicked');
+  });
+  document.getElementById('saveAttendance').addEventListener('click', () => {
+    alert('Save Attendance clicked');
+  });
+
+  // Analytics stub
+  document.getElementById('loadAnalytics').addEventListener('click', () => {
+    alert('Load Analytics clicked');
+  });
+
+  // Register stub
+  document.getElementById('loadRegister').addEventListener('click', () => {
+    alert('Load Register clicked');
+  });
+});
 // public/app.js
 
 window.addEventListener('DOMContentLoaded', () => {
