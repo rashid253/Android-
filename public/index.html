@@ -64,26 +64,14 @@
         <input type="text" id="schoolNameInput" placeholder="School Name" />
         <select id="teacherClassSelect">
           <option value="">--Class--</option>
-          <option>Pre-Play</option>
-          <option>Pre-Prep</option>
-          <option>Nursery</option>
-          <option>Pre-One</option>
-          <option>One</option>
-          <option>Two</option>
-          <option>Three</option>
-          <option>Four</option>
-          <option>Five</option>
-          <option>Six</option>
-          <option>Seven</option>
-          <option>Eight</option>
-          <option>Nine</option>
-          <option>Ten</option>
+          <option>Pre-Play</option><option>Pre-Prep</option><option>Nursery</option>
+          <option>Pre-One</option><option>One</option><option>Two</option>
+          <option>Three</option><option>Four</option><option>Five</option>
+          <option>Six</option><option>Seven</option><option>Eight</option>
+          <option>Nine</option><option>Ten</option>
         </select>
         <select id="teacherSectionSelect">
-          <option value="">--Section--</option>
-          <option>A</option>
-          <option>B</option>
-          <option>C</option>
+          <option value="">--Section--</option><option>A</option><option>B</option><option>C</option>
         </select>
         <button type="button" id="saveSetup">Save</button>
       </div>
@@ -110,13 +98,8 @@
           <thead>
             <tr>
               <th class="select-col"><input type="checkbox" id="selectAllStudents" /></th>
-              <th>Name</th>
-              <th>Adm#</th>
-              <th>Parent</th>
-              <th>Contact</th>
-              <th>Occupation</th>
-              <th>Address</th>
-              <th>Share</th>
+              <th>Name</th><th>Adm#</th><th>Parent</th><th>Contact</th>
+              <th>Occupation</th><th>Address</th><th>Share</th>
             </tr>
           </thead>
           <tbody id="studentsBody"></tbody>
@@ -126,9 +109,6 @@
         <button type="button" id="editSelected" disabled>Edit Selected</button>
         <button type="button" id="deleteSelected" disabled>Delete Selected</button>
         <button type="button" id="saveRegistration" class="save">Save Table</button>
-        <button type="button" id="shareRegistration" class="hidden">Share Table</button>
-        <button type="button" id="editRegistration" class="hidden">Edit Table</button>
-        <button type="button" id="downloadRegistrationPDF" class="hidden">Download PDF</button>
       </div>
     </section>
 
@@ -149,15 +129,11 @@
       <h2>Attendance Summary</h2>
       <div class="table-wrapper">
         <table id="attendanceSummaryTable">
-          <thead>
-            <tr><th>Name</th><th>Status</th><th>Send</th></tr>
-          </thead>
+          <thead><tr><th>Name</th><th>Status</th><th>Send</th></tr></thead>
           <tbody id="summaryBody"></tbody>
         </table>
       </div>
       <div class="table-actions">
-        <button type="button" id="shareAttendanceSummary">Share Table</button>
-        <button type="button" id="downloadAttendancePDF">Download PDF</button>
         <button type="button" id="resetAttendance" class="small">Reset</button>
       </div>
     </section>
@@ -166,81 +142,26 @@
     <section id="analytics-section">
       <h2>Analytics</h2>
       <div class="row-inline">
-        <label for="analyticsTarget">Report For:</label>
-        <select id="analyticsTarget">
-          <option value="class">Full Class</option>
-          <option value="student">Individual Student</option>
-        </select>
-        <input type="text" id="studentAdmInput" placeholder="Admission #" class="hidden" />
-        <label for="analyticsType">Period:</label>
-        <select id="analyticsType">
-          <option value="" disabled selected>--Select Period--</option>
-          <option value="date">Specific Date</option>
-          <option value="month">Month</option>
-          <option value="semester">Semester</option>
-          <option value="year">Year</option>
-        </select>
-        <input type="date" id="analyticsDate" class="hidden" />
-        <input type="month" id="analyticsMonth" class="hidden" />
-        <input type="month" id="semesterStart" class="hidden" />
-        <input type="month" id="semesterEnd" class="hidden" />
-        <input type="number" id="yearStart" class="hidden" placeholder="Year" />
         <button type="button" id="loadAnalytics">Load Analytics</button>
-        <button type="button" id="resetAnalytics" class="small hidden">Change</button>
       </div>
-      <div id="instructions" class="summary-block hidden"></div>
       <div id="analyticsContainer" class="table-container hidden"></div>
-      <div id="graphs" class="graph-container hidden">
-        <canvas id="barChart"></canvas>
-        <canvas id="pieChart"></canvas>
-      </div>
-      <div id="analyticsActions" class="row-inline hidden">
-        <button type="button" id="shareAnalytics">Share as Text</button>
-        <button type="button" id="downloadAnalytics">Download Analytics PDF</button>
-      </div>
     </section>
 
     <!-- 6. Attendance Register -->
     <section id="register-section">
       <h2>Attendance Register</h2>
       <div class="row-inline">
-        <label for="registerMonth">Select Month:</label>
-        <input type="month" id="registerMonth" />
         <button type="button" id="loadRegister" class="save">Load Register</button>
-        <button type="button" id="changeRegister" class="small hidden">Change Period</button>
       </div>
-      <div id="registerTableWrapper" class="table-wrapper hidden">
-        <table id="registerTable">
-          <thead>
-            <tr><th>Sr#</th><th>Adm#</th><th>Name</th></tr>
-          </thead>
-          <tbody id="registerBody"></tbody>
-        </table>
-      </div>
-      <div id="registerSummarySection" class="hidden">
-        <h3>Summary</h3>
-        <div class="table-wrapper">
-          <table>
-            <thead>
-              <tr><th>Name</th><th>P</th><th>A</th><th>Lt</th><th>HD</th><th>L</th><th>%</th></tr>
-            </thead>
-            <tbody id="registerSummaryBody"></tbody>
-          </table>
-        </div>
-      </div>
-      <div class="table-actions">
-        <button type="button" id="shareRegister" class="save">Share Summary</button>
-        <button type="button" id="downloadRegisterPDF" class="save">Download PDF</button>
-      </div>
+      <div id="registerTableWrapper" class="table-wrapper hidden"></div>
     </section>
   </div>
 
-  <!-- External Libraries -->
+  <!-- External Libraries & Auth Logic -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js" defer></script>
 
-  <!-- Authentication Logic (Firebase) -->
   <script type="module" defer>
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
     import {
@@ -291,7 +212,7 @@
       signInWithEmailAndPassword(auth, emailInput.value, pwdInput.value)
         .then(({ user }) => {
           if (!user.emailVerified) {
-            alert("Please verify your email before logging in.");
+            alert("Please verify your email.");
             signOut(auth);
           }
         })
@@ -301,13 +222,13 @@
     signupBtn.addEventListener("click", () => {
       createUserWithEmailAndPassword(auth, emailInput.value, pwdInput.value)
         .then(({ user }) => sendEmailVerification(user))
-        .then(() => alert("Verification email sent. Please check your inbox."))
+        .then(() => alert("Verification email sent."))
         .catch(err => alert(err.message));
     });
 
     resetBtn.addEventListener("click", () => {
       sendPasswordResetEmail(auth, emailInput.value)
-        .then(() => alert("Password reset email sent."))
+        .then(() => alert("Reset email sent."))
         .catch(err => alert(err.message));
     });
 
@@ -316,7 +237,7 @@
     logoutPageBtn.addEventListener("click", doSignOut);
   </script>
 
-  <!-- Your existing Attendance logic -->
+  <!-- Application Logic (app.js) -->
   <script src="app.js" defer></script>
 </body>
 </html>
